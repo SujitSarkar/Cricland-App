@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "788456208019",
+    "project_id": "cricland",
+    "storage_bucket": "cricland.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788456208019:android:de86657f137b68c36d3f66",
+        "android_client_info": {
+          "package_name": "com.mth_production_pvt.circland"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788456208019-tal5gbrh9f4q48abgd4rgfe77r7ojfi4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mth_production_pvt.circland",
+            "certificate_hash": "f7392e8bbb76af27a660752fa332be102914fda5"
+          }
+        },
+        {
+          "client_id": "788456208019-o15vq18kve7isiqf91qg7s94lth74bgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwtHeV9GSWkA0srEQyc3sQOItE-ihcqAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788456208019-o15vq18kve7isiqf91qg7s94lth74bgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

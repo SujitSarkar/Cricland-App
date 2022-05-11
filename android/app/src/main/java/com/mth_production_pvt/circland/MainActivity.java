@@ -1,4 +1,4 @@
-package com.example.cricland;
+package com.mth_production_pvt.circland;
 
 import io.flutter.embedding.android.FlutterActivity;
 
