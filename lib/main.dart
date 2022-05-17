@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(
       builder: (pc) {
-        pc.toggleStatusBar();
+        pc.toggleStatusBar(); //statusBar Theme
         return GetMaterialApp(
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
