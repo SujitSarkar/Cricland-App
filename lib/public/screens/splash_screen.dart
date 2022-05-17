@@ -39,10 +39,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(
-      builder: (publicController) {
-        if(publicController.size.value<=0.0) publicController.initApp(context);
+      builder: (pc) {
+        if(pc.size.value<=0.0) pc.initApp(context);
         return Scaffold(
-          backgroundColor: const Color(0xffF7F7F7),
           body: Center(
             child: FadeTransition(
               opacity: _animation,

@@ -10,19 +10,47 @@ class Variables {
   //   'Authorization': 'Bearer ${PublicController.pc.loginResponse.value.token}',
   // };
 
-  static var statusBarTheme = SystemChrome.setSystemUIOverlayStyle(
+  static final lightStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.dark
       ));
+  static final darkStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light
+      ));
 
-  static var portraitMood = SystemChrome.setPreferredOrientations(
+  static final portraitMood = SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  static ThemeData themeData = ThemeData(
-      primarySwatch: const MaterialColor(0xffE9118F, AllColor.primaryColorMap),
-      scaffoldBackgroundColor: AllColor.appBgColor,
+  static final ThemeData lightThemeData = ThemeData(
+      primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
+      scaffoldBackgroundColor: AllColor.appLightBg,
+      canvasColor: Colors.transparent,
+      fontFamily: 'openSans',
+      textTheme: const TextTheme(
+          headline1: TextStyle(fontFamily: "openSans"),
+          headline2: TextStyle(fontFamily: "openSans"),
+          headline3: TextStyle(fontFamily: "openSans"),
+          headline4: TextStyle(fontFamily: "openSans"),
+          headline5: TextStyle(fontFamily: "openSans"),
+          headline6: TextStyle(fontFamily: "openSans"),
+          subtitle1: TextStyle(fontFamily: "openSans"),
+          subtitle2: TextStyle(fontFamily: "openSans"),
+          bodyText1: TextStyle(fontFamily: "openSans"),
+          bodyText2: TextStyle(fontFamily: "openSans"),
+          caption: TextStyle(fontFamily: "openSans"),
+          button: TextStyle(fontFamily: "openSans"),
+          overline: TextStyle(fontFamily: "openSans")
+      )
+  );
+
+  static final ThemeData darkThemeData = ThemeData(
+      primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
+      scaffoldBackgroundColor: AllColor.appDarkBg,
       canvasColor: Colors.transparent,
       fontFamily: 'openSans',
       textTheme: const TextTheme(
@@ -53,19 +81,3 @@ void showToast(message) => Fluttertoast.showToast(
     textColor: Colors.white,
     fontSize: 16.0
 );
-
-// DateTime today12Am(){
-//   DateTime dt = DateTime.now();
-//   return DateTime.parse("${dt.year}"
-//       "-""${dt.month.toString().length==1?'0${dt.month}':dt.month}"
-//       "-""${dt.day.toString().length==1?'0${dt.day}':dt.day}"
-//       " 12:00:00");
-// }
-//
-// DateTime today23Pm(){
-//   DateTime dt = DateTime.now();
-//   return DateTime.parse("${dt.year}"
-//       "-""${dt.month.toString().length==1?'0${dt.month}':dt.month}"
-//       "-""${dt.day.toString().length==1?'0${dt.day}':dt.day}"
-//       " 23:59:59");
-// }

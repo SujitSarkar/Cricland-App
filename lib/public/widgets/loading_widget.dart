@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../variables/color_variable.dart';
+import 'package:get/get.dart';
+import '../controller/public_controller.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({Key? key,this.color}) : super(key: key);
@@ -13,7 +13,7 @@ class LoadingWidget extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       alignment: Alignment.center,
-      child: CircularProgressIndicator(color: color??AllColor.secondaryColor),
+      child: Obx(()=>CircularProgressIndicator(color: color?? PublicController.pc.toggleLoadingColor())),
     );
   }
 }
