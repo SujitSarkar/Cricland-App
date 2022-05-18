@@ -10,8 +10,13 @@ class PublicController extends GetxController{
   late SharedPreferences? pref;
   RxDouble size = 0.0.obs;
   RxBool loading=false.obs;
-
   RxBool isLight=true.obs;
+  RxInt selectedIndex = 0.obs;
+
+  void onItemTapped(int index) {
+    selectedIndex(index);
+    update();
+  }
 
 
   Future<void> initApp(BuildContext context) async {
@@ -41,6 +46,8 @@ class PublicController extends GetxController{
   }
 
   Color toggleLoadingColor()=> isLight.value?AllColor.primaryColor:Colors.white;
+  Color toggleTextColor()=> isLight.value?AllColor.lightTextColor:AllColor.darkTextColor;
+  Color toggleCardBg()=> isLight.value?AllColor.lightCardColor:AllColor.darkCardColor;
   dynamic toggleStatusBar()=> isLight.value?Variables.lightStatusBarTheme:Variables.darkStatusBarTheme;
 
 }

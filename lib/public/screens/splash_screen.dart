@@ -1,3 +1,4 @@
+import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/public_controller.dart';
@@ -23,12 +24,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   initState(){
     super.initState();
-    //_initData();
+    _initData();
   }
-  // Future<void> _initData()async{
-  //     Future.delayed(const Duration(seconds: 3)).then((value) =>
-  //       Get.offAll(()=>const LoginPage()));
-  // }
+  Future<void> _initData()async{
+      Future.delayed(const Duration(seconds: 3)).then((value) =>
+        Get.offAll(()=>const HomeNavPage()));
+  }
 
   @override
   void dispose() {

@@ -4,10 +4,11 @@ class AllColor{
   static const Color primaryColor= Color(0xff03508B);
   static Color hintColor= Colors.grey.shade400;
   static Color lightTextColor= Colors.grey.shade900;
-  static Color darkTextColor= Colors.white70;
+  static Color darkTextColor= Colors.grey.shade100;
   static Color appLightBg= const Color(0xffF3F6F3);
   static Color appDarkBg= const Color(0xff091418);
-  static Color cardColor= const Color(0xff13242C);
+  static Color darkCardColor= const Color(0xff13242C);
+  static Color lightCardColor= Colors.white;
 
   static const Map<int, Color> primaryColorMap = {
     50: Color.fromRGBO(3, 80, 139, .1),

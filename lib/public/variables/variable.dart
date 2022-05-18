@@ -11,16 +11,18 @@ class Variables {
   // };
 
   static final lightStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.dark
+       SystemUiOverlayStyle(
+         statusBarColor: AllColor.appLightBg,
+         statusBarBrightness: Brightness.light,
+         statusBarIconBrightness: Brightness.dark,
+         systemStatusBarContrastEnforced: true
       ));
   static final darkStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.light
+       SystemUiOverlayStyle(
+         statusBarColor: AllColor.appDarkBg,
+         statusBarBrightness: Brightness.dark,
+         statusBarIconBrightness: Brightness.light,
+         systemStatusBarContrastEnforced: true
       ));
 
   static final portraitMood = SystemChrome.setPreferredOrientations(
@@ -29,7 +31,24 @@ class Variables {
   static final ThemeData lightThemeData = ThemeData(
       primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appLightBg,
+      appBarTheme: AppBarTheme(
+        backgroundColor: AllColor.appDarkBg,
+        titleTextStyle: TextStyle(color: AllColor.darkTextColor,fontWeight: FontWeight.bold),
+        elevation: 0.0
+      ),
       canvasColor: Colors.transparent,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AllColor.appLightBg,
+        elevation: 0.0,
+        showUnselectedLabels: true,
+        selectedItemColor: AllColor.primaryColor,
+        unselectedItemColor: Colors.grey,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        modalBackgroundColor: Colors.transparent
+      ),
       fontFamily: 'openSans',
       textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "openSans"),
@@ -51,7 +70,24 @@ class Variables {
   static final ThemeData darkThemeData = ThemeData(
       primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appDarkBg,
+      appBarTheme: AppBarTheme(
+          backgroundColor: AllColor.appDarkBg,
+          titleTextStyle: TextStyle(color: AllColor.darkTextColor,fontWeight: FontWeight.bold),
+          elevation: 0.0
+      ),
       canvasColor: Colors.transparent,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AllColor.appDarkBg,
+        showUnselectedLabels: true,
+        elevation: 0.0,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+          modalBackgroundColor: Colors.transparent
+      ),
       fontFamily: 'openSans',
       textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "openSans"),
@@ -69,6 +105,7 @@ class Variables {
           overline: TextStyle(fontFamily: "openSans")
       )
   );
+
 
 }
 
