@@ -23,36 +23,31 @@ class _HomeNavPageState extends State<HomeNavPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PublicController>(
-      builder: (pc) {
-        pc.toggleStatusBar();
-        return Scaffold(
-          body: _homeWidgets.elementAt(pc.selectedIndex.value),
+    return Obx(()=>Scaffold(
+      body: _homeWidgets.elementAt(PublicController.pc.selectedIndex.value),
 
-          bottomNavigationBar: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.solidChessKnight),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.newspaper),
-                label: 'News',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.trophy),
-                label: 'IPL',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.ellipsisVertical),
-                label: 'More',
-              ),
-            ],
-            currentIndex: pc.selectedIndex.value,
-            onTap: pc.onItemTapped,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.solidChessKnight),
+            label: 'Home',
           ),
-        );
-      }
-    );
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.newspaper),
+            label: 'News',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.trophy),
+            label: 'IPL',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.ellipsisVertical),
+            label: 'More',
+          ),
+        ],
+        currentIndex: PublicController.pc.selectedIndex.value,
+        onTap: PublicController.pc.onItemTapped,
+      ),
+    ));
   }
 }

@@ -9,6 +9,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Variables.portraitMood;
+  Variables.darkStatusBarTheme;
   final PublicController pc = Get.put(PublicController());
   runApp(const MyApp());
 }
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(
       builder: (pc) {
-        pc.toggleStatusBar(); //statusBar Theme
         return GetMaterialApp(
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
