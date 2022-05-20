@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../controller/public_controller.dart';
-import '../variables/color_variable.dart';
+import '../variables/colors.dart';
 import '../variables/config.dart';
 
 
@@ -90,7 +89,7 @@ class _TextFieldTileState extends State<TextFieldTile> {
             onTap: ()=>setState(()=> _obscure=!_obscure),
             child: Padding(
               padding: EdgeInsets.only(right:dSize(.08)),
-              child: Icon(_obscure?LineAwesomeIcons.eye_slash:LineAwesomeIcons.eye,
+              child: Icon(_obscure?FontAwesomeIcons.eyeSlash:FontAwesomeIcons.eye,
                   size: dSize(.06),
                   color: Colors.grey.shade600),
             ),

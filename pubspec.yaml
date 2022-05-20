@@ -16,9 +16,9 @@ dependencies:
   fluttertoast: ^8.0.9
   intl: ^0.17.0
   http: ^0.13.4
-  line_awesome_flutter: ^2.0.0
   cloud_firestore: ^3.1.14
   font_awesome_flutter: ^10.1.0
+  package_info_plus: ^1.4.2
   connectivity_plus: ^2.0.2
 
 dev_dependencies:

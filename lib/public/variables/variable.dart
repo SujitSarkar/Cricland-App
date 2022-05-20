@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'color_variable.dart';
+import 'colors.dart';
 
 class Variables {
   //static const String baseUrl = 'http://tashfia.binduitsolutions.com/api/';
@@ -10,15 +10,19 @@ class Variables {
   //   'Authorization': 'Bearer ${PublicController.pc.loginResponse.value.token}',
   // };
 
+  static const List<String> manCategoryList = ['Team','Batter','Bowler','All Rounder'];
+  static const List<String> manGameType = ['ODI','T20','Test'];
+  static const List<String> playerDetails = ['Overview','Matches','News','Player Info'];
+
   static final lightStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
-       SystemUiOverlayStyle(
+       const SystemUiOverlayStyle(
          statusBarColor: AllColor.appLightBg,
          statusBarBrightness: Brightness.light,
          statusBarIconBrightness: Brightness.dark,
          systemStatusBarContrastEnforced: true
       ));
   static final darkStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
-       SystemUiOverlayStyle(
+       const SystemUiOverlayStyle(
          statusBarColor: AllColor.appDarkBg,
          statusBarBrightness: Brightness.dark,
          statusBarIconBrightness: Brightness.light,
@@ -37,14 +41,14 @@ class Variables {
         elevation: 0.0
       ),
       canvasColor: Colors.transparent,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AllColor.appLightBg,
         elevation: 0.0,
         showUnselectedLabels: true,
         selectedItemColor: AllColor.primaryColor,
         unselectedItemColor: Colors.grey,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
       bottomSheetTheme: const BottomSheetThemeData(
         modalBackgroundColor: Colors.transparent
@@ -76,14 +80,14 @@ class Variables {
           elevation: 0.0
       ),
       canvasColor: Colors.transparent,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AllColor.appDarkBg,
         showUnselectedLabels: true,
         elevation: 0.0,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
       bottomSheetTheme: const BottomSheetThemeData(
           modalBackgroundColor: Colors.transparent
