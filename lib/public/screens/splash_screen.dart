@@ -1,3 +1,4 @@
+import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,8 +11,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
-
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 1350),
     vsync: this,
@@ -22,13 +23,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   );
 
   @override
-  initState(){
+  initState() {
     super.initState();
     _initData();
   }
-  Future<void> _initData()async{
-      Future.delayed(const Duration(seconds: 3)).then((value) =>
-        Get.offAll(()=>const HomeNavPage()));
+
+  Future<void> _initData() async {
+    Future.delayed(const Duration(seconds: 3))
+        .then((value) => Get.offAll(() => const HomeNavPage()));
   }
 
   @override
@@ -39,35 +41,37 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PublicController>(
-      builder: (pc) {
-        if(pc.size.value<=0.0) pc.initApp(context);
-        return Scaffold(
-          body: Center(
-            child: FadeTransition(
-              opacity: _animation,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset('assets/logo.png',
-                      width: dSize(.7),
-                      fit: BoxFit.cover),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: TextStyle(color: const Color(0xffFF002D),fontSize: dSize(.09),fontWeight: FontWeight.w900),
-                      children: const <TextSpan>[
-                        TextSpan(text: 'Cricland'),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+    final LanguageController langController = Get.find();
+    langController.iniatializeApp(context);
+    return GetBuilder<PublicController>(builder: (pc) {
+      if (pc.size.value <= 0.0) pc.initApp(context);
+      return Scaffold(
+        body: Center(
+          child: FadeTransition(
+            opacity: _animation,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset('assets/logo.png',
+                    width: dSize(.7), fit: BoxFit.cover),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyle(
+                        color: const Color(0xffFF002D),
+                        fontSize: dSize(.09),
+                        fontWeight: FontWeight.w900),
+                    children: const <TextSpan>[
+                      TextSpan(text: 'Cricland'),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }
