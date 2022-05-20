@@ -7,9 +7,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: ElevatedButton(onPressed: (){
-        PublicController.pc.changeTheme(!PublicController.pc.isLight.value);
-      }, child: const Text('Change Theme'))),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                PublicController.pc.changeTheme();
+              },
+              child: Text(LanguageController.lc.themeChangeButton.value))),
     );
   }
 }
