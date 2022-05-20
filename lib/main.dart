@@ -1,3 +1,4 @@
+import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/screens/splash_screen.dart';
 import 'package:cricland/public/variables/variable.dart';
@@ -11,6 +12,7 @@ void main() async{
   Variables.portraitMood;
   Variables.darkStatusBarTheme;
   final PublicController pc = Get.put(PublicController());
+  final LanguageController lc = Get.put(LanguageController());
   runApp(const MyApp());
 }
 
@@ -31,8 +33,6 @@ class MyApp extends StatelessWidget {
     );
     return GetBuilder<PublicController>(builder: (pc) {
       pc.toggleStatusBar();
-      final LanguageController lc =
-          Get.put(LanguageController()); //statusBar Theme
       return GetMaterialApp(
         title: 'Cricland',
         debugShowCheckedModeBanner: false,
