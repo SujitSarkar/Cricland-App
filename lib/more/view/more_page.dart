@@ -1,3 +1,4 @@
+import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -44,7 +45,9 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.userLarge,
                   title: 'ICC Men\'s Ranking',
-                  onTap: () {}),
+                  onTap: () {
+                   Get.to(()=>const ICCManRankingPage());
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.userNurse,
