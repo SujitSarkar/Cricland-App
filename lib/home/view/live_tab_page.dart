@@ -1,5 +1,5 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/model/custom_widget/live_cart.dart';
+import 'package:cricland/home/model/custom_widget/live_cart_tile.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,6 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: AllColor.lightCardColor,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(50),
           topLeft: Radius.circular(50),
@@ -34,7 +33,12 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return LiveCart(context);
+              return LiveCard(
+                  child: LiveCardTile(
+                onTap: () {},
+                title: '',
+              ));
+              //LiveCart(context);
             },
           ),
         ],

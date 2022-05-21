@@ -17,7 +17,6 @@ class HomePage extends StatelessWidget {
       length: 5,
       animationDuration: Duration(milliseconds: 300),
       child: Scaffold(
-        backgroundColor: AllColor.appDarkBg,
         appBar: AppBar(
           title: Row(
             children: [
@@ -28,11 +27,12 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
                 child: Text(
                   "CrickLand",
-                  style: CLTextStyle.CLSubHeaderWhite,
+                  style: CLTextStyle.CLSubHeader,
                 ),
               ),
               const SizedBox(
@@ -42,8 +42,9 @@ class HomePage extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     border: Border.all(width: 1, color: AllColor.hintColor)),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
                   child: Text(
                     "Premium",
                     style: CLTextStyle.CLBodytext,

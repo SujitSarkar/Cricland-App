@@ -1,74 +1,49 @@
-import 'package:cricland/public/variables/colors.dart';
+import 'package:cricland/public/controller/public_controller.dart';
 import 'package:flutter/material.dart';
 
 class CLTextStyle {
-  static const TextStyle CLHeader = TextStyle(
+  static TextStyle CLHeader = TextStyle(
     fontWeight: FontWeight.w900,
-    fontFamily: "Typography",
+    fontFamily: "openSans",
     fontSize: 30,
-    color: AllColor.primaryColor,
-  );
-  static const TextStyle CLHeaderWhite = TextStyle(
-    fontWeight: FontWeight.w900,
-    fontFamily: "Typography",
-    fontSize: 30,
-    color: AllColor.lightCardColor,
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static const TextStyle CLSubHeader = TextStyle(
+  static TextStyle CLSubHeader = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 20,
     fontFamily: "openSans",
-    color: AllColor.lightCardColor,
+    color: PublicController.pc.toggleTextColor(),
   );
-  static const TextStyle CLSubHeaderSecondery = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 17,
-    fontFamily: "openSans",
-    color: AllColor.primaryColor,
-  );
-  static const TextStyle CLSubHeaderWhite = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 20,
-    fontFamily: "openSans",
-    color: Colors.white,
-  );
-
-  static const TextStyle CLBodytext = TextStyle(
+  static TextStyle CLBodytext = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 15,
     fontFamily: "openSans",
-    color: AllColor.appLightBg,
-  );
-  static const TextStyle CLBodytextWhite = TextStyle(
-    fontWeight: FontWeight.w500,
-    fontSize: 15,
-    fontFamily: "openSans",
-    color: AllColor.lightCardColor,
+    color: PublicController.pc.toggleTextColor(),
   );
 
   static TextStyle testFormLettering = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 12,
     fontFamily: "openSans",
-    color: AllColor.lightTextColor,
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static const TextStyle buttonText = TextStyle(
+  static TextStyle buttonText = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 15,
     fontFamily: "openSans",
-    color: AllColor.primaryColor,
+    color: PublicController.pc.toggleTextColor(),
   );
 }
 
-const Icon backButton = Icon(
+Icon backButton = Icon(
   Icons.arrow_back_ios,
-  color: Colors.black,
+  color: PublicController.pc.toggleTextColor(),
   size: 20,
 );
-const Icon menuButton = Icon(
+Icon menuButton = Icon(
   Icons.menu_outlined,
-  color: Colors.black,
+  color: PublicController.pc.toggleTextColor(),
   size: 20,
 );
