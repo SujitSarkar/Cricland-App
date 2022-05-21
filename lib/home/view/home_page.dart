@@ -4,7 +4,9 @@ import 'package:cricland/home/view/fixtures_tab_page.dart';
 import 'package:cricland/home/view/home_tab_page.dart';
 import 'package:cricland/home/view/live_tab_page.dart';
 import 'package:cricland/home/view/upcomming_tab_page.dart';
+import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
+import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,7 +34,11 @@ class HomePage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
                 child: Text(
                   "CrickLand",
-                  style: CLTextStyle.CLSubHeader,
+                  style: TextStyle(
+                    fontSize: dSize(.04),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -47,7 +53,11 @@ class HomePage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
                   child: Text(
                     "Premium",
-                    style: CLTextStyle.CLBodytext,
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
                   ),
                 ),
               ),

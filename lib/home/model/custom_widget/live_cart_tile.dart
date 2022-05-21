@@ -174,7 +174,7 @@ class LiveCardTile extends StatelessWidget {
                       color: PublicController.pc.toggleTextColor(),
                     ),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
