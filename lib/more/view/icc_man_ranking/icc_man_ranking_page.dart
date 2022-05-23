@@ -1,4 +1,4 @@
-import 'package:cricland/more/view/icc_man_ranking/player_details.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,6 @@ class ICCManRankingPage extends StatefulWidget {
 class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTickerProviderStateMixin{
 
   late TabController _tabController;
-  int _tabIndex=0;
   String _gameType=Variables.manGameType.first;
 
   @override
@@ -93,7 +92,15 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
       ///Data Title
      Expanded(child: Padding(
        padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
-       child: _tabIndex==0?_teamData():_individualData(),
+       child: TabBarView(
+         controller: _tabController,
+         children: [
+           _teamData(),
+           _individualData(),
+           _individualData(),
+           _individualData()
+         ],
+       ),
      ))
     ],
   );
@@ -236,7 +243,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
     preferredSize: Size.fromHeight(dSize(.1)),
     child: TabBar(
       onTap: (covariant) async {
-        setState(() => _tabIndex = covariant);
+        setState(() => _tabController.index = covariant);
       },
       isScrollable: true,
       controller: _tabController,
@@ -254,7 +261,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(item,style: TextStyle(color: Variables.manCategoryList[_tabIndex]==item?AllColor.darkTextColor: Colors.grey)),
+                Text(item,style: TextStyle(color: Variables.manCategoryList[_tabController.index]==item?AllColor.darkTextColor: Colors.grey)),
               ],
             ),
           )).toList(),
