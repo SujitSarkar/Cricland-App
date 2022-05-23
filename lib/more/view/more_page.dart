@@ -1,8 +1,10 @@
 import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
+import 'package:cricland/more/view/widgets/toogle_btn.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -15,11 +17,6 @@ class MorePage extends StatefulWidget {
       fontWeight: FontWeight.w500,
       color: PublicController.pc.toggleTextColor());
 
-  @override
-  State<MorePage> createState() => _MorePageState();
-}
-
-class _MorePageState extends State<MorePage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<LanguageController>(builder: (lc) {
@@ -243,11 +240,57 @@ class _MorePageState extends State<MorePage> {
                         Text('Change the app theme',
                             style: MorePage._titleStyle),
                       ],
+        builder: (_) => SizedBox(
+          height: dSize(.7),
+          child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: () => Get.back(),
+                      icon: Icon(Icons.cancel_outlined,
+                          color: Colors.white70, size: dSize(.1))),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(dSize(.04)),
+                      decoration: BoxDecoration(
+                          color: PublicController.pc.toggleCardBg(),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          )),
+                      child: Obx(()=>Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Change the app theme by your own choice',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: PublicController.pc.toggleTextColor(),
+                                fontSize: dSize(.045),
+                                fontWeight: FontWeight.w500
+                              )),
+                          SizedBox(height: dSize(.08)),
+
+                          AnimatedToggleButton(
+                            values: const ['English', 'বাংলা'],
+                            toggleValue: PublicController.pc.isLight.value,
+                            width: dSize(.85),
+                            height: dSize(0.12),
+                            fontSize: dSize(0.045),
+                            onToggleCallback: (v) async {
+                              setState(() => PublicController.pc.isLight.value = !PublicController.pc.isLight.value);
+                            },
+                          ),
+                          SizedBox(height: dSize(.06)),
+
+                        ],
+                      )),
                     ),
                   ),
-                ),
-              ],
-            ));
+                ],
+              ),
+        ));
   }
 
   void _showLanguageChangeSheet(BuildContext context, LanguageController lc) {
