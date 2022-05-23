@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       initialIndex: 0,
       length: 5,
-      animationDuration: Duration(milliseconds: 300),
+      animationDuration: const Duration(milliseconds: 300),
       child: Scaffold(
         appBar: AppBar(
           title: Row(

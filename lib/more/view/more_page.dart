@@ -46,7 +46,7 @@ class _MorePageState extends State<MorePage> {
                   leadingIcon: FontAwesomeIcons.userLarge,
                   title: 'ICC Men\'s Ranking',
                   onTap: () {
-                   Get.to(()=>const ICCManRankingPage());
+                    Get.to(() => const ICCManRankingPage());
                   }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
@@ -232,11 +232,12 @@ class _MorePageState extends State<MorePage> {
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.all(dSize(.04)),
                     decoration: BoxDecoration(
-                        color: PublicController.pc.toggleCardBg(),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        )),
+                      color: PublicController.pc.toggleCardBg(),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
                     child: Column(
                       children: [
                         Text('Change the app theme',
