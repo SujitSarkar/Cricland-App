@@ -2,5 +2,27 @@
   "home": "Home",
   "news": "News",
   "ipl": "IPL",
-  "more": "More"
+  "more": "More",
+
+  "settingsTitle":"Settings" ,
+  "appLanguage":"App Language",
+  "language":"English",
+  "continueButton":"Continue",
+  "close": "Close",
+  "notificationsSettings":"Notifications Settings",
+  "matchSettings":"Match Settings",
+  "themeChange":"Change Theme",
+  "premium":"Premium",
+  "visit": "Visit" ,
+  "facebook": "Facebook",
+  "instagram": "instagram" ,
+  "support": "Support",
+  "rateUs":"Rate us",
+  "checkForUpdate": "Check for Updates",
+  "problem":"Report a Problem",
+  "invite":"Invite Friends",
+  "about":"About" ,
+  "aboutUs":"About us",
+  "terms":"Terms and Conditions",
+  "privacy":"Privacy Policy"
 }

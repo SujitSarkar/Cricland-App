@@ -25,7 +25,7 @@ class _MorePageState extends State<MorePage> {
     return GetBuilder<LanguageController>(builder: (lc) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(lc.bottomMore.value,
+          title: Text(lc.langModel.value.more!,
               style: TextStyle(fontSize: dSize(.045))),
         ),
         body: _bodyUI(context, lc),
@@ -59,12 +59,12 @@ class _MorePageState extends State<MorePage> {
         SizedBox(height: dSize(.12)),
 
         ///Settings
-        Text(lc.settingsTitle.value, style: MorePage._titleStyle),
+        Text(lc.langModel.value.settingsTitle!, style: MorePage._titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: CardTile(
             leadingIcon: FontAwesomeIcons.language,
-            title: lc.appLanguage.value,
+            title: lc.langModel.value.appLanguage!,
             trailingWidget: Container(
               padding: EdgeInsets.symmetric(
                   horizontal: dSize(.03), vertical: dSize(.01)),
@@ -75,7 +75,7 @@ class _MorePageState extends State<MorePage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(lc.language.value,
+                  Text(lc.langModel.value.language!,
                       style: TextStyle(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleTextColor())),
@@ -95,12 +95,12 @@ class _MorePageState extends State<MorePage> {
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.gear,
-                  title: lc.matchSettings.value,
+                  title: lc.langModel.value.matchSettings!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.solidLightbulb,
-                  title: lc.themeChange.value,
+                  title: lc.langModel.value.themeChange!,
                   onTap: () {
                     _showThemeChangeSheet(context);
                   }),
@@ -110,7 +110,7 @@ class _MorePageState extends State<MorePage> {
         SizedBox(height: dSize(.12)),
 
         ///Premium
-        Text(lc.premium.value, style: MorePage._titleStyle),
+        Text(lc.langModel.value.premium!, style: MorePage._titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: CardTile(
@@ -140,19 +140,19 @@ class _MorePageState extends State<MorePage> {
         SizedBox(height: dSize(.12)),
 
         ///Visit
-        Text(lc.visit.value, style: MorePage._titleStyle),
+        Text(lc.langModel.value.visit!, style: MorePage._titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: Column(
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.facebook,
-                  title: lc.facebook.value,
+                  title: lc.langModel.value.facebook!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.instagram,
-                  title: lc.instagram.value,
+                  title: lc.langModel.value.instagram!,
                   onTap: () {})
             ],
           ),
@@ -160,29 +160,29 @@ class _MorePageState extends State<MorePage> {
         SizedBox(height: dSize(.12)),
 
         ///Support
-        Text(lc.support.value, style: MorePage._titleStyle),
+        Text(lc.langModel.value.support!, style: MorePage._titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: Column(
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.star,
-                  title: lc.rateUs.value,
+                  title: lc.langModel.value.rateUs!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.download,
-                  title: lc.checkForUpdate.value,
+                  title: lc.langModel.value.checkForUpdate!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleExclamation,
-                  title: lc.problem.value,
+                  title: lc.langModel.value.problem!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.shareNodes,
-                  title: lc.invite.value,
+                  title: lc.langModel.value.invite!,
                   onTap: () {})
             ],
           ),
@@ -190,24 +190,24 @@ class _MorePageState extends State<MorePage> {
         SizedBox(height: dSize(.12)),
 
         ///About
-        Text(lc.about.value, style: MorePage._titleStyle),
+        Text(lc.langModel.value.about!, style: MorePage._titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: Column(
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleInfo,
-                  title: lc.aboutUs.value,
+                  title: lc.langModel.value.aboutUs!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.gavel,
-                  title: lc.terms.value,
+                  title: lc.langModel.value.terms!,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.scaleBalanced,
-                  title: lc.privacy.value,
+                  title: lc.langModel.value.privacy!,
                   onTap: () {}),
             ],
           ),
@@ -274,13 +274,13 @@ class _MorePageState extends State<MorePage> {
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
                                   onPressed: () => Get.back(),
-                                  child: Text(lc.close.value),
+                                  child: Text(lc.langModel.value.close!),
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  lc.appLanguage.value,
+                                  lc.langModel.value.appLanguage!,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -363,7 +363,8 @@ class _MorePageState extends State<MorePage> {
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 18.0),
-                                        child: Text(lc.continueButton.value),
+                                        child: Text(
+                                            lc.langModel.value.continueButton!),
                                       ),
                                       style: ElevatedButton.styleFrom(
                                         onPrimary: Colors.white,
