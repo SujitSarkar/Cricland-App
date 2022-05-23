@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final LanguageController langController = Get.find();
-    langController.iniatializeApp(context);
+    langController.initializeApp(context);
     return GetBuilder<PublicController>(builder: (pc) {
       if (pc.size.value <= 0.0) pc.initApp(context);
       return Scaffold(

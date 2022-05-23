@@ -1,13 +1,29 @@
+import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/language_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageController extends GetxController {
   static LanguageController lc = Get.find();
+  late SharedPreferences pref;
+  Rx<LanguageModel> langModel = LanguageModel().obs;
 
-  SharedPreferences? preferences;
+  Future<void> getLanguage()async{
+    if(isEnglish.value==true){
+      final String jsonString = await rootBundle.loadString('assets/language/english.json');
+      langModel(languageModelFromJson(jsonString));
+    }else{
+      final String jsonString = await rootBundle.loadString('assets/language/bangla.json');
+      langModel(languageModelFromJson(jsonString));
+    }
+    update();
+    print(langModel.value.home);
+  }
+
   // var packageInfo = PackageInfo(appName: '', packageName: '', version: '', buildNumber: '').obs;
-  RxBool isPhone = true.obs;
+
   RxBool isLoading = false.obs;
   RxBool isEnglish = true.obs;
   RxBool isConnected = true.obs;
@@ -48,21 +64,10 @@ class LanguageController extends GetxController {
   RxString privacy = ''.obs;
   RxString themeChangeButton = ''.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    //  checkConnectivity();
-  }
 
-  Future<void> iniatializeApp(BuildContext context) async {
-    preferences = await SharedPreferences.getInstance();
-    //  isPhone.value = preferences!.getBool('isPhone')!;
-    isEnglish.value = preferences!.getBool('isEnglish') ?? true;
-    if (isPhone.value) {
-      size.value = MediaQuery.of(context).size.width;
-    } else {
-      size.value = MediaQuery.of(context).size.height;
-    }
+  Future<void> initializeApp(BuildContext context) async {
+    pref = await SharedPreferences.getInstance();
+    isEnglish.value = pref.getBool('isEnglish') ?? true;
     changeVariables();
     //  packageInfo.value = await PackageInfo.fromPlatform();
     update();
@@ -71,9 +76,10 @@ class LanguageController extends GetxController {
   void changeLanguage(bool val) async {
     isEnglish.value = val;
     //Save data to local
-    preferences!.setBool('isEnglish', val);
+    PublicController.pc.pref.setBool('isEnglish', val);
     changeVariables();
     update();
+    getLanguage();
   }
 
   void changeVariables() {

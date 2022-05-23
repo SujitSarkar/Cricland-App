@@ -1,7 +1,11 @@
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_news.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview.dart';
 import 'package:flutter/material.dart';
-import '../../../public/variables/colors.dart';
-import '../../../public/variables/config.dart';
-import '../../../public/variables/variable.dart';
+import '../../../../public/variables/colors.dart';
+import '../../../../public/variables/config.dart';
+import '../../../../public/variables/variable.dart';
 
 class PlayerDetailsPage extends StatefulWidget {
   const PlayerDetailsPage({Key? key}) : super(key: key);
@@ -13,7 +17,6 @@ class PlayerDetailsPage extends StatefulWidget {
 class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTickerProviderStateMixin{
 
   late TabController _tabController;
-  int _tabIndex=0;
 
   @override
   void initState() {
@@ -76,9 +79,13 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
     );
   }
 
-  Widget _bodyUI()=>Column(
-    children: [
-
+  Widget _bodyUI()=>TabBarView(
+    controller: _tabController,
+    children: const [
+      PlayerOverview(),
+      PlayerMatches(),
+      PlayerNews(),
+      PlayerInfo(),
     ],
   );
 
@@ -88,7 +95,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
       color: AllColor.appDarkBg,
       child: TabBar(
         onTap: (covariant) async {
-          setState(() => _tabIndex = covariant);
+          setState(() => _tabController.index = covariant);
         },
         isScrollable: true,
         controller: _tabController,
@@ -106,7 +113,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(item,style: TextStyle(color: Variables.playerDetails[_tabIndex]==item?AllColor.darkTextColor: Colors.grey)),
+                  Text(item,style: TextStyle(color: Variables.playerDetails[_tabController.index]==item?AllColor.darkTextColor: Colors.grey)),
                 ],
               ),
             )).toList(),
