@@ -1,11 +1,15 @@
+import 'package:cricland/public/controller/public_controller.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageController extends GetxController {
   static LanguageController lc = Get.find();
 
-  SharedPreferences? preferences;
+  Future<void> getLanguage()async{
+    var jsonString = await rootBundle.loadString('assets/');
+  }
+
   // var packageInfo = PackageInfo(appName: '', packageName: '', version: '', buildNumber: '').obs;
   RxBool isPhone = true.obs;
   RxBool isLoading = false.obs;
@@ -48,16 +52,10 @@ class LanguageController extends GetxController {
   RxString privacy = ''.obs;
   RxString themeChangeButton = ''.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    //  checkConnectivity();
-  }
 
-  Future<void> iniatializeApp(BuildContext context) async {
-    preferences = await SharedPreferences.getInstance();
+  Future<void> initializeApp(BuildContext context) async {
     //  isPhone.value = preferences!.getBool('isPhone')!;
-    isEnglish.value = preferences!.getBool('isEnglish') ?? true;
+    isEnglish.value = PublicController.pc.pref.getBool('isEnglish') ?? true;
     if (isPhone.value) {
       size.value = MediaQuery.of(context).size.width;
     } else {
@@ -71,7 +69,7 @@ class LanguageController extends GetxController {
   void changeLanguage(bool val) async {
     isEnglish.value = val;
     //Save data to local
-    preferences!.setBool('isEnglish', val);
+    PublicController.pc.pref.setBool('isEnglish', val);
     changeVariables();
     update();
   }
