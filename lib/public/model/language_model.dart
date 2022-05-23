@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-LanguageModel languageModelFromJson(String str) => LanguageModel.fromJson(json.decode(str));
+LangModel langModelFromJson(String str) => LangModel.fromJson(json.decode(str));
 
-class LanguageModel {
-  LanguageModel({
+class LangModel {
+  LangModel({
     this.home,
     this.news,
     this.ipl,
@@ -15,7 +15,7 @@ class LanguageModel {
   final String? ipl;
   final String? more;
 
-  factory LanguageModel.fromJson(Map<String?, dynamic> json) => LanguageModel(
+  factory LangModel.fromJson(Map<String?, dynamic> json) => LangModel(
     home: json["home"],
     news: json["news"],
     ipl: json["ipl"],

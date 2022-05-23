@@ -1,5 +1,5 @@
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/language_model.dart';
+import 'package:cricland/public/model/language_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,15 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LanguageController extends GetxController {
   static LanguageController lc = Get.find();
   late SharedPreferences pref;
-  Rx<LanguageModel> langModel = LanguageModel().obs;
+  Rx<LangModel> langModel = LangModel().obs;
 
   Future<void> getLanguage()async{
     if(isEnglish.value==true){
       final String jsonString = await rootBundle.loadString('assets/language/english.json');
-      langModel(languageModelFromJson(jsonString));
+      langModel(langModelFromJson(jsonString));
     }else{
       final String jsonString = await rootBundle.loadString('assets/language/bangla.json');
-      langModel(languageModelFromJson(jsonString));
+      langModel(langModelFromJson(jsonString));
     }
     update();
     print(langModel.value.home);
