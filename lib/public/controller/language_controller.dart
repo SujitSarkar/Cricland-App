@@ -1,17 +1,29 @@
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/language_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageController extends GetxController {
   static LanguageController lc = Get.find();
+  late SharedPreferences pref;
+  Rx<LanguageModel> langModel = LanguageModel().obs;
 
   Future<void> getLanguage()async{
-    var jsonString = await rootBundle.loadString('assets/');
+    if(isEnglish.value==true){
+      final String jsonString = await rootBundle.loadString('assets/language/english.json');
+      langModel(languageModelFromJson(jsonString));
+    }else{
+      final String jsonString = await rootBundle.loadString('assets/language/bangla.json');
+      langModel(languageModelFromJson(jsonString));
+    }
+    update();
+    print(langModel.value.home);
   }
 
   // var packageInfo = PackageInfo(appName: '', packageName: '', version: '', buildNumber: '').obs;
-  RxBool isPhone = true.obs;
+
   RxBool isLoading = false.obs;
   RxBool isEnglish = true.obs;
   RxBool isConnected = true.obs;
@@ -54,13 +66,8 @@ class LanguageController extends GetxController {
 
 
   Future<void> initializeApp(BuildContext context) async {
-    //  isPhone.value = preferences!.getBool('isPhone')!;
-    isEnglish.value = PublicController.pc.pref.getBool('isEnglish') ?? true;
-    if (isPhone.value) {
-      size.value = MediaQuery.of(context).size.width;
-    } else {
-      size.value = MediaQuery.of(context).size.height;
-    }
+    pref = await SharedPreferences.getInstance();
+    isEnglish.value = pref.getBool('isEnglish') ?? true;
     changeVariables();
     //  packageInfo.value = await PackageInfo.fromPlatform();
     update();
@@ -72,6 +79,7 @@ class LanguageController extends GetxController {
     PublicController.pc.pref.setBool('isEnglish', val);
     changeVariables();
     update();
+    getLanguage();
   }
 
   void changeVariables() {
