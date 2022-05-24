@@ -81,7 +81,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
 
   Widget _bodyUI()=>TabBarView(
     controller: _tabController,
-    children: const [
+    children: [
       PlayerOverview(),
       PlayerMatches(),
       PlayerNews(),
