@@ -4,7 +4,6 @@ import 'package:cricland/more/view/widgets/toogle_btn.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -256,13 +255,18 @@ class _MorePageState extends State<MorePage> {
                           SizedBox(height: dSize(.08)),
 
                           AnimatedToggleButton(
-                            values: const ['English', 'বাংলা'],
+                            values: const ['Light', 'Dark'],
                             toggleValue: PublicController.pc.isLight.value,
                             width: dSize(.85),
                             height: dSize(0.12),
                             fontSize: dSize(0.045),
                             onToggleCallback: (v) async {
-                              setState(() => PublicController.pc.isLight.value = !PublicController.pc.isLight.value);
+                              setState((){
+                                PublicController.pc.isLight.value = !PublicController.pc.isLight.value;
+                                PublicController.pc.changeTheme(PublicController.pc.isLight.value);
+                                PublicController.pc.update();
+                              });
+                              //setState(() {});
                             },
                           ),
                           SizedBox(height: dSize(.06)),

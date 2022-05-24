@@ -25,7 +25,6 @@ class _HomeNavPageState extends State<HomeNavPage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(builder: (pc) {
-      pc.toggleStatusBar();
       return Scaffold(
         body: _homeWidgets.elementAt(pc.selectedIndex.value),
         bottomNavigationBar: GetBuilder<LanguageController>(builder: (lc) {

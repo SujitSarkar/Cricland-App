@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(builder: (pc) {
-      pc.toggleStatusBar();
       return GetMaterialApp(
         title: 'Cricland',
         debugShowCheckedModeBanner: false,
