@@ -74,7 +74,6 @@ class _PlayerOverviewState extends State<PlayerOverview> {
               itemBuilder: (context, index)=>Container(
                 width: dSize(.27),
                 alignment: Alignment.center,
-                //padding: EdgeInsets.symmetric(horizontal: dSize(.02)),
                 decoration: BoxDecoration(
                   color: PublicController.pc.toggleCardBg(),
                   borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
@@ -113,8 +112,8 @@ class _PlayerOverviewState extends State<PlayerOverview> {
                 onTap: ()=> setState(()=>_gameType=item),
                 child: Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.only(right: item==Variables.manGameType[0] || item==Variables.manGameType[1]
-                      ?dSize(.03):0.0),
+                  margin: EdgeInsets.only(right: item==Variables.manGameType.last
+                      ?0.0:dSize(.03)),
                   decoration: BoxDecoration(
                       border: Border.all(color: item==_gameType
                           ? AllColor.primaryColor:PublicController.pc.isLight.value?Colors.grey:PublicController.pc.toggleCardBg(),
