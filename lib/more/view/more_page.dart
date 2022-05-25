@@ -7,6 +7,9 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -48,7 +51,9 @@ class MorePage extends StatefulWidget {
               CardTile(
                   leadingIcon: FontAwesomeIcons.userNurse,
                   title: 'ICC Women\'s Ranking',
-                  onTap: () {})
+                  onTap: () {
+                    Get.to(()=>const ICCManRankingPage());
+                  })
             ],
           ),
         ),
@@ -136,7 +141,7 @@ class MorePage extends StatefulWidget {
         SizedBox(height: dSize(.12)),
 
         ///Visit
-        Text(lc.langModel.value.visit!, style: MorePage._titleStyle),
+        Text(lc.visit.value, style: _titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: Column(
@@ -145,11 +150,23 @@ class MorePage extends StatefulWidget {
                   leadingIcon: FontAwesomeIcons.facebook,
                   title: lc.langModel.value.facebook!,
                   onTap: () {}),
+                  title: lc.facebook.value,
+                  onTap: () async{
+                    if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
+                      await launchUrl(Uri.parse('https://icons8.com/line-awesome'));
+                    }
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.instagram,
                   title: lc.langModel.value.instagram!,
                   onTap: () {})
+                  title: lc.instagram.value,
+                  onTap: () async{
+                    if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
+                    await launchUrl(Uri.parse('https://icons8.com/line-awesome'));
+                    }
+                  })
             ],
           ),
         ),
@@ -165,11 +182,19 @@ class MorePage extends StatefulWidget {
                   leadingIcon: FontAwesomeIcons.star,
                   title: lc.langModel.value.rateUs!,
                   onTap: () {}),
+                  title: lc.rateUs.value,
+                  onTap: () {
+                    LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
+                        iOSAppId: "585027354");
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.download,
-                  title: lc.langModel.value.checkForUpdate!,
-                  onTap: () {}),
+                  title: lc.checkForUpdate.value,
+                  onTap: () {
+                    LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
+                        iOSAppId: "585027354");
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleExclamation,
@@ -180,6 +205,10 @@ class MorePage extends StatefulWidget {
                   leadingIcon: FontAwesomeIcons.shareNodes,
                   title: lc.langModel.value.invite!,
                   onTap: () {})
+                  title: lc.invite.value,
+                  onTap: () {
+                    Share.share('https://play.google.com/store/apps/details?id=com.glamworlditltd.muktodhara');
+                  })
             ],
           ),
         ),
@@ -216,29 +245,6 @@ class MorePage extends StatefulWidget {
   void _showThemeChangeSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (_) => Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                    onPressed: () => Get.back(),
-                    icon: Icon(Icons.cancel_outlined,
-                        color: Colors.white70, size: dSize(.1))),
-                Expanded(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(dSize(.04)),
-                    decoration: BoxDecoration(
-                      color: PublicController.pc.toggleCardBg(),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Text('Change the app theme',
-                            style: MorePage._titleStyle),
-                      ],
         builder: (_) => SizedBox(
           height: dSize(.7),
           child: Column(
