@@ -276,7 +276,7 @@ class _PlayerOverviewState extends State<PlayerOverview> {
         SizedBox(height: dSize(.1)),
 
         Container(
-          padding: EdgeInsets.all(dSize(.04)),
+          padding: EdgeInsets.all(dSize(.02)),
           decoration: BoxDecoration(
               color: PublicController.pc.toggleCardBg(),
               borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))

@@ -7,6 +7,9 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -54,7 +57,9 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.userNurse,
                   title: 'ICC Women\'s Ranking',
-                  onTap: () {})
+                  onTap: () {
+                    Get.to(()=>const ICCManRankingPage());
+                  })
             ],
           ),
         ),
@@ -150,12 +155,20 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.facebook,
                   title: lc.facebook.value,
-                  onTap: () {}),
+                  onTap: () async{
+                    if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
+                      await launchUrl(Uri.parse('https://icons8.com/line-awesome'));
+                    }
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.instagram,
                   title: lc.instagram.value,
-                  onTap: () {})
+                  onTap: () async{
+                    if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
+                    await launchUrl(Uri.parse('https://icons8.com/line-awesome'));
+                    }
+                  })
             ],
           ),
         ),
@@ -170,12 +183,18 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.star,
                   title: lc.rateUs.value,
-                  onTap: () {}),
+                  onTap: () {
+                    LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
+                        iOSAppId: "585027354");
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.download,
                   title: lc.checkForUpdate.value,
-                  onTap: () {}),
+                  onTap: () {
+                    LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
+                        iOSAppId: "585027354");
+                  }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleExclamation,
@@ -185,7 +204,9 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.shareNodes,
                   title: lc.invite.value,
-                  onTap: () {})
+                  onTap: () {
+                    Share.share('https://play.google.com/store/apps/details?id=com.glamworlditltd.muktodhara');
+                  })
             ],
           ),
         ),
