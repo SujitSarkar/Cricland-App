@@ -9,6 +9,8 @@ class AllColor {
   static const Color appDarkBg = Color(0xff091418);
   static const Color darkCardColor = Color(0xff13242C);
   static const Color lightCardColor = Colors.white;
+  static const Color darkCardHeader = Color(0xff152929);
+  static const Color lightCardHeader = Color(0xffE5ECEA);
   static const Color tabUnderlineColor = Colors.orange;
 
   static const Map<int, Color> primaryColorMap = {
