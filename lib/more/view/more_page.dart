@@ -14,6 +14,12 @@ import 'package:url_launcher/url_launcher.dart';
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
 
+  @override
+  State<MorePage> createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
+
   static final TextStyle _titleStyle = TextStyle(
       fontSize: dSize(.04),
       fontWeight: FontWeight.w500,
@@ -24,7 +30,7 @@ class MorePage extends StatefulWidget {
     return GetBuilder<LanguageController>(builder: (lc) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(lc.langModel.value.more!,
+          title: Text(lc.bottomMore.value,
               style: TextStyle(fontSize: dSize(.045))),
         ),
         body: _bodyUI(context, lc),
@@ -45,7 +51,7 @@ class MorePage extends StatefulWidget {
                   leadingIcon: FontAwesomeIcons.userLarge,
                   title: 'ICC Men\'s Ranking',
                   onTap: () {
-                    Get.to(() => const ICCManRankingPage());
+                   Get.to(()=>const ICCManRankingPage());
                   }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
@@ -60,12 +66,12 @@ class MorePage extends StatefulWidget {
         SizedBox(height: dSize(.12)),
 
         ///Settings
-        Text(lc.langModel.value.settingsTitle!, style: MorePage._titleStyle),
+        Text(lc.settingsTitle.value, style: _titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: CardTile(
             leadingIcon: FontAwesomeIcons.language,
-            title: lc.langModel.value.appLanguage!,
+            title: lc.appLanguage.value,
             trailingWidget: Container(
               padding: EdgeInsets.symmetric(
                   horizontal: dSize(.03), vertical: dSize(.01)),
@@ -76,7 +82,7 @@ class MorePage extends StatefulWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(lc.langModel.value.language!,
+                  Text(lc.language.value,
                       style: TextStyle(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleTextColor())),
@@ -96,12 +102,12 @@ class MorePage extends StatefulWidget {
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.gear,
-                  title: lc.langModel.value.matchSettings!,
+                  title: lc.matchSettings.value,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.solidLightbulb,
-                  title: lc.langModel.value.themeChange!,
+                  title: lc.themeChange.value,
                   onTap: () {
                     _showThemeChangeSheet(context);
                   }),
@@ -111,7 +117,7 @@ class MorePage extends StatefulWidget {
         SizedBox(height: dSize(.12)),
 
         ///Premium
-        Text(lc.langModel.value.premium!, style: MorePage._titleStyle),
+        Text(lc.premium.value, style: _titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: CardTile(
@@ -148,8 +154,6 @@ class MorePage extends StatefulWidget {
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.facebook,
-                  title: lc.langModel.value.facebook!,
-                  onTap: () {}),
                   title: lc.facebook.value,
                   onTap: () async{
                     if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
@@ -159,8 +163,6 @@ class MorePage extends StatefulWidget {
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.instagram,
-                  title: lc.langModel.value.instagram!,
-                  onTap: () {})
                   title: lc.instagram.value,
                   onTap: () async{
                     if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
@@ -173,15 +175,13 @@ class MorePage extends StatefulWidget {
         SizedBox(height: dSize(.12)),
 
         ///Support
-        Text(lc.langModel.value.support!, style: MorePage._titleStyle),
+        Text(lc.support.value, style: _titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: Column(
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.star,
-                  title: lc.langModel.value.rateUs!,
-                  onTap: () {}),
                   title: lc.rateUs.value,
                   onTap: () {
                     LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
@@ -198,13 +198,11 @@ class MorePage extends StatefulWidget {
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleExclamation,
-                  title: lc.langModel.value.problem!,
+                  title: lc.problem.value,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.shareNodes,
-                  title: lc.langModel.value.invite!,
-                  onTap: () {})
                   title: lc.invite.value,
                   onTap: () {
                     Share.share('https://play.google.com/store/apps/details?id=com.glamworlditltd.muktodhara');
@@ -215,24 +213,24 @@ class MorePage extends StatefulWidget {
         SizedBox(height: dSize(.12)),
 
         ///About
-        Text(lc.langModel.value.about!, style: MorePage._titleStyle),
+        Text(lc.about.value, style: _titleStyle),
         SizedBox(height: dSize(.02)),
         MoreCard(
           child: Column(
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleInfo,
-                  title: lc.langModel.value.aboutUs!,
+                  title: lc.aboutUs.value,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.gavel,
-                  title: lc.langModel.value.terms!,
+                  title: lc.terms.value,
                   onTap: () {}),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.scaleBalanced,
-                  title: lc.langModel.value.privacy!,
+                  title: lc.privacy.value,
                   onTap: () {}),
             ],
           ),
@@ -327,13 +325,13 @@ class MorePage extends StatefulWidget {
                                 alignment: Alignment.centerRight,
                                 child: TextButton(
                                   onPressed: () => Get.back(),
-                                  child: Text(lc.langModel.value.close!),
+                                  child: Text(lc.close.value),
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  lc.langModel.value.appLanguage!,
+                                  lc.appLanguage.value,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
