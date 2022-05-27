@@ -1,4 +1,5 @@
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class CLTextStyle {
@@ -10,8 +11,7 @@ class CLTextStyle {
   );
 
   static TextStyle CLSubHeader = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 20,
+    fontSize: dSize(.04),
     fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );

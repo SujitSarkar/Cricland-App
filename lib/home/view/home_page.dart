@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: dSize(.04),
                     fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: dSize(.04),
                       fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
+                      color: Colors.white,
                     ),
                   ),
                 ),
