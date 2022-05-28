@@ -49,10 +49,10 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.userLarge,
                   title: 'ICC Men\'s Ranking',
+                  showDivider: true,
                   onTap: () {
                     Get.to(() => const ICCManRankingPage());
                   }),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.userNurse,
                   title: 'ICC Women\'s Ranking',
@@ -102,8 +102,8 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.gear,
                   title: lc.matchSettings.value,
+                  showDivider: true,
                   onTap: () {}),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.solidLightbulb,
                   title: lc.themeChange.value,
@@ -154,6 +154,7 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.facebook,
                   title: lc.facebook.value,
+                  showDivider: true,
                   onTap: () async {
                     if (await canLaunchUrl(
                         Uri.parse('https://icons8.com/line-awesome'))) {
@@ -161,7 +162,6 @@ class _MorePageState extends State<MorePage> {
                           Uri.parse('https://icons8.com/line-awesome'));
                     }
                   }),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.instagram,
                   title: lc.instagram.value,
@@ -186,15 +186,16 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.star,
                   title: lc.rateUs.value,
+                  showDivider: true,
                   onTap: () {
                     LaunchReview.launch(
                         androidAppId: "bd.com.baghmama.bm",
                         iOSAppId: "585027354");
                   }),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.download,
                   title: lc.checkForUpdate.value,
+                  showDivider: true,
                   onTap: () {
                     LaunchReview.launch(
                         androidAppId: "bd.com.baghmama.bm",
@@ -204,8 +205,8 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleExclamation,
                   title: lc.problem.value,
+                  showDivider: true,
                   onTap: () {}),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.shareNodes,
                   title: lc.invite.value,
@@ -227,13 +228,13 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleInfo,
                   title: lc.aboutUs.value,
+                  showDivider: true,
                   onTap: () {}),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.gavel,
                   title: lc.terms.value,
+                  showDivider: true,
                   onTap: () {}),
-              Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.scaleBalanced,
                   title: lc.privacy.value,
