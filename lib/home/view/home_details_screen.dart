@@ -24,7 +24,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 7,
       child: Scaffold(
         appBar: AppBar(
@@ -75,7 +75,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               //color: Colors.grey,
               height: 150,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 //  crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
@@ -90,6 +90,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "NK",

@@ -45,35 +45,42 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
         children: [
           Row(
             children: [
-              DropdownButtonHideUnderline(
-                child: DropdownButton2(
-                  alignment: Alignment.center,
-                  iconEnabledColor: PublicController.pc.toggleTextColor(),
-                  dropdownDecoration:
-                      BoxDecoration(color: PublicController.pc.toggleCardBg()),
-                  items: items
-                      .map((item) => DropdownMenuItem<String>(
-                            value: item,
-                            alignment: Alignment.center,
-                            child: Text(
-                              item,
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                  width: 1,
+                  color: PublicController.pc.toggleTextColor(),
+                )),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    alignment: Alignment.center,
+                    iconEnabledColor: PublicController.pc.toggleTextColor(),
+                    dropdownDecoration: BoxDecoration(
+                        color: PublicController.pc.toggleCardBg()),
+                    items: items
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              alignment: Alignment.center,
+                              child: Text(
+                                item,
+                                style: TextStyle(
+                                  fontSize: dSize(.04),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                               ),
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedValue = value as String;
-                    });
-                  },
-                  buttonHeight: 40,
-                  buttonWidth: 140,
-                  itemHeight: 40,
+                            ))
+                        .toList(),
+                    value: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value as String;
+                      });
+                    },
+                    buttonHeight: 40,
+                    buttonWidth: 140,
+                    itemHeight: 40,
+                  ),
                 ),
               ),
               Expanded(

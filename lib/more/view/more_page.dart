@@ -19,7 +19,6 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
-
   final TextStyle _titleStyle = TextStyle(
       fontSize: dSize(.04),
       fontWeight: FontWeight.w500,
@@ -51,14 +50,14 @@ class _MorePageState extends State<MorePage> {
                   leadingIcon: FontAwesomeIcons.userLarge,
                   title: 'ICC Men\'s Ranking',
                   onTap: () {
-                   Get.to(()=>const ICCManRankingPage());
+                    Get.to(() => const ICCManRankingPage());
                   }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.userNurse,
                   title: 'ICC Women\'s Ranking',
                   onTap: () {
-                    Get.to(()=>const ICCManRankingPage());
+                    Get.to(() => const ICCManRankingPage());
                   })
             ],
           ),
@@ -155,18 +154,22 @@ class _MorePageState extends State<MorePage> {
               CardTile(
                   leadingIcon: FontAwesomeIcons.facebook,
                   title: lc.facebook.value,
-                  onTap: () async{
-                    if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
-                      await launchUrl(Uri.parse('https://icons8.com/line-awesome'));
+                  onTap: () async {
+                    if (await canLaunchUrl(
+                        Uri.parse('https://icons8.com/line-awesome'))) {
+                      await launchUrl(
+                          Uri.parse('https://icons8.com/line-awesome'));
                     }
                   }),
               Divider(height: dSize(.06), color: Colors.grey),
               CardTile(
                   leadingIcon: FontAwesomeIcons.instagram,
                   title: lc.instagram.value,
-                  onTap: () async{
-                    if (await canLaunchUrl(Uri.parse('https://icons8.com/line-awesome'))) {
-                    await launchUrl(Uri.parse('https://icons8.com/line-awesome'));
+                  onTap: () async {
+                    if (await canLaunchUrl(
+                        Uri.parse('https://icons8.com/line-awesome'))) {
+                      await launchUrl(
+                          Uri.parse('https://icons8.com/line-awesome'));
                     }
                   })
             ],
@@ -184,7 +187,8 @@ class _MorePageState extends State<MorePage> {
                   leadingIcon: FontAwesomeIcons.star,
                   title: lc.rateUs.value,
                   onTap: () {
-                    LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
+                    LaunchReview.launch(
+                        androidAppId: "bd.com.baghmama.bm",
                         iOSAppId: "585027354");
                   }),
               Divider(height: dSize(.06), color: Colors.grey),
@@ -192,7 +196,8 @@ class _MorePageState extends State<MorePage> {
                   leadingIcon: FontAwesomeIcons.download,
                   title: lc.checkForUpdate.value,
                   onTap: () {
-                    LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
+                    LaunchReview.launch(
+                        androidAppId: "bd.com.baghmama.bm",
                         iOSAppId: "585027354");
                   }),
               Divider(height: dSize(.06), color: Colors.grey),
@@ -205,7 +210,8 @@ class _MorePageState extends State<MorePage> {
                   leadingIcon: FontAwesomeIcons.shareNodes,
                   title: lc.invite.value,
                   onTap: () {
-                    Share.share('https://play.google.com/store/apps/details?id=com.glamworlditltd.muktodhara');
+                    Share.share(
+                        'https://play.google.com/store/apps/details?id=com.glamworlditltd.muktodhara');
                   })
             ],
           ),
@@ -244,13 +250,13 @@ class _MorePageState extends State<MorePage> {
     showModalBottomSheet(
         context: context,
         builder: (_) => SizedBox(
-          height: dSize(.7),
-          child: Column(
+              height: dSize(.7),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                      onPressed:() => Get.back(),
+                      onPressed: () => Get.back(),
                       icon: Icon(Icons.cancel_outlined,
                           color: Colors.white70, size: dSize(.1))),
                   Expanded(
@@ -263,42 +269,42 @@ class _MorePageState extends State<MorePage> {
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10),
                           )),
-                      child: Obx(()=>Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Change the app theme by your own choice',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: PublicController.pc.toggleTextColor(),
-                                fontSize: dSize(.045),
-                                fontWeight: FontWeight.w500
-                              )),
-                          SizedBox(height: dSize(.08)),
-
-                          AnimatedToggleButton(
-                            values: const ['Light', 'Dark'],
-                            toggleValue: PublicController.pc.isLight.value,
-                            width: dSize(.85),
-                            height: dSize(0.12),
-                            fontSize: dSize(0.045),
-                            onToggleCallback: (v) async {
-                              setState((){
-                                PublicController.pc.isLight.value = !PublicController.pc.isLight.value;
-                                PublicController.pc.changeTheme(PublicController.pc.isLight.value);
-                                PublicController.pc.update();
-                              });
-                              //setState(() {});
-                            },
-                          ),
-                          SizedBox(height: dSize(.06)),
-
-                        ],
-                      )),
+                      child: Obx(() => Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Change the app theme by your own choice',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color:
+                                          PublicController.pc.toggleTextColor(),
+                                      fontSize: dSize(.045),
+                                      fontWeight: FontWeight.w500)),
+                              SizedBox(height: dSize(.08)),
+                              AnimatedToggleButton(
+                                values: const ['Light', 'Dark'],
+                                toggleValue: PublicController.pc.isLight.value,
+                                width: dSize(.85),
+                                height: dSize(0.12),
+                                fontSize: dSize(0.045),
+                                onToggleCallback: (v) async {
+                                  setState(() {
+                                    PublicController.pc.isLight.value =
+                                        !PublicController.pc.isLight.value;
+                                    PublicController.pc.changeTheme(
+                                        PublicController.pc.isLight.value);
+                                    PublicController.pc.update();
+                                  });
+                                  //setState(() {});
+                                },
+                              ),
+                              SizedBox(height: dSize(.06)),
+                            ],
+                          )),
                     ),
                   ),
                 ],
               ),
-        ));
+            ));
   }
 
   void _showLanguageChangeSheet(BuildContext context, LanguageController lc) {
@@ -357,7 +363,8 @@ class _MorePageState extends State<MorePage> {
                                   title: Text(
                                     'English',
                                     style: TextStyle(
-                                        color: PublicController.pc.toggleTextColor()),
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
                                   ),
                                   trailing: Icon(
                                     Icons.check_circle,
@@ -391,7 +398,8 @@ class _MorePageState extends State<MorePage> {
                                   title: Text(
                                     'বাংলা',
                                     style: TextStyle(
-                                        color: PublicController.pc.toggleTextColor()),
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
                                   ),
                                   trailing: Icon(
                                     Icons.check_circle,
@@ -400,7 +408,8 @@ class _MorePageState extends State<MorePage> {
                                         : Colors.white,
                                   ),
                                   selected: _isBanglaSelected,
-                                  selectedTileColor: PublicController.pc.toggleStatusBar(),
+                                  selectedTileColor:
+                                      PublicController.pc.toggleStatusBar(),
                                 ),
                               ),
                               const Spacer(),
