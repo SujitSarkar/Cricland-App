@@ -1,9 +1,12 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/model/custom_widget/live_cart_tile.dart';
+import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class LiveTabScreen extends StatefulWidget {
   const LiveTabScreen({Key? key}) : super(key: key);
@@ -35,7 +38,11 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             itemBuilder: (context, index) {
               return LiveCard(
                   child: LiveCardTile(
-                onTap: () {},
+                onTap: () {
+                  Get.to(HomeDetailsScreen(
+                    appBarTitle: "NK vs NWW, 1st T20",
+                  ));
+                },
                 title: '',
               ));
               //LiveCart(context);

@@ -155,162 +155,167 @@ class LiveCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Card(
-        color: PublicController.pc.toggleCardBg(),
-        elevation: 8,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Indian Premium League",
-                    style: TextStyle(
-                      fontSize: dSize(.04),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Image.asset(
-                        'assets/indian_flag.png',
-                        scale: 4,
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Card(
+          color: PublicController.pc.toggleCardBg(),
+          elevation: 8,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Indian Premium League",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        fontWeight: FontWeight.w500,
+                        color: PublicController.pc.toggleTextColor(),
                       ),
-                      Text(
-                        'India',
-                        style: TextStyle(
-                            fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor()),
-                      ),
-                      Row(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: '140-5',
-                              style: TextStyle(
-                                  fontSize: dSize(.03),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor()),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: ' 16.3',
-                                  style: TextStyle(
-                                      fontSize: dSize(.02),
-                                      fontWeight: FontWeight.w500,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
-                                ),
-                                // TextSpan(text: ' world!'),
-                              ],
-                            ),
-                          ),
-                          const Icon(
-                            Icons.sports_cricket_outlined,
-                            color: Colors.red,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '  VS',
-                        style: TextStyle(
-                            fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor()),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: const [
-                          Icon(
-                            FontAwesomeIcons.circleDot,
-                            size: 15,
-                            color: Colors.red,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "Live",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        "7 Runs need to be win",
-                        style: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Image.asset(
-                        'assets/bd_flag.png',
-                        scale: 10,
-                      ),
-                      Text(
-                        'Bangladesh',
-                        style: TextStyle(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
+                    )),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Image.asset(
+                          'assets/indian_flag.png',
+                          scale: 4,
                         ),
-                      ),
-                      Row(
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              text: '140-5',
-                              style: TextStyle(
-                                  fontSize: dSize(.03),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor()),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: ' 16.3',
-                                  style: TextStyle(
-                                      fontSize: dSize(.02),
-                                      fontWeight: FontWeight.w500,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
-                                ),
-                                // TextSpan(text: ' world!'),
-                              ],
+                        Text(
+                          'India',
+                          style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor()),
+                        ),
+                        Row(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: '140-5',
+                                style: TextStyle(
+                                    fontSize: dSize(.03),
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        PublicController.pc.toggleTextColor()),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: ' 16.3',
+                                    style: TextStyle(
+                                        fontSize: dSize(.02),
+                                        fontWeight: FontWeight.w500,
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                  ),
+                                  // TextSpan(text: ' world!'),
+                                ],
+                              ),
                             ),
+                            const Icon(
+                              Icons.sports_cricket_outlined,
+                              color: Colors.red,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '  VS',
+                          style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor()),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: const [
+                            Icon(
+                              FontAwesomeIcons.circleDot,
+                              size: 15,
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "Live",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const Text(
+                          "7 Runs need to be win",
+                          style: TextStyle(
+                              color: Colors.green, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Image.asset(
+                          'assets/bd_flag.png',
+                          scale: 10,
+                        ),
+                        Text(
+                          'Bangladesh',
+                          style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor(),
                           ),
-                          // const Icon(
-                          //   Icons.sports_cricket_outlined,
-                          //   color: Colors.red,
-                          // )
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ],
+                        ),
+                        Row(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: '140-5',
+                                style: TextStyle(
+                                    fontSize: dSize(.03),
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        PublicController.pc.toggleTextColor()),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: ' 16.3',
+                                    style: TextStyle(
+                                        fontSize: dSize(.02),
+                                        fontWeight: FontWeight.w500,
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                  ),
+                                  // TextSpan(text: ' world!'),
+                                ],
+                              ),
+                            ),
+                            // const Icon(
+                            //   Icons.sports_cricket_outlined,
+                            //   color: Colors.red,
+                            // )
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
