@@ -2,16 +2,16 @@ import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/material.dart';
 
-class AVLSearchField extends StatefulWidget {
-  const AVLSearchField({
+class CLSearchField extends StatefulWidget {
+  const CLSearchField({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AVLSearchField> createState() => _AVLSearchFieldState();
+  State<CLSearchField> createState() => _CLSearchFieldState();
 }
 
-class _AVLSearchFieldState extends State<AVLSearchField> {
+class _CLSearchFieldState extends State<CLSearchField> {
   bool isSearchPressed = false;
   FocusNode f1 = FocusNode();
 

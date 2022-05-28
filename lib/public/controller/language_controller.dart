@@ -10,16 +10,18 @@ class LanguageController extends GetxController {
   late SharedPreferences pref;
   Rx<LangModel> langModel = LangModel().obs;
 
-  Future<void> getLanguage()async{
-    if(isEnglish.value==true){
-      final String jsonString = await rootBundle.loadString('assets/language/english.json');
+  Future<void> getLanguage() async {
+    if (isEnglish.value == true) {
+      final String jsonString =
+          await rootBundle.loadString('assets/language/english.json');
       langModel(langModelFromJson(jsonString));
-    }else{
-      final String jsonString = await rootBundle.loadString('assets/language/bangla.json');
+    } else {
+      final String jsonString =
+          await rootBundle.loadString('assets/language/bangla.json');
       langModel(langModelFromJson(jsonString));
     }
     update();
-    print(langModel.value.home);
+    print('Json Language Test: ${langModel.value.themeChange}');
   }
 
   // var packageInfo = PackageInfo(appName: '', packageName: '', version: '', buildNumber: '').obs;
@@ -63,7 +65,6 @@ class LanguageController extends GetxController {
   RxString terms = ''.obs;
   RxString privacy = ''.obs;
   RxString themeChangeButton = ''.obs;
-
 
   Future<void> initializeApp(BuildContext context) async {
     pref = await SharedPreferences.getInstance();

@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       initialIndex: 0,
       length: 5,
-      animationDuration: Duration(milliseconds: 300),
+      animationDuration: const Duration(milliseconds: 300),
       child: Scaffold(
         appBar: AppBar(
           title: Row(
@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: dSize(.04),
                     fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: dSize(.04),
                       fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
+                      color: Colors.white,
                     ),
                   ),
                 ),
