@@ -195,7 +195,7 @@ class _MorePageState extends State<MorePage> {
                     LaunchReview.launch(androidAppId: "bd.com.baghmama.bm",
                         iOSAppId: "585027354");
                   }),
-              Divider(height: dSize(.06), color: Colors.grey),
+
               CardTile(
                   leadingIcon: FontAwesomeIcons.circleExclamation,
                   title: lc.problem.value,

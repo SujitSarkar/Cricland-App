@@ -12,14 +12,31 @@ class CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      leading: leadingIcon!=null?Icon(leadingIcon,color: Colors.grey,size: dSize(.045)):null,
-      title: Text(title,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
-      trailing: trailingWidget??Icon(FontAwesomeIcons.angleRight,size: dSize(.045),color: Colors.grey),
-      contentPadding: const EdgeInsets.all(0.0),
-      dense: true,
-      horizontalTitleGap: -5.0,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(leadingIcon,color: Colors.grey,size: dSize(.045)),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(title,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
+              // ListTile(
+              //   onTap: onTap,
+              //   leading: leadingIcon!=null?Icon(leadingIcon,color: Colors.grey,size: dSize(.045)):null,
+              //   title: Text(title,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
+              //   trailing: trailingWidget??Icon(FontAwesomeIcons.angleRight,size: dSize(.045),color: Colors.grey),
+              //   contentPadding: const EdgeInsets.all(0.0),
+              //   dense: true,
+              //   horizontalTitleGap: -5.0,
+              // ),
+              Divider(height: 0.0, color: Colors.grey),
+            ],
+          ),
+        ),
+        trailingWidget??Icon(FontAwesomeIcons.angleRight,size: dSize(.045),color: Colors.grey),
+      ],
     );
   }
 }
