@@ -20,7 +20,7 @@ class MorePage extends StatefulWidget {
 
 class _MorePageState extends State<MorePage> {
 
-  static final TextStyle _titleStyle = TextStyle(
+  final TextStyle _titleStyle = TextStyle(
       fontSize: dSize(.04),
       fontWeight: FontWeight.w500,
       color: PublicController.pc.toggleTextColor());
@@ -250,7 +250,7 @@ class _MorePageState extends State<MorePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                      onPressed: () => Get.back(),
+                      onPressed:() => Get.back(),
                       icon: Icon(Icons.cancel_outlined,
                           color: Colors.white70, size: dSize(.1))),
                   Expanded(
@@ -335,7 +335,7 @@ class _MorePageState extends State<MorePage> {
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -357,8 +357,7 @@ class _MorePageState extends State<MorePage> {
                                   title: Text(
                                     'English',
                                     style: TextStyle(
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
+                                        color: PublicController.pc.toggleTextColor()),
                                   ),
                                   trailing: Icon(
                                     Icons.check_circle,
@@ -392,8 +391,7 @@ class _MorePageState extends State<MorePage> {
                                   title: Text(
                                     'বাংলা',
                                     style: TextStyle(
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
+                                        color: PublicController.pc.toggleTextColor()),
                                   ),
                                   trailing: Icon(
                                     Icons.check_circle,
@@ -402,11 +400,10 @@ class _MorePageState extends State<MorePage> {
                                         : Colors.white,
                                   ),
                                   selected: _isBanglaSelected,
-                                  selectedTileColor:
-                                      PublicController.pc.toggleStatusBar(),
+                                  selectedTileColor: PublicController.pc.toggleStatusBar(),
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Row(
                                 children: [
                                   Expanded(
