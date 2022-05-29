@@ -1,4 +1,3 @@
-import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class NewsPage extends StatelessWidget {
                 PublicController.pc
                     .changeTheme(!PublicController.pc.isLight.value);
               },
-              child: Text(LanguageController.lc.themeChangeButton.value))),
+              child: const Text('Change Theme'))),
     );
   }
 }

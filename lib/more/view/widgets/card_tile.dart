@@ -13,27 +13,30 @@ class CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(leadingIcon,color: PublicController.pc.togglePrimaryGrey(),size: dSize(.05)),
-        SizedBox(width: dSize(.03)),
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(leadingIcon,color: PublicController.pc.togglePrimaryGrey(),size: dSize(.05)),
+          SizedBox(width: dSize(.03)),
 
-        Expanded(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title,maxLines: 1,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
-                  trailingWidget??Icon(FontAwesomeIcons.caretRight,size: dSize(.045),color: PublicController.pc.togglePrimaryGrey()),
-                ],
-              ),
-              if(showDivider!= null && showDivider!)Divider(height: dSize(.06), color: Colors.grey),
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(title,maxLines: 1,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
+                    trailingWidget??Icon(FontAwesomeIcons.caretRight,size: dSize(.045),color: PublicController.pc.togglePrimaryGrey()),
+                  ],
+                ),
+                if(showDivider!= null && showDivider!)Divider(height: dSize(.06), color: Colors.grey),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
