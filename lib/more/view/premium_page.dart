@@ -1,6 +1,9 @@
 import 'package:cricland/public/variables/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../../public/controller/public_controller.dart';
 import '../../public/variables/config.dart';
 
@@ -59,18 +62,21 @@ class PremiumPage extends StatelessWidget {
             ),
             SizedBox(height: dSize(.06)),
 
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: dSize(.02),vertical: dSize(.04)),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-                  border: Border.all(color: PublicController.pc.togglePrimaryGrey(),width: 0.5)
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Already a paid user',style: _textStyle),
-                  Text('Login/Signup',style: _textStyle.copyWith(fontSize: dSize(.035),fontWeight: FontWeight.bold,color: PublicController.pc.toggleLoadingColor()))
-                ],
+            InkWell(
+              onTap: ()=> _showLoginModal(context),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: dSize(.02),vertical: dSize(.04)),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
+                    border: Border.all(color: PublicController.pc.togglePrimaryGrey(),width: 0.5)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Already a paid user',style: _textStyle),
+                    Text('Login/Signup',style: _textStyle.copyWith(fontSize: dSize(.035),fontWeight: FontWeight.bold,color: PublicController.pc.toggleLoadingColor()))
+                  ],
+                ),
               ),
             )
           ],
@@ -90,7 +96,7 @@ class PremiumPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: dSize(.04),vertical: dSize(.07)),
               decoration: BoxDecoration(
-                color: AllColor.purpleColor.withOpacity(.25),
+                color: const Color(0xffCCCFD7),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
               ),
               child: Row(
@@ -120,7 +126,7 @@ class PremiumPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: dSize(.04),vertical: dSize(.07)),
               decoration: BoxDecoration(
-                color: AllColor.tabUnderlineColor.withOpacity(.25),
+                color: const Color(0xffFCE1BF),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
               ),
               child: Column(
@@ -167,7 +173,7 @@ class PremiumPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: dSize(.04),vertical: dSize(.07)),
               decoration: BoxDecoration(
-                color: AllColor.blueColor.withOpacity(.25),
+                color: const Color(0xffD1E8F5),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
               ),
               child: Column(
@@ -214,4 +220,94 @@ class PremiumPage extends StatelessWidget {
 
     ],
   ));
+
+  void _showLoginModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) => Container(
+          height: dSize(.7),
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.all(dSize(.04)),
+          decoration: BoxDecoration(
+              color: PublicController.pc.toggleCardBg(),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )),
+          child: Obx(() => Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Login/Signup',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: PublicController.pc.toggleTextColor(),
+                          fontSize: dSize(.05),
+                          fontWeight: FontWeight.w500)),
+                  InkWell(onTap:()=>Get.back(),
+                    child: Icon(LineAwesomeIcons.times,size: dSize(.06),color: Colors.grey,))
+                ],
+              ),
+              SizedBox(height: dSize(.1)),
+
+              ///Google button
+              ElevatedButton(
+                onPressed: (){},
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.google,color: Colors.white,size: dSize(.06)),
+                      SizedBox(width: dSize(.03)),
+                      Text('Google',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
+                    ],
+                  ),
+                ),style: ElevatedButton.styleFrom(
+                  primary: AllColor.googleColor,
+                  elevation: 0.0
+              ),),
+              SizedBox(height: dSize(.05)),
+
+              ///Facebook button
+              ElevatedButton(
+                onPressed: (){},
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.facebook,color: Colors.white,size: dSize(.06)),
+                      SizedBox(width: dSize(.03)),
+                      Text('Facebook',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
+                    ],
+                  ),
+                ),style: ElevatedButton.styleFrom(
+                  primary: AllColor.fbColor,
+                  elevation: 0.0
+              ),),
+              const Spacer(),
+
+              RichText(
+                text: TextSpan(
+                  style: _textStyle.copyWith(fontSize: dSize(.028)),
+                  children:[
+                    const TextSpan(text: 'I agree with the '),
+                    TextSpan(text: 'terms of use',
+                        recognizer: TapGestureRecognizer()..onTap = (){},
+                        style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
+                    const TextSpan(text: ' and '),
+                    TextSpan(text: 'privacy policy',
+                        recognizer: TapGestureRecognizer()..onTap = (){},
+                        style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
+                  ],
+                ),
+              )
+            ],
+          )),
+        ));
+  }
 }

@@ -15,6 +15,8 @@ class AllColor {
   static const Color tabUnderlineColor = Colors.orange;
   static const Color purpleColor = Color(0xff3D4071);
   static final Color blueColor = Colors.blue.shade800;
+  static const Color fbColor = Color(0xff1778F0);
+  static const Color googleColor = Color(0xffE72C39);
 
   static const Map<int, Color> primaryColorMap = {
     50: Color.fromRGBO(3, 80, 139, .1),

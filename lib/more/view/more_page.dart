@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -269,62 +270,64 @@ class _MorePageState extends State<MorePage> {
   void _showThemeChangeSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (_) => SizedBox(
-              height: dSize(.7),
-              child: Column(
+        builder: (_) => Container(
+          height: dSize(.7),
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.all(dSize(.04)),
+          decoration: BoxDecoration(
+              color: PublicController.pc.toggleCardBg(),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )),
+              child: Obx(() => Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      onPressed: () => Get.back(),
-                      icon: Icon(Icons.cancel_outlined,
-                          color: Colors.white70, size: dSize(.1))),
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(dSize(.04)),
-                      decoration: BoxDecoration(
-                          color: PublicController.pc.toggleCardBg(),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          )),
-                      child: Obx(() => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Change the app theme by your own choice',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                      fontSize: dSize(.045),
-                                      fontWeight: FontWeight.w500)),
-                              SizedBox(height: dSize(.08)),
-                              AnimatedToggleButton(
-                                values: const ['Light', 'Dark'],
-                                toggleValue: PublicController.pc.isLight.value,
-                                width: dSize(.85),
-                                height: dSize(0.12),
-                                fontSize: dSize(0.045),
-                                onToggleCallback: (v) async {
-                                  setState(() {
-                                    PublicController.pc.isLight.value =
-                                        !PublicController.pc.isLight.value;
-                                    PublicController.pc.changeTheme(
-                                        PublicController.pc.isLight.value);
-                                    PublicController.pc.update();
-                                  });
-                                  //setState(() {});
-                                },
-                              ),
-                              SizedBox(height: dSize(.06)),
-                            ],
-                          )),
-                    ),
+                  Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(),
+                      Container(
+                        width: dSize(.1),
+                        height: dSize(.01),
+                        decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(dSize(.05)))
+                      )),
+                      InkWell(
+                          onTap:()=>Get.back(),
+                          child: Icon(LineAwesomeIcons.times,size: dSize(.06),color: Colors.grey,))
+                    ],
+                  ),
+                  SizedBox(height: dSize(.1)),
+                  Text('Change the app theme by your own choice',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: PublicController.pc.toggleTextColor(),
+                          fontSize: dSize(.045),
+                          fontWeight: FontWeight.w500)),
+                  SizedBox(height: dSize(.08)),
+                  AnimatedToggleButton(
+                    values: const ['Light', 'Dark'],
+                    toggleValue: PublicController.pc.isLight.value,
+                    width: dSize(.85),
+                    height: dSize(0.12),
+                    fontSize: dSize(0.045),
+                    onToggleCallback: (v) async {
+                      setState(() {
+                        PublicController.pc.isLight.value =
+                            !PublicController.pc.isLight.value;
+                        PublicController.pc.changeTheme(
+                            PublicController.pc.isLight.value);
+                        PublicController.pc.update();
+                      });
+                      //setState(() {});
+                    },
                   ),
                 ],
-              ),
-            ));
+              )),
+        ));
   }
 
   void _showLanguageChangeSheet(BuildContext context) {
