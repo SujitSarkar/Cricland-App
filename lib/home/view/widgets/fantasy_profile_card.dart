@@ -22,7 +22,7 @@ class FantasyProfileCardTile extends StatelessWidget {
       color: PublicController.pc.toggleCardBg(),
       elevation: 8,
       child: Padding(
-        padding: const EdgeInsets.all(28.0),
+        padding: const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,10 +31,11 @@ class FantasyProfileCardTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Image.asset(
-                  'assets/indian_flag.png',
-                  scale: 4,
+                  'assets/player.png',
+                  height: 80,
+                  width: 80,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -71,7 +72,7 @@ class FantasyProfileCardTile extends StatelessWidget {
                 Text(
                   "30.0",
                   style: TextStyle(
-                      fontSize: dSize(.07),
+                      fontSize: dSize(.06),
                       fontWeight: FontWeight.w500,
                       color: PublicController.pc.toggleTextColor()),
                 ),
@@ -81,7 +82,7 @@ class FantasyProfileCardTile extends StatelessWidget {
                 Text(
                   "Pts",
                   style: TextStyle(
-                      fontSize: dSize(.04),
+                      fontSize: dSize(.03),
                       fontWeight: FontWeight.w500,
                       color: PublicController.pc.toggleTextColor()),
                 ),
