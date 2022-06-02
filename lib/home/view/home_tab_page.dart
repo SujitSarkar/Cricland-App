@@ -168,7 +168,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                         shape: BoxShape.circle,
                                         color: Colors.green),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(5.0),
                                       child: Text(
                                         'VS',
                                         style: TextStyle(
@@ -289,7 +289,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
-                    childAspectRatio: 3 / 1.7,
+                    childAspectRatio: 1.5,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20),
                 itemCount: 10,

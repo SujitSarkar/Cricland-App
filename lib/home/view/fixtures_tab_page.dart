@@ -1,5 +1,6 @@
-import 'package:cricland/home/model/custom_widget/fixtures_card_tile.dart';
-import 'package:cricland/home/model/custom_widget/live_cart_tile.dart';
+import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
+import 'package:cricland/home/view/widgets/live_cart_tile.dart';
+import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -95,7 +96,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(3.0),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(10),
                                 ),
                                 border: Border.all(
@@ -119,8 +120,8 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
               ),
             ],
           ),
-          Divider(),
-          SizedBox(
+          const Divider(),
+          const SizedBox(
             height: 5,
           ),
           Expanded(
@@ -129,9 +130,19 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                 shrinkWrap: true,
                 itemCount: 50,
                 itemBuilder: (BuildContext context, int index) {
-                  return LiveCard(
+                  return MoreCard(
                       child: FixturesCardTile(
-                    title: '',
+                    title: 'Indian Premium League',
+                    leadingUrlOne: 'assets/indian_flag.png',
+                    leadingUrlTwo: 'assets/bd_flag.png',
+                    teamOne: 'India',
+                    teamTwo: 'Bangladesh',
+                    reachTitleOne: '140-5',
+                    reachTitleTwo: '188-6',
+                    reachSubTitleOne: '16.3',
+                    reachSubTitleTwo: '19.3',
+                    wonTeam: 'BD Won',
+                    byWon: "by 7 wickets",
                     onTap: () {},
                   ));
                 }),

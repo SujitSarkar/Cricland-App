@@ -1,6 +1,7 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/model/custom_widget/finished_card_tile.dart';
-import 'package:cricland/home/model/custom_widget/live_cart_tile.dart';
+import 'package:cricland/home/view/widgets/finished_card_tile.dart';
+import 'package:cricland/home/view/widgets/live_cart_tile.dart';
+import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return LiveCard(
+              return MoreCard(
                 child: FinishedCardTile(
                   onTap: () {},
                   title: '',

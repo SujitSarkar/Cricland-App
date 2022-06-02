@@ -1,6 +1,7 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/model/custom_widget/live_cart_tile.dart';
+import 'package:cricland/home/view/widgets/live_cart_tile.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
+import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return LiveCard(
+              return MoreCard(
                   child: LiveCardTile(
                 onTap: () {
                   Get.to(HomeDetailsScreen(
