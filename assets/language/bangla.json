@@ -2,5 +2,27 @@
   "home": "হোম",
   "news": "খবর",
   "ipl": "আইপিএল",
-  "more": "অধিক"
+  "more": "অধিক",
+
+  "settingsTitle":"সেটিংস" ,
+  "appLanguage":"অ্যাপ ভাষা",
+  "language":"বাংলা",
+  "continueButton":"এগিয়ে যান",
+  "close": "বন্ধ করুন",
+  "notificationsSettings":"নোটিফিকেশন সেটিংস",
+  "matchSettings":"ম্যাচ সেটিংস",
+  "themeChange":"থিম বদলান",
+  "premium":"প্রিমিয়াম",
+  "visit": "দর্শন" ,
+  "facebook": "ফেইসবুক",
+  "instagram": "ইন্সটাগ্রাম" ,
+  "support": "সমর্থন",
+  "rateUs":"আমাদের ব্যাপারে আপনার মতামত দিন",
+  "checkForUpdate": "হালনাগাদ এর জন্য অনুসন্ধান করুন",
+  "problem":"এক্তি সমস্যা রিপোর্ট",
+  "invite":"বন্ধুকে আমন্ত্রন জানান",
+  "about":"সম্পর্কিত" ,
+  "aboutUs":"About us",
+  "terms":"Terms and Conditions",
+  "privacy":"Privacy Policy"
 }

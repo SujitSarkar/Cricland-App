@@ -2,8 +2,8 @@ import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/material.dart';
 
-class AVLDrawer extends StatelessWidget {
-  const AVLDrawer({
+class CLDrawer extends StatelessWidget {
+  const CLDrawer({
     Key? key,
   }) : super(key: key);
 

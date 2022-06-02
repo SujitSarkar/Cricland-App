@@ -1,6 +1,7 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -140,8 +141,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //   );
 // }
 
-class LiveCardTile extends StatelessWidget {
-  const LiveCardTile(
+class FixturesCardTile extends StatelessWidget {
+  const FixturesCardTile(
       {Key? key,
       required this.title,
       required this.onTap,
@@ -155,189 +156,181 @@ class LiveCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
+    return Card(
+      color: PublicController.pc.toggleCardBg(),
+      elevation: 8,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Card(
-          color: PublicController.pc.toggleCardBg(),
-          elevation: 8,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Indian Premium League",
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    )),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Indian Premium League",
+                  style: TextStyle(
+                    fontSize: dSize(.04),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                )),
+            const SizedBox(
+              height: 10,
+            ),
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          'assets/indian_flag.png',
-                          scale: 4,
-                        ),
-                        Text(
-                          'India',
-                          style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor()),
-                        ),
                         Row(
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                text: '140-5',
-                                style: TextStyle(
-                                    fontSize: dSize(.03),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor()),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: ' 16.3',
+                            Image.asset(
+                              'assets/indian_flag.png',
+                              scale: 6,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'India ',
+                                  style: TextStyle(
+                                      fontSize: dSize(.05),
+                                      fontWeight: FontWeight.w500,
+                                      color: PublicController.pc
+                                          .toggleTextColor()),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: '140-5',
                                     style: TextStyle(
-                                        fontSize: dSize(.02),
+                                        fontSize: dSize(.03),
                                         fontWeight: FontWeight.w500,
                                         color: PublicController.pc
                                             .toggleTextColor()),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: ' 16.3',
+                                        style: TextStyle(
+                                            fontSize: dSize(.02),
+                                            fontWeight: FontWeight.w500,
+                                            color: PublicController.pc
+                                                .toggleTextColor()),
+                                      ),
+                                      // TextSpan(text: ' world!'),
+                                    ],
                                   ),
-                                  // TextSpan(text: ' world!'),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            const Icon(
-                              Icons.sports_cricket_outlined,
-                              color: Colors.red,
-                            )
                           ],
                         ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '  VS',
-                          style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor()),
-                        ),
-                        const SizedBox(
-                          height: 5,
+                        SizedBox(
+                          height: 10,
                         ),
                         Row(
-                          children: const [
-                            Icon(
-                              FontAwesomeIcons.circleDot,
-                              size: 15,
-                              color: Colors.red,
+                          children: [
+                            Image.asset(
+                              'assets/bd_flag.png',
+                              scale: 16,
                             ),
                             SizedBox(
-                              width: 5,
+                              width: 10,
                             ),
-                            Text(
-                              "Live",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            )
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Bangladesh ',
+                                  style: TextStyle(
+                                      fontSize: dSize(.05),
+                                      fontWeight: FontWeight.w500,
+                                      color: PublicController.pc
+                                          .toggleTextColor()),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: '140-5',
+                                    style: TextStyle(
+                                        fontSize: dSize(.03),
+                                        fontWeight: FontWeight.w500,
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: ' 16.3',
+                                        style: TextStyle(
+                                            fontSize: dSize(.02),
+                                            fontWeight: FontWeight.w500,
+                                            color: PublicController.pc
+                                                .toggleTextColor()),
+                                      ),
+                                      // TextSpan(text: ' world!'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const Text(
-                          "7 Runs need to be win",
-                          style: TextStyle(
-                              color: Colors.green, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    Column(
+                  ),
+                  VerticalDivider(
+                    width: 1,
+                    thickness: 1,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/bd_flag.png',
-                          scale: 10,
-                        ),
                         Text(
-                          'Bangladesh',
+                          "MDX Won",
                           style: TextStyle(
                             fontSize: dSize(.04),
                             fontWeight: FontWeight.w500,
                             color: PublicController.pc.toggleTextColor(),
                           ),
                         ),
-                        Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                text: '140-5',
-                                style: TextStyle(
-                                    fontSize: dSize(.03),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor()),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: ' 16.3',
-                                    style: TextStyle(
-                                        fontSize: dSize(.02),
-                                        fontWeight: FontWeight.w500,
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
-                                  ),
-                                  // TextSpan(text: ' world!'),
-                                ],
-                              ),
-                            ),
-                            // const Icon(
-                            //   Icons.sports_cricket_outlined,
-                            //   color: Colors.red,
-                            // )
-                          ],
+                        Text(
+                          "by 30 runs",
+                          style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
                         ),
                       ],
-                    )
-                  ],
-                ),
-              ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
 
-class LiveCard extends StatelessWidget {
-  const LiveCard({Key? key, required this.child}) : super(key: key);
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: Container(
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            color: PublicController.pc.toggleCardBg(),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        child: child,
-      ),
-    );
-  }
-}
+// class LiveCard extends StatelessWidget {
+//   const LiveCard({Key? key, required this.child}) : super(key: key);
+//   final Widget child;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       padding: const EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//           color: PublicController.pc.toggleCardBg(),
+//           borderRadius: const BorderRadius.all(Radius.circular(8))),
+//       child: child,
+//     );
+//   }
+// }

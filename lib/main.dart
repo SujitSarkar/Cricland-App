@@ -1,3 +1,4 @@
+import 'package:cricland/more/controller/more_controller.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/screens/splash_screen.dart';
@@ -13,6 +14,7 @@ void main() async {
   Variables.darkStatusBarTheme;
   final PublicController pc = Get.put(PublicController());
   final LanguageController lc = Get.put(LanguageController());
+  final MoreController mc = Get.put(MoreController());
   runApp(const MyApp());
 }
 

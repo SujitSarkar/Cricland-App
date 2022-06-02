@@ -3,7 +3,7 @@ import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AVLTextFormField extends StatelessWidget {
+class CLTextFormField extends StatelessWidget {
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
   final Function()? onTap;
@@ -25,7 +25,7 @@ class AVLTextFormField extends StatelessWidget {
   final bool isObscure;
   final int maxLines;
 
-  const AVLTextFormField({
+  const CLTextFormField({
     Key? key,
     this.textEditingController,
     this.focusNode,

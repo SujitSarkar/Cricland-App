@@ -48,7 +48,7 @@ class Variables {
       ),
       canvasColor: Colors.transparent,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AllColor.appLightBg,
+        backgroundColor: AllColor.primaryColor,
         elevation: 0.0,
         showUnselectedLabels: true,
         selectedItemColor: AllColor.primaryColor,

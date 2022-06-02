@@ -4,22 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardTile extends StatelessWidget {
-  const CardTile({Key? key,required this.title,required this.onTap, this.leadingIcon, this.trailingWidget}) : super(key: key);
+  const CardTile({Key? key,required this.title,required this.onTap, this.leadingIcon, this.trailingWidget, this.showDivider}) : super(key: key);
   final IconData? leadingIcon;
   final String title;
   final Widget? trailingWidget;
   final Function() onTap;
+  final bool? showDivider;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return InkWell(
       onTap: onTap,
-      leading: leadingIcon!=null?Icon(leadingIcon,color: Colors.grey,size: dSize(.045)):null,
-      title: Text(title,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
-      trailing: trailingWidget??Icon(FontAwesomeIcons.angleRight,size: dSize(.045),color: Colors.grey),
-      contentPadding: const EdgeInsets.all(0.0),
-      dense: true,
-      horizontalTitleGap: -5.0,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(leadingIcon,color: PublicController.pc.togglePrimaryGrey(),size: dSize(.05)),
+          SizedBox(width: dSize(.03)),
+
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(title,maxLines: 1,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
+                    trailingWidget??Icon(FontAwesomeIcons.caretRight,size: dSize(.045),color: PublicController.pc.togglePrimaryGrey()),
+                  ],
+                ),
+                if(showDivider!= null && showDivider!)Divider(height: dSize(.06), color: Colors.grey),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
