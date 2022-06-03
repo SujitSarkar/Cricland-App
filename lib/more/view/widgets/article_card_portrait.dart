@@ -28,7 +28,7 @@ class ArticleCardPortrait extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-              child: Image.asset('assets/article_land.jpg',width: double.infinity,fit: BoxFit.cover)),
+              child: Image.asset('assets/t20.png',height: dSize(.5),width: double.infinity,fit: BoxFit.cover)),
             SizedBox(height: dSize(.04)),
 
             Padding(

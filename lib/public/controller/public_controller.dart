@@ -54,6 +54,8 @@ class PublicController extends GetxController{
   Color togglePrimaryGrey()=> isLight.value?AllColor.primaryColor:Colors.grey;
   Color toggleTextColor()=> isLight.value?AllColor.lightTextColor:AllColor.darkTextColor;
   Color toggleCardBg()=> isLight.value?AllColor.lightCardColor:AllColor.darkCardColor;
+  Color togglePagedBg()=> isLight.value?AllColor.appLightBg:AllColor.appDarkBg;
+  Color toggleTabColor()=> isLight.value?AllColor.appLightBg:AllColor.primaryColor;
   Color toggleCardHeader()=> isLight.value?AllColor.lightCardHeader:AllColor.darkCardHeader;
   dynamic toggleStatusBar()=> isLight.value?Variables.lightStatusBarTheme:Variables.darkStatusBarTheme;
 

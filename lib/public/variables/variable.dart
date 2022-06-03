@@ -19,6 +19,7 @@ class Variables {
   static const List<String> iccRank = ['SR','Maiden','ICC Rank',''];
   static const List<String> playerMatchOverview = ['Runs','Inns','Strike Rate','Average'];
   static const List<String> scoreDateMatch = ['Score','Date','Match'];
+  static const List<String> newsCategory = ['News','Video','Biography'];
 
   static final lightStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
        const SystemUiOverlayStyle(

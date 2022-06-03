@@ -25,7 +25,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
   }
 
   final TextStyle _titleStyle = TextStyle(
-      fontSize: dSize(.034),
+      fontSize: dSize(.038),
       color: PublicController.pc.toggleTextColor());
 
   @override
@@ -247,23 +247,20 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
       },
       isScrollable: true,
       controller: _tabController,
-      indicator: const BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                width: 3.5,
-                color: AllColor.tabUnderlineColor,
-              ))),
+      labelColor: PublicController.pc.toggleLoadingColor(),
+      indicator: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(dSize(.02)),
+            topRight: Radius.circular(dSize(.02))
+          ),
+      color: PublicController.pc.toggleTabColor()),
+      unselectedLabelColor: Colors.grey,
       indicatorSize: TabBarIndicatorSize.label,
       physics: const BouncingScrollPhysics(),
       tabs: Variables.manCategoryList.map<Widget>((String item)=>
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(item,style: TextStyle(color: Variables.manCategoryList[_tabController.index]==item?AllColor.darkTextColor: Colors.grey)),
-              ],
-            ),
+            padding: EdgeInsets.symmetric(vertical: dSize(.01),horizontal: dSize(.02)),
+            child: Text(item),
           )).toList(),
     ),
   );

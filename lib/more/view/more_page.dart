@@ -13,7 +13,6 @@ import 'package:launch_review/launch_review.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../public/variables/colors.dart';
 
 class MorePage extends StatefulWidget {
@@ -25,7 +24,7 @@ class MorePage extends StatefulWidget {
 
 class _MorePageState extends State<MorePage> {
   final TextStyle _titleStyle = TextStyle(
-      fontSize: dSize(.04),
+      fontSize: dSize(.042),
       fontWeight: FontWeight.w500,
       color: PublicController.pc.toggleTextColor());
 
@@ -75,8 +74,8 @@ class _MorePageState extends State<MorePage> {
               onTap: () {
                 Get.to(()=>PremiumPage());
               },
-              leadingIcon: FontAwesomeIcons.language,
-              title: 'Cricland - Cricket Exchange',
+              leadingIcon: FontAwesomeIcons.crown,
+              title: 'Cricland',
               trailingWidget: Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: dSize(.03), vertical: dSize(.01)),

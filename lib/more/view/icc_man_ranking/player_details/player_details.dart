@@ -113,7 +113,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(item,style: TextStyle(color: Variables.playerDetails[_tabController.index]==item?AllColor.darkTextColor: Colors.grey)),
+                  Text(item),
                 ],
               ),
             )).toList(),

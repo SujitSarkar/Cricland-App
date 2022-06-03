@@ -38,6 +38,7 @@ class PlayerInfo extends StatelessWidget {
         SizedBox(height: dSize(.1)),
 
         Text('About Sakib-Al-Hasan',style: _textStyle.copyWith(fontSize: dSize(.04),fontWeight: FontWeight.bold)),
+        SizedBox(height: dSize(.02)),
 
         Container(
           padding: EdgeInsets.all(dSize(.04)),
