@@ -1,4 +1,7 @@
+import 'package:cricland/IPL/view/details_view/key_state_screen.dart';
+import 'package:cricland/IPL/view/widgets/featured_match_tile.dart';
 import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
+import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -29,169 +32,64 @@ class _OverViewTabState extends State<OverViewTab> {
                     color: PublicController.pc.toggleTextColor(),
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "All Matches",
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_sharp,
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "All Matches >",
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
                       color: PublicController.pc.toggleTextColor(),
-                      size: 15,
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                )
               ],
-            ),
-            SizedBox(
-              height: 10,
             ),
             ListView.builder(
                 itemCount: 5,
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.purple),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: Stack(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        'assets/t20.png',
-                                        height: 30,
-                                        width: 30,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      Text(
-                                        "GT",
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Text(
-                                        "GT Won",
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                      Text(
-                                        "by 7 wickets",
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "RCB",
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                      Image.asset(
-                                        'assets/t20.png',
-                                        height: 30,
-                                        width: 30,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                  return FeaturedMatchTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const HomeDetailsScreen(
+                              appBarTitle: 'GT vs RR, Final'),
                         ),
-                        Positioned(
-                            top: 30,
-                            left: -30,
-                            child: RotationTransition(
-                              turns: AlwaysStoppedAnimation(270 / 360),
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(50),
-                                    ),
-                                    color: Colors.pink),
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 18.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Final",
-                                        style: TextStyle(color: Colors.white70),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ))
-                      ],
-                    ),
+                      );
+                    },
+                    title: '',
                   );
                 }),
             ListTile(
-              leading: Text(
-                "Key Stats",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
+                leading: Text(
+                  "Key Stats",
+                  style: TextStyle(
+                    fontSize: dSize(.04),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
                 ),
-              ),
-              trailing: Text(
-                "See All >",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-            ),
+                trailing: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => KeyStateScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "See All >",
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                )),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
