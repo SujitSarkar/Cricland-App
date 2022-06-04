@@ -250,11 +250,19 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
       labelColor: PublicController.pc.toggleLoadingColor(),
       indicator: BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(dSize(.02)),
-            topRight: Radius.circular(dSize(.02))
+              topLeft: Radius.circular(dSize(.02)),
+              topRight: Radius.circular(dSize(.02))
           ),
-      color: PublicController.pc.toggleTabColor()),
-      unselectedLabelColor: Colors.grey,
+          color: PublicController.pc.toggleTabColor()),
+      unselectedLabelColor: Colors.grey.shade400,
+      unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: dSize(.045)
+      ),
+      labelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: dSize(.045)
+      ),
       indicatorSize: TabBarIndicatorSize.label,
       physics: const BouncingScrollPhysics(),
       tabs: Variables.manCategoryList.map<Widget>((String item)=>

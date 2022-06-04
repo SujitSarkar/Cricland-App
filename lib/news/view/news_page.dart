@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../more/view/widgets/article_card_portrait.dart';
 import '../../public/controller/public_controller.dart';
-import '../../public/variables/colors.dart';
 import '../../public/variables/config.dart';
 import '../../public/variables/variable.dart';
 
@@ -77,7 +76,15 @@ class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin
               topRight: Radius.circular(dSize(.02))
           ),
           color: PublicController.pc.toggleTabColor()),
-      unselectedLabelColor: Colors.grey,
+      unselectedLabelColor: Colors.grey.shade400,
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: dSize(.045)
+      ),
+      labelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: dSize(.045)
+      ),
       indicatorSize: TabBarIndicatorSize.label,
       physics: const BouncingScrollPhysics(),
       tabs: Variables.newsCategory.map<Widget>((String item)=>

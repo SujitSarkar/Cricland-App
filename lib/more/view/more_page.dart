@@ -50,21 +50,14 @@ class _MorePageState extends State<MorePage> {
             children: [
               CardTile(
                   leadingIcon: FontAwesomeIcons.userLarge,
-                  title: 'ICC Men\'s Ranking',
-                  showDivider: true,
-                  onTap: () {
-                    Get.to(() => const ICCManRankingPage());
-                  }),
-              CardTile(
-                  leadingIcon: FontAwesomeIcons.userNurse,
-                  title: 'ICC Women\'s Ranking',
+                  title: 'ICC Ranking',
                   onTap: () {
                     Get.to(() => const ICCManRankingPage());
                   })
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Premium
         Text('Premium', style: _titleStyle),
@@ -96,7 +89,7 @@ class _MorePageState extends State<MorePage> {
                 ),
               )),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Follow Us
         Text('Follow Us', style: _titleStyle),
@@ -139,7 +132,7 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Settings
         Text('Setting & Appearance', style: _titleStyle),
@@ -202,7 +195,7 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Support
         Text('Rate Us', style: _titleStyle),
@@ -238,7 +231,7 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Terms & privacy
         Text('About', style: _titleStyle),
