@@ -770,6 +770,9 @@ class _InfoViewState extends State<InfoView> {
                 onTap: () {},
               ),
             ),
+            SizedBox(
+              height: 10,
+            ),
             MoreCard(
                 child: Column(
               children: [
@@ -803,6 +806,9 @@ class _InfoViewState extends State<InfoView> {
                 ),
               ],
             )),
+            SizedBox(
+              height: 10,
+            ),
             MoreCard(
               child: ListTile(
                 trailing: Icon(
@@ -938,7 +944,14 @@ class _InfoViewState extends State<InfoView> {
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
-                    title: Text("Matches Played"),
+                    title: Text(
+                      "Matches Played",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.03),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     trailing: Text(
                       '10',
                       style: TextStyle(
@@ -961,7 +974,14 @@ class _InfoViewState extends State<InfoView> {
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
-                    title: Text("Win"),
+                    title: Text(
+                      "Win",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.03),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     trailing: Text(
                       '60%',
                       style: TextStyle(
@@ -984,7 +1004,14 @@ class _InfoViewState extends State<InfoView> {
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
-                    title: Text("Average Score"),
+                    title: Text(
+                      "Average Score",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.03),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     trailing: Text(
                       '170',
                       style: TextStyle(
@@ -1007,7 +1034,14 @@ class _InfoViewState extends State<InfoView> {
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
-                    title: Text("Highest Score"),
+                    title: Text(
+                      "Highest Score",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.03),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     trailing: Text(
                       '222',
                       style: TextStyle(
@@ -1030,7 +1064,14 @@ class _InfoViewState extends State<InfoView> {
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
-                    title: Text("Lowest Score"),
+                    title: Text(
+                      "Lowest Score",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.03),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     trailing: Text(
                       '144',
                       style: TextStyle(

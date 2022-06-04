@@ -26,30 +26,32 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
           topLeft: Radius.circular(50),
         ),
       ),
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          SizedBox(
-            height: 12,
-          ),
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return MoreCard(
-                  child: LiveCardTile(
-                onTap: () {
-                  Get.to(HomeDetailsScreen(
-                    appBarTitle: "NK vs NWW, 1st T20",
-                  ));
-                },
-                title: '',
-              ));
-              //LiveCart(context);
-            },
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            SizedBox(
+              height: 5,
+            ),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 10,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return LiveCardTile(
+                  onTap: () {
+                    Get.to(HomeDetailsScreen(
+                      appBarTitle: "NK vs NWW, 1st T20",
+                    ));
+                  },
+                  title: '',
+                );
+                //LiveCart(context);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

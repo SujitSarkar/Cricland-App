@@ -172,10 +172,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                       child: Text(
                                         'VS',
                                         style: TextStyle(
-                                          fontSize: dSize(.05),
-                                          fontWeight: FontWeight.w500,
+                                          fontSize: dSize(.03),
                                           color: PublicController.pc
-                                              .toggleTextColor(),
+                                              .toggleCardBg(),
                                         ),
                                       ),
                                     ),

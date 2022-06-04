@@ -96,7 +96,17 @@ class _CommentaryViewState extends State<CommentaryView> {
             ],
           ),
           Container(
-            child: Text("Commentary View"),
+            child: Text(
+              "Commentary View",
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: dSize(.04),
+                color: PublicController.pc.toggleTextColor(),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           Expandable(
             backgroundColor: PublicController.pc.toggleCardBg(),
@@ -110,15 +120,27 @@ class _CommentaryViewState extends State<CommentaryView> {
               child: RichText(
                 text: TextSpan(
                   text: 'NK',
-                  style: DefaultTextStyle.of(context).style,
-                  children: const <TextSpan>[
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                  children: <TextSpan>[
                     TextSpan(
                       text: ' vs ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
                     ),
                     TextSpan(
                       text: 'NWW',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
                     ),
                   ],
                 ),
