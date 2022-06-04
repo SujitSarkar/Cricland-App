@@ -57,7 +57,7 @@ class _OverViewTabState extends State<OverViewTab> {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
