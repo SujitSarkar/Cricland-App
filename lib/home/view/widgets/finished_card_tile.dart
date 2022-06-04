@@ -223,7 +223,7 @@ class FinishedCardTile extends StatelessWidget {
                     Text(
                       '  VS',
                       style: TextStyle(
-                          fontSize: dSize(.05),
+                          fontSize: dSize(.035),
                           fontWeight: FontWeight.w500,
                           color: PublicController.pc.toggleTextColor()),
                     ),
@@ -235,7 +235,7 @@ class FinishedCardTile extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
-                        fontSize: dSize(.045),
+                        fontSize: dSize(.04),
                       ),
                     ),
                     Text(

@@ -1,3 +1,9 @@
+import 'package:cricland/home/view/widgets/batter_card.dart';
+import 'package:cricland/home/view/widgets/bowler_card_tile.dart';
+import 'package:cricland/home/view/widgets/real_time_win_card.dart';
+import 'package:cricland/more/view/widgets/card_tile.dart';
+import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class LiveView extends StatefulWidget {
@@ -10,8 +16,175 @@ class LiveView extends StatefulWidget {
 class _LiveViewState extends State<LiveView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Live View"),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (var i = 0; i < 10; i++)
+                  IntrinsicHeight(
+                    child: Row(
+                      children: [
+                        Text(
+                          "Over 1",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: dSize(.04),
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(5.0),
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.white),
+                            child: Text(
+                              '0',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: Text(
+                              'wd',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.redAccent),
+                            child: Text(
+                              'W',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: Text(
+                              '4',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: Text(
+                              '0',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: Text(
+                              '6',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '=',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: dSize(.04),
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration:
+                                const BoxDecoration(shape: BoxShape.circle),
+                            child: Text(
+                              '10',
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        VerticalDivider(
+                          width: 2,
+                          thickness: 2,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        )
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          LiveWinCardTile(
+            onTap: () {},
+            title: '',
+          ),
+          BatterCardTile(
+            title: '',
+            onTap: () {},
+          ),
+          BowlerCardTile(
+            title: '',
+            onTap: () {},
+          ),
+        ],
+      ),
     );
   }
 }

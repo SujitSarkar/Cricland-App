@@ -48,9 +48,10 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
               Container(
                 decoration: BoxDecoration(
                     border: Border.all(
-                  width: 1,
-                  color: PublicController.pc.toggleTextColor(),
-                )),
+                      width: 1,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton2(
                     alignment: Alignment.center,
@@ -97,10 +98,10 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                             padding: const EdgeInsets.all(3.0),
                             decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
-                                  Radius.circular(10),
+                                  Radius.circular(5),
                                 ),
                                 border: Border.all(
-                                  width: 2,
+                                  width: 1,
                                   color: PublicController.pc.toggleTextColor(),
                                 )),
                             child: Center(
@@ -120,7 +121,6 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
               ),
             ],
           ),
-          const Divider(),
           const SizedBox(
             height: 5,
           ),
@@ -130,8 +130,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                 shrinkWrap: true,
                 itemCount: 50,
                 itemBuilder: (BuildContext context, int index) {
-                  return MoreCard(
-                      child: FixturesCardTile(
+                  return FixturesCardTile(
                     title: 'Indian Premium League',
                     leadingUrlOne: 'assets/indian_flag.png',
                     leadingUrlTwo: 'assets/bd_flag.png',
@@ -144,7 +143,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                     wonTeam: 'BD Won',
                     byWon: "by 7 wickets",
                     onTap: () {},
-                  ));
+                  );
                 }),
           ),
         ],

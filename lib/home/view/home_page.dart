@@ -79,6 +79,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
           bottom: const TabBar(
+            isScrollable: true,
             tabs: [
               Tab(
                 text: "Live (1)",

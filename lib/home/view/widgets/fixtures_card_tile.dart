@@ -222,7 +222,7 @@ class FixturesCardTile extends StatelessWidget {
                                 Text(
                                   teamOne!,
                                   style: TextStyle(
-                                      fontSize: dSize(.05),
+                                      fontSize: dSize(.045),
                                       fontWeight: FontWeight.w500,
                                       color: PublicController.pc
                                           .toggleTextColor()),
@@ -273,7 +273,7 @@ class FixturesCardTile extends StatelessWidget {
                                 Text(
                                   teamTwo!,
                                   style: TextStyle(
-                                      fontSize: dSize(.05),
+                                      fontSize: dSize(.045),
                                       fontWeight: FontWeight.w500,
                                       color: PublicController.pc
                                           .toggleTextColor()),
@@ -332,7 +332,7 @@ class FixturesCardTile extends StatelessWidget {
                       Text(
                         byWon!,
                         style: TextStyle(
-                          fontSize: dSize(.04),
+                          fontSize: dSize(.035),
                           fontWeight: FontWeight.w500,
                           color: PublicController.pc.toggleTextColor(),
                         ),

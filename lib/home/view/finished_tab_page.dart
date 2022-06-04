@@ -45,11 +45,9 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return MoreCard(
-                child: FinishedCardTile(
-                  onTap: () {},
-                  title: '',
-                ),
+              return FinishedCardTile(
+                onTap: () {},
+                title: '',
               );
               //LiveCart(context);
             },

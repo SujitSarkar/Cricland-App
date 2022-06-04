@@ -45,11 +45,9 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return MoreCard(
-                child: UpcomingCardTile(
-                  onTap: () {},
-                  title: '',
-                ),
+              return UpcomingCardTile(
+                onTap: () {},
+                title: '',
               );
               //LiveCart(context);
             },
