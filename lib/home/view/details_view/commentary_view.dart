@@ -20,28 +20,31 @@ class _CommentaryViewState extends State<CommentaryView> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MoreCard(
-                child: CommentaryProfileCardTile(
-                  title: 'DDDD',
-                  onTap: () {},
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MoreCard(
+                  child: CommentaryProfileCardTile(
+                    title: 'DDDD',
+                    onTap: () {},
+                  ),
                 ),
-              ),
-              MoreCard(
-                child: CommentaryProfileCardTile(
-                  title: 'DDDD',
-                  onTap: () {},
+                MoreCard(
+                  child: CommentaryProfileCardTile(
+                    title: 'DDDD',
+                    onTap: () {},
+                  ),
                 ),
-              ),
-              MoreCard(
-                child: CommentaryProfileCardTile(
-                  title: 'DDDD',
-                  onTap: () {},
+                MoreCard(
+                  child: CommentaryProfileCardTile(
+                    title: 'DDDD',
+                    onTap: () {},
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -76,7 +76,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                   Text(
                                     "Indian Premium league",
                                     style: TextStyle(
-                                      fontSize: dSize(.04),
+                                      fontSize: dSize(.035),
                                       fontWeight: FontWeight.w500,
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -91,11 +91,11 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                             Radius.circular(10))),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 5),
+                                          horizontal: 5.0, vertical: 3),
                                       child: Text(
                                         "Upcoming",
                                         style: TextStyle(
-                                          fontSize: dSize(.03),
+                                          fontSize: dSize(.025),
                                           fontWeight: FontWeight.w500,
                                           color: PublicController.pc
                                               .toggleTextColor(),
@@ -121,7 +121,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                     children: [
                                       Image.asset(
                                         'assets/bd_flag.png',
-                                        scale: 10,
+                                        height: dSize(.1),
+                                        width: dSize(.1),
+                                        fit: BoxFit.fill,
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -135,7 +137,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                           Text(
                                             'Bangladesh',
                                             style: TextStyle(
-                                              fontSize: dSize(.04),
+                                              fontSize: dSize(.035),
                                               fontWeight: FontWeight.w500,
                                               color: PublicController.pc
                                                   .toggleTextColor(),
@@ -144,7 +146,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                           Text(
                                             '216/9',
                                             style: TextStyle(
-                                              fontSize: dSize(.04),
+                                              fontSize: dSize(.035),
                                               fontWeight: FontWeight.w500,
                                               color: PublicController.pc
                                                   .toggleTextColor(),
@@ -153,7 +155,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                           Text(
                                             '49.6 ov.',
                                             style: TextStyle(
-                                              fontSize: dSize(.03),
+                                              fontSize: dSize(.025),
                                               fontWeight: FontWeight.w500,
                                               color: PublicController.pc
                                                   .toggleTextColor(),
@@ -168,7 +170,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                         shape: BoxShape.circle,
                                         color: Colors.green),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: const EdgeInsets.all(3.0),
                                       child: Text(
                                         'VS',
                                         style: TextStyle(
@@ -190,7 +192,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                           Text(
                                             'India',
                                             style: TextStyle(
-                                              fontSize: dSize(.04),
+                                              fontSize: dSize(.035),
                                               fontWeight: FontWeight.w500,
                                               color: PublicController.pc
                                                   .toggleTextColor(),
@@ -199,7 +201,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                           Text(
                                             '216/9',
                                             style: TextStyle(
-                                              fontSize: dSize(.04),
+                                              fontSize: dSize(.035),
                                               fontWeight: FontWeight.w500,
                                               color: PublicController.pc
                                                   .toggleTextColor(),
@@ -208,7 +210,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                           Text(
                                             '49.6 ov.',
                                             style: TextStyle(
-                                              fontSize: dSize(.03),
+                                              fontSize: dSize(.025),
                                               fontWeight: FontWeight.w500,
                                               color: PublicController.pc
                                                   .toggleTextColor(),
@@ -221,7 +223,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                       ),
                                       Image.asset(
                                         'assets/indian_flag.png',
-                                        scale: 4,
+                                        height: dSize(.1),
+                                        width: dSize(.1),
+                                        fit: BoxFit.fill,
                                       ),
                                     ],
                                   ),
@@ -252,7 +256,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                   child: Text(
                                     "Live Statistic",
                                     style: TextStyle(
-                                      fontSize: dSize(.04),
+                                      fontSize: dSize(.035),
                                       fontWeight: FontWeight.w500,
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -288,7 +292,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
-                    childAspectRatio: 1.5,
+                    childAspectRatio: 1.3,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20),
                 itemCount: 10,
@@ -314,6 +318,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       ],
                     ),
                     decoration: BoxDecoration(
+                      color: Colors.grey,
                       borderRadius: BorderRadius.circular(15),
                     ),
                   );

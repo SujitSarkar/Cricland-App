@@ -225,8 +225,8 @@ class _OverViewTabState extends State<OverViewTab> {
                             children: [
                               Image.asset(
                                 'assets/player.png',
-                                height: 60,
-                                width: 60,
+                                height: dSize(.12),
+                                width: dSize(.12),
                               ),
                               SizedBox(
                                 width: 10,
@@ -246,7 +246,7 @@ class _OverViewTabState extends State<OverViewTab> {
                                   Text(
                                     "Y Chahal",
                                     style: TextStyle(
-                                      fontSize: dSize(.04),
+                                      fontSize: dSize(.035),
                                       fontWeight: FontWeight.w500,
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -269,7 +269,7 @@ class _OverViewTabState extends State<OverViewTab> {
                           Text(
                             "27 Wickets",
                             style: TextStyle(
-                              fontSize: dSize(.05),
+                              fontSize: dSize(.04),
                               fontWeight: FontWeight.w500,
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -311,8 +311,8 @@ class _OverViewTabState extends State<OverViewTab> {
                             children: [
                               Image.asset(
                                 'assets/player.png',
-                                height: 60,
-                                width: 60,
+                                height: dSize(.12),
+                                width: dSize(.12),
                               ),
                               SizedBox(
                                 width: 10,
@@ -332,7 +332,7 @@ class _OverViewTabState extends State<OverViewTab> {
                                   Text(
                                     "Y Chahal",
                                     style: TextStyle(
-                                      fontSize: dSize(.04),
+                                      fontSize: dSize(.035),
                                       fontWeight: FontWeight.w500,
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -355,7 +355,7 @@ class _OverViewTabState extends State<OverViewTab> {
                           Text(
                             "27 Wickets",
                             style: TextStyle(
-                              fontSize: dSize(.05),
+                              fontSize: dSize(.04),
                               fontWeight: FontWeight.w500,
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -429,7 +429,7 @@ class _OverViewTabState extends State<OverViewTab> {
                               Text(
                                 "863",
                                 style: TextStyle(
-                                  fontSize: dSize(.06),
+                                  fontSize: dSize(.05),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
@@ -513,7 +513,7 @@ class _OverViewTabState extends State<OverViewTab> {
                               Text(
                                 "45",
                                 style: TextStyle(
-                                  fontSize: dSize(.06),
+                                  fontSize: dSize(.05),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
