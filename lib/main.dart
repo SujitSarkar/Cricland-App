@@ -32,14 +32,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(builder: (pc) {
       return GetMaterialApp(
-        // useInheritedMediaQuery: true,
-        // locale: DevicePreview.locale(context),
-        // builder: DevicePreview.appBuilder,
-        title: 'Cricland',
-        debugShowCheckedModeBanner: false,
-        theme: pc.toggleTheme(),
-        home: const SplashScreen(),
-      );
+          // useInheritedMediaQuery: true,
+          // locale: DevicePreview.locale(context),
+          // builder: DevicePreview.appBuilder,
+          title: 'Cricland',
+          debugShowCheckedModeBanner: false,
+          theme: pc.toggleTheme(),
+          home: const SplashScreen());
     });
   }
 }
