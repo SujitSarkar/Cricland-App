@@ -81,7 +81,7 @@ class InfoCardTile extends StatelessWidget {
             Divider(),
             ListTile(
               leading: Text(
-                "Series",
+                "Format",
                 style: TextStyle(
                   fontSize: dSize(.04),
                   fontWeight: FontWeight.w500,
@@ -89,26 +89,7 @@ class InfoCardTile extends StatelessWidget {
                 ),
               ),
               trailing: Text(
-                "Indian Premier League 2000",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Text(
-                "Series",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-              trailing: Text(
-                "Indian Premier League 2000",
+                "T20 League",
                 style: TextStyle(
                   fontSize: dSize(.04),
                   fontWeight: FontWeight.w500,
