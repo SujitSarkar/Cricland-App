@@ -1,8 +1,8 @@
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_news.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview.dart';
 import 'package:flutter/material.dart';
+import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/colors.dart';
 import '../../../../public/variables/config.dart';
 import '../../../../public/variables/variable.dart';
@@ -21,7 +21,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length:  Variables.playerDetails.length, vsync: this);
   }
 
   final TextStyle _titleStyle = TextStyle(
@@ -84,7 +84,6 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
     children: [
       PlayerOverview(),
       PlayerMatches(),
-      PlayerNews(),
       PlayerInfo(),
     ],
   );
@@ -99,23 +98,28 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>  with SingleTicke
         },
         isScrollable: true,
         controller: _tabController,
-        indicator: const BoxDecoration(
-            border: Border(
-                bottom: BorderSide(
-                  width: 3.5,
-                  color: AllColor.tabUnderlineColor,
-                ))),
+        labelColor: PublicController.pc.toggleLoadingColor(),
+        indicator: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(dSize(.02)),
+                topRight: Radius.circular(dSize(.02))
+            ),
+            color: PublicController.pc.toggleTabColor()),
+        unselectedLabelColor: Colors.grey.shade400,
+        unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: dSize(.045)
+        ),
+        labelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: dSize(.045)
+        ),
         indicatorSize: TabBarIndicatorSize.label,
         physics: const BouncingScrollPhysics(),
         tabs: Variables.playerDetails.map<Widget>((String item)=>
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(item),
-                ],
-              ),
+              padding: EdgeInsets.symmetric(vertical: dSize(.01),horizontal: dSize(.02)),
+              child: Text(item),
             )).toList(),
       ),
     ),

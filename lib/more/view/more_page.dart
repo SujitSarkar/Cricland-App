@@ -56,7 +56,7 @@ class _MorePageState extends State<MorePage> {
                     Get.to(() => const ICCManRankingPage());
                   }),
               CardTile(
-                  leadingIcon: FontAwesomeIcons.userNurse,
+                  leadingIcon: FontAwesomeIcons.userLarge,
                   title: 'ICC Women\'s Ranking',
                   onTap: () {
                     Get.to(() => const ICCManRankingPage());
@@ -64,7 +64,8 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
+
 
         ///Premium
         Text('Premium', style: _titleStyle),
@@ -96,7 +97,7 @@ class _MorePageState extends State<MorePage> {
                 ),
               )),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Follow Us
         Text('Follow Us', style: _titleStyle),
@@ -139,7 +140,7 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Settings
         Text('Setting & Appearance', style: _titleStyle),
@@ -202,7 +203,7 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Support
         Text('Rate Us', style: _titleStyle),
@@ -238,7 +239,7 @@ class _MorePageState extends State<MorePage> {
             ],
           ),
         ),
-        SizedBox(height: dSize(.12)),
+        SizedBox(height: dSize(.1)),
 
         ///Terms & privacy
         Text('About', style: _titleStyle),
@@ -337,7 +338,7 @@ class _MorePageState extends State<MorePage> {
         builder: (_) => StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
               return FractionallySizedBox(
-                heightFactor: .7,
+                heightFactor: .85,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -432,6 +433,41 @@ class _MorePageState extends State<MorePage> {
                                   selected: _isBanglaSelected,
                                   selectedTileColor:
                                       PublicController.pc.toggleStatusBar(),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: _isBanglaSelected == true
+                                        ? PublicController.pc.toggleTextColor()
+                                        : Colors.white, // red as border color
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
+                                child: ListTile(
+                                  onTap: () {
+                                    setState(() {
+                                      _isEnglishSelected = false;
+                                      _isBanglaSelected = true;
+                                    });
+                                  },
+                                  title: Text(
+                                    'हिन्दी',
+                                    style: TextStyle(
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                  ),
+                                  trailing: Icon(
+                                    Icons.check_circle,
+                                    color: _isBanglaSelected
+                                        ? PublicController.pc.toggleStatusBar()
+                                        : Colors.white,
+                                  ),
+                                  selected: _isBanglaSelected,
+                                  selectedTileColor:
+                                  PublicController.pc.toggleStatusBar(),
                                 ),
                               ),
                               const Spacer(),
