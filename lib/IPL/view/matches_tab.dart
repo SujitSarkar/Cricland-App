@@ -1,6 +1,8 @@
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:flutter/material.dart';
 
+import 'details_view/key_state_screen.dart';
+
 class MatchesTab extends StatefulWidget {
   const MatchesTab({Key? key}) : super(key: key);
 
@@ -34,7 +36,10 @@ class _MatchesTabState extends State<MatchesTab> {
                   reachSubTitleTwo: '19.3',
                   wonTeam: 'BD Won',
                   byWon: "by 7 wickets",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => KeyStateScreen()));
+                  },
                 );
               }),
         ),

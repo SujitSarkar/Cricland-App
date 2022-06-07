@@ -2,6 +2,8 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
+import 'over_view_tab.dart';
+
 class SquadsTab extends StatefulWidget {
   const SquadsTab({Key? key}) : super(key: key);
 
@@ -25,6 +27,9 @@ class _SquadsTabState extends State<SquadsTab> {
                 return Column(
                   children: [
                     ListTile(
+                        onTap: () {
+                          _showSquadsSheet(context);
+                        },
                         horizontalTitleGap: 2.0,
                         leading: Image.asset('assets/t20.png'),
                         trailing: Icon(
@@ -57,5 +62,17 @@ class _SquadsTabState extends State<SquadsTab> {
         ],
       ),
     );
+  }
+
+  void _showSquadsSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) => StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return const FractionallySizedBox(
+                heightFactor: 2.3,
+                child: BottomSheetScreen(),
+              );
+            }));
   }
 }
