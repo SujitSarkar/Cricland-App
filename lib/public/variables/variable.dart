@@ -10,31 +10,98 @@ class Variables {
   //   'Authorization': 'Bearer ${PublicController.pc.loginResponse.value.token}',
   // };
 
-  static const List<String> manCategoryList = ['Team','Batter','Bowler','All Rounder'];
-  static const List<String> manGameType = ['ODI','T20','Test'];
-  static const List<String> manGameType2 = ['All','ODI','T20','Test','100B'];
-  static const List<String> playerDetails = ['Overview','Matches','News','Player Info'];
-  static const List<String> playerOverview = ['Matches','Innings','Wickets', 'Best'];
-  static const List<String> bowlerOverview = ['Econ','3 Wkts','5 Wkts', 'Avg'];
-  static const List<String> iccRank = ['SR','Maiden','ICC Rank',''];
-  static const List<String> playerMatchOverview = ['Runs','Inns','Strike Rate','Average'];
-  static const List<String> scoreDateMatch = ['Score','Date','Match'];
-  static const List<String> newsCategory = ['News','Video','Biography'];
+  static const List<String> manCategoryList = [
+    'Team',
+    'Batter',
+    'Bowler',
+    'All Rounder'
+  ];
+  static const List<String> manGameType = ['ODI', 'T20', 'Test'];
+  static const List<String> manGameType2 = [
+    'All',
+    'ODI',
+    'T20',
+    'Test',
+    '100B'
+  ];
+  static const List<String> playerDetails = [
+    'Overview',
+    'Matches',
+    'News',
+    'Player Info'
+  ];
+  static const List<String> playerOverview = [
+    'Matches',
+    'Innings',
+    'Wickets',
+    'Best'
+  ];
+  static const List<String> bowlerOverview = [
+    'Econ',
+    '3 Wkts',
+    '5 Wkts',
+    'Avg'
+  ];
+  static const List<String> iccRank = ['SR', 'Maiden', 'ICC Rank', ''];
+  static const List<String> playerMatchOverview = [
+    'Runs',
+    'Inns',
+    'Strike Rate',
+    'Average'
+  ];
+  static const List<String> scoreDateMatch = ['Score', 'Date', 'Match'];
+  static const List<String> newsCategory = ['News', 'Video', 'Biography'];
+  static const List<String> iplTabsCategory = [
+    'Overview',
+    'Matches',
+    'Squads',
+    'Points Table',
+    'Info'
+  ];
+  static const List<String> iplDetailsTabsCategory = [
+    'Info',
+    'Fantasy',
+    'Commentary',
+    'Live',
+    'Scorecard',
+    'Graphs',
+    'Points Table',
+  ];
+  static const List<String> keyStateTabsCategory = [
+    'Most Runs',
+    'Most Wickets',
+    'Most Sixes',
+    'Highest Score',
+    'Best Figures',
+    'Strike Rate',
+    'Best Economy',
+    'Best Fantasy Points',
+  ];
+
+  static const List<String> teamSquadsTabsCategory = [
+    'ENG',
+    'NZ',
+  ];
+  static const List<String> homeTabsCategory = [
+    'Live(1)',
+    'Home',
+    'Upcoming',
+    'Finished',
+    'Fixtures',
+  ];
 
   static final lightStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
-       const SystemUiOverlayStyle(
-         statusBarColor: AllColor.appLightBg,
-         statusBarBrightness: Brightness.light,
-         statusBarIconBrightness: Brightness.dark,
-         systemStatusBarContrastEnforced: true
-      ));
+      const SystemUiOverlayStyle(
+          statusBarColor: AllColor.appLightBg,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
+          systemStatusBarContrastEnforced: true));
   static final darkStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
-       const SystemUiOverlayStyle(
-         statusBarColor: AllColor.appDarkBg,
-         statusBarBrightness: Brightness.dark,
-         statusBarIconBrightness: Brightness.light,
-         systemStatusBarContrastEnforced: true
-      ));
+      const SystemUiOverlayStyle(
+          statusBarColor: AllColor.appDarkBg,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
+          systemStatusBarContrastEnforced: true));
 
   static final portraitMood = SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -43,10 +110,10 @@ class Variables {
       primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appLightBg,
       appBarTheme: AppBarTheme(
-        backgroundColor: AllColor.appDarkBg,
-        titleTextStyle: TextStyle(color: AllColor.darkTextColor,fontWeight: FontWeight.bold),
-        elevation: 0.0
-      ),
+          backgroundColor: AllColor.appDarkBg,
+          titleTextStyle: TextStyle(
+              color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
+          elevation: 0.0),
       canvasColor: Colors.transparent,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AllColor.primaryColor,
@@ -57,9 +124,8 @@ class Variables {
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
-      bottomSheetTheme: const BottomSheetThemeData(
-        modalBackgroundColor: Colors.transparent
-      ),
+      bottomSheetTheme:
+          const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',
       textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "openSans"),
@@ -74,18 +140,16 @@ class Variables {
           bodyText2: TextStyle(fontFamily: "openSans"),
           caption: TextStyle(fontFamily: "openSans"),
           button: TextStyle(fontFamily: "openSans"),
-          overline: TextStyle(fontFamily: "openSans")
-      )
-  );
+          overline: TextStyle(fontFamily: "openSans")));
 
   static final ThemeData darkThemeData = ThemeData(
       primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appDarkBg,
       appBarTheme: AppBarTheme(
           backgroundColor: AllColor.appDarkBg,
-          titleTextStyle: TextStyle(color: AllColor.darkTextColor,fontWeight: FontWeight.bold),
-          elevation: 0.0
-      ),
+          titleTextStyle: TextStyle(
+              color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
+          elevation: 0.0),
       canvasColor: Colors.transparent,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AllColor.appDarkBg,
@@ -96,9 +160,8 @@ class Variables {
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
-      bottomSheetTheme: const BottomSheetThemeData(
-          modalBackgroundColor: Colors.transparent
-      ),
+      bottomSheetTheme:
+          const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',
       textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "openSans"),
@@ -113,11 +176,10 @@ class Variables {
           bodyText2: TextStyle(fontFamily: "openSans"),
           caption: TextStyle(fontFamily: "openSans"),
           button: TextStyle(fontFamily: "openSans"),
-          overline: TextStyle(fontFamily: "openSans")
-      )
-  );
+          overline: TextStyle(fontFamily: "openSans")));
 
-  static String aboutSakib = 'Shakib Al Hasan made his test debut in 2007 against India. His breakthrough came in the '
+  static String aboutSakib =
+      'Shakib Al Hasan made his test debut in 2007 against India. His breakthrough came in the '
       'Test against New Zealand in Chittagong in 2008. He picked up 7/36, which to date is the best figure by a Bangladeshi '
       'bowler. In the 2012 Asia Cup, Shakib scored 237 runs, including three fifties, and took six wickets. Bangladesh '
       'progressed to the tournament\'s final for the first time, where they lost to Pakistan by two runs. Shakib Al Hasan\n\n'
@@ -132,8 +194,6 @@ class Variables {
       'the top of the headlines for aggressive behavior inside and outside of the field. He is the most followed person on'
       ' Facebook from Bangladesh, with more than 15.5 million followers.[14] As of March 2022, Shakib holds the record for'
       ' the most men\'s Twenty20 International wickets, at 119.';
-
-
 }
 
 void showToast(message) => Fluttertoast.showToast(
@@ -143,5 +203,4 @@ void showToast(message) => Fluttertoast.showToast(
     timeInSecForIosWeb: 1,
     backgroundColor: Colors.black87,
     textColor: Colors.white,
-    fontSize: 16.0
-);
+    fontSize: 16.0);

@@ -8,6 +8,7 @@ import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -340,14 +341,22 @@ class BottomSheetScreen extends StatefulWidget {
   State<BottomSheetScreen> createState() => _BottomSheetScreenState();
 }
 
-class _BottomSheetScreenState extends State<BottomSheetScreen> {
+class _BottomSheetScreenState extends State<BottomSheetScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  String _iplTabType = Variables.teamSquadsTabsCategory.first;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+        length: Variables.teamSquadsTabsCategory.length, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
           backgroundColor: PublicController.pc.toggleCardBg(),
           automaticallyImplyLeading: false,
           title: Text(
@@ -366,395 +375,395 @@ class _BottomSheetScreenState extends State<BottomSheetScreen> {
               ),
             ),
           ],
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(10),
-              child: Container(
-                // color: Colors.grey,
-                child: Column(
-                  children: <Widget>[
-                    TabBar(
-                      tabs: [
-                        Text(
-                          "ENG",
-                          style: TextStyle(
+          bottom: _tabBar()),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
                               color: PublicController.pc.toggleTextColor(),
-                              fontSize: 20),
-                        ),
-                        Text(
-                          "NZ",
-                          style: TextStyle(
+                            )),
+                        child: Center(
+                          child: Text(
+                            "All(14)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
                               color: PublicController.pc.toggleTextColor(),
-                              fontSize: 20),
+                            ),
+                          ),
                         ),
-                      ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "Bat(04)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "bowl(4)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "AR(3)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-              )),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "All(14)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "Bat(04)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "bowl(4)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "AR(3)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: GridView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 3 / 1,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10),
-                        itemCount: 100,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              //TODO Screen overview top
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                      color: PublicController.pc
-                                          .toggleTextColor())),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      "assets/player.png",
-                                      height: 50,
-                                      width: 50,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'S Brand',
-                                          style: TextStyle(
-                                            fontSize: dSize(.04),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor(),
-                                          ),
+                Expanded(
+                  child: GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 3 / 1,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10),
+                      itemCount: 100,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            //TODO Screen overview top
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color:
+                                        PublicController.pc.toggleTextColor())),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/player.png",
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'S Brand',
+                                        style: TextStyle(
+                                          fontSize: dSize(.04),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
                                         ),
-                                        Text(
-                                          'Bowler',
-                                          style: TextStyle(
-                                            fontSize: dSize(.035),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor(),
-                                          ),
+                                      ),
+                                      Text(
+                                        'Bowler',
+                                        style: TextStyle(
+                                          fontSize: dSize(.035),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        }),
-                  ),
-                  SizedBox(
-                    height: 200,
-                  ),
-                ],
-              ),
+                          ),
+                        );
+                      }),
+                ),
+                SizedBox(
+                  height: 200,
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "All(14)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "All(14)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "Bat(04)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "Bat(04)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "bowl(4)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "bowl(4)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color: PublicController.pc.toggleTextColor(),
-                              )),
-                          child: Center(
-                            child: Text(
-                              "AR(3)",
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
+                        child: Center(
+                          child: Text(
+                            "AR(3)",
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  Expanded(
-                    child: GridView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 3 / 1,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10),
-                        itemCount: 100,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              //TODO Screen overview top
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                      color: PublicController.pc
-                                          .toggleTextColor())),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      "assets/player.png",
-                                      height: 50,
-                                      width: 50,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'S Brand',
-                                          style: TextStyle(
-                                            fontSize: dSize(.04),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor(),
-                                          ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 3 / 1,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10),
+                      itemCount: 100,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            //TODO Screen overview top
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color:
+                                        PublicController.pc.toggleTextColor())),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/player.png",
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'S Brand',
+                                        style: TextStyle(
+                                          fontSize: dSize(.04),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
                                         ),
-                                        Text(
-                                          'Bowler',
-                                          style: TextStyle(
-                                            fontSize: dSize(.035),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor(),
-                                          ),
+                                      ),
+                                      Text(
+                                        'Bowler',
+                                        style: TextStyle(
+                                          fontSize: dSize(.035),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        }),
-                  ),
-                  SizedBox(
-                    height: 200,
-                  ),
-                ],
-              ),
+                          ),
+                        );
+                      }),
+                ),
+                SizedBox(
+                  height: 200,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+
+  PreferredSize _tabBar() => PreferredSize(
+        preferredSize: Size.fromHeight(dSize(.04)),
+        child: TabBar(
+          onTap: (covariant) async {
+            setState(() => _tabController.index = covariant);
+          },
+          isScrollable: true,
+          controller: _tabController,
+          labelColor: PublicController.pc.toggleLoadingColor(),
+          indicator: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(dSize(.02)),
+                  topRight: Radius.circular(dSize(.02))),
+              color: PublicController.pc.toggleTabColor()),
+          unselectedLabelColor: Colors.grey,
+          indicatorSize: TabBarIndicatorSize.label,
+          physics: const BouncingScrollPhysics(),
+          tabs: Variables.teamSquadsTabsCategory
+              .map<Widget>((String item) => Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: dSize(.01), horizontal: dSize(.02)),
+                    child: Text(item),
+                  ))
+              .toList(),
+        ),
+      );
 }

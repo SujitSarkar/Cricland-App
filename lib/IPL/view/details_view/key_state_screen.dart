@@ -5,6 +5,9 @@ import 'package:cricland/IPL/view/details_view/highest_score_tab.dart';
 import 'package:cricland/IPL/view/details_view/most_runs_tab.dart';
 import 'package:cricland/IPL/view/details_view/most_wickets_tab.dart';
 import 'package:cricland/IPL/view/details_view/strike_rate_tab.dart';
+import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
 
 import 'most_sixes_tab.dart';
@@ -16,14 +19,22 @@ class KeyStateScreen extends StatefulWidget {
   _KeyStateScreenState createState() => _KeyStateScreenState();
 }
 
-class _KeyStateScreenState extends State<KeyStateScreen> {
+class _KeyStateScreenState extends State<KeyStateScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  String _iplTabType = Variables.keyStateTabsCategory.first;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+        length: Variables.keyStateTabsCategory.length, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 8,
-      child: Scaffold(
-        appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
           title: Text("IPL 2022 Stats"),
           actions: [
             Center(child: Text('Seasons >')),
@@ -31,49 +42,47 @@ class _KeyStateScreenState extends State<KeyStateScreen> {
               width: 10,
             ),
           ],
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: [
-              Tab(
-                text: "Most Runs",
-              ),
-              Tab(
-                text: "Most Wickets",
-              ),
-              Tab(
-                text: "Most Sixes",
-              ),
-              Tab(
-                text: "Highest Score",
-              ),
-              Tab(
-                text: "Best Figures",
-              ),
-              Tab(
-                text: "Strike Rate",
-              ),
-              Tab(
-                text: "Best Economy",
-              ),
-              Tab(
-                text: "Best Fantasy Points",
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            MostRunTab(),
-            MostWicketsTab(),
-            MostSixesTab(),
-            HighestScoreTab(),
-            BestFigureTab(),
-            StrikeRateTab(),
-            BestEconomyTab(),
-            BestFantasyPointTab(),
-          ],
-        ),
+          bottom: _tabBar()),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          MostRunTab(),
+          MostWicketsTab(),
+          MostSixesTab(),
+          HighestScoreTab(),
+          BestFigureTab(),
+          StrikeRateTab(),
+          BestEconomyTab(),
+          BestFantasyPointTab(),
+        ],
       ),
     );
   }
+
+  PreferredSize _tabBar() => PreferredSize(
+        preferredSize: Size.fromHeight(dSize(.04)),
+        child: TabBar(
+          onTap: (covariant) async {
+            setState(() => _tabController.index = covariant);
+          },
+          isScrollable: true,
+          controller: _tabController,
+          labelColor: PublicController.pc.toggleLoadingColor(),
+          indicator: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(dSize(.02)),
+                  topRight: Radius.circular(dSize(.02))),
+              color: PublicController.pc.toggleTabColor()),
+          unselectedLabelColor: Colors.grey,
+          indicatorSize: TabBarIndicatorSize.label,
+          physics: const BouncingScrollPhysics(),
+          tabs: Variables.keyStateTabsCategory
+              .map<Widget>((String item) => Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: dSize(.01), horizontal: dSize(.02)),
+                    child: Text(item),
+                  ))
+              .toList(),
+        ),
+      );
 }
