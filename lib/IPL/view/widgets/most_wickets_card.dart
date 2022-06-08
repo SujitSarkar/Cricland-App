@@ -64,15 +64,14 @@ class MostWicketsCard extends StatelessWidget {
                         playerName!,
                         style: TextStyle(
                           fontSize: dSize(.03),
-                          fontWeight: FontWeight.w500,
                           color: PublicController.pc.toggleTextColor(),
                         ),
                       ),
                       Text(
                         teamName!,
                         style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
+                          fontSize: dSize(.03),
+                          fontWeight: FontWeight.bold,
                           color: PublicController.pc.toggleTextColor(),
                         ),
                       ),

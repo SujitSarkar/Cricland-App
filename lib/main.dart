@@ -17,12 +17,13 @@ void main() async {
   final PublicController pc = Get.put(PublicController());
   final LanguageController lc = Get.put(LanguageController());
   final MoreController mc = Get.put(MoreController());
-  runApp(MyApp()
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => MyApp(),
-      // ),
-      );
+  runApp(
+    //MyApp()
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PublicController>(builder: (pc) {
       return GetMaterialApp(
-          // useInheritedMediaQuery: true,
-          // locale: DevicePreview.locale(context),
-          // builder: DevicePreview.appBuilder,
+          useInheritedMediaQuery: true,
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
           theme: pc.toggleTheme(),

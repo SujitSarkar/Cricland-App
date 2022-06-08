@@ -33,7 +33,7 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(210),
+          preferredSize: Size.fromHeight(220),
           child: Container(
             color: AllColor.appDarkBg,
             child: Column(
