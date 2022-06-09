@@ -156,171 +156,174 @@ class FinishedCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: PublicController.pc.toggleCardBg(),
-      elevation: 8,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Indian Premium League",
-                  style: TextStyle(
-                    fontSize: dSize(.04),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                )),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Image.asset(
-                      'assets/indian_flag.png',
-                      scale: 4,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: PublicController.pc.toggleCardBg(),
+        elevation: 8,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Indian Premium League",
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
                     ),
-                    Text(
-                      'India',
-                      style: TextStyle(
+                  )),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/indian_flag.png',
+                        scale: 4,
+                      ),
+                      Text(
+                        'India',
+                        style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor()),
+                      ),
+                      Row(
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: '140-5',
+                              style: TextStyle(
+                                  fontSize: dSize(.03),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor()),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: ' 16.3',
+                                  style: TextStyle(
+                                      fontSize: dSize(.02),
+                                      fontWeight: FontWeight.w500,
+                                      color: PublicController.pc
+                                          .toggleTextColor()),
+                                ),
+                                // TextSpan(text: ' world!'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        '  VS',
+                        style: TextStyle(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor()),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "PBKS Won",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: dSize(.04),
+                        ),
+                      ),
+                      Text(
+                        "by 5 wickets",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: dSize(.03),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/bd_flag.png',
+                        scale: 10,
+                      ),
+                      Text(
+                        'Bangladesh',
+                        style: TextStyle(
                           fontSize: dSize(.04),
                           fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor()),
-                    ),
-                    Row(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: '140-5',
-                            style: TextStyle(
-                                fontSize: dSize(.03),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor()),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: ' 16.3',
-                                style: TextStyle(
-                                    fontSize: dSize(.02),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor()),
-                              ),
-                              // TextSpan(text: ' world!'),
-                            ],
-                          ),
+                          color: PublicController.pc.toggleTextColor(),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '  VS',
-                      style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor()),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "PBKS Won",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: dSize(.04),
                       ),
-                    ),
-                    Text(
-                      "by 5 wickets",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
+                      Row(
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: '140-5',
+                              style: TextStyle(
+                                  fontSize: dSize(.03),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor()),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: ' 16.3',
+                                  style: TextStyle(
+                                      fontSize: dSize(.02),
+                                      fontWeight: FontWeight.w500,
+                                      color: PublicController.pc
+                                          .toggleTextColor()),
+                                ),
+                                // TextSpan(text: ' world!'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Divider(
+                height: 1,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "2 More Matches",
+                    style: TextStyle(
                         fontSize: dSize(.03),
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image.asset(
-                      'assets/bd_flag.png',
-                      scale: 10,
-                    ),
-                    Text(
-                      'Bangladesh',
-                      style: TextStyle(
-                        fontSize: dSize(.04),
                         fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: '140-5',
-                            style: TextStyle(
-                                fontSize: dSize(.03),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor()),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: ' 16.3',
-                                style: TextStyle(
-                                    fontSize: dSize(.02),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor()),
-                              ),
-                              // TextSpan(text: ' world!'),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Divider(
-              height: 1,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "2 More Matches",
-                  style: TextStyle(
-                      fontSize: dSize(.03),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor()),
-                ),
-                Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  color: PublicController.pc.toggleTextColor(),
-                  size: 20,
-                ),
-              ],
-            )
-            // ListTile(
-            //   title: Text("2 More Matches"),
-            //   trailing:
-            // )
-          ],
+                        color: PublicController.pc.toggleTextColor()),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: PublicController.pc.toggleTextColor(),
+                    size: 20,
+                  ),
+                ],
+              )
+              // ListTile(
+              //   title: Text("2 More Matches"),
+              //   trailing:
+              // )
+            ],
+          ),
         ),
       ),
     );

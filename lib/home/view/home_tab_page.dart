@@ -1,11 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/slider_card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../IPL/view/ipl_page.dart';
 
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({Key? key}) : super(key: key);
@@ -63,7 +67,11 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     builder: (BuildContext context) {
                       return SliderCardTile(
                         title: 'Indian Premium League',
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(HomeDetailsScreen(
+                            appBarTitle: "NK vs NWW, 1st T20",
+                          ));
+                        },
                         onStaticTap: () {},
                         leftCountryName: 'Bangladesh',
                         leftCountryOvers: '19.6',
@@ -105,40 +113,59 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     mainAxisSpacing: 20),
                 itemCount: 10,
                 itemBuilder: (BuildContext ctx, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.network(
-                          itemList[index],
-                          fit: BoxFit.fill,
-                          scale: .15,
-                        ),
-                        Text(
-                          countryNameList[index],
-                          style: TextStyle(
-                            fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor(),
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        IPLPage(),
+                      );
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.network(
+                            itemList[index],
+                            fit: BoxFit.fill,
+                            scale: .15,
                           ),
-                        ),
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(15),
+                          Text(
+                            countryNameList[index],
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   );
                 }),
-            Text(
-              'Play Games',
-              style: TextStyle(
-                fontSize: dSize(.045),
-                fontWeight: FontWeight.w500,
-                color: PublicController.pc.toggleTextColor(),
-              ),
-            ),
+            ListTile(
+                leading: Text(
+                  'Play Games',
+                  style: TextStyle(
+                    fontSize: dSize(.045),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                ),
+                trailing: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Gaming Zone',
+                    style: TextStyle(
+                      fontSize: dSize(.045),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                )),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -157,12 +184,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                             ),
                             trailing: TextButton(
                               onPressed: () {},
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      PublicController.pc.togglePrimaryGrey())),
                               child: Text(
                                 "PLAY",
                                 style: TextStyle(
                                   fontSize: dSize(.04),
                                   fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor(),
+                                  color: PublicController.pc.togglePagedBg(),
                                 ),
                               ),
                             ),

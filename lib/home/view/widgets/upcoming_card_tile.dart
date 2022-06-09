@@ -156,124 +156,127 @@ class UpcomingCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: PublicController.pc.toggleCardBg(),
-      elevation: 8,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Indian Premium League",
-                  style: TextStyle(
-                    fontSize: dSize(.04),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: PublicController.pc.toggleCardBg(),
+        elevation: 8,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Indian Premium League",
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
                   ),
-                ),
-                Icon(
-                  Icons.notifications_active_outlined,
-                  color: PublicController.pc.toggleTextColor(),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Image.asset(
-                      'assets/indian_flag.png',
-                      scale: 4,
-                    ),
-                    Text(
-                      'India',
-                      style: TextStyle(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor()),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '  VS',
-                      style: TextStyle(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor()),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Upcoming",
-                      style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor()),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                  Icon(
+                    Icons.notifications_active_outlined,
+                    color: PublicController.pc.toggleTextColor(),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/indian_flag.png',
+                        scale: 4,
+                      ),
+                      Text(
+                        'India',
+                        style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor()),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        '  VS',
+                        style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor()),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Upcoming",
+                        style: TextStyle(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor()),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            border: Border.all(
+                                color: PublicController.pc.toggleTextColor(),
+                                width: 2)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Start At ",
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: dSize(.035),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "07:45 PM",
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: dSize(.03),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                          border: Border.all(
-                              color: PublicController.pc.toggleTextColor(),
-                              width: 2)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Start At ",
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: dSize(.035),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "07:45 PM",
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: dSize(.03),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image.asset(
-                      'assets/bd_flag.png',
-                      scale: 10,
-                    ),
-                    Text(
-                      'Bangladesh',
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/bd_flag.png',
+                        scale: 10,
                       ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
+                      Text(
+                        'Bangladesh',
+                        style: TextStyle(
+                          fontSize: dSize(.04),
+                          fontWeight: FontWeight.w500,
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

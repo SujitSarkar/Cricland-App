@@ -5,6 +5,10 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'home_details_screen.dart';
 
 class FixturesTabScreen extends StatefulWidget {
   const FixturesTabScreen({Key? key}) : super(key: key);
@@ -142,7 +146,11 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                     reachSubTitleTwo: '19.3',
                     wonTeam: 'BD Won',
                     byWon: "by 7 wickets",
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(
+                        HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                      );
+                    },
                   );
                 }),
           ),

@@ -6,12 +6,14 @@ import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
 import 'package:cricland/IPL/view/widgets/most_run_card.dart';
 import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../more/view/icc_man_ranking/player_details/player_details.dart';
 import '../../public/variables/colors.dart';
 
 class OverViewTab extends StatefulWidget {
@@ -286,6 +288,7 @@ class _OverViewTabState extends State<OverViewTab> {
               ),
             ),
             GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
@@ -296,7 +299,8 @@ class _OverViewTabState extends State<OverViewTab> {
                 itemBuilder: (BuildContext ctx, index) {
                   return GestureDetector(
                     onTap: () {
-                      //TODO Screen overview top
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => KeyStateScreen()));
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -497,7 +501,10 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                       itemBuilder: (BuildContext ctx, index) {
                         return GestureDetector(
                           onTap: () {
-                            //TODO Screen overview top
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => PlayerDetailsPage()));
                           },
                           child: Container(
                             alignment: Alignment.center,

@@ -83,7 +83,7 @@ class Variables {
     'NZ',
   ];
   static const List<String> homeTabsCategory = [
-    'Live(1)',
+    'Live(3)',
     'Home',
     'Upcoming',
     'Finished',

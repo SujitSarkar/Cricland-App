@@ -172,177 +172,189 @@ class FixturesCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: PublicController.pc.toggleCardBg(),
-      elevation: 8,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: title != null
-                  ? Text(
-                      title!,
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    )
-                  : null,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            IntrinsicHeight(
-              child: Row(
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: PublicController.pc.toggleCardBg(),
+        elevation: 8,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            leadingUrlOne != null
-                                ? Image.asset(
-                                    leadingUrlOne!,
-                                    scale: 6,
-                                  )
-                                : Image.asset(
-                                    'assets/bd_flag.png',
-                                    scale: 6,
-                                  ),
-                            SizedBox(
-                              width: 10,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: title != null
+                        ? Text(
+                            title!,
+                            style: TextStyle(
+                              fontSize: dSize(.04),
+                              fontWeight: FontWeight.w500,
+                              color: PublicController.pc.toggleTextColor(),
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  teamOne!,
-                                  style: TextStyle(
-                                      fontSize: dSize(.045),
-                                      fontWeight: FontWeight.w500,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    text: reachTitleOne,
-                                    style: TextStyle(
-                                        fontSize: dSize(.03),
-                                        fontWeight: FontWeight.w500,
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: reachSubTitleOne,
-                                        style: TextStyle(
-                                            fontSize: dSize(.02),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor()),
-                                      ),
-                                      // TextSpan(text: ' world!'),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              leadingUrlTwo!,
-                              scale: 16,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  teamTwo!,
-                                  style: TextStyle(
-                                      fontSize: dSize(.045),
-                                      fontWeight: FontWeight.w500,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    text: reachTitleTwo,
-                                    style: TextStyle(
-                                        fontSize: dSize(.03),
-                                        fontWeight: FontWeight.w500,
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: reachSubTitleTwo,
-                                        style: TextStyle(
-                                            fontSize: dSize(.02),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor()),
-                                      ),
-                                      // TextSpan(text: ' world!'),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          )
+                        : null,
                   ),
-                  VerticalDivider(
-                    width: 1,
-                    thickness: 1,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        wonTeam!,
-                        style: TextStyle(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      Text(
-                        byWon!,
-                        style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ],
+                  Icon(
+                    Icons.notifications,
+                    color: Colors.grey,
                   )
                 ],
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              IntrinsicHeight(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              leadingUrlOne != null
+                                  ? Image.asset(
+                                      leadingUrlOne!,
+                                      scale: 6,
+                                    )
+                                  : Image.asset(
+                                      'assets/bd_flag.png',
+                                      scale: 6,
+                                    ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    teamOne!,
+                                    style: TextStyle(
+                                        fontSize: dSize(.045),
+                                        fontWeight: FontWeight.w500,
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: reachTitleOne,
+                                      style: TextStyle(
+                                          fontSize: dSize(.03),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor()),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: reachSubTitleOne,
+                                          style: TextStyle(
+                                              fontSize: dSize(.02),
+                                              fontWeight: FontWeight.w500,
+                                              color: PublicController.pc
+                                                  .toggleTextColor()),
+                                        ),
+                                        // TextSpan(text: ' world!'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                leadingUrlTwo!,
+                                scale: 16,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    teamTwo!,
+                                    style: TextStyle(
+                                        fontSize: dSize(.045),
+                                        fontWeight: FontWeight.w500,
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: reachTitleTwo,
+                                      style: TextStyle(
+                                          fontSize: dSize(.03),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor()),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: reachSubTitleTwo,
+                                          style: TextStyle(
+                                              fontSize: dSize(.02),
+                                              fontWeight: FontWeight.w500,
+                                              color: PublicController.pc
+                                                  .toggleTextColor()),
+                                        ),
+                                        // TextSpan(text: ' world!'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    VerticalDivider(
+                      width: 1,
+                      thickness: 1,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          wonTeam!,
+                          style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                        Text(
+                          byWon!,
+                          style: TextStyle(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

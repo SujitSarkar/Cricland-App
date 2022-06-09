@@ -15,12 +15,14 @@ class _SquadsTabState extends State<SquadsTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         children: [
           SizedBox(
             height: 10,
           ),
           ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
@@ -49,16 +51,6 @@ class _SquadsTabState extends State<SquadsTab> {
                   ],
                 );
               }),
-          Container(
-            child: Text(
-              "Squads",
-              style: TextStyle(
-                fontSize: dSize(.04),
-                fontWeight: FontWeight.w500,
-                color: PublicController.pc.toggleTextColor(),
-              ),
-            ),
-          ),
         ],
       ),
     );
