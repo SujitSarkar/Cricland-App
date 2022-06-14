@@ -67,7 +67,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
                                 ],
                               ),
                             )),
-                        Image.asset('assets/bd_logo.png',
+                        Image.asset('assets/player.png',
                             height: 150, fit: BoxFit.fitHeight),
                       ],
                     ))

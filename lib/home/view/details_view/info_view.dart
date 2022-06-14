@@ -129,7 +129,7 @@ class _InfoViewState extends State<InfoView> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 3,
             ),
             ListTile(
               tileColor: PublicController.pc.toggleCardBg(),
