@@ -18,6 +18,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage> with SingleTicker
   late TabController _tabController;
   String _gameType=Variables.manGameType.first;
 
+
   @override
   void initState() {
     super.initState();
