@@ -17,12 +17,13 @@ void main() async {
   final PublicController pc = Get.put(PublicController());
   final LanguageController lc = Get.put(LanguageController());
   final MoreController mc = Get.put(MoreController());
-  runApp(MyApp()
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => MyApp(),
-      // ),
-      );
+  runApp(
+    //MyApp()
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
