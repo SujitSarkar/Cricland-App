@@ -220,6 +220,123 @@ class _LiveViewState extends State<LiveView> {
               title: '',
               onTap: () {},
             ),
+            SizedBox(
+              height: 5,
+            ),
+            MoreCard(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        "SA",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                      Text(
+                        "36-1",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "z",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                      Text(
+                        "After 5.5 overs",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "IND",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                      Text(
+                        "37-0",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            MoreCard(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.share,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Share Score",
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: dSize(.04),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              onTap: () {
+                //TODO Settings Dialog
+              },
+              tileColor: PublicController.pc.toggleCardBg(),
+              leading: Icon(
+                Icons.settings,
+                color: PublicController.pc.toggleTextColor(),
+              ),
+              title: Text(
+                "Match Settings",
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: dSize(.04),
+                  color: PublicController.pc.toggleTextColor(),
+                ),
+              ),
+            )
           ],
         ),
       ),

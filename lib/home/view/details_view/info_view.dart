@@ -1135,6 +1135,75 @@ class _InfoViewState extends State<InfoView> {
                 ),
               ),
             ),
+            MoreCard(
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Umpire",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Nitin Menon,  Virender Sharma",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Third Umpire",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Anil Choudhary",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Referee",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    subtitle: Text(
+                      "javagal Srinath",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),
