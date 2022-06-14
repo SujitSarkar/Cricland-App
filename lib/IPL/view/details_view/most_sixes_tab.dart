@@ -17,14 +17,20 @@ class _MostSixesTabState extends State<MostSixesTab> {
         children: [
           Container(
             padding: const EdgeInsets.all(18.0),
-            color: Colors.grey.shade50,
+            color: PublicController.pc.toggleCardBg(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
                   children: [
-                    Text("J BUTTLER"),
+                    Text(
+                      "J BUTTLER",
+                      style: TextStyle(
+                        fontSize: dSize(.035),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     Text(
                       "863",
                       style: TextStyle(
@@ -48,7 +54,13 @@ class _MostSixesTabState extends State<MostSixesTab> {
                 ),
                 Column(
                   children: [
-                    Text("J BUTTLER"),
+                    Text(
+                      "J BUTTLER",
+                      style: TextStyle(
+                        fontSize: dSize(.035),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     Text(
                       "863",
                       style: TextStyle(
@@ -72,7 +84,13 @@ class _MostSixesTabState extends State<MostSixesTab> {
                 ),
                 Column(
                   children: [
-                    Text("J BUTTLER"),
+                    Text(
+                      "J BUTTLER",
+                      style: TextStyle(
+                        fontSize: dSize(.035),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     Text(
                       "863",
                       style: TextStyle(
@@ -103,17 +121,41 @@ class _MostSixesTabState extends State<MostSixesTab> {
               children: [
                 Row(
                   children: [
-                    Text("Pos"),
+                    Text(
+                      "Pos",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     SizedBox(
                       width: 20,
                     ),
-                    Text("Name"),
+                    Text(
+                      "Name",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     Spacer(),
-                    Text("Innings"),
+                    Text(
+                      "Innings",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                     SizedBox(
                       width: 20,
                     ),
-                    Text("Runs"),
+                    Text(
+                      "Runs",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
                   ],
                 ),
                 ListView.builder(
@@ -128,23 +170,55 @@ class _MostSixesTabState extends State<MostSixesTab> {
                           ),
                           Row(
                             children: [
-                              Text("1"),
+                              Text(
+                                "1",
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
                               SizedBox(
                                 width: 20,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Jos Buttler"),
-                                  Text("Rajasthan Royals"),
+                                  Text(
+                                    "Jos Buttler",
+                                    style: TextStyle(
+                                      fontSize: dSize(.035),
+                                      color:
+                                          PublicController.pc.toggleTextColor(),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Rajasthan Royals",
+                                    style: TextStyle(
+                                      fontSize: dSize(.035),
+                                      color:
+                                          PublicController.pc.toggleTextColor(),
+                                    ),
+                                  ),
                                 ],
                               ),
                               Spacer(),
-                              Text("10"),
+                              Text(
+                                "10",
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
                               SizedBox(
                                 width: 20,
                               ),
-                              Text("863"),
+                              Text(
+                                "863",
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
                             ],
                           ),
                         ],

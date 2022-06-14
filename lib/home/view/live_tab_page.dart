@@ -36,7 +36,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             ),
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,
+              itemCount: 3,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return LiveCardTile(

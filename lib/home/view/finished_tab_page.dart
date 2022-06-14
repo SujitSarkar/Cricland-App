@@ -5,6 +5,10 @@ import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'home_details_screen.dart';
 
 class FinishedTabScreen extends StatefulWidget {
   const FinishedTabScreen({Key? key}) : super(key: key);
@@ -46,7 +50,11 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return FinishedCardTile(
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                    HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                  );
+                },
                 title: '',
               );
               //LiveCart(context);
@@ -55,20 +63,6 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
           SizedBox(
             height: 12,
           ),
-          ListTile(
-            tileColor: PublicController.pc.toggleCardBg(),
-            title: Text(
-              "All Finished Matches",
-              style: TextStyle(
-                  fontSize: dSize(.045),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor()),
-            ),
-            trailing: Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: PublicController.pc.toggleTextColor(),
-            ),
-          )
         ],
       ),
     );

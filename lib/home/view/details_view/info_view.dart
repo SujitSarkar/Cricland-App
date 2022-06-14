@@ -1,3 +1,6 @@
+import 'package:cricland/IPL/view/ipl_page.dart';
+import 'package:cricland/IPL/view/over_view_tab.dart';
+import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:cricland/home/view/widgets/head_to_head_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
@@ -7,6 +10,8 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class InfoView extends StatefulWidget {
   const InfoView({Key? key}) : super(key: key);
@@ -59,15 +64,21 @@ class _InfoViewState extends State<InfoView> {
                   ],
                 ),
               ),
-              leading: Icon(
-                Icons.radio_button_checked,
-                color: PublicController.pc.toggleTextColor(),
+              leading: Image.asset(
+                'assets/t20.png',
+                height: 20,
+                width: 20,
               ),
             ),
             SizedBox(
               height: 10,
             ),
             ListTile(
+              onTap: () {
+                Get.to(
+                  IPLPage(),
+                );
+              },
               tileColor: PublicController.pc.toggleCardBg(),
               title: Text(
                 "1st T20",
@@ -118,7 +129,7 @@ class _InfoViewState extends State<InfoView> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 3,
             ),
             ListTile(
               tileColor: PublicController.pc.toggleCardBg(),
@@ -157,6 +168,9 @@ class _InfoViewState extends State<InfoView> {
               height: 10,
             ),
             ListTile(
+              onTap: () {
+                _showSquadsSheet(context);
+              },
               tileColor: PublicController.pc.toggleCardBg(),
               title: Text(
                 "Northern Knights",
@@ -180,6 +194,9 @@ class _InfoViewState extends State<InfoView> {
               height: 2,
             ),
             ListTile(
+              onTap: () {
+                _showSquadsSheet(context);
+              },
               tileColor: PublicController.pc.toggleCardBg(),
               title: Text(
                 "Northern Knights",
@@ -287,140 +304,150 @@ class _InfoViewState extends State<InfoView> {
               secondChild: Column(
                 children: [
                   for (var i = 0; i < teamSymbol.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: PublicController.pc.toggleCardBg(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/t20.png',
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'RR',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: dSize(.04),
-                                              color: PublicController.pc
-                                                  .toggleTextColor(),
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: ' 188-6',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: ' 20.0',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.03),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                            ],
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(HomeDetailsScreen(appBarTitle: 'T20 2022'));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          color: PublicController.pc.toggleCardBg(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IntrinsicHeight(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/t20.png',
+                                            height: 20,
+                                            width: 20,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/t20.png',
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'RR',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: dSize(.04),
-                                              color: PublicController.pc
-                                                  .toggleTextColor(),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'RR',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: dSize(.04),
+                                                color: PublicController.pc
+                                                    .toggleTextColor(),
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: ' 188-6',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 20.0',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.03),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: ' 188-6',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: ' 20.0',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.03),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const VerticalDivider(
-                                      width: 1,
-                                      thickness: 2,
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 3.0, horizontal: 7),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5),
-                                        ),
-                                        color: teamColors[i],
+                                        ],
                                       ),
-                                      child: Text(
-                                        teamSymbol[i],
-                                        style: TextStyle(color: Colors.white),
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("Qualifire 1 "),
-                                        Text("IPL 2022"),
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/t20.png',
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'RR',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: dSize(.04),
+                                                color: PublicController.pc
+                                                    .toggleTextColor(),
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: ' 188-6',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 20.0',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.03),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const VerticalDivider(
+                                        width: 1,
+                                        thickness: 2,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 3.0, horizontal: 7),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                          color: teamColors[i],
+                                        ),
+                                        child: Text(
+                                          teamSymbol[i],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("Qualifire 1 "),
+                                          Text("IPL 2022"),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -505,140 +532,150 @@ class _InfoViewState extends State<InfoView> {
               secondChild: Column(
                 children: [
                   for (var i = 0; i < teamSymbol.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: PublicController.pc.toggleCardBg(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/t20.png',
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'RR',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: dSize(.04),
-                                              color: PublicController.pc
-                                                  .toggleTextColor(),
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: ' 188-6',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: ' 20.0',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.03),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                            ],
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(HomeDetailsScreen(appBarTitle: 'T20 2022'));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          color: PublicController.pc.toggleCardBg(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IntrinsicHeight(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/t20.png',
+                                            height: 20,
+                                            width: 20,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/t20.png',
-                                          height: 20,
-                                          width: 20,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'RR',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: dSize(.04),
-                                              color: PublicController.pc
-                                                  .toggleTextColor(),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'RR',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: dSize(.04),
+                                                color: PublicController.pc
+                                                    .toggleTextColor(),
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: ' 188-6',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 20.0',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.03),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: ' 188-6',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: ' 20.0',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.03),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const VerticalDivider(
-                                      width: 1,
-                                      thickness: 2,
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 3.0, horizontal: 7),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5),
-                                        ),
-                                        color: teamColors[i],
+                                        ],
                                       ),
-                                      child: Text(
-                                        teamSymbol[i],
-                                        style: TextStyle(color: Colors.white),
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("Qualifire 1 "),
-                                        Text("IPL 2022"),
-                                      ],
-                                    )
-                                  ],
-                                )
-                              ],
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/t20.png',
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'RR',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: dSize(.04),
+                                                color: PublicController.pc
+                                                    .toggleTextColor(),
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: ' 188-6',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 20.0',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.03),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const VerticalDivider(
+                                        width: 1,
+                                        thickness: 2,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 3.0, horizontal: 7),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                          color: teamColors[i],
+                                        ),
+                                        child: Text(
+                                          teamSymbol[i],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("Qualifire 1 "),
+                                          Text("IPL 2022"),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -1098,9 +1135,90 @@ class _InfoViewState extends State<InfoView> {
                 ),
               ),
             ),
+            MoreCard(
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Umpire",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Nitin Menon,  Virender Sharma",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Third Umpire",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    subtitle: Text(
+                      "Anil Choudhary",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Referee",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    subtitle: Text(
+                      "javagal Srinath",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),
     );
+  }
+
+  void _showSquadsSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) => StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return const FractionallySizedBox(
+                heightFactor: 2.3,
+                child: BottomSheetScreen(),
+              );
+            }));
   }
 }

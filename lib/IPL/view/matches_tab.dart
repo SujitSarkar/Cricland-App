@@ -1,6 +1,7 @@
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:flutter/material.dart';
 
+import '../../home/view/home_details_screen.dart';
 import 'details_view/key_state_screen.dart';
 
 class MatchesTab extends StatefulWidget {
@@ -37,8 +38,12 @@ class _MatchesTabState extends State<MatchesTab> {
                   wonTeam: 'BD Won',
                   byWon: "by 7 wickets",
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => KeyStateScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => HomeDetailsScreen(
+                                  appBarTitle: 'IPL 2022',
+                                )));
                   },
                 );
               }),
