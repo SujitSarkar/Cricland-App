@@ -33,7 +33,7 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(220),
+          preferredSize: Size.fromHeight(200),
           child: Container(
             color: AllColor.appDarkBg,
             child: Column(
@@ -82,7 +82,7 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: MediaQuery.of(context).size.width * .05,
                       ),
                       RichText(
                         text: TextSpan(
@@ -100,27 +100,30 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
                     ],
                   ),
-                ),
-                Material(
-                  color: AllColor.appDarkBg,
-                  child: _tabBar(),
                 ),
               ],
             ),
           )),
-      body: TabBarView(
-        controller: _tabController,
-        children: const <Widget>[
-          OverViewTab(),
-          MatchesTab(),
-          SquadsTab(),
-          PointTableView(),
-          InfoTab(),
+      body: Column(
+        children: [
+          Material(
+            color: AllColor.appDarkBg,
+            child: _tabBar(),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: const <Widget>[
+                OverViewTab(),
+                MatchesTab(),
+                SquadsTab(),
+                PointTableView(),
+                InfoTab(),
+              ],
+            ),
+          ),
         ],
       ),
     );
