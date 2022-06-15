@@ -14,10 +14,10 @@ void main() async {
   await Firebase.initializeApp();
   Variables.portraitMood;
   Variables.darkStatusBarTheme;
-  final PublicController pc = Get.put(PublicController());
-  final LanguageController lc = Get.put(LanguageController());
-  final MoreController mc = Get.put(MoreController());
-  runApp(MyApp()
+  Get.put(PublicController());
+  Get.put(LanguageController());
+  Get.put(MoreController());
+  runApp(const MyApp()
       // DevicePreview(
       //   enabled: !kReleaseMode,
       //   builder: (context) => MyApp(),
