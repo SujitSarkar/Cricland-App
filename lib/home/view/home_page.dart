@@ -1,3 +1,4 @@
+import 'package:cricland/home/controller/data_fetcher.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/finished_tab_page.dart';
 import 'package:cricland/home/view/fixtures_tab_page.dart';
@@ -22,8 +23,12 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   String _iplTabType = Variables.homeTabsCategory.first;
 
+  DataFetcher _dataFetcher = DataFetcher();
+
   @override
   void initState() {
+    _dataFetcher.fetchMatches(productType: 0, countryID: 'countryID');
+
     super.initState();
     _tabController =
         TabController(length: Variables.homeTabsCategory.length, vsync: this);
