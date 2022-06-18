@@ -46,9 +46,11 @@ class ConnectionHelper {
   }
 
   Future<Response<dynamic>?> getDataWithHeaders(
-    String url, {
-    Map<String, dynamic>? queryData,
-  }) async {
+    String url,
+    //     {
+    //   Map<String, dynamic>? queryData,
+    // },
+  ) async {
     try {
       // Starting Timer
       DateTime stime = DateTime.now();
@@ -69,7 +71,7 @@ class ConnectionHelper {
 
       var response = await dio.get(
         url,
-        queryParameters: queryData,
+        // queryParameters: queryData,
         options: Options(
           headers: headers,
           contentType: Headers.jsonContentType,

@@ -200,7 +200,7 @@ class TypeMatchesModel {
 }
 
 class FiltersModel {
-  List<String> matchType;
+  List<dynamic> matchType;
   FiltersModel({
     required this.matchType,
   });
