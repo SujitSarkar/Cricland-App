@@ -11,19 +11,25 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  Variables.portraitMood;
-  Variables.darkStatusBarTheme;
-  final PublicController pc = Get.put(PublicController());
-  final LanguageController lc = Get.put(LanguageController());
-  final MoreController mc = Get.put(MoreController());
-  runApp(
-    //MyApp()
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(),
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyAXH46EheF_v8Sb0mzXB3ye-gwNkLraG7o",
+      appId: "1:788456208019:web:3fe44b77e8b2d5186d3f66",
+      messagingSenderId: "788456208019",
+      projectId: "cricland",
     ),
   );
+  Variables.portraitMood;
+  Variables.darkStatusBarTheme;
+  Get.put(PublicController());
+  Get.put(LanguageController());
+  Get.put(MoreController());
+  runApp(const MyApp()
+      // DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => MyApp(),
+      // ),
+      );
 }
 
 class MyApp extends StatelessWidget {
