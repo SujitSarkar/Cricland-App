@@ -12,12 +12,12 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
+    options: kIsWeb? const FirebaseOptions(
       apiKey: "AIzaSyAXH46EheF_v8Sb0mzXB3ye-gwNkLraG7o",
       appId: "1:788456208019:web:3fe44b77e8b2d5186d3f66",
       messagingSenderId: "788456208019",
       projectId: "cricland",
-    ),
+    ):null,
   );
   Variables.portraitMood;
   Variables.darkStatusBarTheme;
