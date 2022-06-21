@@ -9,7 +9,6 @@ class ConnectionHelper {
     try {
       // Starting Timer
       DateTime stime = DateTime.now();
-
       Dio dio = Dio();
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (HttpClient client) {
