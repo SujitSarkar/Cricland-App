@@ -231,8 +231,8 @@ class PremiumPage extends StatelessWidget {
           decoration: BoxDecoration(
               color: PublicController.pc.toggleCardBg(),
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
               )),
           child: Obx(() => Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -245,13 +245,14 @@ class PremiumPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: PublicController.pc.toggleTextColor(),
-                          fontSize: dSize(.05),
-                          fontWeight: FontWeight.w500)),
+                          fontSize: dSize(.06),
+                          fontWeight: FontWeight.bold)),
                   InkWell(onTap:()=>Get.back(),
-                    child: Icon(LineAwesomeIcons.times,size: dSize(.06),color: Colors.grey,))
+                    child: Icon(LineAwesomeIcons.times,size: dSize(.05),color: Colors.black,))
                 ],
               ),
-              SizedBox(height: dSize(.1)),
+              Divider(height: dSize(.09)),
+              //SizedBox(height: dSize(.1)),
 
               ///Google button
               ElevatedButton(
