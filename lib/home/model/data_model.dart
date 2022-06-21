@@ -105,7 +105,7 @@ class MatchInfoModel {
   TeamModel teamOneModel;
   TeamModel teamTwoModel;
   VenueInfoModel venueInfoModel;
-  int currBatTeamId;
+  int? currBatTeamId;
   String seriesStartDt;
   String seriesEndDt;
   bool isTimeAnnounced;
@@ -184,7 +184,7 @@ class SeriesAdWrapperModel {
 }
 
 class SeriesMatchesModel {
-  List<SeriesAdWrapperModel> seriesAdWrapperModel;
+  SeriesAdWrapperModel seriesAdWrapperModel;
   SeriesMatchesModel({
     required this.seriesAdWrapperModel,
   });
@@ -216,7 +216,7 @@ class AppIndexModel {
 }
 
 class MatchesModel {
-  List<TypeMatchesModel> typeMatchesModel;
+  TypeMatchesModel typeMatchesModel;
   FiltersModel filtersModel;
   AppIndexModel appIndexModel;
   String responseLastUpdated;

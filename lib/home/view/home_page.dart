@@ -27,10 +27,16 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    _dataFetcher.fetchMatches(productType: 0, countryID: 'countryID');
+    fetchMatch();
     super.initState();
     _tabController =
         TabController(length: Variables.homeTabsCategory.length, vsync: this);
+  }
+
+  fetchMatch() async {
+    await _dataFetcher.fetchMatches();
+
+    setState(() {});
   }
 
   @override
