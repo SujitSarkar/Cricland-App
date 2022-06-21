@@ -10,10 +10,9 @@ class PublicController extends GetxController{
   static PublicController pc = Get.find();
   late SharedPreferences pref;
   late PackageInfo packageInfo;
-  RxDouble size = 0.0.obs;
   RxBool loading=false.obs;
   RxBool isLight=true.obs;
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedIndex = 2.obs;
   RxInt themeRadioValue = 0.obs;
 
   void onItemTapped(int index) {
@@ -21,19 +20,19 @@ class PublicController extends GetxController{
     update();
   }
 
+  @override
+  onInit(){
+    super.onInit();
+    initApp();
+  }
 
-  Future<void> initApp(BuildContext context) async {
+
+  Future<void> initApp() async {
     pref = await SharedPreferences.getInstance();
     isLight(pref.getBool('isLight')??true);
-    if (MediaQuery.of(context).size.width<=500) {
-      size(MediaQuery.of(context).size.width);
-    } else {size(MediaQuery.of(context).size.height);}
     themeRadioValue(isLight.value?1:2);
     packageInfo = await PackageInfo.fromPlatform();
     update();
-    if (kDebugMode) {
-      print('Initialized\n Size: ${size.value}');
-    }
   }
 
   void changeTheme(bool val)async{

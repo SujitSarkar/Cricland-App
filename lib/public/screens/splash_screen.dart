@@ -43,8 +43,9 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     final LanguageController langController = Get.find();
     langController.initializeApp(context);
-    return GetBuilder<PublicController>(builder: (pc) {
-      if (pc.size.value <= 0.0) pc.initApp(context);
+    return GetBuilder<PublicController>(
+      init: PublicController(),
+      builder: (pc) {
       return Scaffold(
         body: Center(
           child: FadeTransition(
