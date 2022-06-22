@@ -1,10 +1,13 @@
 import 'package:cricland/home/controller/data_fetcher.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/data_model.dart';
 import 'package:cricland/home/view/finished_tab_page.dart';
 import 'package:cricland/home/view/fixtures_tab_page.dart';
 import 'package:cricland/home/view/home_tab_page.dart';
 import 'package:cricland/home/view/live_tab_page.dart';
 import 'package:cricland/home/view/upcomming_tab_page.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
+import 'package:cricland/public/controller/api_service.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -22,20 +25,36 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   String _iplTabType = Variables.homeTabsCategory.first;
-
-  DataFetcher _dataFetcher = DataFetcher();
+  //
+  // DataFetcher _dataFetcher = DataFetcher();
 
   @override
   void initState() {
-    fetchMatch();
+    getMatches();
+    // fetchMatch();
     super.initState();
     _tabController =
         TabController(length: Variables.homeTabsCategory.length, vsync: this);
   }
 
-  fetchMatch() async {
-    await _dataFetcher.fetchMatches();
+  // fetchMatch() async {
+  //   await _dataFetcher.fetchMatches();
+  //
+  //   setState(() {});
+  // }
 
+  Future<void> getMatches() async {
+    print("response");
+    await ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.matchesInfo),
+        onSuccess: (response) {
+          print(response);
+        },
+        onError: (error) {
+          // print(error.toString());
+          // Get.delete<LoadingBarController>();
+        });
     setState(() {});
   }
 

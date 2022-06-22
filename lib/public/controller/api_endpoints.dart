@@ -1,10 +1,5 @@
-
 class ApiEndpoints {
-  static String baseURL = 'http://example.com/api/';
+  static String baseURL = 'https://cricbuzz-cricket.p.rapidapi.com/';
 
-  static String saveBoInitialInfo =  '/bo-information';
-  static String allBank =  '/bank';
-  static String allBranch = '/branch/';
-  static String saveBank = '/bo-information/bank';
-  static String saveNominee ='/bo-information/nominee';
+  static String matchesInfo = 'matches/v1/recent';
 }

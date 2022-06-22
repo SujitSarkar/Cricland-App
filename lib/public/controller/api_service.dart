@@ -14,15 +14,9 @@ class ApiService {
   final GetConnect getConnect = GetConnect();
 
   Map<String, String> headers = <String, String>{
-    'accept': '*/*',
-    'Content-Type': 'application/json',
+    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+    'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
   };
-
-  Future<void> addAccessToken(String token) async {
-    print('Token:::::::::::::::::: $token');
-    String _token = 'Bearer '+token;
-    headers.addEntries({'Authorization': _token}.entries);
-  }
 
   Future<void> apiCall(
       {required Function execute,
@@ -42,10 +36,12 @@ class ApiService {
   }
 
   ///get api request
-  Future<dynamic> get(String url, {Map<String, dynamic>? query}) async {
-
-    var response = await getConnect.httpClient
-        .get(ApiEndpoints.baseURL + url, headers: headers, query: query);
+  Future<dynamic> get(String url) async {
+    var response = await getConnect.httpClient.get(
+      ApiEndpoints.baseURL + url,
+      headers: headers,
+    );
+    print(" RESPONSE: ${response}");
     return _processResponse(response);
   }
 
@@ -80,7 +76,7 @@ class ApiService {
       case 200:
       case 201:
       case 204:
-          return response.body;
+        return response.body;
       case 400:
         throw Exception('Invalid api call');
       case 404:
