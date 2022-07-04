@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'api_endpoints.dart';
 
@@ -26,6 +27,7 @@ class ApiService {
     try {
       if (onLoading != null) onLoading();
       var response = await execute();
+
       onSuccess(response);
       return;
     } catch (error) {
@@ -37,11 +39,13 @@ class ApiService {
 
   ///get api request
   Future<dynamic> get(String url) async {
+    print(ApiEndpoints.baseUrlAllSports + url);
     var response = await getConnect.httpClient.get(
-      ApiEndpoints.baseURL + url,
-      headers: headers,
+      ApiEndpoints.baseUrlAllSports + url,
+      //  headers: headers,
     );
-    print(" RESPONSE: ${response}");
+    print(" Image RESPONSE: ${response.body}");
+
     return _processResponse(response);
   }
 
@@ -70,8 +74,8 @@ class ApiService {
 
   ///check if the response is valid (everything went fine) / else throw error
   dynamic _processResponse(Response response) {
-    print('statusCode:- ${response.statusCode}');
-    print('response:- ${response.body}');
+    // print('statusCode:- ${response.statusCode}');
+    // print('response:- ${response.body}');
     switch (response.statusCode) {
       case 200:
       case 201:

@@ -1,18 +1,15 @@
-import 'package:cricland/home/controller/data_fetcher.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/model/data_model.dart';
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/view/finished_tab_page.dart';
 import 'package:cricland/home/view/fixtures_tab_page.dart';
 import 'package:cricland/home/view/home_tab_page.dart';
 import 'package:cricland/home/view/live_tab_page.dart';
 import 'package:cricland/home/view/upcomming_tab_page.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
-import 'package:cricland/public/controller/api_service.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,113 +22,95 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   String _iplTabType = Variables.homeTabsCategory.first;
-  //
-  // DataFetcher _dataFetcher = DataFetcher();
-
   @override
   void initState() {
-    getMatches();
-    // fetchMatch();
     super.initState();
+
     _tabController =
         TabController(length: Variables.homeTabsCategory.length, vsync: this);
   }
 
-  // fetchMatch() async {
-  //   await _dataFetcher.fetchMatches();
-  //
-  //   setState(() {});
-  // }
-
-  Future<void> getMatches() async {
-    print("response");
-    await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.matchesInfo),
-        onSuccess: (response) {
-          print(response);
-        },
-        onError: (error) {
-          // print(error.toString());
-          // Get.delete<LoadingBarController>();
-        });
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/logo.png',
-              scale: 14,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
-              child: Text(
-                "CrickLand",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  border: Border.all(width: 1, color: AllColor.hintColor)),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
-                child: Text(
-                  "Premium",
-                  style: TextStyle(
-                    fontSize: dSize(.04),
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+    return GetBuilder<HomeController>(
+        init: HomeController(),
+        autoRemove: true,
+        builder: (homeController) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Row(
+                children: [
+                  Image.asset(
+                    'assets/logo.png',
+                    scale: 14,
                   ),
-                ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                    child: Text(
+                      "CrickLand",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        border:
+                            Border.all(width: 1, color: AllColor.hintColor)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 2),
+                      child: Text(
+                        "Premium",
+                        style: TextStyle(
+                          fontSize: dSize(.04),
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              actions: const [
+                Icon(
+                  Icons.search_outlined,
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Icon(
+                  Icons.person,
+                  size: 30,
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+              ],
+              bottom: _tabBar(),
             ),
-          ],
-        ),
-        actions: const [
-          Icon(
-            Icons.search_outlined,
-          ),
-          SizedBox(
-            width: 15,
-          ),
-          Icon(
-            Icons.person,
-            size: 30,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-        ],
-        bottom: _tabBar(),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          LiveTabScreen(),
-          HomeTabScreen(),
-          UpComingTabScreen(),
-          FinishedTabScreen(),
-          FixturesTabScreen(),
-        ],
-      ),
-    );
+            body: TabBarView(
+              controller: _tabController,
+              children: [
+                LiveTabScreen(),
+                HomeTabScreen(),
+                UpComingTabScreen(),
+                FinishedTabScreen(),
+                FixturesTabScreen(),
+              ],
+            ),
+          );
+        });
   }
 
   PreferredSize _tabBar() => PreferredSize(

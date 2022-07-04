@@ -1,3 +1,4 @@
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/finished_card_tile.dart';
 import 'package:cricland/home/view/widgets/live_cart_tile.dart';
@@ -20,51 +21,53 @@ class FinishedTabScreen extends StatefulWidget {
 class _FinishedTabScreenState extends State<FinishedTabScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(50),
-          topLeft: Radius.circular(50),
+    return GetBuilder<HomeController>(builder: (homeController) {
+      return Container(
+        padding: EdgeInsets.all(5),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(50),
+            topLeft: Radius.circular(50),
+          ),
         ),
-      ),
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          SizedBox(
-            height: 12,
-          ),
-          Text(
-            "Yesterday",
-            style: TextStyle(
-                fontSize: dSize(.045),
-                fontWeight: FontWeight.w500,
-                color: PublicController.pc.toggleTextColor()),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return FinishedCardTile(
-                onTap: () {
-                  Get.to(
-                    HomeDetailsScreen(appBarTitle: 'IPL 2022'),
-                  );
-                },
-                title: '',
-              );
-              //LiveCart(context);
-            },
-          ),
-          SizedBox(
-            height: 12,
-          ),
-        ],
-      ),
-    );
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            SizedBox(
+              height: 12,
+            ),
+            Text(
+              "Yesterday",
+              style: TextStyle(
+                  fontSize: dSize(.045),
+                  fontWeight: FontWeight.w500,
+                  color: PublicController.pc.toggleTextColor()),
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 10,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return FinishedCardTile(
+                  onTap: () {
+                    Get.to(
+                      HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                    );
+                  },
+                  title: '',
+                );
+                //LiveCart(context);
+              },
+            ),
+            SizedBox(
+              height: 12,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

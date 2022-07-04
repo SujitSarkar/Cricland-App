@@ -1,3 +1,4 @@
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:cricland/home/view/widgets/live_cart_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
@@ -37,125 +38,130 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(50),
-          topLeft: Radius.circular(50),
+    return GetBuilder<HomeController>(builder: (homeController) {
+      return Container(
+        padding: EdgeInsets.all(5),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(50),
+            topLeft: Radius.circular(50),
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2(
-                    alignment: Alignment.center,
-                    iconEnabledColor: PublicController.pc.toggleTextColor(),
-                    dropdownDecoration: BoxDecoration(
-                        color: PublicController.pc.toggleCardBg()),
-                    items: items
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              alignment: Alignment.center,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  fontSize: dSize(.04),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor(),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      alignment: Alignment.center,
+                      iconEnabledColor: PublicController.pc.toggleTextColor(),
+                      dropdownDecoration: BoxDecoration(
+                          color: PublicController.pc.toggleCardBg()),
+                      items: items
+                          .map((item) => DropdownMenuItem<String>(
+                                value: item,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  item,
+                                  style: TextStyle(
+                                    fontSize: dSize(.04),
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
                                 ),
-                              ),
-                            ))
-                        .toList(),
-                    value: selectedValue,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedValue = value as String;
-                      });
-                    },
-                    buttonHeight: 40,
-                    buttonWidth: 140,
-                    itemHeight: 40,
+                              ))
+                          .toList(),
+                      value: selectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value as String;
+                        });
+                      },
+                      buttonHeight: 40,
+                      buttonWidth: 140,
+                      itemHeight: 40,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 40,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: typeList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(5),
-                                ),
-                                border: Border.all(
-                                  width: 1,
-                                  color: PublicController.pc.toggleTextColor(),
-                                )),
-                            child: Center(
-                              child: Text(
-                                typeList[index],
-                                style: TextStyle(
-                                  fontSize: dSize(.04),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor(),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: typeList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Container(
+                              padding: const EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                  border: Border.all(
+                                    width: 1,
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  )),
+                              child: Center(
+                                child: Text(
+                                  typeList[index],
+                                  style: TextStyle(
+                                    fontSize: dSize(.04),
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Expanded(
-            child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 50,
-                itemBuilder: (BuildContext context, int index) {
-                  return FixturesCardTile(
-                    title: 'Indian Premium League',
-                    leadingUrlOne: 'assets/indian_flag.png',
-                    leadingUrlTwo: 'assets/bd_flag.png',
-                    teamOne: 'India',
-                    teamTwo: 'Bangladesh',
-                    reachTitleOne: '140-5',
-                    reachTitleTwo: '188-6',
-                    reachSubTitleOne: '16.3',
-                    reachSubTitleTwo: '19.3',
-                    wonTeam: 'BD Won',
-                    byWon: "by 7 wickets",
-                    onTap: () {
-                      Get.to(
-                        HomeDetailsScreen(appBarTitle: 'IPL 2022'),
-                      );
-                    },
-                  );
-                }),
-          ),
-        ],
-      ),
-    );
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 50,
+                  itemBuilder: (BuildContext context, int index) {
+                    return FixturesCardTile(
+                      title: 'Indian Premium League',
+                      leadingUrlOne: 'assets/indian_flag.png',
+                      leadingUrlTwo: 'assets/bd_flag.png',
+                      teamOne: 'India',
+                      teamTwo: 'Bangladesh',
+                      reachTitleOne: '140-5',
+                      reachTitleTwo: '188-6',
+                      reachSubTitleOne: '16.3',
+                      reachSubTitleTwo: '19.3',
+                      wonTeam: 'BD Won',
+                      byWon: "by 7 wickets",
+                      onTap: () {
+                        Get.to(
+                          HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                        );
+                      },
+                    );
+                  }),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
