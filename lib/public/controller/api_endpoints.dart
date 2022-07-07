@@ -1,7 +1,7 @@
 class ApiEndpoints {
   static String baseURL = 'https://cricbuzz-cricket.p.rapidapi.com/';
 
-  static String matchesData = 'matches/v1/recent';
+  static String recentMatchData = 'matches/v1/recent';
   static String matchesInfo = 'mcenter/v1/';
   static String liveMatches = 'matches/v1/live';
   static String image = 'img/v1/i1/c';

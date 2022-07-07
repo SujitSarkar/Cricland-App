@@ -43,6 +43,12 @@ class _MatchesTabState extends State<MatchesTab> {
                         MaterialPageRoute(
                             builder: (_) => HomeDetailsScreen(
                                   appBarTitle: 'IPL 2022',
+                                  stateTitle: '',
+                                  matchIndex: index,
+                                  teamS1Name: '',
+                                  teamS2Name: '',
+                                  team2Name: '',
+                                  team1Name: '',
                                 )));
                   },
                 );

@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/home/constants.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-
+import 'package:http/http.dart' as http;
 import '../../controller/home_controller.dart';
 
 // Widget LiveCart(BuildContext context) {
@@ -143,7 +145,7 @@ import '../../controller/home_controller.dart';
 //   );
 // }
 
-class LiveCardTile extends StatelessWidget {
+class LiveCardTile extends StatefulWidget {
   const LiveCardTile({
     Key? key,
     required this.title,
@@ -171,10 +173,19 @@ class LiveCardTile extends StatelessWidget {
   final Function() onTap;
 
   @override
+  State<LiveCardTile> createState() => _LiveCardTileState();
+}
+
+class _LiveCardTileState extends State<LiveCardTile> {
+  Map<String, String> headers = <String, String>{
+    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+    'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
+  };
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return GestureDetector(
-        onTap: onTap,
+        onTap: widget.onTap,
         child: Card(
           color: PublicController.pc.toggleCardBg(),
           elevation: 8,
@@ -185,7 +196,7 @@ class LiveCardTile extends StatelessWidget {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      title,
+                      widget.title,
                       style: TextStyle(
                         fontSize: dSize(.04),
                         fontWeight: FontWeight.w500,
@@ -200,14 +211,23 @@ class LiveCardTile extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        Image.network(
-                          leadingTeamUrl,
+                        Container(
                           height: 50,
                           width: 80,
-                          fit: BoxFit.cover,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                              API.baseUrl +
+                                  API.imageMidPoint +
+                                  widget.leadingTeamUrl +
+                                  API.imageLastPoint,
+                              headers: headers,
+                            )),
+                          ),
                         ),
                         Text(
-                          leadingCountryName,
+                          widget.leadingCountryName,
                           style: TextStyle(
                               fontSize: dSize(.04),
                               fontWeight: FontWeight.w500,
@@ -217,7 +237,7 @@ class LiveCardTile extends StatelessWidget {
                           children: [
                             RichText(
                               text: TextSpan(
-                                text: leadingRuns,
+                                text: widget.leadingRuns,
                                 style: TextStyle(
                                     fontSize: dSize(.03),
                                     fontWeight: FontWeight.w500,
@@ -225,7 +245,7 @@ class LiveCardTile extends StatelessWidget {
                                         PublicController.pc.toggleTextColor()),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: leadingOvers,
+                                    text: widget.leadingOvers,
                                     style: TextStyle(
                                         fontSize: dSize(.02),
                                         fontWeight: FontWeight.w500,
@@ -282,14 +302,23 @@ class LiveCardTile extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Image.network(
-                          trailingTeamUrl,
+                        Container(
                           height: 50,
                           width: 80,
-                          fit: BoxFit.cover,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                              API.baseUrl +
+                                  API.imageMidPoint +
+                                  widget.trailingTeamUrl +
+                                  API.imageLastPoint,
+                              headers: headers,
+                            )),
+                          ),
                         ),
                         Text(
-                          trailingCountryName,
+                          widget.trailingCountryName,
                           style: TextStyle(
                             fontSize: dSize(.04),
                             fontWeight: FontWeight.w500,
@@ -300,7 +329,7 @@ class LiveCardTile extends StatelessWidget {
                           children: [
                             RichText(
                               text: TextSpan(
-                                text: trailingRuns,
+                                text: widget.trailingRuns,
                                 style: TextStyle(
                                     fontSize: dSize(.03),
                                     fontWeight: FontWeight.w500,
@@ -308,7 +337,7 @@ class LiveCardTile extends StatelessWidget {
                                         PublicController.pc.toggleTextColor()),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: trailingOvers,
+                                    text: widget.trailingOvers,
                                     style: TextStyle(
                                         fontSize: dSize(.02),
                                         fontWeight: FontWeight.w500,
@@ -327,7 +356,7 @@ class LiveCardTile extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    needText,
+                    widget.needText,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         color: Colors.green,
@@ -341,5 +370,9 @@ class LiveCardTile extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Future<String> function() async {
+    return 'abc';
   }
 }

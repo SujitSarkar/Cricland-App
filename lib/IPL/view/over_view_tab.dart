@@ -65,8 +65,15 @@ class _OverViewTabState extends State<OverViewTab> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const HomeDetailsScreen(
-                              appBarTitle: 'GT vs RR, Final'),
+                          builder: (_) => HomeDetailsScreen(
+                            appBarTitle: 'GT vs RR, Final',
+                            team1Name: '',
+                            team2Name: '',
+                            stateTitle: '',
+                            teamS2Name: '',
+                            matchIndex: index,
+                            teamS1Name: '',
+                          ),
                         ),
                       );
                     },

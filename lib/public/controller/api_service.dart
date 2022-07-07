@@ -39,13 +39,12 @@ class ApiService {
 
   ///get api request
   Future<dynamic> get(String url) async {
-    print(ApiEndpoints.baseUrlAllSports + url);
+    print("URL: ${ApiEndpoints.baseURL + url}");
+    print("Headers: $headers");
     var response = await getConnect.httpClient.get(
-      ApiEndpoints.baseUrlAllSports + url,
-      //  headers: headers,
+      ApiEndpoints.baseURL + url,
+      headers: headers,
     );
-    print(" Image RESPONSE: ${response.body}");
-
     return _processResponse(response);
   }
 

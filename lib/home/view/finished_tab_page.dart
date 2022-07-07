@@ -54,7 +54,15 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                 return FinishedCardTile(
                   onTap: () {
                     Get.to(
-                      HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                      HomeDetailsScreen(
+                        appBarTitle: 'IPL 2022',
+                        teamS2Name: '',
+                        matchIndex: index,
+                        stateTitle: '',
+                        team2Name: '',
+                        teamS1Name: '',
+                        team1Name: '',
+                      ),
                     );
                   },
                   title: '',

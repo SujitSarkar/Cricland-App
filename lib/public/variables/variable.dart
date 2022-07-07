@@ -50,7 +50,11 @@ class Variables {
     'Average'
   ];
   static const List<String> scoreDateMatch = ['Score', 'Date', 'Match'];
-  static const List<String> newsCategory = ['News', 'Video', 'Biography'];
+  static const List<String> newsCategory = [
+    'News',
+    'Video',
+    'Biography',
+  ];
   static const List<String> iplTabsCategory = [
     'Overview',
     'Matches',

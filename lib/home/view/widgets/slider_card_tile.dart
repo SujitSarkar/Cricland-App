@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/home/constants.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SliderCardTile extends StatelessWidget {
@@ -35,6 +38,10 @@ class SliderCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> headers = <String, String>{
+      'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+      'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
+    };
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -45,59 +52,43 @@ class SliderCardTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: dSize(.035),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 3),
-                      child: Text(
-                        trailingWidget!,
-                        style: TextStyle(
-                          fontSize: dSize(.025),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Divider(
-                  height: 1,
                 ),
               ),
-              Spacer(),
+              SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Image.asset(
-                        leftCountryURL!,
-                        height: dSize(.1),
-                        width: dSize(.1),
-                        fit: BoxFit.fill,
-                      ),
-                      SizedBox(
-                        width: 5,
+                      Container(
+                        height: 50,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                API.baseUrl +
+                                    API.imageMidPoint +
+                                    leftCountryURL! +
+                                    API.imageLastPoint,
+                                headers: headers,
+                              ),
+                              fit: BoxFit.cover),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,17 +122,13 @@ class SliderCardTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.green),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text(
-                        'VS',
-                        style: TextStyle(
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleCardBg(),
-                        ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: dSize(.07)),
+                    child: Text(
+                      'VS',
+                      style: TextStyle(
+                        fontSize: dSize(.05),
+                        color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
                   ),
@@ -177,53 +164,71 @@ class SliderCardTile extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Image.asset(
-                        rightCountryURL!,
-                        height: dSize(.1),
-                        width: dSize(.1),
-                        fit: BoxFit.fill,
+                      Container(
+                        height: 50,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                            API.baseUrl +
+                                API.imageMidPoint +
+                                rightCountryURL! +
+                                API.imageLastPoint,
+                            headers: headers,
+                          )),
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
-              Spacer(),
-              Text(
-                wonStatus!,
-                style: TextStyle(
-                  fontSize: dSize(.03),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+              SizedBox(
+                height: 5,
               ),
-              Spacer(),
-              GestureDetector(
-                onTap: onStaticTap,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    wonStatus!,
+                    style: TextStyle(
+                      fontSize: dSize(.03),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
                     ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                    child: Text(
-                      "Live Statistic",
-                      style: TextStyle(
-                        fontSize: dSize(.035),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: onStaticTap,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+                      child: Text(
+                        "Live Statistic",
+                        style: TextStyle(
+                          fontSize: dSize(.035),
+                          fontWeight: FontWeight.w500,
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

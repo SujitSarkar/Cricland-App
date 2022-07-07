@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:cricland/home/model/recent_match_model.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:cricland/home/model/all_sports_model/live_match_model.dart';
 import 'package:cricland/home/model/live_matches_model.dart';
@@ -10,44 +12,39 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   // late MatchesModel matchesModel;
-  // late LiveMatchesModel liveMatchesModel;
+  late LiveMatchesModel liveMatchesModel;
+  late RecentMatchModel recentMatchModel;
 
-  //All Sports API
-  late LiveMatchModel liveMatchModel;
   RxBool loading = false.obs;
   @override
   void onInit() {
-    // matchesModel = MatchesModel();
-    // //  getRecentMatches();
-    // getLiveMatches();
-    // getImage('236205');
-    print("Method Calling");
-    //All Sports API
-    liveMatchModel = LiveMatchModel();
-    getLiveMatch();
+    //  matchesModel = MatchesModel();
+    liveMatchesModel = LiveMatchesModel();
+    recentMatchModel = RecentMatchModel();
+    getRecentMatches();
+    getLiveMatches();
+
     super.onInit();
   }
-  //
-  // Future<void> getRecentMatches() async {
-  //   loading(true);
-  //   await ApiService.instance.apiCall(
-  //       execute: () async =>
-  //           await ApiService.instance.get(ApiEndpoints.matchesData),
-  //       onSuccess: (response) {
-  //         print("Response2: ${response}");
-  //         matchesModel = matchesModelFromJson(jsonEncode(response));
-  //         //  matchesModel = matchesModelFromJson(response);
-  //         //
-  //         print("\n\nDDDDDDDD");
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //   update();
-  // }
-  //
+
+  Future<void> getRecentMatches() async {
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.recentMatchData),
+        onSuccess: (response) {
+          print("Recent Response: ${response}");
+          recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+          print("\n\nDDDDDDDD");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
   // Future<void> getMatchInfo(String matchId) async {
   //   loading(true);
   //
@@ -69,67 +66,24 @@ class HomeController extends GetxController {
   //       });
   //   update();
   // }
-  //
-  // Future<void> getLiveMatches() async {
-  //   loading(true);
-  //   await ApiService.instance.apiCall(
-  //       execute: () async =>
-  //           await ApiService.instance.get(ApiEndpoints.liveMatches),
-  //       onSuccess: (response) {
-  //         //  print(response);
-  //
-  //         liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
-  //         //
-  //         print(
-  //             "Live Matches:${liveMatchesModel.filters!.matchType!.first.capitalizeFirst}");
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //   update();
-  // }
-  //
-  // Future<void> getImage(String imageId) async {
-  //   loading(true);
-  //   await ApiService.instance.apiCall(
-  //       execute: () async => await ApiService.instance
-  //           .get(ApiEndpoints.image + "$imageId/i.jpg"),
-  //       onSuccess: (response) {
-  //         print("\n\n\n\n$response");
-  //
-  //         //  liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
-  //         //
-  //         // print(
-  //         //     "Live Matches:${liveMatchesModel.filters!.matchType!.first.capitalizeFirst}");
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //   update();
-  // }
 
-  //All Sports API
-  Future<void> getLiveMatch() async {
+  Future<void> getLiveMatches() async {
     loading(true);
-    print("Method Calling");
     await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance
-            .get(ApiEndpoints.allSportsLiveMatch + ApiEndpoints.apiKey),
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.liveMatches),
         onSuccess: (response) {
           //  print(response);
 
-          liveMatchModel = liveMatchModelFromJson(jsonEncode(response));
+          liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
           //
-          print("Live Matches:${liveMatchModel.result!.first.leagueName}");
+          print(
+              "Live Matches:${liveMatchesModel.filters!.matchType!.first.capitalizeFirst}");
           loading(false);
         },
         onError: (error) {
-          print("ERROR: ${error.toString()}");
-          // loading(false);
+          print(error.toString());
+          loading(false);
         });
     update();
   }

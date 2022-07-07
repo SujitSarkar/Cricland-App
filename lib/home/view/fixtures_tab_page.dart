@@ -153,7 +153,15 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                       byWon: "by 7 wickets",
                       onTap: () {
                         Get.to(
-                          HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                          HomeDetailsScreen(
+                            appBarTitle: 'IPL 2022',
+                            teamS2Name: '',
+                            matchIndex: index,
+                            team2Name: '',
+                            team1Name: '',
+                            teamS1Name: '',
+                            stateTitle: '',
+                          ),
                         );
                       },
                     );

@@ -62,33 +62,75 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     topLeft: Radius.circular(50),
                   ),
                 ),
-                child: CarouselSlider(
-                  options: CarouselOptions(height: 220.0, autoPlay: true),
-                  items: [1, 2, 3, 4, 5].map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return SliderCardTile(
-                          title: 'Indian Premium League',
-                          onTap: () {
-                            Get.to(HomeDetailsScreen(
-                              appBarTitle: "NK vs NWW, 1st T20",
-                            ));
-                          },
-                          onStaticTap: () {},
-                          leftCountryName: 'Bangladesh',
-                          leftCountryOvers: '19.6',
-                          leftCountryRuns: '104/6',
-                          leftCountryURL: 'assets/bd_flag.png',
-                          trailingWidget: 'Upcoming',
-                          rightCountryName: 'India',
-                          rightCountryOvers: '10.2',
-                          rightCountryRuns: '100/10',
-                          rightCountryURL: 'assets/indian_flag.png',
-                          wonStatus: 'Bangladesh Won by 7 Wickets',
-                        );
-                      },
-                    );
-                  }).toList(),
+                // child: CarouselSlider(
+                //   options: CarouselOptions(height: 220.0, autoPlay: true),
+                //   items: homeController.recentMatchModel.typeMatches!.map((i) {
+                //     return Builder(
+                //       builder: (BuildContext context) {
+                //         return SliderCardTile(
+                //           title:
+                //               "${homeController.liveMatchesModel.typeMatches![1].seriesMatches!.first.seriesAdWrapper!.seriesName}",
+                //           onTap: () {
+                //             Get.to(HomeDetailsScreen(
+                //               appBarTitle: "NK vs NWW, 1st T20",
+                //               teamS1Name: '',
+                //               teamS2Name: '',
+                //               matchIndex: 1,
+                //               team1Name: '',
+                //               team2Name: '',
+                //               stateTitle: '',
+                //             ));
+                //           },
+                //           onStaticTap: () {},
+                //           leftCountryName: 'Bangladesh',
+                //           leftCountryOvers: '19.6',
+                //           leftCountryRuns: '104/6',
+                //           leftCountryURL: 'assets/bd_flag.png',
+                //           trailingWidget: 'Upcoming',
+                //           rightCountryName: 'India',
+                //           rightCountryOvers: '10.2',
+                //           rightCountryRuns: '100/10',
+                //           rightCountryURL: 'assets/indian_flag.png',
+                //           wonStatus: 'Bangladesh Won by 7 Wickets',
+                //         );
+                //       },
+                //     );
+                //   }).toList(),
+                // ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (int i = 0;
+                        i < homeController.recentMatchModel.typeMatches!.length;
+                        i++)
+                      SliderCardTile(
+                        title:
+                            "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.seriesName}",
+                        onTap: () {},
+                        onStaticTap: () {},
+                        leftCountryName:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                        leftCountryOvers:
+                            "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
+                        leftCountryRuns:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
+                        leftCountryURL:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                        trailingWidget: 'Upcoming',
+                        rightCountryName:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                        rightCountryOvers:
+                            "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
+                        rightCountryRuns:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
+                        rightCountryURL:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                        wonStatus:
+                            '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.status}',
+                      ),
+                  ],
                 ),
               ),
               const SizedBox(

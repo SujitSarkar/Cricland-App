@@ -15,8 +15,23 @@ import 'package:lottie/lottie.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   final String appBarTitle;
-  const HomeDetailsScreen({Key? key, required this.appBarTitle})
-      : super(key: key);
+  final String team1Name;
+  final String team2Name;
+  final String teamS1Name;
+  final String teamS2Name;
+  final String stateTitle;
+  final int matchIndex;
+
+  const HomeDetailsScreen({
+    Key? key,
+    required this.appBarTitle,
+    required this.team1Name,
+    required this.team2Name,
+    required this.teamS1Name,
+    required this.teamS2Name,
+    required this.stateTitle,
+    required this.matchIndex,
+  }) : super(key: key);
 
   @override
   _HomeDetailsScreenState createState() => _HomeDetailsScreenState();
@@ -25,7 +40,7 @@ class HomeDetailsScreen extends StatefulWidget {
 class _HomeDetailsScreenState extends State<HomeDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _iplTabType = Variables.iplDetailsTabsCategory.first;
+  final String _iplTabType = Variables.iplDetailsTabsCategory.first;
 
   @override
   void initState() {
@@ -78,7 +93,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "NK",
+                          widget.teamS1Name,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: dSize(.05),

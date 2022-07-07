@@ -53,7 +53,15 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                 return UpcomingCardTile(
                   onTap: () {
                     Get.to(
-                      HomeDetailsScreen(appBarTitle: 'IPL 2022'),
+                      HomeDetailsScreen(
+                        appBarTitle: 'IPL 2022',
+                        matchIndex: index,
+                        teamS2Name: '',
+                        teamS1Name: '',
+                        team2Name: '',
+                        team1Name: '',
+                        stateTitle: '',
+                      ),
                     );
                   },
                   title: '',
