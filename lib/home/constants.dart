@@ -58,16 +58,16 @@ const Icon menuButton = Icon(
   size: 20,
 );
 
-class API {
-  static const String baseUrl = "https://cricbuzz-cricket.p.rapidapi.com/";
-  static const String apiVersion = "v1/";
-  static const String imageMidPoint = "img/v1/i1/c";
-  static const String imageLastPoint = "/i.jpg";
-
-  static const String getMatches = baseUrl + "matches/" + apiVersion + "recent";
-
-  Map<String, String> headers = <String, String>{
-    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
-    'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
-  };
-}
+// class API {
+//   static const String baseUrl = "https://cricbuzz-cricket.p.rapidapi.com/";
+//   static const String apiVersion = "v1/";
+//   static const String imageMidPoint = "img/v1/i1/c";
+//   static const String imageLastPoint = "/i.jpg";
+//
+//   static const String getMatches = baseUrl + "matches/" + apiVersion + "recent";
+//
+//   Map<String, String> headers = <String, String>{
+//     'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+//     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
+//   };
+// }

@@ -1,17 +1,13 @@
 class ApiEndpoints {
   static String baseURL = 'https://cricbuzz-cricket.p.rapidapi.com/';
+  static const String apiVersion = "v1";
+  static String recentMatchData = 'matches/$apiVersion/recent';
+  static String upComingMatchData = 'matches/$apiVersion/upcoming';
+  static String fixturesMatchData = 'schedule/$apiVersion/international';
+  static String featureSeriesData = 'series/$apiVersion/international';
+  static String matchesInfo = 'mcenter/$apiVersion/';
+  static String liveMatches = 'matches/$apiVersion/live';
 
-  static String recentMatchData = 'matches/v1/recent';
-  static String upComingMatchData = 'matches/v1/upcoming';
-  static String fixturesMatchData = 'schedule/v1/international';
-  static String featureSeriesData = 'series/v1/international';
-  static String matchesInfo = 'mcenter/v1/';
-  static String liveMatches = 'matches/v1/live';
-  static String image = 'img/v1/i1/c';
-
-  //All Sports API
-  static const String baseUrlAllSports = "https://apiv2.allsportsapi.com/";
-  static const String allSportsLiveMatch = "cricket/?met=Livescore&APIkey=";
-  static const String apiKey =
-      "4ce57c1616dc9228ccc6324cb7ea958dc04e8cdf8fa0728a47b5f134b00aa067";
+  static const String imageMidPoint = "img/$apiVersion/i1/c";
+  static const String imageLastPoint = "/i.jpg";
 }

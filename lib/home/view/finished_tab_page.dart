@@ -91,12 +91,12 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                       //LiveCart(context);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                 ],
               ))
-          : Center(child: const Text("No Match Available"));
+          : const Center(child: Text("No Match Available"));
     });
   }
 }

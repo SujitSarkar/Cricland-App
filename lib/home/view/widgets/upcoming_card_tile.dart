@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/constants.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,10 +82,10 @@ class UpcomingCardTile extends StatelessWidget {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
-                                API.baseUrl +
-                                    API.imageMidPoint +
+                                ApiEndpoints.baseURL +
+                                    ApiEndpoints.imageMidPoint +
                                     leftCountryURL! +
-                                    API.imageLastPoint,
+                                    ApiEndpoints.imageLastPoint,
                                 headers: headers,
                               ),
                               fit: BoxFit.cover),
@@ -162,10 +163,10 @@ class UpcomingCardTile extends StatelessWidget {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
-                                API.baseUrl +
-                                    API.imageMidPoint +
+                                ApiEndpoints.baseURL +
+                                    ApiEndpoints.imageMidPoint +
                                     rightCountryURL! +
-                                    API.imageLastPoint,
+                                    ApiEndpoints.imageLastPoint,
                                 headers: headers,
                               ),
                               fit: BoxFit.cover),

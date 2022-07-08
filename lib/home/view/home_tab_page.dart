@@ -5,6 +5,7 @@ import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/slider_card_tile.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -142,10 +143,10 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                         shape: BoxShape.rectangle,
                                         image: DecorationImage(
                                             image: CachedNetworkImageProvider(
-                                              API.baseUrl +
-                                                  API.imageMidPoint +
+                                              ApiEndpoints.baseURL +
+                                                  ApiEndpoints.imageMidPoint +
                                                   "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.id}" +
-                                                  API.imageLastPoint,
+                                                  ApiEndpoints.imageLastPoint,
                                               headers: headers,
                                             ),
                                             fit: BoxFit.fill),

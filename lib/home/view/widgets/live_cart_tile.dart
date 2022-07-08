@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/constants.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -82,10 +83,10 @@ class _LiveCardTileState extends State<LiveCardTile> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
-                              API.baseUrl +
-                                  API.imageMidPoint +
+                              ApiEndpoints.baseURL +
+                                  ApiEndpoints.imageMidPoint +
                                   widget.leadingTeamUrl +
-                                  API.imageLastPoint,
+                                  ApiEndpoints.imageLastPoint,
                               headers: headers,
                             )),
                           ),
@@ -173,10 +174,10 @@ class _LiveCardTileState extends State<LiveCardTile> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
-                              API.baseUrl +
-                                  API.imageMidPoint +
+                              ApiEndpoints.baseURL +
+                                  ApiEndpoints.imageMidPoint +
                                   widget.trailingTeamUrl +
-                                  API.imageLastPoint,
+                                  ApiEndpoints.imageLastPoint,
                               headers: headers,
                             )),
                           ),

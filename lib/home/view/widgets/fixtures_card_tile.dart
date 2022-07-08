@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/constants.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/cupertino.dart';
@@ -92,10 +93,10 @@ class FixturesCardTile extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                    API.baseUrl +
-                                        API.imageMidPoint +
+                                    ApiEndpoints.baseURL +
+                                        ApiEndpoints.imageMidPoint +
                                         leadingUrlOne! +
-                                        API.imageLastPoint,
+                                        ApiEndpoints.imageLastPoint,
                                     headers: headers,
                                   )),
                                 ),
@@ -154,10 +155,10 @@ class FixturesCardTile extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                    API.baseUrl +
-                                        API.imageMidPoint +
+                                    ApiEndpoints.baseURL +
+                                        ApiEndpoints.imageMidPoint +
                                         leadingUrlTwo! +
-                                        API.imageLastPoint,
+                                        ApiEndpoints.imageLastPoint,
                                     headers: headers,
                                   )),
                                 ),
