@@ -1,161 +1,47 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/home/constants.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-// Widget LiveCart(BuildContext context) {
-//   return Padding(
-//     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-//     child: Card(
-//       elevation: 5,
-//       color: AllColor.lightCardColor,
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//           children: [
-//             const Align(
-//                 alignment: Alignment.centerLeft,
-//                 child: Text(
-//                   "Indian Premium League",
-//                   style: CLTextStyle.CLSubHeaderSecondery,
-//                 )),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceAround,
-//               children: [
-//                 Column(
-//                   children: [
-//                     Image.asset(
-//                       'assets/indian_flag.png',
-//                       scale: 4,
-//                     ),
-//                     Text('India'),
-//                   ],
-//                 ),
-//                 Column(
-//                   children: [
-//                     const Text(
-//                       '  VS',
-//                       style: TextStyle(
-//                           color: Colors.black,
-//                           fontSize: 18,
-//                           fontWeight: FontWeight.bold),
-//                     ),
-//                     const SizedBox(
-//                       height: 5,
-//                     ),
-//                     Row(
-//                       children: const [
-//                         Icon(
-//                           FontAwesomeIcons.circleDot,
-//                           size: 15,
-//                           color: Colors.red,
-//                         ),
-//                         SizedBox(
-//                           width: 5,
-//                         ),
-//                         Text(
-//                           "Live",
-//                           style: TextStyle(
-//                               color: Colors.red,
-//                               fontSize: 18,
-//                               fontWeight: FontWeight.bold),
-//                         )
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//                 Column(
-//                   children: [
-//                     Image.asset(
-//                       'assets/bd_flag.png',
-//                       scale: 10,
-//                     ),
-//                     Text('Bangladesh')
-//                   ],
-//                 )
-//               ],
-//             ),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 Row(
-//                   children: [
-//                     RichText(
-//                       text: TextSpan(
-//                         text: '140-5',
-//                         style: DefaultTextStyle.of(context)
-//                             .style
-//                             .copyWith(fontWeight: FontWeight.bold),
-//                         children: const <TextSpan>[
-//                           TextSpan(
-//                               text: ' 16.3',
-//                               style: TextStyle(
-//                                   fontWeight: FontWeight.normal, fontSize: 12)),
-//                           // TextSpan(text: ' world!'),
-//                         ],
-//                       ),
-//                     ),
-//                     const Icon(
-//                       Icons.sports_cricket_outlined,
-//                       color: Colors.red,
-//                     )
-//                   ],
-//                 ),
-//                 const Text(
-//                   "7 Runs need to be win",
-//                   style: TextStyle(
-//                       color: Colors.green, fontWeight: FontWeight.bold),
-//                 ),
-//                 Row(
-//                   children: [
-//                     RichText(
-//                       text: TextSpan(
-//                         text: '140-5',
-//                         style: DefaultTextStyle.of(context)
-//                             .style
-//                             .copyWith(fontWeight: FontWeight.bold),
-//                         children: const <TextSpan>[
-//                           TextSpan(
-//                             text: ' 16.3',
-//                             style: TextStyle(
-//                                 fontWeight: FontWeight.normal, fontSize: 12),
-//                           ),
-//                           // TextSpan(text: ' world!'),
-//                         ],
-//                       ),
-//                     ),
-//                     const Icon(
-//                       Icons.sports_cricket_outlined,
-//                       color: Colors.red,
-//                     )
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
 class FinishedCardTile extends StatelessWidget {
-  const FinishedCardTile(
-      {Key? key,
-      required this.title,
-      required this.onTap,
-      this.leadingIcon,
-      this.trailingWidget})
-      : super(key: key);
-  final IconData? leadingIcon;
+  const FinishedCardTile({
+    Key? key,
+    required this.title,
+    this.trailingWidget,
+    this.leftCountryURL,
+    this.rightCountryURL,
+    this.leftCountryName,
+    this.rightCountryName,
+    this.leftCountryRuns,
+    this.rightCountryRuns,
+    this.leftCountryOvers,
+    this.rightCountryOvers,
+    this.wonStatus,
+    required this.onTap,
+    required this.onStaticTap,
+  }) : super(key: key);
   final String title;
-  final Widget? trailingWidget;
+  final String? trailingWidget;
+  final String? leftCountryURL;
+  final String? rightCountryURL;
+  final String? leftCountryName;
+  final String? rightCountryName;
+  final String? leftCountryRuns;
+  final String? rightCountryRuns;
+  final String? leftCountryOvers;
+  final String? rightCountryOvers;
+  final String? wonStatus;
   final Function() onTap;
+  final Function() onStaticTap;
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> headers = <String, String>{
+      'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+      'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
+    };
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -168,7 +54,7 @@ class FinishedCardTile extends StatelessWidget {
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Indian Premium League",
+                    title,
                     style: TextStyle(
                       fontSize: dSize(.04),
                       fontWeight: FontWeight.w500,
@@ -183,12 +69,23 @@ class FinishedCardTile extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Image.asset(
-                        'assets/indian_flag.png',
-                        scale: 4,
+                      Container(
+                        height: 50,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                            API.baseUrl +
+                                API.imageMidPoint +
+                                leftCountryURL! +
+                                API.imageLastPoint,
+                            headers: headers,
+                          )),
+                        ),
                       ),
                       Text(
-                        'India',
+                        leftCountryName!,
                         style: TextStyle(
                             fontSize: dSize(.04),
                             fontWeight: FontWeight.w500,
@@ -198,14 +95,14 @@ class FinishedCardTile extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                              text: '140-5',
+                              text: leftCountryRuns,
                               style: TextStyle(
                                   fontSize: dSize(.03),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor()),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: ' 16.3',
+                                  text: leftCountryOvers,
                                   style: TextStyle(
                                       fontSize: dSize(.02),
                                       fontWeight: FontWeight.w500,
@@ -232,32 +129,39 @@ class FinishedCardTile extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        "PBKS Won",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: dSize(.04),
-                        ),
-                      ),
-                      Text(
-                        "by 5 wickets",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: dSize(.03),
+                      Container(
+                        width: dSize(.3),
+                        child: Text(
+                          wonStatus!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: dSize(.04),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   Column(
                     children: [
-                      Image.asset(
-                        'assets/bd_flag.png',
-                        scale: 10,
+                      Container(
+                        height: 50,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                            API.baseUrl +
+                                API.imageMidPoint +
+                                rightCountryURL! +
+                                API.imageLastPoint,
+                            headers: headers,
+                          )),
+                        ),
                       ),
                       Text(
-                        'Bangladesh',
+                        rightCountryName!,
                         style: TextStyle(
                           fontSize: dSize(.04),
                           fontWeight: FontWeight.w500,
@@ -268,14 +172,14 @@ class FinishedCardTile extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                              text: '140-5',
+                              text: rightCountryRuns,
                               style: TextStyle(
                                   fontSize: dSize(.03),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor()),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: ' 16.3',
+                                  text: rightCountryOvers,
                                   style: TextStyle(
                                       fontSize: dSize(.02),
                                       fontWeight: FontWeight.w500,
@@ -318,10 +222,6 @@ class FinishedCardTile extends StatelessWidget {
                   ),
                 ],
               )
-              // ListTile(
-              //   title: Text("2 More Matches"),
-              //   trailing:
-              // )
             ],
           ),
         ),
@@ -329,19 +229,3 @@ class FinishedCardTile extends StatelessWidget {
     );
   }
 }
-
-// class LiveCard extends StatelessWidget {
-//   const LiveCard({Key? key, required this.child}) : super(key: key);
-//   final Widget child;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//           color: PublicController.pc.toggleCardBg(),
-//           borderRadius: const BorderRadius.all(Radius.circular(8))),
-//       child: child,
-//     );
-//   }
-// }

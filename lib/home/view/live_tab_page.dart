@@ -18,26 +18,26 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (homeController) {
-        return Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(50),
-              topLeft: Radius.circular(50),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                homeController.loading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : homeController.liveMatchesModel.typeMatches != null
-                        ? ListView.builder(
+        return homeController.loading.value
+            ? const Center(child: CircularProgressIndicator())
+            : homeController.liveMatchesModel.typeMatches != null
+                ? Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(50),
+                        topLeft: Radius.circular(50),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             itemCount: homeController
                                 .liveMatchesModel.typeMatches!.length,
@@ -82,11 +82,11 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                               //LiveCart(context);
                             },
                           )
-                        : Center(child: Text("No Match Available")),
-              ],
-            ),
-          ),
-        );
+                        ],
+                      ),
+                    ),
+                  )
+                : Center(child: const Text("No Match Available"));
       },
     );
   }
