@@ -47,7 +47,7 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
             ),
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,
+              itemCount: homeController.upcomingMatchModel.typeMatches!.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return UpcomingCardTile(
@@ -64,7 +64,20 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                       ),
                     );
                   },
-                  title: '',
+                  title:
+                      "${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",
+                  rightCountryURL:
+                      '${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                  leftCountryURL:
+                      '${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                  leftCountryName:
+                      '${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                  rightCountryName:
+                      '${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                  startTime:
+                      '${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.startDate}',
+                  status:
+                      '${homeController.upcomingMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.state}',
                 );
                 //LiveCart(context);
               },

@@ -52,152 +52,154 @@ class SliderCardTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: dSize(.035),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: CachedNetworkImageProvider(
-                                API.baseUrl +
-                                    API.imageMidPoint +
-                                    leftCountryURL! +
-                                    API.imageLastPoint,
-                                headers: headers,
-                              ),
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            leftCountryName!,
-                            style: TextStyle(
-                              fontSize: dSize(.035),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                          Text(
-                            leftCountryRuns!,
-                            style: TextStyle(
-                              fontSize: dSize(.035),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                          Text(
-                            leftCountryOvers!,
-                            style: TextStyle(
-                              fontSize: dSize(.025),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: dSize(.07)),
+                  Align(
+                    alignment: Alignment.centerLeft,
                     child: Text(
-                      'VS',
+                      title,
                       style: TextStyle(
-                        fontSize: dSize(.05),
+                        fontSize: dSize(.035),
+                        fontWeight: FontWeight.w500,
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      Row(
                         children: [
-                          Text(
-                            rightCountryName!,
-                            style: TextStyle(
-                              fontSize: dSize(.035),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
+                          Container(
+                            height: 50,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                    API.baseUrl +
+                                        API.imageMidPoint +
+                                        leftCountryURL! +
+                                        API.imageLastPoint,
+                                    headers: headers,
+                                  ),
+                                  fit: BoxFit.cover),
                             ),
                           ),
-                          Text(
-                            rightCountryRuns!,
-                            style: TextStyle(
-                              fontSize: dSize(.035),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                leftCountryName!,
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                              Text(
+                                leftCountryRuns!,
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                              Text(
+                                leftCountryOvers!,
+                                style: TextStyle(
+                                  fontSize: dSize(.025),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            rightCountryOvers!,
-                            style: TextStyle(
-                              fontSize: dSize(.025),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: dSize(.07)),
+                        child: Text(
+                          'VS',
+                          style: TextStyle(
+                            fontSize: dSize(.05),
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                rightCountryName!,
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                              Text(
+                                rightCountryRuns!,
+                                style: TextStyle(
+                                  fontSize: dSize(.035),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                              Text(
+                                rightCountryOvers!,
+                                style: TextStyle(
+                                  fontSize: dSize(.025),
+                                  fontWeight: FontWeight.w500,
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 50,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                API.baseUrl +
+                                    API.imageMidPoint +
+                                    rightCountryURL! +
+                                    API.imageLastPoint,
+                                headers: headers,
+                              )),
                             ),
                           ),
                         ],
                       ),
-                      Container(
-                        height: 50,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: CachedNetworkImageProvider(
-                            API.baseUrl +
-                                API.imageMidPoint +
-                                rightCountryURL! +
-                                API.imageLastPoint,
-                            headers: headers,
-                          )),
-                        ),
-                      ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                 ],
               ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    wonStatus!,
-                    style: TextStyle(
-                      fontSize: dSize(.03),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
-                ],
+              Text(
+                wonStatus!,
+                style: TextStyle(
+                  fontSize: dSize(.04),
+                  fontWeight: FontWeight.w500,
+                  color: PublicController.pc.toggleTextColor(),
+                ),
               ),
               SizedBox(
                 height: 5,

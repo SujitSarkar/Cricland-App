@@ -1,14 +1,11 @@
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
-import 'package:cricland/home/view/widgets/live_cart_tile.dart';
-import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import 'home_details_screen.dart';
 
 class FixturesTabScreen extends StatefulWidget {
@@ -137,20 +134,28 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
               child: ListView.builder(
                   physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 50,
+                  itemCount: homeController
+                      .fixturesMatchModel.matchScheduleMap!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return FixturesCardTile(
-                      title: 'Indian Premium League',
-                      leadingUrlOne: 'assets/indian_flag.png',
-                      leadingUrlTwo: 'assets/bd_flag.png',
-                      teamOne: 'India',
-                      teamTwo: 'Bangladesh',
-                      reachTitleOne: '140-5',
-                      reachTitleTwo: '188-6',
-                      reachSubTitleOne: '16.3',
-                      reachSubTitleTwo: '19.3',
-                      wonTeam: 'BD Won',
-                      byWon: "by 7 wickets",
+                      title:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.seriesName}",
+                      leadingUrlOne:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
+                      leadingUrlTwo:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.imageId}",
+                      teamOne:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.teamName}",
+                      teamTwo:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.teamName}",
+                      reachTitleOne: '',
+                      reachTitleTwo: '',
+                      reachSubTitleOne: '',
+                      reachSubTitleTwo: '',
+                      desc:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.matchDesc}",
+                      date:
+                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.date}",
                       onTap: () {
                         Get.to(
                           HomeDetailsScreen(
