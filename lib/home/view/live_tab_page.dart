@@ -27,63 +27,63 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  homeController.loading.value
-                      ? const Center(child: CircularProgressIndicator())
-                      : ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: homeController
-                              .liveMatchesModel.typeMatches!.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return LiveCardTile(
-                              onTap: () {
-                                Get.to(
-                                  HomeDetailsScreen(
-                                    appBarTitle:
-                                        "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",
-                                    team2Name: '',
-                                    teamS2Name: '',
-                                    team1Name: '',
-                                    teamS1Name: '',
-                                    matchIndex: index,
-                                    stateTitle: '',
-                                  ),
-                                );
-                              },
-                              title:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",
-                              leadingOvers:
-                                  " ${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
-                              trailingOvers:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
-                              trailingRuns:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
-                              trailingTeamUrl:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}",
-                              leadingCountryName:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}",
-                              leadingRuns:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
-                              needText:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.status}",
-                              trailingCountryName:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}",
-                              leadingTeamUrl:
-                                  "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}",
-                            );
-                            //LiveCart(context);
-                          },
-                        ),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 5,
+                ),
+                homeController.loading.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : homeController.liveMatchesModel.typeMatches != null
+                        ? ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: homeController
+                                .liveMatchesModel.typeMatches!.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return LiveCardTile(
+                                onTap: () {
+                                  Get.to(
+                                    HomeDetailsScreen(
+                                      appBarTitle:
+                                          "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",
+                                      team2Name: '',
+                                      teamS2Name: '',
+                                      team1Name: '',
+                                      teamS1Name: '',
+                                      matchIndex: index,
+                                      stateTitle: '',
+                                    ),
+                                  );
+                                },
+                                title:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",
+                                leadingOvers:
+                                    " ${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
+                                trailingOvers:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
+                                trailingRuns:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
+                                trailingTeamUrl:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}",
+                                leadingCountryName:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}",
+                                leadingRuns:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesId}",
+                                needText:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.status}",
+                                trailingCountryName:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}",
+                                leadingTeamUrl:
+                                    "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}",
+                              );
+                              //LiveCart(context);
+                            },
+                          )
+                        : Center(child: Text("No Match Available")),
+              ],
             ),
           ),
         );

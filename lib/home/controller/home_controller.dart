@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cricland/home/model/feature_series_model.dart';
 import 'package:cricland/home/model/fixtures_match_model.dart';
 import 'package:cricland/home/model/recent_match_model.dart';
 import 'package:cricland/home/model/live_matches_model.dart';
@@ -13,6 +14,7 @@ class HomeController extends GetxController {
   late RecentMatchModel recentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
   late FixturesMatchModel fixturesMatchModel;
+  late FeatureSeriesModel featureSeriesModel;
 
   RxBool loading = false.obs;
   @override
@@ -22,11 +24,12 @@ class HomeController extends GetxController {
     recentMatchModel = RecentMatchModel();
     upcomingMatchModel = UpcomingMatchModel();
     fixturesMatchModel = FixturesMatchModel();
+    featureSeriesModel = FeatureSeriesModel();
     getRecentMatches();
     getLiveMatches();
     getUpComingMatches();
     getFixturesMatches();
-
+    getFeatureSeries();
     super.onInit();
   }
 
@@ -74,6 +77,24 @@ class HomeController extends GetxController {
         onSuccess: (response) {
           print("Fixtures Response: ${response}");
           fixturesMatchModel = fixturesMatchModelFromJson(jsonEncode(response));
+          print("\n\nDDDDDDDD");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
+  Future<void> getFeatureSeries() async {
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.featureSeriesData),
+        onSuccess: (response) {
+          print("Feature Response: ${response}");
+          featureSeriesModel = featureSeriesModelFromJson(jsonEncode(response));
           print("\n\nDDDDDDDD");
           loading(false);
         },

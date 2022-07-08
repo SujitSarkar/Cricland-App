@@ -35,8 +35,8 @@ class _MatchesTabState extends State<MatchesTab> {
                   reachTitleTwo: '188-6',
                   reachSubTitleOne: '16.3',
                   reachSubTitleTwo: '19.3',
-                  wonTeam: 'BD Won',
-                  byWon: "by 7 wickets",
+                  desc: "",
+                  date: "",
                   onTap: () {
                     Navigator.push(
                         context,

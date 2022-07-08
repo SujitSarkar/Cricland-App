@@ -130,48 +130,59 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
             const SizedBox(
               height: 5,
             ),
-            Expanded(
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: homeController
-                      .fixturesMatchModel.matchScheduleMap!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return FixturesCardTile(
-                      title:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.seriesName}",
-                      leadingUrlOne:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                      leadingUrlTwo:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.imageId}",
-                      teamOne:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.teamName}",
-                      teamTwo:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.teamName}",
-                      reachTitleOne: '',
-                      reachTitleTwo: '',
-                      reachSubTitleOne: '',
-                      reachSubTitleTwo: '',
-                      desc:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.matchDesc}",
-                      date:
-                          "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.date}",
-                      onTap: () {
-                        Get.to(
-                          HomeDetailsScreen(
-                            appBarTitle: 'IPL 2022',
-                            teamS2Name: '',
-                            matchIndex: index,
-                            team2Name: '',
-                            team1Name: '',
-                            teamS1Name: '',
-                            stateTitle: '',
-                          ),
-                        );
-                      },
-                    );
-                  }),
-            ),
+            homeController.fixturesMatchModel.matchScheduleMap != null
+                ? Expanded(
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: homeController
+                            .fixturesMatchModel.matchScheduleMap!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return homeController
+                                      .fixturesMatchModel
+                                      .matchScheduleMap![index]
+                                      .scheduleAdWrapper !=
+                                  null
+                              ? FixturesCardTile(
+                                  title:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.seriesName}",
+                                  leadingUrlOne:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
+                                  leadingUrlTwo:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.imageId}",
+                                  teamOne:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.teamName}",
+                                  teamTwo:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.teamName}",
+                                  reachTitleOne: '',
+                                  reachTitleTwo: '',
+                                  reachSubTitleOne: '',
+                                  reachSubTitleTwo: '',
+                                  desc:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.matchDesc}",
+                                  date:
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.date}",
+                                  onTap: () {
+                                    Get.to(
+                                      HomeDetailsScreen(
+                                        appBarTitle: 'IPL 2022',
+                                        teamS2Name: '',
+                                        matchIndex: index,
+                                        team2Name: '',
+                                        team1Name: '',
+                                        teamS1Name: '',
+                                        stateTitle: '',
+                                      ),
+                                    );
+                                  },
+                                )
+                              : SizedBox();
+                        }),
+                  )
+                : Padding(
+                    padding: EdgeInsets.symmetric(vertical: dSize(.5)),
+                    child: const Text("No Match Available"),
+                  ),
           ],
         ),
       );

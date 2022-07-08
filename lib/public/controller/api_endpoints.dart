@@ -4,6 +4,7 @@ class ApiEndpoints {
   static String recentMatchData = 'matches/v1/recent';
   static String upComingMatchData = 'matches/v1/upcoming';
   static String fixturesMatchData = 'schedule/v1/international';
+  static String featureSeriesData = 'series/v1/international';
   static String matchesInfo = 'mcenter/v1/';
   static String liveMatches = 'matches/v1/live';
   static String image = 'img/v1/i1/c';
