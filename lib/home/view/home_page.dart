@@ -21,13 +21,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _iplTabType = Variables.homeTabsCategory.first;
+
   @override
   void initState() {
     super.initState();
 
-    _tabController =
-        TabController(length: Variables.homeTabsCategory.length, vsync: this);
+    _tabController = TabController(
+      length: Variables.homeTabsCategory.length,
+      vsync: this,
+      initialIndex: 1,
+    );
   }
 
   @override
@@ -48,7 +51,8 @@ class _HomePageState extends State<HomePage>
                     width: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2),
                     child: Text(
                       "CrickLand",
                       style: TextStyle(
@@ -101,7 +105,7 @@ class _HomePageState extends State<HomePage>
             ),
             body: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 LiveTabScreen(),
                 HomeTabScreen(),
                 UpComingTabScreen(),

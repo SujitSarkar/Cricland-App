@@ -56,6 +56,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
+      print(
+          "Matches: ${homeController.recentMatchModel.typeMatches!.first.seriesMatches!.length}");
       return homeController.recentMatchModel.typeMatches != null
           ? SingleChildScrollView(
               child: Padding(
@@ -69,34 +71,40 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                         children: [
                           for (int i = 0;
                               i <
-                                  homeController
-                                      .recentMatchModel.typeMatches!.length;
+                                  homeController.recentMatchModel.typeMatches!
+                                          .first.seriesMatches!.length -
+                                      1;
                               i++)
-                            SliderCardTile(
-                              title:
-                                  "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.seriesName}",
-                              onTap: () {},
-                              onStaticTap: () {},
-                              leftCountryName:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
-                              leftCountryOvers:
-                                  "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
-                              leftCountryRuns:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
-                              leftCountryURL:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
-                              trailingWidget: 'Upcoming',
-                              rightCountryName:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
-                              rightCountryOvers:
-                                  "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
-                              rightCountryRuns:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
-                              rightCountryURL:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
-                              wonStatus:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.status}',
-                            ),
+                            homeController.recentMatchModel.typeMatches![0]
+                                        .seriesMatches![i].seriesAdWrapper ==
+                                    null
+                                ? SizedBox()
+                                : SliderCardTile(
+                                    title:
+                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesName}",
+                                    onTap: () {},
+                                    onStaticTap: () {},
+                                    //TODO runs and overs problem
+                                    leftCountryName:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                                    leftCountryOvers:
+                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
+                                    leftCountryRuns:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
+                                    leftCountryURL:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                                    trailingWidget: 'Upcoming',
+                                    rightCountryName:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                                    rightCountryOvers:
+                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
+                                    rightCountryRuns:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
+                                    rightCountryURL:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                                    wonStatus:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.status}',
+                                  ),
                         ],
                       ),
                     ),

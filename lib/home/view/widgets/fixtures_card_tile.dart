@@ -55,20 +55,22 @@ class FixturesCardTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: title != null
-                        ? Text(
-                            title!,
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          )
-                        : null,
+                  Flexible(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: title != null
+                          ? Text(
+                              title!,
+                              style: TextStyle(
+                                fontSize: dSize(.04),
+                                fontWeight: FontWeight.w500,
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )
+                          : null,
+                    ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.notifications,
                     color: Colors.grey,
                   )

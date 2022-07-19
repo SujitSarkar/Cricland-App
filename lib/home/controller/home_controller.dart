@@ -40,6 +40,7 @@ class HomeController extends GetxController {
             await ApiService.instance.get(ApiEndpoints.recentMatchData),
         onSuccess: (response) {
           print("Recent Response: ${response}");
+
           recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
           print("\n\nDDDDDDDD");
           loading(false);
