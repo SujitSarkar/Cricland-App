@@ -56,8 +56,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      print(
-          "Matches: ${homeController.recentMatchModel.typeMatches!.first.seriesMatches!.length}");
+      // print(
+      //     "Matches: ${homeController.recentMatchModel.typeMatches!.first.seriesMatches!.length}");
       return homeController.recentMatchModel.typeMatches != null
           ? SingleChildScrollView(
               child: Padding(
