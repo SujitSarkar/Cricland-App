@@ -127,38 +127,55 @@ class _HomePageState extends State<HomePage>
             controller: _tabController,
             labelColor: PublicController.pc.toggleLoadingColor(),
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(dSize(.02)),
-                    topRight: Radius.circular(dSize(.02))),
-                color: PublicController.pc.toggleTabColor()),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  dSize(.02),
+                ),
+                topRight: Radius.circular(
+                  dSize(.02),
+                ),
+              ),
+              color: PublicController.pc.toggleTabColor(),
+            ),
             unselectedLabelColor: Colors.grey,
             indicatorSize: TabBarIndicatorSize.label,
             physics: const BouncingScrollPhysics(),
             tabs: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01), horizontal: dSize(.02)),
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
                 child: Text(
-                    'Live(${homeController.liveMatchesModel.typeMatches!.length})'),
+                  'Live(${homeController.liveMatchesModel.typeMatches!.length})',
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01), horizontal: dSize(.02)),
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
                 child: Text('Home'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01), horizontal: dSize(.02)),
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
                 child: Text('Upcoming'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01), horizontal: dSize(.02)),
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
                 child: Text('Finished'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01), horizontal: dSize(.02)),
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
                 child: Text('Fixtures'),
               ),
             ]),
