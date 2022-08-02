@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/constants.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -39,10 +38,6 @@ class FinishedCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> headers = <String, String>{
-      'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
-      'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
-    };
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -81,7 +76,7 @@ class FinishedCardTile extends StatelessWidget {
                                 ApiEndpoints.imageMidPoint +
                                 leftCountryURL! +
                                 ApiEndpoints.imageLastPoint,
-                            headers: headers,
+                            headers: ApiEndpoints.headers,
                           )),
                         ),
                       ),
@@ -157,7 +152,7 @@ class FinishedCardTile extends StatelessWidget {
                                 ApiEndpoints.imageMidPoint +
                                 rightCountryURL! +
                                 ApiEndpoints.imageLastPoint,
-                            headers: headers,
+                            headers: ApiEndpoints.headers,
                           )),
                         ),
                       ),

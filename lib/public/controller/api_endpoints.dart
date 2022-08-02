@@ -12,4 +12,9 @@ class ApiEndpoints {
 
   static const String imageMidPoint = "img/$apiVersion/i1/c";
   static const String imageLastPoint = "/i.jpg";
+
+  static const Map<String, String> headers = <String, String>{
+    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+    'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
+  };
 }

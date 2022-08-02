@@ -137,7 +137,7 @@ class HomeController extends GetxController {
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.liveMatches),
         onSuccess: (response) {
-          //  print(response);
+          print(response);
 
           liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
           //

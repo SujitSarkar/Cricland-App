@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,10 +85,6 @@ class ConnectionHelper {
     try {
       // Starting Timer
       DateTime stime = DateTime.now();
-      Map<String, dynamic> headers = {
-        "X-RapidAPI-Key": "536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf",
-        "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
-      };
       Dio dio = Dio();
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (HttpClient client) {
@@ -98,7 +95,7 @@ class ConnectionHelper {
       var response = await dio.get(
         url,
         options: Options(
-          headers: headers,
+          headers: ApiEndpoints.headers,
           contentType: Headers.jsonContentType,
           sendTimeout: 10000,
           receiveTimeout: 10000,
@@ -137,12 +134,6 @@ class ConnectionHelper {
       // Starting Timer
       DateTime stime = DateTime.now();
       final prefs = await SharedPreferences.getInstance();
-
-      Map<String, dynamic> headers = {
-        "X-RapidAPI-Key": "536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf",
-        "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
-      };
-
       Dio dio = Dio();
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (HttpClient client) {
@@ -155,7 +146,7 @@ class ConnectionHelper {
         url,
         queryParameters: queryData,
         options: Options(
-          headers: headers,
+          headers: ApiEndpoints.headers,
           contentType: Headers.jsonContentType,
           sendTimeout: 10000,
           receiveTimeout: 10000,
@@ -230,11 +221,6 @@ class ConnectionHelper {
     try {
       // Starting Timer
       DateTime stime = DateTime.now();
-      Map<String, dynamic> headers = {
-        "X-RapidAPI-Key": "536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf",
-        "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
-      };
-
       Dio dio = Dio();
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (HttpClient client) {
@@ -247,7 +233,7 @@ class ConnectionHelper {
         url,
         data: data,
         options: Options(
-          headers: headers,
+          headers: ApiEndpoints.headers,
           contentType: Headers.jsonContentType,
           sendTimeout: 10000,
           receiveTimeout: 10000,
