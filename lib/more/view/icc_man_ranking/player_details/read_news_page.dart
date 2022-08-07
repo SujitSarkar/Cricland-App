@@ -1,12 +1,10 @@
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../widgets/article_card_portrait.dart';
 
 class ReadNewsPage extends StatelessWidget {
   ReadNewsPage({Key? key}) : super(key: key);
@@ -35,7 +33,6 @@ class ReadNewsPage extends StatelessWidget {
         padding: EdgeInsets.all(dSize(.04)),
         child: Column(
           children: [
-
             Row(
               children: [
                 _cardTile('BAN'),
@@ -66,7 +63,7 @@ class ReadNewsPage extends StatelessWidget {
               itemCount: 10,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context,index)=>ArticleCardPortrait(),
+              itemBuilder: (context,index)=> Container(),//ArticleCardPortrait(),
               separatorBuilder: (context, index)=>SizedBox(height: dSize(.08)),
             )
           ],

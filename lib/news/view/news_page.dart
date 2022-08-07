@@ -1,4 +1,7 @@
+import 'package:cricland/news/controller/news_controller.dart';
+import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../more/view/widgets/article_card_portrait.dart';
 import '../../public/controller/public_controller.dart';
 import '../../public/variables/config.dart';
@@ -6,69 +9,69 @@ import '../../public/variables/variable.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
-
   @override
   State<NewsPage> createState() => _NewsPageState();
 }
 
 class _NewsPageState extends State<NewsPage> with SingleTickerProviderStateMixin{
-  late TabController _tabController;
-  String _newsType=Variables.newsCategory.first;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: Variables.newsCategory.length, vsync: this);
+    initData();
+  }
+
+  Future<void> initData()async{
+    Get.put(NewsController());
+
+    if(NewsController.nc.categoryList.value!=null){
+      await NewsController.nc.getCategory();
+      NewsController.nc.tabController = TabController(
+          length: NewsController.nc.categoryList.length,
+          vsync: this);
+      NewsController.nc.tabController.index=0;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('News',
-          style: TextStyle(fontSize: dSize(.045))),
-        bottom: _tabBar(),
-      ),
-      body: SafeArea(
-        child: TabBarView(
-          controller: _tabController,
-          children: [
-            ListView.separated(
+    return GetBuilder<NewsController>(
+      init: NewsController(),
+      builder: (nc) {
+        return Obx(() => Scaffold(
+          backgroundColor: PublicController.pc.togglePagedBg(),
+          appBar: AppBar(
+            title: Text('News',
+                style: TextStyle(fontSize: dSize(.045))),
+            bottom: _tabBar(nc),
+          ),
+          body: nc.loading.value
+              ? const LoadingWidget()
+              : SafeArea(
+            child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: dSize(.04),vertical: dSize(.04)),
-              itemCount: 20,
+              itemCount: nc.articleList.length,
               physics: const BouncingScrollPhysics(),
-              itemBuilder: (context,index)=>ArticleCardPortrait(),
+              itemBuilder: (context,index)=>ArticleCardPortrait(model: nc.articleList[index]),
               separatorBuilder: (context, index)=>SizedBox(height: dSize(.08)),
             ),
-            ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: dSize(.04),vertical: dSize(.04)),
-              itemCount: 20,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context,index)=>ArticleCardPortrait(),
-              separatorBuilder: (context, index)=>SizedBox(height: dSize(.08)),
-            ),
-            ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: dSize(.04),vertical: dSize(.04)),
-              itemCount: 20,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context,index)=>ArticleCardPortrait(),
-              separatorBuilder: (context, index)=>SizedBox(height: dSize(.08)),
-            )
-          ],
-
-        ),
-      ),
+          ),
+        ));
+      }
     );
   }
 
-  PreferredSize _tabBar()=>PreferredSize(
+  PreferredSize _tabBar(NewsController nc)=>PreferredSize(
     preferredSize: Size.fromHeight(dSize(.04)),
-    child: TabBar(
+    child: nc.categoryList.value==null
+        ? Container()
+        : TabBar(
       onTap: (covariant) async {
-        setState(() => _tabController.index = covariant);
+        NewsController.nc.tabController.index = covariant;
+        await nc.getArticleFromTabSwitch();
       },
       isScrollable: true,
-      controller: _tabController,
+      controller: NewsController.nc.tabController,
       labelColor: PublicController.pc.toggleLoadingColor(),
       indicator: BoxDecoration(
           borderRadius: BorderRadius.only(
