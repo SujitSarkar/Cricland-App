@@ -81,6 +81,14 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                         setState(() {
                           selectedValue = value as String;
                         });
+                        if (selectedValue == "Day") {
+                          homeController.getFixturesMatches();
+                        } else if (selectedValue == "Series") {
+                          homeController.getFixturesMatches();
+                        } else if (selectedValue == "Teams") {
+                          homeController.getFixturesMatches();
+                        }
+                        print(selectedValue);
                       },
                       buttonHeight: 40,
                       buttonWidth: 140,
@@ -136,7 +144,12 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                         physics: BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: homeController
-                            .fixturesMatchModel.matchScheduleMap!.length,
+                            .fixturesMatchModel
+                            .matchScheduleMap!
+                            .first
+                            .scheduleAdWrapper!
+                            .matchScheduleList!
+                            .length,
                         itemBuilder: (BuildContext context, int index) {
                           return homeController
                                       .fixturesMatchModel

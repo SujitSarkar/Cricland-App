@@ -13,26 +13,22 @@ String fixturesMatchModelToJson(FixturesMatchModel data) =>
 class FixturesMatchModel {
   FixturesMatchModel({
     this.matchScheduleMap,
-    this.startDt,
     this.appIndex,
   });
 
   List<MatchScheduleMap>? matchScheduleMap;
-  List<String>? startDt;
   AppIndex? appIndex;
 
   factory FixturesMatchModel.fromJson(Map<String, dynamic> json) =>
       FixturesMatchModel(
         matchScheduleMap: List<MatchScheduleMap>.from(
             json["matchScheduleMap"].map((x) => MatchScheduleMap.fromJson(x))),
-        startDt: List<String>.from(json["startDt"].map((x) => x)),
         appIndex: AppIndex.fromJson(json["appIndex"]),
       );
 
   Map<String, dynamic> toJson() => {
         "matchScheduleMap":
             List<dynamic>.from(matchScheduleMap!.map((x) => x.toJson())),
-        "startDt": List<dynamic>.from(startDt!.map((x) => x)),
         "appIndex": appIndex!.toJson(),
       };
 }
@@ -217,7 +213,7 @@ class MatchInfo {
       };
 }
 
-enum MatchFormat { T20, TEST, ODI }
+enum MatchFormat { ODI, T20, TEST }
 
 final matchFormatValues = EnumValues(
     {"ODI": MatchFormat.ODI, "T20": MatchFormat.T20, "TEST": MatchFormat.TEST});
@@ -227,31 +223,31 @@ class Team {
     this.teamId,
     this.teamName,
     this.teamSName,
-    this.imageId,
     this.isFullMember,
+    this.imageId,
   });
 
   int? teamId;
   String? teamName;
   String? teamSName;
-  int? imageId;
   bool? isFullMember;
+  int? imageId;
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
         teamId: json["teamId"],
         teamName: json["teamName"],
         teamSName: json["teamSName"],
-        imageId: json["imageId"],
         isFullMember:
             json["isFullMember"] == null ? null : json["isFullMember"],
+        imageId: json["imageId"],
       );
 
   Map<String, dynamic> toJson() => {
         "teamId": teamId,
         "teamName": teamName,
         "teamSName": teamSName,
-        "imageId": imageId,
         "isFullMember": isFullMember == null ? null : isFullMember,
+        "imageId": imageId,
       };
 }
 
@@ -265,39 +261,61 @@ class VenueInfo {
 
   String? ground;
   String? city;
-  String? country;
+  Country? country;
   Timezone? timezone;
 
   factory VenueInfo.fromJson(Map<String, dynamic> json) => VenueInfo(
         ground: json["ground"],
         city: json["city"],
-        country: json["country"],
-        timezone: timezoneValues!.map[json["timezone"]],
+        country: countryValues.map[json["country"]],
+        timezone: timezoneValues.map[json["timezone"]],
       );
 
   Map<String, dynamic> toJson() => {
         "ground": ground,
         "city": city,
-        "country": country,
+        "country": countryValues.reverse[country],
         "timezone": timezoneValues.reverse[timezone],
       };
 }
 
-enum Timezone { THE_0200, THE_0800, THE_0530, THE_0100, THE_0400, THE_0300 }
+enum Country {
+  WEST_INDIES,
+  INDIA,
+  SRI_LANKA,
+  ENGLAND,
+  FINLAND,
+  SCOTLAND,
+  WALES
+}
+
+final countryValues = EnumValues({
+  "England": Country.ENGLAND,
+  "Finland": Country.FINLAND,
+  "India": Country.INDIA,
+  "Scotland": Country.SCOTLAND,
+  "Sri Lanka": Country.SRI_LANKA,
+  "Wales": Country.WALES,
+  "West Indies": Country.WEST_INDIES
+});
+
+enum Timezone { THE_0400, THE_0530, THE_0100, THE_0300 }
 
 final timezoneValues = EnumValues({
   "+01:00": Timezone.THE_0100,
-  "+02:00": Timezone.THE_0200,
   "+03:00": Timezone.THE_0300,
   "-04:00": Timezone.THE_0400,
-  "+05:30": Timezone.THE_0530,
-  "+08:00": Timezone.THE_0800
+  "+05:30": Timezone.THE_0530
 });
 
-enum SeriesCategory { INTERNATIONAL }
+enum SeriesCategory { INTERNATIONAL, LEAGUE, DOMESTIC, WOMEN }
 
-final seriesCategoryValues =
-    EnumValues({"International": SeriesCategory.INTERNATIONAL});
+final seriesCategoryValues = EnumValues({
+  "Domestic": SeriesCategory.DOMESTIC,
+  "International": SeriesCategory.INTERNATIONAL,
+  "League": SeriesCategory.LEAGUE,
+  "Women": SeriesCategory.WOMEN
+});
 
 class EnumValues<T> {
   Map<String, T> map;
@@ -306,9 +324,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap!;
   }
 }

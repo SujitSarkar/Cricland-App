@@ -1,18 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cricland/home/constants.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/slider_card_tile.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../IPL/view/ipl_page.dart';
 
 class HomeTabScreen extends StatefulWidget {
@@ -23,34 +16,6 @@ class HomeTabScreen extends StatefulWidget {
 }
 
 final themeMode = ValueNotifier(2);
-final List<String> itemList = [
-  'https://www.kidlink.org/icons/f0-at.gif',
-  'https://www.kidlink.org/icons/f0-ag.gif',
-  'https://www.kidlink.org/icons/f0-ar.gif',
-  'https://www.kidlink.org/icons/f0-ao.gif',
-  'https://www.kidlink.org/icons/f0-am.gif',
-  'https://www.kidlink.org/icons/f0-aw.gif',
-  'https://www.kidlink.org/icons/f0-bd.gif',
-  'https://www.kidlink.org/icons/f0-au.gif',
-  'https://www.kidlink.org/icons/f0-al.gif',
-  'https://www.kidlink.org/icons/f0-bs.gif',
-];
-final List<String> countryNameList = [
-  'Austria',
-  'Barbuda',
-  'Argentina',
-  'Angola',
-  'Armenia',
-  'Aruba',
-  'Bangladesh',
-  'Australia',
-  'Albania',
-  'Bahamas',
-];
-Map<String, String> headers = <String, String>{
-  'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
-  'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
-};
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
@@ -69,34 +34,40 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                         children: [
                           for (int i = 0;
                               i <
-                                  homeController
-                                      .recentMatchModel.typeMatches!.length;
+                                  homeController.recentMatchModel.typeMatches!
+                                          .first.seriesMatches!.length -
+                                      1;
                               i++)
-                            SliderCardTile(
-                              title:
-                                  "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.seriesName}",
-                              onTap: () {},
-                              onStaticTap: () {},
-                              leftCountryName:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
-                              leftCountryOvers:
-                                  "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
-                              leftCountryRuns:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
-                              leftCountryURL:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
-                              trailingWidget: 'Upcoming',
-                              rightCountryName:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
-                              rightCountryOvers:
-                                  "${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
-                              rightCountryRuns:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
-                              rightCountryURL:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
-                              wonStatus:
-                                  '${homeController.recentMatchModel.typeMatches![i].seriesMatches!.first.seriesAdWrapper!.matches!.first.matchInfo!.status}',
-                            ),
+                            homeController.recentMatchModel.typeMatches![0]
+                                        .seriesMatches![i].seriesAdWrapper ==
+                                    null
+                                ? SizedBox()
+                                : SliderCardTile(
+                                    title:
+                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesName}",
+                                    onTap: () {},
+                                    onStaticTap: () {},
+                                    //TODO runs and overs problem
+                                    leftCountryName:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                                    leftCountryOvers:
+                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
+                                    leftCountryRuns:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
+                                    leftCountryURL:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                                    trailingWidget: 'Upcoming',
+                                    rightCountryName:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                                    rightCountryOvers:
+                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
+                                    rightCountryRuns:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
+                                    rightCountryURL:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                                    wonStatus:
+                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.status}',
+                                  ),
                         ],
                       ),
                     ),
@@ -147,7 +118,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                                   ApiEndpoints.imageMidPoint +
                                                   "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.id}" +
                                                   ApiEndpoints.imageLastPoint,
-                                              headers: headers,
+                                              headers: ApiEndpoints.headers,
                                             ),
                                             fit: BoxFit.fill),
                                       ),

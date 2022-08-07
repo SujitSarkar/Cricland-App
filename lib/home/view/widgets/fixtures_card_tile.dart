@@ -39,10 +39,6 @@ class FixturesCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> headers = <String, String>{
-      'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
-      'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
-    };
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -55,20 +51,22 @@ class FixturesCardTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: title != null
-                        ? Text(
-                            title!,
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          )
-                        : null,
+                  Flexible(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: title != null
+                          ? Text(
+                              title!,
+                              style: TextStyle(
+                                fontSize: dSize(.04),
+                                fontWeight: FontWeight.w500,
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )
+                          : null,
+                    ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.notifications,
                     color: Colors.grey,
                   )
@@ -97,7 +95,7 @@ class FixturesCardTile extends StatelessWidget {
                                         ApiEndpoints.imageMidPoint +
                                         leadingUrlOne! +
                                         ApiEndpoints.imageLastPoint,
-                                    headers: headers,
+                                    headers: ApiEndpoints.headers,
                                   )),
                                 ),
                               ),
@@ -159,7 +157,7 @@ class FixturesCardTile extends StatelessWidget {
                                         ApiEndpoints.imageMidPoint +
                                         leadingUrlTwo! +
                                         ApiEndpoints.imageLastPoint,
-                                    headers: headers,
+                                    headers: ApiEndpoints.headers,
                                   )),
                                 ),
                               ),

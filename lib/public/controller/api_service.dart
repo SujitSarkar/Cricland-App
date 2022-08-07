@@ -14,11 +14,6 @@ class ApiService {
 
   final GetConnect getConnect = GetConnect();
 
-  Map<String, String> headers = <String, String>{
-    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
-    'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
-  };
-
   Future<void> apiCall(
       {required Function execute,
       required Function(dynamic) onSuccess,
@@ -40,10 +35,10 @@ class ApiService {
   ///get api request
   Future<dynamic> get(String url) async {
     print("URL: ${ApiEndpoints.baseURL + url}");
-    print("Headers: $headers");
+    print("Headers: ${ApiEndpoints.headers}");
     var response = await getConnect.httpClient.get(
       ApiEndpoints.baseURL + url,
-      headers: headers,
+      headers: ApiEndpoints.headers,
     );
     return _processResponse(response);
   }
@@ -52,14 +47,16 @@ class ApiService {
   Future<dynamic> post(String url,
       {dynamic body, Map<String, dynamic>? query}) async {
     var response = await getConnect.httpClient.post(ApiEndpoints.baseURL + url,
-        body: jsonEncode(body), headers: headers, query: query);
+        body: jsonEncode(body), headers: ApiEndpoints.headers, query: query);
     return _processResponse(response);
   }
 
   ///delete api request
   Future<dynamic> delete(String url, {Map<String, dynamic>? query}) async {
-    var response = await getConnect.httpClient
-        .delete(ApiEndpoints.baseURL + url, headers: headers, query: query);
+    var response = await getConnect.httpClient.delete(
+        ApiEndpoints.baseURL + url,
+        headers: ApiEndpoints.headers,
+        query: query);
     return _processResponse(response);
   }
 
@@ -67,7 +64,7 @@ class ApiService {
   Future<dynamic> patch(String url,
       {dynamic body, Map<String, dynamic>? query}) async {
     var response = await getConnect.httpClient.patch(ApiEndpoints.baseURL + url,
-        body: body, headers: headers, query: query);
+        body: body, headers: ApiEndpoints.headers, query: query);
     return _processResponse(response);
   }
 

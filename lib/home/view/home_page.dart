@@ -21,13 +21,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _iplTabType = Variables.homeTabsCategory.first;
+
   @override
   void initState() {
     super.initState();
 
-    _tabController =
-        TabController(length: Variables.homeTabsCategory.length, vsync: this);
+    _tabController = TabController(
+      length: Variables.homeTabsCategory.length,
+      vsync: this,
+      initialIndex: 1,
+    );
   }
 
   @override
@@ -48,7 +51,8 @@ class _HomePageState extends State<HomePage>
                     width: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2),
                     child: Text(
                       "CrickLand",
                       style: TextStyle(
@@ -97,11 +101,11 @@ class _HomePageState extends State<HomePage>
                   width: 8,
                 ),
               ],
-              bottom: _tabBar(),
+              bottom: _tabBar(homeController),
             ),
             body: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 LiveTabScreen(),
                 HomeTabScreen(),
                 UpComingTabScreen(),
@@ -113,30 +117,67 @@ class _HomePageState extends State<HomePage>
         });
   }
 
-  PreferredSize _tabBar() => PreferredSize(
+  PreferredSize _tabBar(HomeController homeController) => PreferredSize(
         preferredSize: Size.fromHeight(dSize(.04)),
         child: TabBar(
-          onTap: (covariant) async {
-            setState(() => _tabController.index = covariant);
-          },
-          isScrollable: true,
-          controller: _tabController,
-          labelColor: PublicController.pc.toggleLoadingColor(),
-          indicator: BoxDecoration(
+            onTap: (covariant) async {
+              setState(() => _tabController.index = covariant);
+            },
+            isScrollable: true,
+            controller: _tabController,
+            labelColor: PublicController.pc.toggleLoadingColor(),
+            indicator: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(dSize(.02)),
-                  topRight: Radius.circular(dSize(.02))),
-              color: PublicController.pc.toggleTabColor()),
-          unselectedLabelColor: Colors.grey,
-          indicatorSize: TabBarIndicatorSize.label,
-          physics: const BouncingScrollPhysics(),
-          tabs: Variables.homeTabsCategory
-              .map<Widget>((String item) => Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: dSize(.01), horizontal: dSize(.02)),
-                    child: Text(item),
-                  ))
-              .toList(),
-        ),
+                topLeft: Radius.circular(
+                  dSize(.02),
+                ),
+                topRight: Radius.circular(
+                  dSize(.02),
+                ),
+              ),
+              color: PublicController.pc.toggleTabColor(),
+            ),
+            unselectedLabelColor: Colors.grey,
+            indicatorSize: TabBarIndicatorSize.label,
+            physics: const BouncingScrollPhysics(),
+            tabs: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
+                child: Text(
+                  'Live(${homeController.liveMatchesModel.typeMatches!.length})',
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
+                child: Text('Home'),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
+                child: Text('Upcoming'),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
+                child: Text('Finished'),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dSize(.01),
+                  horizontal: dSize(.02),
+                ),
+                child: Text('Fixtures'),
+              ),
+            ]),
       );
 }

@@ -16,6 +16,8 @@ class HomeController extends GetxController {
   late FixturesMatchModel fixturesMatchModel;
   late FeatureSeriesModel featureSeriesModel;
 
+  RxList fixtureMatchList = [].obs;
+
   RxBool loading = false.obs;
   @override
   void onInit() {
@@ -40,6 +42,7 @@ class HomeController extends GetxController {
             await ApiService.instance.get(ApiEndpoints.recentMatchData),
         onSuccess: (response) {
           print("Recent Response: ${response}");
+
           recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
           print("\n\nDDDDDDDD");
           loading(false);
@@ -73,7 +76,7 @@ class HomeController extends GetxController {
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.fixturesMatchData),
+            await ApiService.instance.get(ApiEndpoints.fixturesMatchDayData),
         onSuccess: (response) {
           print("Fixtures Response: ${response}");
           fixturesMatchModel = fixturesMatchModelFromJson(jsonEncode(response));
@@ -84,6 +87,7 @@ class HomeController extends GetxController {
           print(error.toString());
           loading(false);
         });
+
     update();
   }
 
@@ -133,7 +137,7 @@ class HomeController extends GetxController {
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.liveMatches),
         onSuccess: (response) {
-          //  print(response);
+          print(response);
 
           liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
           //
