@@ -40,7 +40,7 @@ class FixturesMatchModel {
 class AppIndex {
   AppIndex({
     this.seoTitle,
-    this.webUrl,
+    this.webUrl
   });
 
   String? seoTitle;

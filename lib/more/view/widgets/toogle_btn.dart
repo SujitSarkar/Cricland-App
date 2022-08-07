@@ -54,11 +54,11 @@ class _AnimatedToggleButtonState extends State<AnimatedToggleButton> {
                 children: List.generate(
                   widget.values.length,
                       (index) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
+                    padding: EdgeInsets.symmetric(horizontal: dSize(.02)),
                     child: Text(
                       widget.values[index],
                       style: TextStyle(
-                          fontSize: widget.fontSize?? dSize(.04),
+                          fontSize: widget.fontSize?? dSize(.02),
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
