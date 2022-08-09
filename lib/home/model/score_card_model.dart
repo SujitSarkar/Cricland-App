@@ -24,7 +24,7 @@ class ScoreCardModel {
   bool? isMatchComplete;
   String? status;
   List<dynamic>? videos;
-  int? responseLastUpdated;
+  dynamic responseLastUpdated;
 
   factory ScoreCardModel.fromJson(Map<String, dynamic> json) => ScoreCardModel(
         scoreCard: List<ScoreCard>.from(
@@ -74,16 +74,16 @@ class MatchHeader {
     this.seriesName,
   });
 
-  int? matchId;
+  dynamic matchId;
   String? matchDescription;
   String? matchFormat;
   String? matchType;
   bool? complete;
   bool? domestic;
-  int? matchStartTimestamp;
-  int? matchCompleteTimestamp;
+  dynamic matchStartTimestamp;
+  dynamic matchCompleteTimestamp;
   bool? dayNight;
-  int? year;
+  dynamic year;
   String? state;
   String? status;
   TossResults? tossResults;
@@ -96,7 +96,7 @@ class MatchHeader {
   Team? team1;
   Team? team2;
   String? seriesDesc;
-  int? seriesId;
+  dynamic seriesId;
   String? seriesName;
 
   factory MatchHeader.fromJson(Map<String, dynamic> json) => MatchHeader(
@@ -168,9 +168,9 @@ class MatchTeamInfo {
     this.bowlingTeamShortName,
   });
 
-  int? battingTeamId;
+  dynamic battingTeamId;
   String? battingTeamShortName;
-  int? bowlingTeamId;
+  dynamic bowlingTeamId;
   String? bowlingTeamShortName;
 
   factory MatchTeamInfo.fromJson(Map<String, dynamic> json) => MatchTeamInfo(
@@ -202,7 +202,7 @@ class PlayersOfThe {
     this.bowlingStyle,
   });
 
-  int? id;
+  dynamic id;
   String? name;
   String? fullName;
   String? nickName;
@@ -210,7 +210,7 @@ class PlayersOfThe {
   bool? keeper;
   bool? substitute;
   String? teamName;
-  int? faceImageId;
+  dynamic faceImageId;
   String? bowlingStyle;
 
   factory PlayersOfThe.fromJson(Map<String, dynamic> json) => PlayersOfThe(
@@ -253,8 +253,8 @@ class Result {
 
   String? resultType;
   String? winningTeam;
-  int? winningteamId;
-  int? winningMargin;
+  dynamic winningteamId;
+  dynamic winningMargin;
   bool? winByRuns;
   bool? winByInnings;
 
@@ -301,7 +301,7 @@ class Team {
     this.shortName,
   });
 
-  int? id;
+  dynamic id;
   String? name;
   List<dynamic>? playerDetails;
   String? shortName;
@@ -328,7 +328,7 @@ class TossResults {
     this.decision,
   });
 
-  int? tossWinnerId;
+  dynamic tossWinnerId;
   String? tossWinnerName;
   String? decision;
 
@@ -359,9 +359,9 @@ class ScoreCard {
     this.partnershipsData,
   });
 
-  int? matchId;
-  int? inningsId;
-  int? timeScore;
+  dynamic matchId;
+  dynamic inningsId;
+  dynamic timeScore;
   BatTeamDetails? batTeamDetails;
   BowlTeamDetails? bowlTeamDetails;
   ScoreDetails? scoreDetails;
@@ -410,7 +410,7 @@ class BatTeamDetails {
     this.batsmenData,
   });
 
-  int? batTeamId;
+  dynamic batTeamId;
   String? batTeamName;
   String? batTeamShortName;
   Map<String, BatsmenDatum>? batsmenData;
@@ -460,29 +460,29 @@ class BatsmenDatum {
     this.wicketCode,
   });
 
-  int? batId;
+  dynamic batId;
   String? batName;
   String? batShortName;
   bool? isCaptain;
   bool? isKeeper;
-  int? runs;
-  int? balls;
-  int? dots;
-  int? fours;
-  int? sixes;
-  int? mins;
+  dynamic runs;
+  dynamic balls;
+  dynamic dots;
+  dynamic fours;
+  dynamic sixes;
+  dynamic mins;
   double? strikeRate;
   String? outDesc;
-  int? bowlerId;
-  int? fielderId1;
-  int? fielderId2;
-  int? fielderId3;
-  int? ones;
-  int? twos;
-  int? threes;
-  int? fives;
-  int? boundaries;
-  int? sixers;
+  dynamic bowlerId;
+  dynamic fielderId1;
+  dynamic fielderId2;
+  dynamic fielderId3;
+  dynamic ones;
+  dynamic twos;
+  dynamic threes;
+  dynamic fives;
+  dynamic boundaries;
+  dynamic sixers;
   String? wicketCode;
 
   factory BatsmenDatum.fromJson(Map<String, dynamic> json) => BatsmenDatum(
@@ -548,7 +548,7 @@ class BowlTeamDetails {
     this.bowlersData,
   });
 
-  int? bowlTeamId;
+  dynamic bowlTeamId;
   String? bowlTeamName;
   String? bowlTeamShortName;
   BowlersData? bowlersData;
@@ -624,21 +624,22 @@ class Bowl {
     this.runsPerBall,
   });
 
-  int? bowlerId;
+  dynamic bowlerId;
   String? bowlName;
   String? bowlShortName;
   bool? isCaptain;
   bool? isKeeper;
   double? overs;
-  int? maidens;
-  int? runs;
-  int? wickets;
+  dynamic maidens;
+  dynamic runs;
+  dynamic wickets;
   double? economy;
-  int? noBalls;
-  int? wides;
-  int? dots;
-  int? balls;
-  int? runsPerBall;
+  dynamic noBalls;
+  dynamic wides;
+  dynamic dots;
+  dynamic balls;
+  //Double
+  double? runsPerBall;
 
   factory Bowl.fromJson(Map<String, dynamic> json) => Bowl(
         bowlerId: json["bowlerId"],
@@ -687,12 +688,12 @@ class ExtrasData {
     this.legByes,
   });
 
-  int? noBalls;
-  int? total;
-  int? byes;
-  int? penalty;
-  int? wides;
-  int? legByes;
+  dynamic noBalls;
+  dynamic total;
+  dynamic byes;
+  dynamic penalty;
+  dynamic wides;
+  dynamic legByes;
 
   factory ExtrasData.fromJson(Map<String, dynamic> json) => ExtrasData(
         noBalls: json["noBalls"],
@@ -743,32 +744,32 @@ class PartnershipsDatum {
     this.bat2Sixers,
   });
 
-  int? bat1Id;
+  dynamic bat1Id;
   String? bat1Name;
-  int? bat1Runs;
-  int? bat1Fours;
-  int? bat1Sixes;
-  int? bat2Id;
+  dynamic bat1Runs;
+  dynamic bat1Fours;
+  dynamic bat1Sixes;
+  dynamic bat2Id;
   String? bat2Name;
-  int? bat2Runs;
-  int? bat2Fours;
-  int? bat2Sixes;
-  int? totalRuns;
-  int? totalBalls;
-  int? bat1Balls;
-  int? bat2Balls;
-  int? bat1Ones;
-  int? bat1Twos;
-  int? bat1Threes;
-  int? bat1Fives;
-  int? bat1Boundaries;
-  int? bat1Sixers;
-  int? bat2Ones;
-  int? bat2Twos;
-  int? bat2Threes;
-  int? bat2Fives;
-  int? bat2Boundaries;
-  int? bat2Sixers;
+  dynamic bat2Runs;
+  dynamic bat2Fours;
+  dynamic bat2Sixes;
+  dynamic totalRuns;
+  dynamic totalBalls;
+  dynamic bat1Balls;
+  dynamic bat2Balls;
+  dynamic bat1Ones;
+  dynamic bat1Twos;
+  dynamic bat1Threes;
+  dynamic bat1Fives;
+  dynamic bat1Boundaries;
+  dynamic bat1Sixers;
+  dynamic bat2Ones;
+  dynamic bat2Twos;
+  dynamic bat2Threes;
+  dynamic bat2Fives;
+  dynamic bat2Boundaries;
+  dynamic bat2Sixers;
 
   factory PartnershipsDatum.fromJson(Map<String, dynamic> json) =>
       PartnershipsDatum(
@@ -855,11 +856,12 @@ class Pp1 {
     this.runsScored,
   });
 
-  int? ppId;
+  dynamic ppId;
   double? ppOversFrom;
-  int? ppOversTo;
+  //Double
+  double? ppOversTo;
   String? ppType;
-  int? runsScored;
+  dynamic runsScored;
 
   factory Pp1.fromJson(Map<String, dynamic> json) => Pp1(
         ppId: json["ppId"],
@@ -891,14 +893,14 @@ class ScoreDetails {
     this.runsPerBall,
   });
 
-  int? ballNbr;
+  dynamic ballNbr;
   bool? isDeclared;
   bool? isFollowOn;
   double? overs;
-  int? revisedOvers;
+  dynamic revisedOvers;
   double? runRate;
-  int? runs;
-  int? wickets;
+  dynamic runs;
+  dynamic wickets;
   double? runsPerBall;
 
   factory ScoreDetails.fromJson(Map<String, dynamic> json) => ScoreDetails(
@@ -936,12 +938,12 @@ class WicketsDatum {
     this.ballNbr,
   });
 
-  int? batId;
+  dynamic batId;
   String? batName;
-  int? wktNbr;
+  dynamic wktNbr;
   double? wktOver;
-  int? wktRuns;
-  int? ballNbr;
+  dynamic wktRuns;
+  dynamic ballNbr;
 
   factory WicketsDatum.fromJson(Map<String, dynamic> json) => WicketsDatum(
         batId: json["batId"],

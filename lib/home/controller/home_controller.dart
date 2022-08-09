@@ -49,7 +49,9 @@ class HomeController extends GetxController {
           print("Score Response: ${response}");
 
           scoreCardModel = scoreCardModelFromJson(jsonEncode(response));
-          print("\n\nDDDDDDDD");
+
+          print(
+              "Player Of the Match: ${scoreCardModel.matchHeader!.playersOfTheMatch!.first.name!}");
           loading(false);
         },
         onError: (error) {
