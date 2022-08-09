@@ -1,3 +1,4 @@
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/controller/more_controller.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -23,7 +24,9 @@ void main() async {
   Variables.darkStatusBarTheme;
   Get.put(PublicController());
   Get.put(LanguageController());
+  Get.put(HomeController());
   Get.put(MoreController());
+
   runApp(const MyApp()
       // DevicePreview(
       //   enabled: !kReleaseMode,

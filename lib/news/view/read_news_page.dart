@@ -1,15 +1,16 @@
+import 'package:cricland/news/model/article_model.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../widgets/article_card_portrait.dart';
 
 class ReadNewsPage extends StatelessWidget {
-  ReadNewsPage({Key? key}) : super(key: key);
+  ReadNewsPage({Key? key, required this.model}) : super(key: key);
+  final ArticleModel model;
+
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.03),
       fontWeight: FontWeight.w500,
@@ -29,36 +30,27 @@ class ReadNewsPage extends StatelessWidget {
 
   Widget _bodyUI()=>ListView(
     children: [
-      Image.asset('assets/article_land.jpg',fit: BoxFit.fitWidth),
+      Image.network(model.imageLink!,fit: BoxFit.fitWidth),
 
       Padding(
         padding: EdgeInsets.all(dSize(.04)),
         child: Column(
           children: [
-
-            Row(
-              children: [
-                _cardTile('BAN'),
-                _cardTile('S Al Hasan'),
-                _cardTile('M Haque'),
-                const Spacer(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal:dSize(.02),vertical: dSize(.002)),
-                  child: Text(DateFormat('MMM dd, yyyy').format(DateTime.now()),style: _textStyle),
-                  decoration: BoxDecoration(
-                      color: PublicController.pc.toggleCardBg(),
-                      borderRadius: BorderRadius.all(Radius.circular(dSize(.01)))
-                  ),
-                )
-              ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal:dSize(.02),vertical: dSize(.002)),
+              child: Text(DateFormat('MMM dd, yyyy').format(DateTime.fromMillisecondsSinceEpoch(model.timeStamp!)),style: _textStyle),
+              decoration: BoxDecoration(
+                  color: PublicController.pc.toggleCardBg(),
+                  borderRadius: BorderRadius.all(Radius.circular(dSize(.01)))
+              ),
             ),
             SizedBox(height:dSize(.06)),
 
-            Text('BAN vs SL | 1st Test | Shakib Al Hasan set to play against Sri Lanka, confirmed Mominul Haque',
+            Text(model.title!,
               style: _textStyle.copyWith(fontSize: dSize(.055),fontWeight: FontWeight.bold)),
             SizedBox(height:dSize(.06)),
 
-            Text(Variables.aboutSakib,
+            Text(model.article!,
                 style: _textStyle.copyWith(fontSize: dSize(.04))),
             SizedBox(height:dSize(.1)),
 
@@ -66,7 +58,7 @@ class ReadNewsPage extends StatelessWidget {
               itemCount: 10,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context,index)=>ArticleCardPortrait(),
+              itemBuilder: (context,index)=> Container(),//ArticleCardPortrait(),
               separatorBuilder: (context, index)=>SizedBox(height: dSize(.08)),
             )
           ],

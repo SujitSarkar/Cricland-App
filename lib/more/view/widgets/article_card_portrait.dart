@@ -1,12 +1,14 @@
+import 'package:cricland/news/model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
-import '../icc_man_ranking/player_details/read_news_page.dart';
+import '../../../news/view/read_news_page.dart';
 
 class ArticleCardPortrait extends StatelessWidget {
-  ArticleCardPortrait({Key? key}) : super(key: key);
+  ArticleCardPortrait({Key? key, required this.model}) : super(key: key);
+  final ArticleModel model;
 
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.04),
@@ -16,7 +18,7 @@ class ArticleCardPortrait extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(()=>ReadNewsPage()),
+      onTap: ()=>Get.to(()=>ReadNewsPage(model: model)),
       child: Container(
         decoration: BoxDecoration(
           color: PublicController.pc.toggleCardBg(),
@@ -28,7 +30,7 @@ class ArticleCardPortrait extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-              child: Image.asset('assets/t20.png',height: dSize(.5),width: double.infinity,fit: BoxFit.cover)),
+              child: Image.network(model.imageLink!,height: dSize(.5),width: double.infinity,fit: BoxFit.cover)),
             SizedBox(height: dSize(.04)),
 
             Padding(
@@ -36,10 +38,9 @@ class ArticleCardPortrait extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Umran Malik is nowhere near the finished article: Ian Bishop -'
-                      ' Firstcricket News, Firstpost',style: _textStyle),
+                  Text(model.title!,style: _textStyle),
                   SizedBox(height: dSize(.02)),
-                  Text(DateFormat('dd MMM yyyy').format(DateTime.now()),style: _textStyle.copyWith(fontSize: dSize(.03),fontWeight: FontWeight.w400)),
+                  Text(DateFormat('dd MMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(model.timeStamp!)),style: _textStyle.copyWith(fontSize: dSize(.03),fontWeight: FontWeight.w400)),
                 ],
               ),
             ),
