@@ -1,8 +1,9 @@
+import 'package:cricland/news/model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
-import '../icc_man_ranking/player_details/read_news_page.dart';
+import '../../../news/view/read_news_page.dart';
 
 class ArticleCardLandscape extends StatelessWidget {
   ArticleCardLandscape({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class ArticleCardLandscape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(()=>ReadNewsPage()),
+      onTap: ()=>Get.to(()=>ReadNewsPage(model: ArticleModel())),
       child: Container(
         decoration: BoxDecoration(
             color: PublicController.pc.toggleCardBg(),

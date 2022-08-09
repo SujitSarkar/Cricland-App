@@ -6,12 +6,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class NewsController extends GetxController{
   static NewsController nc = Get.find();
 
+  NewsController({required this.vsync});
+  final TickerProvider vsync;
+
   late RxBool loading;
   late TabController tabController;
+  late RefreshController refreshController;
 
   late RxList<String> categoryList;
   late RxList<ArticleModel> articleList;
@@ -20,9 +25,9 @@ class NewsController extends GetxController{
   void onInit() {
     super.onInit();
     loading = false.obs;
-
     categoryList = <String>[].obs;
     articleList = <ArticleModel>[].obs;
+    refreshController = RefreshController(initialRefresh: false);
     fetchInitialData();
   }
 
@@ -34,7 +39,7 @@ class NewsController extends GetxController{
 
   Future<void> fetchInitialData() async {
     await getCategory();
-    await getArticle();
+    await getArticleFromTabSwitch();
   }
 
   Future<void> getCategory() async {
@@ -47,6 +52,11 @@ class NewsController extends GetxController{
       for (var element in snapshot.docChanges) {
         categoryList.add(element.doc['category_name']);
       }
+      NewsController.nc.tabController = TabController(
+          length: NewsController.nc.categoryList.length,
+          vsync: vsync);
+
+      NewsController.nc.tabController.index=0;
       loading(false);
     } on SocketException {
       loading(false);
@@ -54,12 +64,11 @@ class NewsController extends GetxController{
     } catch (error) {
       loading(false);
       showToast(error.toString());
+      print(error.toString());
     }
   }
 
-
-  Future<void> getArticle() async {
-    loading(true);
+  Future<void> loadNewArticle() async {
     try {
       QuerySnapshot snapshot;
       if (articleList.isEmpty) {
@@ -67,15 +76,15 @@ class NewsController extends GetxController{
             .collection(AppString.articleCollection)
             .where('category',isEqualTo: categoryList[tabController.index])
             .orderBy('time_stamp', descending: true)
-            .limit(5)
+            .limit(30)
             .get();
       } else {
         snapshot = await FirebaseFirestore.instance
             .collection(AppString.articleCollection)
-            .where('time_stamp', isGreaterThan: articleList.last.timeStamp)
+            .where('time_stamp', isGreaterThan: articleList.first.timeStamp)
             .where('category',isEqualTo: categoryList[tabController.index])
             .orderBy('time_stamp', descending: true)
-            .limit(5)
+            .limit(30)
             .get();
       }
 
@@ -93,12 +102,9 @@ class NewsController extends GetxController{
       if (kDebugMode) {
         print('Article Total: ${articleList.length}');
       }
-      loading(false);
     } on SocketException {
-      loading(false);
       showToast(AppString.noInternet);
     } catch (error) {
-      loading(false);
       showToast(error.toString());
       print(error.toString());
     }
@@ -111,7 +117,7 @@ class NewsController extends GetxController{
             .collection(AppString.articleCollection)
             .where('category',isEqualTo: categoryList[tabController.index])
             .orderBy('time_stamp', descending: true)
-            .limit(5)
+            .limit(30)
             .get();
        articleList.clear();
       for (var element in snapshot.docChanges) {
@@ -137,5 +143,43 @@ class NewsController extends GetxController{
       showToast(error.toString());
       print(error.toString());
     }
+  }
+
+  Future<void> onRefreshNews() async{
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection(AppString.articleCollection)
+          .where('category',isEqualTo: categoryList[tabController.index])
+          .orderBy('time_stamp', descending: true)
+          .limit(30)
+          .get();
+      articleList.clear();
+      for (var element in snapshot.docChanges) {
+        ArticleModel model = ArticleModel(
+          id: element.doc['id'],
+          title: element.doc['title'],
+          category: element.doc['category'],
+          article: element.doc['article'],
+          imageLink: element.doc['image_link'],
+          timeStamp: element.doc['time_stamp'],
+        );
+        articleList.add(model);
+      }
+      if (kDebugMode) {
+        print('Article Total: ${articleList.length}');
+      }
+    } on SocketException {
+      showToast(AppString.noInternet);
+    } catch (error) {
+      showToast(error.toString());
+    }
+    refreshController.refreshCompleted();
+    update();
+  }
+
+  Future<void> onLoadingNews() async{
+    await loadNewArticle();
+    refreshController.loadComplete();
+    update();
   }
 }
