@@ -306,15 +306,12 @@ class _InfoViewState extends State<InfoView> {
                   for (var i = 0; i < teamSymbol.length; i++)
                     GestureDetector(
                       onTap: () {
-                        Get.to(HomeDetailsScreen(
-                          appBarTitle: 'T20 2022',
-                          teamS2Name: '',
-                          team1Name: '',
-                          stateTitle: '',
-                          team2Name: '',
-                          teamS1Name: '',
-                          matchIndex: i,
-                        ));
+                        // Get.to(HomeDetailsScreen(
+                        //   teamS2Name: '',
+                        //   teamS1Name: '',
+                        //   matchIndex: i,
+                        //   matchDesc: '',
+                        // ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -542,15 +539,12 @@ class _InfoViewState extends State<InfoView> {
                   for (var i = 0; i < teamSymbol.length; i++)
                     GestureDetector(
                       onTap: () {
-                        Get.to(HomeDetailsScreen(
-                          appBarTitle: 'T20 2022',
-                          stateTitle: '',
-                          teamS1Name: '',
-                          matchIndex: i,
-                          team2Name: '',
-                          team1Name: '',
-                          teamS2Name: '',
-                        ));
+                        // Get.to(HomeDetailsScreen(
+                        //   teamS1Name: '',
+                        //   matchIndex: i,
+                        //   teamS2Name: '',
+                        //   matchDesc: '',
+                        // ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

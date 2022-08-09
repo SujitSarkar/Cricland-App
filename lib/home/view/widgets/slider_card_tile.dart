@@ -66,10 +66,11 @@ class SliderCardTile extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         children: [
@@ -80,8 +81,7 @@ class SliderCardTile extends StatelessWidget {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
-                                    ApiEndpoints.baseURL +
-                                        ApiEndpoints.imageMidPoint +
+                                    ApiEndpoints.imageMidPoint +
                                         leftCountryURL! +
                                         ApiEndpoints.imageLastPoint,
                                     headers: ApiEndpoints.headers,
@@ -170,8 +170,7 @@ class SliderCardTile extends StatelessWidget {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
-                                ApiEndpoints.baseURL +
-                                    ApiEndpoints.imageMidPoint +
+                                ApiEndpoints.imageMidPoint +
                                     rightCountryURL! +
                                     ApiEndpoints.imageLastPoint,
                                 headers: ApiEndpoints.headers,
@@ -199,34 +198,7 @@ class SliderCardTile extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 5,
-              ),
-              Center(
-                child: GestureDetector(
-                  onTap: onStaticTap,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
-                      child: Text(
-                        "Live Statistic",
-                        style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                height: 10,
               ),
             ],
           ),

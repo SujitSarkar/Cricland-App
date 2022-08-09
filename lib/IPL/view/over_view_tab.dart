@@ -62,20 +62,17 @@ class _OverViewTabState extends State<OverViewTab> {
                 itemBuilder: (BuildContext context, int index) {
                   return FeaturedMatchTile(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => HomeDetailsScreen(
-                            appBarTitle: 'GT vs RR, Final',
-                            team1Name: '',
-                            team2Name: '',
-                            stateTitle: '',
-                            teamS2Name: '',
-                            matchIndex: index,
-                            teamS1Name: '',
-                          ),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (_) => HomeDetailsScreen(
+                      //       teamS2Name: '',
+                      //       matchIndex: index,
+                      //       teamS1Name: '',
+                      //       matchDesc: '',
+                      //     ),
+                      //   ),
+                      // );
                     },
                     title: '',
                   );

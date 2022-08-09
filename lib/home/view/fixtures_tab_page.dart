@@ -176,17 +176,14 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                                   date:
                                       "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.date}",
                                   onTap: () {
-                                    Get.to(
-                                      HomeDetailsScreen(
-                                        appBarTitle: 'IPL 2022',
-                                        teamS2Name: '',
-                                        matchIndex: index,
-                                        team2Name: '',
-                                        team1Name: '',
-                                        teamS1Name: '',
-                                        stateTitle: '',
-                                      ),
-                                    );
+                                    // Get.to(
+                                    //   HomeDetailsScreen(
+                                    //     teamS2Name: '',
+                                    //     matchIndex: index,
+                                    //     teamS1Name: '',
+                                    //     matchDesc: '',
+                                    //   ),
+                                    // );
                                   },
                                 )
                               : SizedBox();

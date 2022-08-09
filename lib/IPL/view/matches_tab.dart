@@ -38,18 +38,15 @@ class _MatchesTabState extends State<MatchesTab> {
                   desc: "",
                   date: "",
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => HomeDetailsScreen(
-                                  appBarTitle: 'IPL 2022',
-                                  stateTitle: '',
-                                  matchIndex: index,
-                                  teamS1Name: '',
-                                  teamS2Name: '',
-                                  team2Name: '',
-                                  team1Name: '',
-                                )));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (_) => HomeDetailsScreen(
+                    //               matchIndex: index,
+                    //               teamS1Name: '',
+                    //               teamS2Name: '',
+                    //               matchDesc: '',
+                    //             )));
                   },
                 );
               }),

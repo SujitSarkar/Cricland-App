@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/slider_card_tile.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -45,7 +46,37 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                 : SliderCardTile(
                                     title:
                                         "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesName}",
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => HomeDetailsScreen(
+                                            teamS2Name:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                                            matchID:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                                            teamS1Name:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                                            matchDesc:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                                            team1RunWicket:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
+                                            winningStatus:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.status}",
+                                            team2RunWicket:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
+                                            team1Over:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
+                                            team2Over:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
+                                            team1ImageID:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                                            team2ImageID:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     onStaticTap: () {},
                                     //TODO runs and overs problem
                                     leftCountryName:
@@ -114,8 +145,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                         shape: BoxShape.rectangle,
                                         image: DecorationImage(
                                             image: CachedNetworkImageProvider(
-                                              ApiEndpoints.baseURL +
-                                                  ApiEndpoints.imageMidPoint +
+                                              ApiEndpoints.imageMidPoint +
                                                   "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.id}" +
                                                   ApiEndpoints.imageLastPoint,
                                               headers: ApiEndpoints.headers,

@@ -45,18 +45,19 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                             itemBuilder: (context, index) {
                               return LiveCardTile(
                                 onTap: () {
-                                  Get.to(
-                                    HomeDetailsScreen(
-                                      appBarTitle:
-                                          "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",
-                                      team2Name: '',
-                                      teamS2Name: '',
-                                      team1Name: '',
-                                      teamS1Name: '',
-                                      matchIndex: index,
-                                      stateTitle: '',
-                                    ),
-                                  );
+                                  // Get.to(
+                                  //   HomeDetailsScreen(
+                                  //     teamS2Name: '',
+                                  //     teamS1Name: '',
+                                  //     matchIndex: index,
+                                  //     matchDesc: '',
+                                  //     team1RunWicket: '',
+                                  //     winningStatus: '',
+                                  //     team1Over: '',
+                                  //     team2Over: '',
+                                  //     team2RunWicket: '',
+                                  //   ),
+                                  // );
                                 },
                                 title:
                                     "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",

@@ -142,41 +142,40 @@ class _HomePageState extends State<HomePage>
             physics: const BouncingScrollPhysics(),
             tabs: [
               Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: dSize(.01),
+                    horizontal: dSize(.02),
+                  ),
+                  child: Text(
+                    'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
+                  )),
+              Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: dSize(.01),
                   horizontal: dSize(.02),
                 ),
-                child: Text(
-                  'Live(${homeController.liveMatchesModel.typeMatches!.length})',
-                ),
+                child: const Text('Home'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: dSize(.01),
                   horizontal: dSize(.02),
                 ),
-                child: Text('Home'),
+                child: const Text('Upcoming'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: dSize(.01),
                   horizontal: dSize(.02),
                 ),
-                child: Text('Upcoming'),
+                child: const Text('Finished'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: dSize(.01),
                   horizontal: dSize(.02),
                 ),
-                child: Text('Finished'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: Text('Fixtures'),
+                child: const Text('Fixtures'),
               ),
             ]),
       );

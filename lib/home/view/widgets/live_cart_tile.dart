@@ -79,8 +79,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
-                              ApiEndpoints.baseURL +
-                                  ApiEndpoints.imageMidPoint +
+                              ApiEndpoints.imageMidPoint +
                                   widget.leadingTeamUrl +
                                   ApiEndpoints.imageLastPoint,
                               headers: ApiEndpoints.headers,
@@ -170,8 +169,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
-                              ApiEndpoints.baseURL +
-                                  ApiEndpoints.imageMidPoint +
+                              ApiEndpoints.imageMidPoint +
                                   widget.trailingTeamUrl +
                                   ApiEndpoints.imageLastPoint,
                               headers: ApiEndpoints.headers,

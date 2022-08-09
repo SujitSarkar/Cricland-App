@@ -1,7 +1,8 @@
 class ApiEndpoints {
-  static String baseURL = 'https://cricbuzz-cricket.p.rapidapi.com/';
+  static const String baseURL = 'https://cricbuzz-cricket.p.rapidapi.com/';
   static const String apiVersion = "v1";
   static String recentMatchData = 'matches/$apiVersion/recent';
+  static String scoreCardData = 'mcenter/v1/';
   static String upComingMatchData = 'matches/$apiVersion/upcoming';
   static String fixturesMatchDayData = 'schedule/$apiVersion/all';
   static String fixturesMatchSeriesData = 'series/$apiVersion/international';
@@ -10,11 +11,11 @@ class ApiEndpoints {
   static String matchesInfo = 'mcenter/$apiVersion/';
   static String liveMatches = 'matches/$apiVersion/live';
 
-  static const String imageMidPoint = "img/$apiVersion/i1/c";
+  //For Image
+  static const String imageMidPoint = baseURL + "img/$apiVersion/i1/c";
   static const String imageLastPoint = "/i.jpg";
-
   static const Map<String, String> headers = <String, String>{
-    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+    'X-RapidAPI-Key': '2589067106msh2631899972a518bp121677jsn8394db5148ef',
     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
   };
 }

@@ -8,6 +8,8 @@ import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
 
+import '../model/score_card_model.dart';
+
 class HomeController extends GetxController {
   // late MatchesModel matchesModel;
   late LiveMatchesModel liveMatchesModel;
@@ -15,6 +17,7 @@ class HomeController extends GetxController {
   late UpcomingMatchModel upcomingMatchModel;
   late FixturesMatchModel fixturesMatchModel;
   late FeatureSeriesModel featureSeriesModel;
+  late ScoreCardModel scoreCardModel;
 
   RxList fixtureMatchList = [].obs;
 
@@ -27,12 +30,33 @@ class HomeController extends GetxController {
     upcomingMatchModel = UpcomingMatchModel();
     fixturesMatchModel = FixturesMatchModel();
     featureSeriesModel = FeatureSeriesModel();
+    scoreCardModel = ScoreCardModel();
     getRecentMatches();
     getLiveMatches();
     getUpComingMatches();
     getFixturesMatches();
     getFeatureSeries();
     super.onInit();
+  }
+
+  Future<void> getScoreCard(String matchID) async {
+    print("Score Card URL ${ApiEndpoints.scoreCardData + matchID}");
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.scoreCardData + matchID),
+        onSuccess: (response) {
+          print("Score Response: ${response}");
+
+          scoreCardModel = scoreCardModelFromJson(jsonEncode(response));
+          print("\n\nDDDDDDDD");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
   }
 
   Future<void> getRecentMatches() async {

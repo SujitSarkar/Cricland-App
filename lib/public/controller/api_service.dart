@@ -34,8 +34,8 @@ class ApiService {
 
   ///get api request
   Future<dynamic> get(String url) async {
-    print("URL: ${ApiEndpoints.baseURL + url}");
-    print("Headers: ${ApiEndpoints.headers}");
+    print("Score URL: ${ApiEndpoints.baseURL + url}");
+    print("Score Headers: ${ApiEndpoints.headers}");
     var response = await getConnect.httpClient.get(
       ApiEndpoints.baseURL + url,
       headers: ApiEndpoints.headers,

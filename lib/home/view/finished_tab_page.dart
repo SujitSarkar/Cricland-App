@@ -53,17 +53,14 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                     itemBuilder: (context, index) {
                       return FinishedCardTile(
                         onTap: () {
-                          Get.to(
-                            HomeDetailsScreen(
-                              appBarTitle: 'IPL 2022',
-                              teamS2Name: '',
-                              matchIndex: index,
-                              stateTitle: '',
-                              team2Name: '',
-                              teamS1Name: '',
-                              team1Name: '',
-                            ),
-                          );
+                          // Get.to(
+                          //   HomeDetailsScreen(
+                          //     teamS2Name: '',
+                          //     matchIndex: index,
+                          //     teamS1Name: '',
+                          //     matchDesc: '',
+                          //   ),
+                          // );
                         },
                         title:
                             "${homeController.recentMatchModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",

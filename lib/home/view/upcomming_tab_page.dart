@@ -58,17 +58,14 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                               null
                           ? UpcomingCardTile(
                               onTap: () {
-                                Get.to(
-                                  HomeDetailsScreen(
-                                    appBarTitle: 'IPL 2022',
-                                    matchIndex: index,
-                                    teamS2Name: '',
-                                    teamS1Name: '',
-                                    team2Name: '',
-                                    team1Name: '',
-                                    stateTitle: '',
-                                  ),
-                                );
+                                // Get.to(
+                                //   HomeDetailsScreen(
+                                //     matchIndex: index,
+                                //     teamS2Name: '',
+                                //     teamS1Name: '',
+                                //     matchDesc: '',
+                                //   ),
+                                // );
                               },
                               title:
                                   "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesName}",
