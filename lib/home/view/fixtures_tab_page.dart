@@ -164,9 +164,9 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                                   leadingUrlTwo:
                                       "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.imageId}",
                                   teamOne:
-                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.teamName}",
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
                                   teamTwo:
-                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.teamName}",
+                                      "${homeController.fixturesMatchModel.matchScheduleMap![index].scheduleAdWrapper?.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
                                   reachTitleOne: '',
                                   reachTitleTwo: '',
                                   reachSubTitleOne: '',

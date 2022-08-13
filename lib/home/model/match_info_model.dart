@@ -1,17 +1,16 @@
 // To parse this JSON data, do
 //
-//     final matcheInfoModel = matcheInfoModelFromJson(jsonString);
+//     final matchInfoModel = matchInfoModelFromJson(jsonString);
 
 import 'dart:convert';
 
-MatcheInfoModel matcheInfoModelFromJson(String str) =>
-    MatcheInfoModel.fromJson(json.decode(str));
+MatchInfoModel matchInfoModelFromJson(String str) =>
+    MatchInfoModel.fromJson(json.decode(str));
 
-String matcheInfoModelToJson(MatcheInfoModel data) =>
-    json.encode(data.toJson());
+String matchInfoModelToJson(MatchInfoModel data) => json.encode(data.toJson());
 
-class MatcheInfoModel {
-  MatcheInfoModel({
+class MatchInfoModel {
+  MatchInfoModel({
     this.matchInfo,
     this.venueInfo,
   });
@@ -19,8 +18,7 @@ class MatcheInfoModel {
   MatchInfo? matchInfo;
   VenueInfo? venueInfo;
 
-  factory MatcheInfoModel.fromJson(Map<String, dynamic> json) =>
-      MatcheInfoModel(
+  factory MatchInfoModel.fromJson(Map<String, dynamic> json) => MatchInfoModel(
         matchInfo: MatchInfo.fromJson(json["matchInfo"]),
         venueInfo: VenueInfo.fromJson(json["venueInfo"]),
       );
@@ -43,6 +41,7 @@ class MatchInfo {
     this.matchCompleteTimestamp,
     this.dayNight,
     this.year,
+    this.dayNumber,
     this.state,
     this.team1,
     this.team2,
@@ -73,20 +72,21 @@ class MatchInfo {
   int? matchCompleteTimestamp;
   bool? dayNight;
   int? year;
+  int? dayNumber;
   String? state;
   Team? team1;
   Team? team2;
   Series? series;
   Referee? umpire1;
   Referee? umpire2;
-  Referee? umpire3;
+  Umpire3? umpire3;
   Referee? referee;
   TossResults? tossResults;
   Result? result;
   Venue? venue;
   String? status;
-  List<Player>? playersOfTheMatch;
-  List<Player>? playersOfTheSeries;
+  List<dynamic>? playersOfTheMatch;
+  List<dynamic>? playersOfTheSeries;
   RevisedTarget? revisedTarget;
   List<MatchTeamInfo>? matchTeamInfo;
   bool? isMatchNotCovered;
@@ -103,22 +103,23 @@ class MatchInfo {
         matchCompleteTimestamp: json["matchCompleteTimestamp"],
         dayNight: json["dayNight"],
         year: json["year"],
+        dayNumber: json["dayNumber"],
         state: json["state"],
         team1: Team.fromJson(json["team1"]),
         team2: Team.fromJson(json["team2"]),
         series: Series.fromJson(json["series"]),
         umpire1: Referee.fromJson(json["umpire1"]),
         umpire2: Referee.fromJson(json["umpire2"]),
-        umpire3: Referee.fromJson(json["umpire3"]),
+        umpire3: Umpire3.fromJson(json["umpire3"]),
         referee: Referee.fromJson(json["referee"]),
         tossResults: TossResults.fromJson(json["tossResults"]),
         result: Result.fromJson(json["result"]),
         venue: Venue.fromJson(json["venue"]),
         status: json["status"],
-        playersOfTheMatch: List<Player>.from(
-            json["playersOfTheMatch"].map((x) => Player.fromJson(x))),
-        playersOfTheSeries: List<Player>.from(
-            json["playersOfTheSeries"].map((x) => Player.fromJson(x))),
+        playersOfTheMatch:
+            List<dynamic>.from(json["playersOfTheMatch"].map((x) => x)),
+        playersOfTheSeries:
+            List<dynamic>.from(json["playersOfTheSeries"].map((x) => x)),
         revisedTarget: RevisedTarget.fromJson(json["revisedTarget"]),
         matchTeamInfo: List<MatchTeamInfo>.from(
             json["matchTeamInfo"].map((x) => MatchTeamInfo.fromJson(x))),
@@ -137,6 +138,7 @@ class MatchInfo {
         "matchCompleteTimestamp": matchCompleteTimestamp,
         "dayNight": dayNight,
         "year": year,
+        "dayNumber": dayNumber,
         "state": state,
         "team1": team1!.toJson(),
         "team2": team2!.toJson(),
@@ -150,9 +152,9 @@ class MatchInfo {
         "venue": venue!.toJson(),
         "status": status,
         "playersOfTheMatch":
-            List<dynamic>.from(playersOfTheMatch!.map((x) => x.toJson())),
+            List<dynamic>.from(playersOfTheMatch!.map((x) => x)),
         "playersOfTheSeries":
-            List<dynamic>.from(playersOfTheSeries!.map((x) => x.toJson())),
+            List<dynamic>.from(playersOfTheSeries!.map((x) => x)),
         "revisedTarget": revisedTarget!.toJson(),
         "matchTeamInfo":
             List<dynamic>.from(matchTeamInfo!.map((x) => x.toJson())),
@@ -188,95 +190,6 @@ class MatchTeamInfo {
         "bowlingTeamShortName": bowlingTeamShortName,
       };
 }
-
-class Player {
-  Player({
-    this.id,
-    this.name,
-    this.fullName,
-    this.nickName,
-    this.captain,
-    this.keeper,
-    this.substitute,
-    this.teamName,
-    this.faceImageId,
-    this.bowlingStyle,
-    this.role,
-    this.teamId,
-    this.battingStyle,
-  });
-
-  int? id;
-  String? name;
-  String? fullName;
-  String? nickName;
-  bool? captain;
-  bool? keeper;
-  bool? substitute;
-  String? teamName;
-  int? faceImageId;
-  String? bowlingStyle;
-  Role? role;
-  int? teamId;
-  BattingStyle? battingStyle;
-
-  factory Player.fromJson(Map<String, dynamic> json) => Player(
-        id: json["id"],
-        name: json["name"],
-        fullName: json["fullName"],
-        nickName: json["nickName"],
-        captain: json["captain"],
-        keeper: json["keeper"],
-        substitute: json["substitute"],
-        teamName: json["teamName"],
-        faceImageId: json["faceImageId"],
-        bowlingStyle: json["bowlingStyle"],
-        role: json["role"] == null ? null : roleValues.map[json["role"]],
-        teamId: json["teamId"],
-        battingStyle: json["battingStyle"] == null
-            ? null
-            : battingStyleValues.map[json["battingStyle"]],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "fullName": fullName,
-        "nickName": nickName,
-        "captain": captain,
-        "keeper": keeper,
-        "substitute": substitute,
-        "teamName": teamName,
-        "faceImageId": faceImageId,
-        "bowlingStyle": bowlingStyle,
-        "role": role == null ? null : roleValues.reverse[role],
-        "teamId": teamId,
-        "battingStyle": battingStyle == null
-            ? null
-            : battingStyleValues.reverse[battingStyle],
-      };
-}
-
-enum BattingStyle { LEFT, RIGHT }
-
-final battingStyleValues =
-    EnumValues({"LEFT": BattingStyle.LEFT, "RIGHT": BattingStyle.RIGHT});
-
-enum Role {
-  BATTING_ALLROUNDER,
-  BATSMAN,
-  WK_BATSMAN,
-  BOWLING_ALLROUNDER,
-  BOWLER
-}
-
-final roleValues = EnumValues({
-  "Batsman": Role.BATSMAN,
-  "Batting Allrounder": Role.BATTING_ALLROUNDER,
-  "Bowler": Role.BOWLER,
-  "Bowling Allrounder": Role.BOWLING_ALLROUNDER,
-  "WK-Batsman": Role.WK_BATSMAN
-});
 
 class Referee {
   Referee({
@@ -412,14 +325,14 @@ class Team {
 
   int? id;
   String? name;
-  List<Player>? playerDetails;
+  List<PlayerDetail>? playerDetails;
   String? shortName;
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
         id: json["id"],
         name: json["name"],
-        playerDetails: List<Player>.from(
-            json["playerDetails"].map((x) => Player.fromJson(x))),
+        playerDetails: List<PlayerDetail>.from(
+            json["playerDetails"].map((x) => PlayerDetail.fromJson(x))),
         shortName: json["shortName"],
       );
 
@@ -431,6 +344,87 @@ class Team {
         "shortName": shortName,
       };
 }
+
+class PlayerDetail {
+  PlayerDetail({
+    this.id,
+    this.name,
+    this.fullName,
+    this.nickName,
+    this.captain,
+    this.role,
+    this.keeper,
+    this.substitute,
+    this.teamId,
+    this.battingStyle,
+    this.bowlingStyle,
+    this.faceImageId,
+  });
+
+  int? id;
+  String? name;
+  String? fullName;
+  String? nickName;
+  bool? captain;
+  Role? role;
+  bool? keeper;
+  bool? substitute;
+  int? teamId;
+  BattingStyle? battingStyle;
+  String? bowlingStyle;
+  int? faceImageId;
+
+  factory PlayerDetail.fromJson(Map<String, dynamic> json) => PlayerDetail(
+        id: json["id"],
+        name: json["name"],
+        fullName: json["fullName"],
+        nickName: json["nickName"],
+        captain: json["captain"],
+        role: roleValues.map![json["role"]],
+        keeper: json["keeper"],
+        substitute: json["substitute"],
+        teamId: json["teamId"],
+        battingStyle: battingStyleValues.map![json["battingStyle"]],
+        bowlingStyle: json["bowlingStyle"],
+        faceImageId: json["faceImageId"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "fullName": fullName,
+        "nickName": nickName,
+        "captain": captain,
+        "role": roleValues.reverse[role],
+        "keeper": keeper,
+        "substitute": substitute,
+        "teamId": teamId,
+        "battingStyle": battingStyleValues.reverse[battingStyle],
+        "bowlingStyle": bowlingStyle,
+        "faceImageId": faceImageId,
+      };
+}
+
+enum BattingStyle { RIGHT, LEFT }
+
+final battingStyleValues =
+    EnumValues({"LEFT": BattingStyle.LEFT, "RIGHT": BattingStyle.RIGHT});
+
+enum Role {
+  BATSMAN,
+  WK_BATSMAN,
+  BATTING_ALLROUNDER,
+  BOWLING_ALLROUNDER,
+  BOWLER
+}
+
+final roleValues = EnumValues({
+  "Batsman": Role.BATSMAN,
+  "Batting Allrounder": Role.BATTING_ALLROUNDER,
+  "Bowler": Role.BOWLER,
+  "Bowling Allrounder": Role.BOWLING_ALLROUNDER,
+  "WK-Batsman": Role.WK_BATSMAN
+});
 
 class TossResults {
   TossResults({
@@ -454,6 +448,14 @@ class TossResults {
         "tossWinnerName": tossWinnerName,
         "decision": decision,
       };
+}
+
+class Umpire3 {
+  Umpire3();
+
+  factory Umpire3.fromJson(Map<String, dynamic> json) => Umpire3();
+
+  Map<String, dynamic> toJson() => {};
 }
 
 class Venue {
@@ -518,7 +520,7 @@ class VenueInfo {
 
   int? established;
   String? capacity;
-  String? knownAs;
+  dynamic? knownAs;
   String? ends;
   String? city;
   String? country;
@@ -573,13 +575,15 @@ class VenueInfo {
 }
 
 class EnumValues<T> {
-  Map<String, T> map;
+  Map<String, T>? map;
   Map<T, String>? reverseMap;
 
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    reverseMap ??= map.map((k, v) => MapEntry(v, k));
+    if (reverseMap == null) {
+      reverseMap = map!.map((k, v) => new MapEntry(v, k));
+    }
     return reverseMap!;
   }
 }

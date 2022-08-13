@@ -88,15 +88,17 @@ class FixturesCardTile extends StatelessWidget {
                                 height: 50,
                                 width: 80,
                                 decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
+                                  shape: BoxShape.rectangle,
+                                  color: Colors.white,
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                    ApiEndpoints.baseURL +
                                         ApiEndpoints.imageMidPoint +
-                                        leadingUrlOne! +
-                                        ApiEndpoints.imageLastPoint,
-                                    headers: ApiEndpoints.headers,
-                                  )),
+                                            leadingUrlOne! +
+                                            ApiEndpoints.imageLastPoint,
+                                        headers: ApiEndpoints.headers,
+                                      ),
+                                      fit: BoxFit.fill,
+                                      filterQuality: FilterQuality.low),
                                 ),
                               ),
                               SizedBox(
@@ -150,15 +152,17 @@ class FixturesCardTile extends StatelessWidget {
                                 height: 50,
                                 width: 80,
                                 decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
+                                  shape: BoxShape.rectangle,
+                                  color: Colors.white,
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                    ApiEndpoints.baseURL +
                                         ApiEndpoints.imageMidPoint +
-                                        leadingUrlTwo! +
-                                        ApiEndpoints.imageLastPoint,
-                                    headers: ApiEndpoints.headers,
-                                  )),
+                                            leadingUrlTwo! +
+                                            ApiEndpoints.imageLastPoint,
+                                        headers: ApiEndpoints.headers,
+                                      ),
+                                      fit: BoxFit.fill,
+                                      filterQuality: FilterQuality.low),
                                 ),
                               ),
                               SizedBox(

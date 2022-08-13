@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cricland/home/model/commentaries_model.dart';
 import 'package:cricland/home/model/feature_series_model.dart';
 import 'package:cricland/home/model/fixtures_match_model.dart';
+import 'package:cricland/home/model/match_info_model.dart';
 import 'package:cricland/home/model/point_table_model.dart';
 import 'package:cricland/home/model/recent_match_model.dart';
 import 'package:cricland/home/model/live_matches_model.dart';
@@ -24,6 +25,7 @@ class HomeController extends GetxController {
   late PointTableModel pointTableModel;
   late CommentariesModel commentariesModel;
   late SeriesMatchListModel seriesMatchListModel;
+  late MatchInfoModel matcheInfoModel;
 
   RxList fixtureMatchList = [].obs;
 
@@ -40,6 +42,7 @@ class HomeController extends GetxController {
     pointTableModel = PointTableModel();
     seriesMatchListModel = SeriesMatchListModel();
     commentariesModel = CommentariesModel();
+    matcheInfoModel = MatchInfoModel();
     await getRecentMatches();
     await getLiveMatches();
     await getUpComingMatches();
@@ -47,6 +50,8 @@ class HomeController extends GetxController {
     await getFeatureSeries();
     await getPointTable("3718");
     await getCommentaries("38356");
+    // await getMatchInfo("38356");
+
     super.onInit();
   }
 
@@ -214,27 +219,27 @@ class HomeController extends GetxController {
     update();
   }
 
-  // Future<void> getMatchInfo(String matchId) async {
-  //   loading(true);
-  //
-  //   await ApiService.instance.apiCall(
-  //       execute: () async =>
-  //           await ApiService.instance.get(ApiEndpoints.matchesInfo + matchId),
-  //       onSuccess: (response) {
-  //         print("Response2: ${response}");
-  //
-  //         //TODO
-  //         matchesModel = matchesModelFromJson(response);
-  //         //
-  //         print("\n\nDDDDDDDD");
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //   update();
-  // }
+  Future<void> getMatchInfo(String matchId) async {
+    loading(true);
+
+    await ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.matchesInfo + matchId),
+        onSuccess: (response) {
+          print("Match Info Response: ${response}");
+
+          //TODO
+          matcheInfoModel = matchInfoModelFromJson(response);
+          //
+          print("\n\n${matcheInfoModel.matchInfo!.status}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
 
   Future<void> getLiveMatches() async {
     loading(true);

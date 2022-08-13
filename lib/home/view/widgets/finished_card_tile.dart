@@ -69,15 +69,17 @@ class FinishedCardTile extends StatelessWidget {
                         height: 50,
                         width: 80,
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
+                          shape: BoxShape.rectangle,
+                          color: Colors.white,
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
-                            ApiEndpoints.baseURL +
                                 ApiEndpoints.imageMidPoint +
-                                leftCountryURL! +
-                                ApiEndpoints.imageLastPoint,
-                            headers: ApiEndpoints.headers,
-                          )),
+                                    leftCountryURL! +
+                                    ApiEndpoints.imageLastPoint,
+                                headers: ApiEndpoints.headers,
+                              ),
+                              fit: BoxFit.fill,
+                              filterQuality: FilterQuality.low),
                         ),
                       ),
                       Text(
@@ -145,15 +147,17 @@ class FinishedCardTile extends StatelessWidget {
                         height: 50,
                         width: 80,
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
+                          shape: BoxShape.rectangle,
+                          color: Colors.white,
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
-                            ApiEndpoints.baseURL +
                                 ApiEndpoints.imageMidPoint +
-                                rightCountryURL! +
-                                ApiEndpoints.imageLastPoint,
-                            headers: ApiEndpoints.headers,
-                          )),
+                                    rightCountryURL! +
+                                    ApiEndpoints.imageLastPoint,
+                                headers: ApiEndpoints.headers,
+                              ),
+                              fit: BoxFit.fill,
+                              filterQuality: FilterQuality.low),
                         ),
                       ),
                       Text(

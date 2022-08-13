@@ -399,7 +399,8 @@ class _LiveViewState extends State<LiveView> {
                                 children: [
                                   Text(
                                     homeController.scoreCardModel.matchHeader!
-                                        .playersOfTheMatch!.first.name!,
+                                            .playersOfTheMatch!.first.name ??
+                                        "",
                                     style: TextStyle(fontSize: 20),
                                   ),
                                   const SizedBox(
@@ -439,7 +440,7 @@ class _LiveViewState extends State<LiveView> {
                                     image: DecorationImage(
                                         image: CachedNetworkImageProvider(
                                           ApiEndpoints.imageMidPoint +
-                                              "${homeController.scoreCardModel.matchHeader!.playersOfTheMatch!.first.faceImageId}" +
+                                              "${homeController.scoreCardModel.matchHeader!.playersOfTheMatch!.first.faceImageId!}" +
                                               ApiEndpoints.imageLastPoint,
                                           headers: ApiEndpoints.headers,
                                         ),
@@ -730,8 +731,10 @@ class _LiveViewState extends State<LiveView> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchDesc}, ${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.seriesName}"),
+                                            Flexible(
+                                              child: Text(
+                                                  "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchDesc}, ${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.seriesName}"),
+                                            ),
                                             Icon(Icons.notifications),
                                           ],
                                         ),

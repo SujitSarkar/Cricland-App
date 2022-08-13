@@ -70,19 +70,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
         length: Variables.iplDetailsTabsCategory.length, vsync: this);
 
     print(widget.seriesID);
-    getScoreCard();
-    getSeriesMatch();
+    fetchData();
   }
 
-  void getScoreCard() {
+  fetchData() async {
+    //getScore Data
     HomeController homeController = Get.put(HomeController());
-    homeController.getScoreCard(widget.matchID + "/scard");
-    setState(() {});
-  }
-
-  void getSeriesMatch() {
-    HomeController homeController = Get.put(HomeController());
-    homeController.getSeriesMatches(widget.seriesID);
+    await homeController.getScoreCard("40381/scard");
+    //getScore Data
+    await homeController.getSeriesMatches("3641");
     setState(() {});
   }
 

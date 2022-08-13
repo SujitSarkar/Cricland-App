@@ -1,11 +1,9 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/upcoming_card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class UpComingTabScreen extends StatefulWidget {
   const UpComingTabScreen({Key? key}) : super(key: key);
