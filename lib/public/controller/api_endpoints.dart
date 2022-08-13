@@ -3,6 +3,9 @@ class ApiEndpoints {
   static const String apiVersion = "v1";
   static String recentMatchData = 'matches/$apiVersion/recent';
   static String scoreCardData = 'mcenter/v1/';
+  static String seriesMatchListData = 'series/v1/';
+  static String seriesPointTableData = 'stats/v1/series/';
+  static String commentariesData = 'mcenter/v1/';
   static String upComingMatchData = 'matches/$apiVersion/upcoming';
   static String fixturesMatchDayData = 'schedule/$apiVersion/all';
   static String fixturesMatchSeriesData = 'series/$apiVersion/international';

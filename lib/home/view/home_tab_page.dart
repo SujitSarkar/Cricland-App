@@ -73,6 +73,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                                 "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
                                             team2ImageID:
                                                 "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                                            seriesID:
+                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesId}",
                                           ),
                                         ),
                                       );
@@ -116,64 +118,68 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 1.3,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20),
-                        itemCount: homeController
-                            .featureSeriesModel.seriesMapProto!.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(
-                                IPLPage(),
-                              );
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                              ApiEndpoints.imageMidPoint +
-                                                  "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.id}" +
-                                                  ApiEndpoints.imageLastPoint,
-                                              headers: ApiEndpoints.headers,
-                                            ),
-                                            fit: BoxFit.fill),
+                    homeController.featureSeriesModel.seriesMapProto == null
+                        ? CircularProgressIndicator()
+                        : GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 200,
+                                    childAspectRatio: 1.3,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20),
+                            itemCount: homeController
+                                .featureSeriesModel.seriesMapProto!.length,
+                            itemBuilder: (BuildContext ctx, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                    IPLPage(),
+                                  );
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                  ApiEndpoints.imageMidPoint +
+                                                      "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.id}" +
+                                                      ApiEndpoints
+                                                          .imageLastPoint,
+                                                  headers: ApiEndpoints.headers,
+                                                ),
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Text(
+                                        "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.name}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: dSize(.04),
+                                          fontWeight: FontWeight.w500,
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.name}",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: dSize(.04),
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
                                   ),
-                                ],
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          );
-                        }),
+                                ),
+                              );
+                            }),
                   ],
                 ),
               ),

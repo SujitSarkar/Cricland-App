@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'package:cricland/home/model/commentaries_model.dart';
 import 'package:cricland/home/model/feature_series_model.dart';
 import 'package:cricland/home/model/fixtures_match_model.dart';
+import 'package:cricland/home/model/point_table_model.dart';
 import 'package:cricland/home/model/recent_match_model.dart';
 import 'package:cricland/home/model/live_matches_model.dart';
+import 'package:cricland/home/model/series_match_list_model.dart';
 import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
@@ -18,12 +21,15 @@ class HomeController extends GetxController {
   late FixturesMatchModel fixturesMatchModel;
   late FeatureSeriesModel featureSeriesModel;
   late ScoreCardModel scoreCardModel;
+  late PointTableModel pointTableModel;
+  late CommentariesModel commentariesModel;
+  late SeriesMatchListModel seriesMatchListModel;
 
   RxList fixtureMatchList = [].obs;
 
   RxBool loading = false.obs;
   @override
-  void onInit() {
+  void onInit() async {
     //  matchesModel = MatchesModel();
     liveMatchesModel = LiveMatchesModel();
     recentMatchModel = RecentMatchModel();
@@ -31,12 +37,85 @@ class HomeController extends GetxController {
     fixturesMatchModel = FixturesMatchModel();
     featureSeriesModel = FeatureSeriesModel();
     scoreCardModel = ScoreCardModel();
-    getRecentMatches();
-    getLiveMatches();
-    getUpComingMatches();
-    getFixturesMatches();
-    getFeatureSeries();
+    pointTableModel = PointTableModel();
+    seriesMatchListModel = SeriesMatchListModel();
+    commentariesModel = CommentariesModel();
+    await getRecentMatches();
+    await getLiveMatches();
+    await getUpComingMatches();
+    await getFixturesMatches();
+    await getFeatureSeries();
+    await getPointTable("3718");
+    await getCommentaries("38356");
     super.onInit();
+  }
+
+  Future<void> getSeriesMatches(String seriesID) async {
+    print("Series URL ${ApiEndpoints.seriesMatchListData + seriesID}");
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance
+            .get(ApiEndpoints.seriesMatchListData + seriesID),
+        onSuccess: (response) {
+          print("Series Response: ${response}");
+
+          seriesMatchListModel =
+              seriesMatchListModelFromJson(jsonEncode(response));
+
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
+  Future<void> getCommentaries(String matchID) async {
+    print(
+        "Commentaries URL ${ApiEndpoints.commentariesData + matchID + "/comm?=&="}");
+    print(
+        "Commentaries URL ${ApiEndpoints.commentariesData + matchID + "/comm?=&="}");
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance
+            .get(ApiEndpoints.commentariesData + matchID + "/comm?=&="),
+        onSuccess: (response) {
+          print("Commentaries Response: ${response}");
+
+          commentariesModel = commentariesModelFromJson(jsonEncode(response));
+
+          print(
+              "Commentaries Data: ${commentariesModel.commentaryList!.length}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
+  Future<void> getPointTable(String seriesID) async {
+    print(
+        "Point URL ${ApiEndpoints.scoreCardData + seriesID + "/points-table"}");
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.seriesPointTableData + seriesID + "/points-table"),
+        onSuccess: (response) {
+          print("Point Response: ${response}");
+
+          pointTableModel = pointTableModelFromJson(jsonEncode(response));
+
+          print("Point Table Data: ${pointTableModel.pointsTable!.length}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
   }
 
   Future<void> getScoreCard(String matchID) async {

@@ -49,29 +49,29 @@ class _PointTableViewState extends State<PointTableView> {
                     color: PublicController.pc.toggleTextColor(),
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      'Team Form',
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
-                    Transform.scale(
-                      scale: 1,
-                      child: Switch(
-                        onChanged: toggleSwitch,
-                        value: isSwitched,
-                        activeColor: Colors.blue,
-                        activeTrackColor: Colors.yellow,
-                        inactiveThumbColor: Colors.white70,
-                        inactiveTrackColor: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     Text(
+                //       'Team Form',
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.normal,
+                //         fontSize: dSize(.04),
+                //         color: PublicController.pc.toggleTextColor(),
+                //       ),
+                //     ),
+                //     Transform.scale(
+                //       scale: 1,
+                //       child: Switch(
+                //         onChanged: toggleSwitch,
+                //         value: isSwitched,
+                //         activeColor: Colors.blue,
+                //         activeTrackColor: Colors.yellow,
+                //         inactiveThumbColor: Colors.white70,
+                //         inactiveTrackColor: Colors.grey,
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             PointTableTile(

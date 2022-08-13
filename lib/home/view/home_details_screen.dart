@@ -30,6 +30,7 @@ class HomeDetailsScreen extends StatefulWidget {
   final String team2Over;
   final String winningStatus;
   final String matchID;
+  final String seriesID;
   final String team1ImageID;
   final String team2ImageID;
 
@@ -39,6 +40,7 @@ class HomeDetailsScreen extends StatefulWidget {
     required this.teamS2Name,
     required this.matchDesc,
     required this.matchID,
+    required this.seriesID,
     required this.team1RunWicket,
     required this.team2RunWicket,
     required this.team1Over,
@@ -67,12 +69,20 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
     _tabController = TabController(
         length: Variables.iplDetailsTabsCategory.length, vsync: this);
 
+    print(widget.seriesID);
     getScoreCard();
+    getSeriesMatch();
   }
 
   void getScoreCard() {
     HomeController homeController = Get.put(HomeController());
     homeController.getScoreCard(widget.matchID + "/scard");
+    setState(() {});
+  }
+
+  void getSeriesMatch() {
+    HomeController homeController = Get.put(HomeController());
+    homeController.getSeriesMatches(widget.seriesID);
     setState(() {});
   }
 
@@ -357,7 +367,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                 InfoView(),
                 FantasyView(),
                 CommentaryView(),
-                LiveView(),
+                LiveView(
+                  team1ImageID: widget.team1ImageID,
+                  team2ImageID: widget.team2ImageID,
+                ),
                 ScoreCardView(),
                 GraphView(),
                 PointTableView(),
