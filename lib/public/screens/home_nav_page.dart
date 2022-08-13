@@ -1,4 +1,4 @@
-import 'package:cricland/IPL/view/ipl_page.dart';
+import 'package:cricland/IPL/view/series_screen.dart';
 import 'package:cricland/home/view/home_page.dart';
 import 'package:cricland/more/view/more_page.dart';
 import 'package:cricland/news/view/news_page.dart';
@@ -17,7 +17,7 @@ class HomeNavPage extends StatefulWidget {
 class _HomeNavPageState extends State<HomeNavPage> {
   static const List<Widget> _homeWidgets = [
     NewsPage(),
-    IPLPage(),
+    SeriesScreen(),
     HomePage(),
     MorePage()
   ];

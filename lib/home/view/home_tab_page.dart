@@ -7,7 +7,7 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../IPL/view/ipl_page.dart';
+import '../../IPL/view/series_screen.dart';
 
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({Key? key}) : super(key: key);
@@ -135,7 +135,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                               return GestureDetector(
                                 onTap: () {
                                   Get.to(
-                                    IPLPage(),
+                                    SeriesScreen(
+                                      seriesID: "3641",
+                                    ),
                                   );
                                 },
                                 child: Container(

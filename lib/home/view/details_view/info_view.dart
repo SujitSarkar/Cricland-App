@@ -1,4 +1,4 @@
-import 'package:cricland/IPL/view/ipl_page.dart';
+import 'package:cricland/IPL/view/series_screen.dart';
 import 'package:cricland/IPL/view/over_view_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
@@ -75,13 +75,13 @@ class _InfoViewState extends State<InfoView> {
                   width: 20,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ListTile(
                 onTap: () {
                   Get.to(
-                    IPLPage(),
+                    SeriesScreen(),
                   );
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
