@@ -4,33 +4,18 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/cupertino.dart';
 
 class InfoCardTile extends StatelessWidget {
+  final String? series;
+  final String? duration;
+  final String? format;
+
+  final Function() onTap;
   const InfoCardTile({
     Key? key,
     required this.onTap,
-    this.leadingUrlOne,
-    this.leadingUrlTwo,
-    required this.title,
-    this.teamOne,
-    this.teamTwo,
-    this.reachTitleOne,
-    this.reachSubTitleOne,
-    this.reachTitleTwo,
-    this.reachSubTitleTwo,
-    this.wonTeam,
-    this.byWon,
+    this.series,
+    this.duration,
+    required this.format,
   }) : super(key: key);
-  final String? title;
-  final String? leadingUrlOne;
-  final String? leadingUrlTwo;
-  final String? teamOne;
-  final String? teamTwo;
-  final String? reachTitleOne;
-  final String? reachSubTitleOne;
-  final String? reachTitleTwo;
-  final String? reachSubTitleTwo;
-  final String? wonTeam;
-  final String? byWon;
-  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +35,8 @@ class InfoCardTile extends StatelessWidget {
                   color: PublicController.pc.toggleTextColor(),
                 ),
               ),
-              trailing: Text(
-                "Indian Premier League 2000",
+              title: Text(
+                series!,
                 style: TextStyle(
                   fontSize: dSize(.04),
                   fontWeight: FontWeight.w500,
@@ -69,8 +54,8 @@ class InfoCardTile extends StatelessWidget {
                   color: PublicController.pc.toggleTextColor(),
                 ),
               ),
-              trailing: Text(
-                "26 Mar - 29 May 2022",
+              title: Text(
+                duration!,
                 style: TextStyle(
                   fontSize: dSize(.04),
                   fontWeight: FontWeight.w500,
@@ -89,7 +74,7 @@ class InfoCardTile extends StatelessWidget {
                 ),
               ),
               trailing: Text(
-                "T20 League",
+                format!,
                 style: TextStyle(
                   fontSize: dSize(.04),
                   fontWeight: FontWeight.w500,

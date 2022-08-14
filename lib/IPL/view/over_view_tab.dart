@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/details_view/key_state_screen.dart';
 import 'package:cricland/IPL/view/matches_tab.dart';
 import 'package:cricland/IPL/view/widgets/featured_match_tile.dart';
@@ -5,13 +6,16 @@ import 'package:cricland/IPL/view/widgets/highest_score_&_six_card.dart';
 import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
 import 'package:cricland/IPL/view/widgets/most_run_card.dart';
 import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../more/view/icc_man_ranking/player_details/player_details.dart';
 import '../../public/variables/colors.dart';
@@ -26,90 +30,131 @@ class OverViewTab extends StatefulWidget {
 class _OverViewTabState extends State<OverViewTab> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Featured Matches",
-                  style: TextStyle(
-                    fontSize: dSize(.04),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "All Matches >",
-                    style: TextStyle(
-                      fontSize: dSize(.04),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            ListView.builder(
-                itemCount: 5,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return FeaturedMatchTile(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (_) => HomeDetailsScreen(
-                      //       teamS2Name: '',
-                      //       matchIndex: index,
-                      //       teamS1Name: '',
-                      //       matchDesc: '',
-                      //     ),
-                      //   ),
-                      // );
-                    },
-                    title: '',
-                  );
-                }),
-            ListTile(
-                leading: Text(
-                  "Key Stats",
-                  style: TextStyle(
-                    fontSize: dSize(.04),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
-                trailing: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => KeyStateScreen(),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    "See All >",
-                    style: TextStyle(
-                      fontSize: dSize(.04),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
-                )),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+    return GetBuilder<HomeController>(builder: (homeController) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  for (var i = 0; i <= 5; i++)
-                    MostRunCard(
+                  Text(
+                    "Featured Matches",
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "All Matches >",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        fontWeight: FontWeight.w500,
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              ListView.builder(
+                  itemCount:
+                      homeController.seriesMatchListModel.matchDetails!.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return homeController.seriesMatchListModel
+                                .matchDetails![index].matchDetailsMap !=
+                            null
+                        ? FeaturedMatchTile(
+                            onTap: () {
+                              print(
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
+                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (_) => HomeDetailsScreen(
+                              //       teamS2Name: '',
+                              //       matchIndex: index,
+                              //       teamS1Name: '',
+                              //       matchDesc: '',
+                              //     ),
+                              //   ),
+                              // );
+                            },
+                            leadingUrlOne:
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.imageId}",
+                            leadingUrlTwo:
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.imageId}",
+                            teamOne:
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.teamSName}",
+                            teamTwo:
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.teamSName}",
+                            wonTeam:
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.status}",
+                            state:
+                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
+                          )
+                        : SizedBox();
+                  }),
+              ListTile(
+                  leading: Text(
+                    "Key Stats",
+                    style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                  trailing: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => KeyStateScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "See All >",
+                      style: TextStyle(
+                        fontSize: dSize(.04),
+                        fontWeight: FontWeight.w500,
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                  )),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var i = 0; i <= 5; i++)
+                      MostRunCard(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => KeyStateScreen(),
+                            ),
+                          );
+                        },
+                        title: 'Most Runs',
+                        playerImageUrl: 'assets/player.png',
+                        playerName: 'J Buttler',
+                        teamName: 'Rajasthan Royals',
+                        runs: '863',
+                      ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: MostWicketsCard(
                       onTap: () {
                         Navigator.push(
                           context,
@@ -118,215 +163,223 @@ class _OverViewTabState extends State<OverViewTab> {
                           ),
                         );
                       },
-                      title: 'Most Runs',
+                      title: 'Most Wickets >',
                       playerImageUrl: 'assets/player.png',
-                      playerName: 'J Buttler',
-                      teamName: 'Rajasthan Royals',
-                      runs: '863',
+                      playerName: 'RR',
+                      teamName: 'Y Chahal',
+                      wickets: '27',
                     ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: MostWicketsCard(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => KeyStateScreen(),
-                        ),
-                      );
-                    },
-                    title: 'Most Wickets >',
-                    playerImageUrl: 'assets/player.png',
-                    playerName: 'RR',
-                    teamName: 'Y Chahal',
-                    wickets: '27',
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: MostWicketsCard(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => KeyStateScreen(),
-                        ),
-                      );
-                    },
-                    title: 'Most Wickets >',
-                    playerImageUrl: 'assets/player.png',
-                    playerName: 'RR',
-                    teamName: 'Y Chahal',
-                    wickets: '27',
+                  SizedBox(
+                    width: 10,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            HighestScoreSix(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KeyStateScreen(),
-                  ),
-                );
-              },
-              title: 'Highest Score',
-              playerName: 'J Buttler',
-              teamName: 'RR',
-              number: '863',
-              numberFor: 'Runs',
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            HighestScoreSix(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KeyStateScreen(),
-                  ),
-                );
-              },
-              title: 'Most Sixes >',
-              playerName: 'J Buttler',
-              teamName: 'RR',
-              number: '45',
-              numberFor: 'Sixes',
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              leading: Text(
-                "Team Squads",
-                style: TextStyle(
-                  fontSize: dSize(.035),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  for (var i = 0; i <= 5; i++)
-                    GestureDetector(
+                  Expanded(
+                    child: MostWicketsCard(
                       onTap: () {
-                        _showSquadsSheet(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => KeyStateScreen(),
+                          ),
+                        );
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: PublicController.pc.toggleCardBg(),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(28.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/t20.png',
-                                  height: 80,
-                                  width: 80,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "MI",
-                                  style: TextStyle(
-                                    fontSize: dSize(.04),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      title: 'Most Wickets >',
+                      playerImageUrl: 'assets/player.png',
+                      playerName: 'RR',
+                      teamName: 'Y Chahal',
+                      wickets: '27',
                     ),
+                  ),
                 ],
               ),
-            ),
-            ListTile(
-              leading: Text(
-                "Series Info",
-                style: TextStyle(
-                  fontSize: dSize(.035),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            InfoCardTile(
-              title: '',
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Text(
-                "More Seasons",
-                style: TextStyle(
-                  fontSize: dSize(.035),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-            ),
-            GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 3 / 1.5,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                itemCount: 4,
-                itemBuilder: (BuildContext ctx, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => KeyStateScreen()));
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'IPL 2022',
-                        style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                              color: PublicController.pc.toggleTextColor())),
+              HighestScoreSix(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => KeyStateScreen(),
                     ),
                   );
-                }),
-          ],
+                },
+                title: 'Highest Score',
+                playerName: 'J Buttler',
+                teamName: 'RR',
+                number: '863',
+                numberFor: 'Runs',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              HighestScoreSix(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => KeyStateScreen(),
+                    ),
+                  );
+                },
+                title: 'Most Sixes >',
+                playerName: 'J Buttler',
+                teamName: 'RR',
+                number: '45',
+                numberFor: 'Sixes',
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                leading: Text(
+                  "Team Squads",
+                  style: TextStyle(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var i = 0;
+                        i < homeController.matchSquadModel.squads!.length;
+                        i++)
+                      homeController.matchSquadModel.squads![i].squadId != null
+                          ? GestureDetector(
+                              onTap: () {
+                                _showSquadsSheet(context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: PublicController.pc.toggleCardBg(),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(28.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 80,
+                                          width: 80,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                  ApiEndpoints.imageMidPoint +
+                                                      "${homeController.matchSquadModel.squads![i].imageId}" +
+                                                      ApiEndpoints
+                                                          .imageLastPoint,
+                                                  headers: ApiEndpoints.headers,
+                                                ),
+                                                fit: BoxFit.cover),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          "${homeController.matchSquadModel.squads![i].squadType}",
+                                          style: TextStyle(
+                                            fontSize: dSize(.04),
+                                            fontWeight: FontWeight.w500,
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: Text(
+                  "Series Info",
+                  style: TextStyle(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                ),
+              ),
+              InfoCardTile(
+                series: homeController.seriesMatchListModel.matchDetails!.first
+                    .matchDetailsMap!.match!.first.matchInfo!.seriesName!,
+                duration: homeController.seriesMatchListModel.matchDetails!
+                    .first.matchDetailsMap!.key!,
+                format: homeController.seriesMatchListModel.matchDetails!.first
+                    .matchDetailsMap!.match!.first.matchInfo!.matchFormat!,
+                onTap: () {},
+              ),
+              ListTile(
+                leading: Text(
+                  "More Seasons",
+                  style: TextStyle(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.w500,
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                ),
+              ),
+              GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 3 / 1.5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  itemCount:
+                      homeController.featureSeriesModel.seriesMapProto!.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => KeyStateScreen()));
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          homeController.featureSeriesModel
+                              .seriesMapProto![index].series!.first.name!,
+                          style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                                color: PublicController.pc.toggleTextColor())),
+                      ),
+                    );
+                  }),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   void _showSquadsSheet(BuildContext context) {

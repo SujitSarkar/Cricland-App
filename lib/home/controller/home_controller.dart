@@ -7,6 +7,7 @@ import 'package:cricland/home/model/point_table_model.dart';
 import 'package:cricland/home/model/recent_match_model.dart';
 import 'package:cricland/home/model/live_matches_model.dart';
 import 'package:cricland/home/model/series_match_list_model.dart';
+import 'package:cricland/home/model/squads_model.dart';
 import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
@@ -26,6 +27,7 @@ class HomeController extends GetxController {
   late CommentariesModel commentariesModel;
   late SeriesMatchListModel seriesMatchListModel;
   late MatchInfoModel matcheInfoModel;
+  late MatchSquadModel matchSquadModel;
 
   RxList fixtureMatchList = [].obs;
 
@@ -43,6 +45,7 @@ class HomeController extends GetxController {
     seriesMatchListModel = SeriesMatchListModel();
     commentariesModel = CommentariesModel();
     matcheInfoModel = MatchInfoModel();
+    matchSquadModel = MatchSquadModel();
     await getRecentMatches();
     await getLiveMatches();
     await getUpComingMatches();
@@ -50,9 +53,30 @@ class HomeController extends GetxController {
     await getFeatureSeries();
     await getPointTable("3718");
     await getCommentaries("38356");
+    await getMatchSquad("3718");
     // await getMatchInfo("38356");
 
     super.onInit();
+  }
+
+  Future<void> getMatchSquad(String seriesID) async {
+    print("Squad URL ${ApiEndpoints.squadsData + "3718/squads"}");
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance
+            .get(ApiEndpoints.squadsData + "$seriesID/squads"),
+        onSuccess: (response) {
+          print("Squad Response: ${response}");
+
+          matchSquadModel = matchSquadModelFromJson(jsonEncode(response));
+          print("Squad model Data: ${matchSquadModel.seriesName}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
   }
 
   Future<void> getSeriesMatches(String seriesID) async {

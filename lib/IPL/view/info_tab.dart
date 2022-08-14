@@ -169,7 +169,9 @@ class _InfoTabState extends State<InfoTab> {
               height: 5,
             ),
             InfoCardTile(
-              title: '',
+              series: '',
+              duration: "",
+              format: "",
               onTap: () {},
             ),
             Container(
