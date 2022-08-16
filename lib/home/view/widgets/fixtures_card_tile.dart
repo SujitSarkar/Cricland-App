@@ -85,8 +85,8 @@ class FixturesCardTile extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                height: 50,
-                                width: 80,
+                                height: 30,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   color: Colors.white,
@@ -149,8 +149,8 @@ class FixturesCardTile extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                height: 50,
-                                width: 80,
+                                height: 30,
+                                width: 50,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   color: Colors.white,
@@ -213,35 +213,38 @@ class FixturesCardTile extends StatelessWidget {
                     VerticalDivider(
                       width: 1,
                       thickness: 1,
-                      color: PublicController.pc.toggleTextColor(),
+                      color: Colors.grey.shade300,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          desc!,
-                          style: TextStyle(
-                            fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              desc!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: dSize(.04),
+                                fontWeight: FontWeight.w500,
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              date!,
+                              style: TextStyle(
+                                fontSize: dSize(.035),
+                                fontWeight: FontWeight.w500,
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          date!,
-                          style: TextStyle(
-                            fontSize: dSize(.035),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
-                        ),
-                      ],
+                      ),
                     )
                   ],
                 ),

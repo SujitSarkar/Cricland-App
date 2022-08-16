@@ -128,80 +128,91 @@ class _SeriesScreenState extends State<SeriesScreen>
                           )
                         : Align(
                             alignment: Alignment.center,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40,
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Row(
+                            child: homeController
+                                        .seriesMatchListModel.matchDetails !=
+                                    null
+                                ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Flexible(
-                                        child: Column(
+                                      SizedBox(
+                                        height: 40,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              homeController
-                                                  .seriesMatchListModel
-                                                  .matchDetails!
-                                                  .first
-                                                  .matchDetailsMap!
-                                                  .match!
-                                                  .first
-                                                  .matchInfo!
-                                                  .seriesName!,
-                                              // "The Hundred 2022",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
+                                            Flexible(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    homeController
+                                                        .seriesMatchListModel
+                                                        .matchDetails!
+                                                        .first
+                                                        .matchDetailsMap!
+                                                        .match!
+                                                        .first
+                                                        .matchInfo!
+                                                        .seriesName!,
+                                                    // "The Hundred 2022",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    homeController
+                                                        .seriesMatchListModel
+                                                        .matchDetails!
+                                                        .first
+                                                        .matchDetailsMap!
+                                                        .key!,
+                                                    // "032 Aug to 03 Sep 2022",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            Text(
-                                              homeController
-                                                  .seriesMatchListModel
-                                                  .matchDetails!
-                                                  .first
-                                                  .matchDetailsMap!
-                                                  .key!,
-                                              // "032 Aug to 03 Sep 2022",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.grey),
+                                            Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                image: DecorationImage(
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      ApiEndpoints
+                                                              .imageMidPoint +
+                                                          "189174" +
+                                                          ApiEndpoints
+                                                              .imageLastPoint,
+                                                      headers:
+                                                          ApiEndpoints.headers,
+                                                    ),
+                                                    fit: BoxFit.fill),
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          image: DecorationImage(
-                                              image: CachedNetworkImageProvider(
-                                                ApiEndpoints.imageMidPoint +
-                                                    "189174" +
-                                                    ApiEndpoints.imageLastPoint,
-                                                headers: ApiEndpoints.headers,
-                                              ),
-                                              fit: BoxFit.fill),
-                                        ),
-                                      ),
                                     ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                                  )
+                                : CircularProgressIndicator(),
                           ),
                   ),
                 ],

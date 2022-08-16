@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/details_view/key_state_screen.dart';
 import 'package:cricland/IPL/view/matches_tab.dart';
+import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/IPL/view/widgets/featured_match_tile.dart';
 import 'package:cricland/IPL/view/widgets/highest_score_&_six_card.dart';
 import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
@@ -60,47 +61,49 @@ class _OverViewTabState extends State<OverViewTab> {
                   )
                 ],
               ),
-              ListView.builder(
-                  itemCount:
-                      homeController.seriesMatchListModel.matchDetails!.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return homeController.seriesMatchListModel
-                                .matchDetails![index].matchDetailsMap !=
-                            null
-                        ? FeaturedMatchTile(
-                            onTap: () {
-                              print(
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
-                              );
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (_) => HomeDetailsScreen(
-                              //       teamS2Name: '',
-                              //       matchIndex: index,
-                              //       teamS1Name: '',
-                              //       matchDesc: '',
-                              //     ),
-                              //   ),
-                              // );
-                            },
-                            leadingUrlOne:
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.imageId}",
-                            leadingUrlTwo:
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.imageId}",
-                            teamOne:
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.teamSName}",
-                            teamTwo:
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.teamSName}",
-                            wonTeam:
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.status}",
-                            state:
-                                "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
-                          )
-                        : SizedBox();
-                  }),
+              homeController.seriesMatchListModel.matchDetails != null
+                  ? ListView.builder(
+                      itemCount: homeController
+                          .seriesMatchListModel.matchDetails!.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return homeController.seriesMatchListModel
+                                    .matchDetails![index].matchDetailsMap !=
+                                null
+                            ? FeaturedMatchTile(
+                                onTap: () {
+                                  print(
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
+                                  );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (_) => HomeDetailsScreen(
+                                  //       teamS2Name: '',
+                                  //       matchIndex: index,
+                                  //       teamS1Name: '',
+                                  //       matchDesc: '',
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                                leadingUrlOne:
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.imageId}",
+                                leadingUrlTwo:
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.imageId}",
+                                teamOne:
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.teamSName}",
+                                teamTwo:
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.teamSName}",
+                                wonTeam:
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.status}",
+                                state:
+                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
+                              )
+                            : SizedBox();
+                      })
+                  : CircularProgressIndicator(),
               ListTile(
                   leading: Text(
                     "Key Stats",
@@ -319,15 +322,31 @@ class _OverViewTabState extends State<OverViewTab> {
                   ),
                 ),
               ),
-              InfoCardTile(
-                series: homeController.seriesMatchListModel.matchDetails!.first
-                    .matchDetailsMap!.match!.first.matchInfo!.seriesName!,
-                duration: homeController.seriesMatchListModel.matchDetails!
-                    .first.matchDetailsMap!.key!,
-                format: homeController.seriesMatchListModel.matchDetails!.first
-                    .matchDetailsMap!.match!.first.matchInfo!.matchFormat!,
-                onTap: () {},
-              ),
+              homeController.seriesMatchListModel.matchDetails != null
+                  ? InfoCardTile(
+                      series: homeController
+                          .seriesMatchListModel
+                          .matchDetails!
+                          .first
+                          .matchDetailsMap!
+                          .match!
+                          .first
+                          .matchInfo!
+                          .seriesName!,
+                      duration: homeController.seriesMatchListModel
+                          .matchDetails!.first.matchDetailsMap!.key!,
+                      format: homeController
+                          .seriesMatchListModel
+                          .matchDetails!
+                          .first
+                          .matchDetailsMap!
+                          .match!
+                          .first
+                          .matchInfo!
+                          .matchFormat!,
+                      onTap: () {},
+                    )
+                  : SizedBox(),
               ListTile(
                 leading: Text(
                   "More Seasons",
@@ -393,441 +412,4 @@ class _OverViewTabState extends State<OverViewTab> {
               );
             }));
   }
-}
-
-class BottomSheetScreen extends StatefulWidget {
-  const BottomSheetScreen({Key? key}) : super(key: key);
-
-  @override
-  State<BottomSheetScreen> createState() => _BottomSheetScreenState();
-}
-
-class _BottomSheetScreenState extends State<BottomSheetScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  String _iplTabType = Variables.teamSquadsTabsCategory.first;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-        length: Variables.teamSquadsTabsCategory.length, vsync: this);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: PublicController.pc.toggleCardBg(),
-          automaticallyImplyLeading: false,
-          title: Text(
-            "Text Squads",
-            style: TextStyle(
-                color: PublicController.pc.toggleTextColor(), fontSize: 15),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                "Close",
-                style: TextStyle(color: Colors.green),
-              ),
-            ),
-          ],
-          bottom: _tabBar()),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "All(14)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "Bat(04)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "bowl(4)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "AR(3)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 3 / 1,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                      itemCount: 100,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => PlayerDetailsPage()));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(
-                                    color:
-                                        PublicController.pc.toggleTextColor())),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/player.png",
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'S Brand',
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Bowler',
-                                        style: TextStyle(
-                                          fontSize: dSize(.035),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                ),
-                SizedBox(
-                  height: 200,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "All(14)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "Bat(04)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "bowl(4)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                            border: Border.all(
-                              width: 1,
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                        child: Center(
-                          child: Text(
-                            "AR(3)",
-                            style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 3 / 1,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                      itemCount: 100,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            //TODO Screen overview top
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(
-                                    color:
-                                        PublicController.pc.toggleTextColor())),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/player.png",
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'S Brand',
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Bowler',
-                                        style: TextStyle(
-                                          fontSize: dSize(.035),
-                                          fontWeight: FontWeight.w500,
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                ),
-                SizedBox(
-                  height: 200,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  PreferredSize _tabBar() => PreferredSize(
-        preferredSize: Size.fromHeight(dSize(.04)),
-        child: TabBar(
-          onTap: (covariant) async {
-            setState(() => _tabController.index = covariant);
-          },
-          isScrollable: true,
-          controller: _tabController,
-          labelColor: PublicController.pc.toggleLoadingColor(),
-          indicator: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(dSize(.02)),
-                  topRight: Radius.circular(dSize(.02))),
-              color: PublicController.pc.toggleTabColor()),
-          unselectedLabelColor: Colors.grey,
-          indicatorSize: TabBarIndicatorSize.label,
-          physics: const BouncingScrollPhysics(),
-          tabs: Variables.teamSquadsTabsCategory
-              .map<Widget>((String item) => Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: dSize(.01), horizontal: dSize(.02)),
-                    child: Text(item),
-                  ))
-              .toList(),
-        ),
-      );
 }

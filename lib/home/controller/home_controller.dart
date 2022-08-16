@@ -13,6 +13,7 @@ import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
 
+import '../model/player_squad_model.dart';
 import '../model/score_card_model.dart';
 
 class HomeController extends GetxController {
@@ -28,8 +29,10 @@ class HomeController extends GetxController {
   late SeriesMatchListModel seriesMatchListModel;
   late MatchInfoModel matcheInfoModel;
   late MatchSquadModel matchSquadModel;
+  late PlayerSquadModel playerSquadModel;
 
   RxList fixtureMatchList = [].obs;
+  RxList playerSquadModelList = [].obs;
 
   RxBool loading = false.obs;
   @override
@@ -46,6 +49,7 @@ class HomeController extends GetxController {
     commentariesModel = CommentariesModel();
     matcheInfoModel = MatchInfoModel();
     matchSquadModel = MatchSquadModel();
+    playerSquadModel = PlayerSquadModel();
     await getRecentMatches();
     await getLiveMatches();
     await getUpComingMatches();
@@ -54,9 +58,33 @@ class HomeController extends GetxController {
     await getPointTable("3718");
     await getCommentaries("38356");
     await getMatchSquad("3718");
+    await getPlayerSquad("3718", "15826");
     // await getMatchInfo("38356");
 
     super.onInit();
+  }
+
+  Future<void> getPlayerSquad(String seriesID, String squadID) async {
+    print(
+        "Squad URL ${ApiEndpoints.playerSquadsData + "$seriesID/squads/$squadID"}");
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance
+            .get(ApiEndpoints.playerSquadsData + "$seriesID/squads/$squadID"),
+        onSuccess: (response) {
+          print("Player Squad Response: ${response}");
+
+          playerSquadModel = playerSquadModelFromJson(jsonEncode(response));
+
+          print(
+              "Player Squad model Data: ${playerSquadModel.player!.first.name}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
   }
 
   Future<void> getMatchSquad(String seriesID) async {
