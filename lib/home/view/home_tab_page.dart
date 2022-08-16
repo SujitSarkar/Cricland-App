@@ -115,11 +115,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     homeController.featureSeriesModel.seriesMapProto == null
-                        ? CircularProgressIndicator()
+                        ? Center(
+                            child: Padding(
+                            padding: EdgeInsets.only(top: 50),
+                            child: CircularProgressIndicator(),
+                          ))
                         : GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
