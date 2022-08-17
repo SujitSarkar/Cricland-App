@@ -232,7 +232,6 @@ class _SeriesScreenState extends State<SeriesScreen>
                   MatchesTab(),
                   SquadsTab(),
                   PointTableView(),
-                  InfoTab(),
                 ],
               ),
             ),
