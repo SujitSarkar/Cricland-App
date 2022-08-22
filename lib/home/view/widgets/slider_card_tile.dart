@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/constants.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
+
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -58,9 +59,8 @@ class SliderCardTile extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       title,
-                      style: TextStyle(
+                      style: CLTextStyle.nameTextStyle.copyWith(
                         fontSize: dSize(.035),
-                        fontWeight: FontWeight.w500,
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
@@ -95,15 +95,14 @@ class SliderCardTile extends StatelessWidget {
                             children: [
                               Text(
                                 leftCountryName!,
-                                style: TextStyle(
+                                style: CLTextStyle.nameTextStyle.copyWith(
                                   fontSize: dSize(.035),
-                                  fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
                               ),
                               Text(
                                 leftCountryRuns!,
-                                style: TextStyle(
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -111,7 +110,7 @@ class SliderCardTile extends StatelessWidget {
                               ),
                               Text(
                                 leftCountryOvers!,
-                                style: TextStyle(
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
                                   fontSize: dSize(.025),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -137,17 +136,15 @@ class SliderCardTile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                rightCountryName!,
-                                style: TextStyle(
-                                  fontSize: dSize(.035),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
-                              ),
+                              Text(rightCountryName!,
+                                  style: CLTextStyle.nameTextStyle.copyWith(
+                                    fontSize: dSize(.035),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  )),
                               Text(
                                 rightCountryRuns!,
-                                style: TextStyle(
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -155,7 +152,7 @@ class SliderCardTile extends StatelessWidget {
                               ),
                               Text(
                                 rightCountryOvers!,
-                                style: TextStyle(
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
                                   fontSize: dSize(.025),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -189,12 +186,15 @@ class SliderCardTile extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                wonStatus!,
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
+              Container(
+                width: 300,
+                child: Text(
+                  wonStatus!,
+                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(

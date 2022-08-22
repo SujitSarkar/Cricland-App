@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/upcoming_card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -33,10 +34,10 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                   ),
                   Text(
                     "Today",
-                    style: TextStyle(
-                        fontSize: dSize(.045),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor()),
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      fontSize: dSize(.045),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
                   ),
                   SizedBox(
                     height: 12,

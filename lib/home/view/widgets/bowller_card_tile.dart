@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -25,8 +26,7 @@ class ScorecardBowlerTile extends StatelessWidget {
                       flex: 2,
                       child: Text(
                         "Bowler",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
+                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
@@ -38,8 +38,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                         Expanded(
                             child: Text(
                           "O",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
+                          style:
+                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -47,8 +47,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                         Expanded(
                             child: Text(
                           "M",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
+                          style:
+                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -56,8 +56,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                         Expanded(
                           child: Text(
                             "R",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
+                            style:
+                                CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                               fontSize: dSize(.04),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -66,8 +66,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                         Expanded(
                             child: Text(
                           "W",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
+                          style:
+                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -75,8 +75,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                         Expanded(
                           child: Text(
                             "ER",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
+                            style:
+                                CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                               fontSize: dSize(.04),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -118,8 +118,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                         .bowlersData!
                                         .bowl1!
                                         .bowlName!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
+                                    style:
+                                        CLTextStyle.paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -127,8 +127,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                   ),
                                   Text(
                                     "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].outDesc}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
+                                    style:
+                                        CLTextStyle.paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -144,8 +144,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                   Expanded(
                                       child: Text(
                                     "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].runs}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
+                                    style:
+                                        CLTextStyle.paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -156,8 +156,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                       "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].balls}",
 
                                       // "10",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
                                         fontSize: dSize(.03),
                                         color: PublicController.pc
                                             .toggleTextColor(),
@@ -167,8 +167,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                   Expanded(
                                       child: Text(
                                     "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].fours}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
+                                    style:
+                                        CLTextStyle.paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -177,8 +177,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].sixes}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
                                         fontSize: dSize(.03),
                                         color: PublicController.pc
                                             .toggleTextColor(),
@@ -187,8 +187,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                                   ),
                                   Text(
                                     "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].strikeRate}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
+                                    style:
+                                        CLTextStyle.paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -212,9 +212,8 @@ class ScorecardBowlerTile extends StatelessWidget {
                     "Extras: ${homeController.scoreCardModel.scoreCard!.first.extrasData!.total} (nb${homeController.scoreCardModel.scoreCard!.first.extrasData!.noBalls}, p${homeController.scoreCardModel.scoreCard!.first.extrasData!.penalty}, lb${homeController.scoreCardModel.scoreCard!.first.extrasData!.legByes}, w${homeController.scoreCardModel.scoreCard!.first.extrasData!.wides}, b${homeController.scoreCardModel.scoreCard!.first.extrasData!.byes})",
 
                     //"Extras: B (b0,lb3,w5,nb0,p0",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.03),
+                    style: CLTextStyle.paragraphTextStyle.copyWith(
+                      fontSize: dSize(.025),
                       color: PublicController.pc.toggleTextColor(),
                     ),
                   )

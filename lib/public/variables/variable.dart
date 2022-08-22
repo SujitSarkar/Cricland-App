@@ -27,7 +27,6 @@ class Variables {
   static const List<String> playerDetails = [
     'Overview',
     'Matches',
-    'News',
     'Player Info'
   ];
   static const List<String> playerOverview = [

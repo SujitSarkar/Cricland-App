@@ -8,6 +8,7 @@ class ApiEndpoints {
   static String commentariesData = 'mcenter/v1/';
   static String squadsData = 'series/v1/';
   static String playerSquadsData = 'series/v1/';
+  static String playerInfoData = 'stats/v1/player/';
   static String upComingMatchData = 'matches/$apiVersion/upcoming';
   static String fixturesMatchDayData = 'schedule/$apiVersion/all';
   static String fixturesMatchSeriesData = 'series/$apiVersion/international';

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -51,9 +52,8 @@ class FinishedCardTile extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     title,
-                    style: TextStyle(
+                    style: CLTextStyle.nameTextStyle.copyWith(
                       fontSize: dSize(.04),
-                      fontWeight: FontWeight.w500,
                       color: PublicController.pc.toggleTextColor(),
                     ),
                   )),
@@ -84,28 +84,29 @@ class FinishedCardTile extends StatelessWidget {
                       ),
                       Text(
                         leftCountryName!,
-                        style: TextStyle(
-                            fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor()),
+                        style: CLTextStyle.nameTextStyle.copyWith(
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
                       ),
                       Row(
                         children: [
                           RichText(
                             text: TextSpan(
                               text: leftCountryRuns,
-                              style: TextStyle(
-                                  fontSize: dSize(.03),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor()),
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: leftCountryOvers,
-                                  style: TextStyle(
-                                      fontSize: dSize(.02),
-                                      fontWeight: FontWeight.w500,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
+                                  style:
+                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                    fontSize: dSize(.02),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
                                 ),
                                 // TextSpan(text: ' world!'),
                               ],
@@ -132,10 +133,9 @@ class FinishedCardTile extends StatelessWidget {
                         child: Text(
                           wonStatus!,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: dSize(.04),
+                          style: CLTextStyle.paragraphTextStyle.copyWith(
+                            fontSize: dSize(.03),
+                            color: PublicController.pc.toggleTextColor(),
                           ),
                         ),
                       ),
@@ -162,9 +162,8 @@ class FinishedCardTile extends StatelessWidget {
                       ),
                       Text(
                         rightCountryName!,
-                        style: TextStyle(
+                        style: CLTextStyle.nameTextStyle.copyWith(
                           fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
                           color: PublicController.pc.toggleTextColor(),
                         ),
                       ),
@@ -173,18 +172,19 @@ class FinishedCardTile extends StatelessWidget {
                           RichText(
                             text: TextSpan(
                               text: rightCountryRuns,
-                              style: TextStyle(
-                                  fontSize: dSize(.03),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor()),
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: rightCountryOvers,
-                                  style: TextStyle(
-                                      fontSize: dSize(.02),
-                                      fontWeight: FontWeight.w500,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
+                                  style:
+                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                    fontSize: dSize(.02),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
                                 ),
                                 // TextSpan(text: ' world!'),
                               ],
@@ -210,10 +210,10 @@ class FinishedCardTile extends StatelessWidget {
                 children: [
                   Text(
                     "2 More Matches",
-                    style: TextStyle(
-                        fontSize: dSize(.03),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor()),
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      fontSize: dSize(.03),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
                   ),
                   Icon(
                     Icons.arrow_forward_ios_sharp,

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/model/score_card_model.dart';
 import 'package:cricland/home/view/details_view/commentary_view.dart';
 import 'package:cricland/home/view/details_view/fantasy_view.dart';
@@ -33,6 +34,7 @@ class HomeDetailsScreen extends StatefulWidget {
   final String seriesID;
   final String team1ImageID;
   final String team2ImageID;
+  final bool isLive;
 
   const HomeDetailsScreen({
     Key? key,
@@ -48,6 +50,7 @@ class HomeDetailsScreen extends StatefulWidget {
     required this.winningStatus,
     required this.team1ImageID,
     required this.team2ImageID,
+    required this.isLive,
   }) : super(key: key);
 
   @override
@@ -61,13 +64,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
 
   ScoreCardModel? scoreCardModel;
 
-  bool _isLive = false;
-
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(
-        length: Variables.iplDetailsTabsCategory.length, vsync: this);
+        initialIndex: 3,
+        length: Variables.iplDetailsTabsCategory.length,
+        vsync: this);
 
     print(widget.seriesID);
     fetchData();
@@ -90,10 +94,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
         title: RichText(
           text: TextSpan(
             text: widget.teamS1Name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: CLTextStyle.nameTextStyle,
             children: <TextSpan>[
               const TextSpan(
-                  text: ' VS ',
+                  text: '  VS  ',
                   style: TextStyle(fontWeight: FontWeight.normal)),
               TextSpan(
                 text: widget.teamS2Name,
@@ -122,7 +126,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
       ),
       body: Column(
         children: [
-          _isLive
+          widget.isLive
               ? Container(
                   padding: EdgeInsets.all(5),
                   color: AllColor.appDarkBg,
@@ -252,27 +256,25 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    widget.teamS1Name,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: dSize(.05),
-                                    ),
-                                  ),
+                                  Text(widget.teamS1Name,
+                                      style: CLTextStyle.nameTextStyle.copyWith(
+                                        color: Colors.white,
+                                        fontSize: dSize(.05),
+                                      )),
                                   RichText(
                                     text: TextSpan(
                                       text: "${widget.team1RunWicket} ",
-                                      style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
+                                              fontSize: dSize(.03),
+                                              color: Colors.white),
                                       children: <TextSpan>[
                                         TextSpan(
                                           text: " ${widget.team1Over} ",
-                                          style: TextStyle(
-                                              fontSize: dSize(.025),
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white),
+                                          style: CLTextStyle.paragraphTextStyle
+                                              .copyWith(
+                                                  fontSize: dSize(.025),
+                                                  color: Colors.white),
                                         ),
                                         // TextSpan(text: ' world!'),
                                       ],
@@ -295,7 +297,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                 children: [
                                   Text(
                                     widget.teamS2Name,
-                                    style: TextStyle(
+                                    style: CLTextStyle.nameTextStyle.copyWith(
                                       color: Colors.white,
                                       fontSize: dSize(.05),
                                     ),
@@ -303,17 +305,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   RichText(
                                     text: TextSpan(
                                       text: widget.team2Over,
-                                      style: TextStyle(
-                                          fontSize: dSize(.025),
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
+                                        color: Colors.white,
+                                        fontSize: dSize(.025),
+                                      ),
                                       children: <TextSpan>[
                                         TextSpan(
                                           text: " ${widget.team2RunWicket}",
-                                          style: TextStyle(
-                                              fontSize: dSize(.04),
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white),
+                                          style: CLTextStyle.paragraphTextStyle
+                                              .copyWith(
+                                            color: Colors.white,
+                                            fontSize: dSize(.04),
+                                          ),
                                         ),
                                         // TextSpan(text: ' world!'),
                                       ],
@@ -351,7 +355,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                       ),
                       Text(
                         widget.winningStatus,
-                        style: TextStyle(color: Colors.orange),
+                        style: CLTextStyle.paragraphHeadLineTextStyle
+                            .copyWith(color: Colors.orange, fontSize: 15),
                       )
                     ],
                   ),
@@ -399,7 +404,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               .map<Widget>((String item) => Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: dSize(.01), horizontal: dSize(.02)),
-                    child: Text(item),
+                    child: Text(
+                      item,
+                      style: CLTextStyle.optionTextStyle,
+                    ),
                   ))
               .toList(),
         ),

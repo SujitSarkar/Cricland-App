@@ -6,6 +6,10 @@ import 'package:cricland/home/view/widgets/score_card_wicket_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../../../public/controller/public_controller.dart';
+import '../../../public/variables/config.dart';
+import '../../model/custom_widget/constants.dart';
+
 class ScoreCardView extends StatefulWidget {
   const ScoreCardView({Key? key}) : super(key: key);
 
@@ -39,7 +43,10 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                       },
                       child: Text(
                         "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                        style: TextStyle(color: Colors.white),
+                        style: CLTextStyle.optionTextStyle.copyWith(
+                          fontSize: dSize(.03),
+                          color: PublicController.pc.toggleCardBg(),
+                        ),
                       ),
                     ),
                   ),
@@ -60,7 +67,10 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                           },
                           child: Text(
                             "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard![1].scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard![1].scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard![1].scoreDetails!.overs!})    ",
-                            style: TextStyle(color: Colors.white),
+                            style: CLTextStyle.optionTextStyle.copyWith(
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleCardBg(),
+                            ),
                           ))),
                 ],
               ),
@@ -72,9 +82,12 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: const Text(
+                  child: Text(
                     "Fall Of Wicket",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      fontSize: dSize(.03),
+                      color: PublicController.pc.toggleCardBg(),
+                    ),
                   ),
                 ),
               ),

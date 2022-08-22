@@ -73,20 +73,26 @@ class _OverViewTabState extends State<OverViewTab> {
                                 null
                             ? FeaturedMatchTile(
                                 onTap: () {
-                                  print(
-                                    "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const HomeDetailsScreen(
+                                        teamS2Name: '',
+                                        teamS1Name: '',
+                                        matchDesc: '',
+                                        seriesID: '',
+                                        winningStatus: '',
+                                        team1ImageID: '',
+                                        team2Over: '',
+                                        team2ImageID: '',
+                                        matchID: '',
+                                        team1RunWicket: '',
+                                        team2RunWicket: '',
+                                        team1Over: '',
+                                        isLive: false,
+                                      ),
+                                    ),
                                   );
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (_) => HomeDetailsScreen(
-                                  //       teamS2Name: '',
-                                  //       matchIndex: index,
-                                  //       teamS1Name: '',
-                                  //       matchDesc: '',
-                                  //     ),
-                                  //   ),
-                                  // );
                                 },
                                 leadingUrlOne:
                                     "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.imageId}",

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/constants.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -57,9 +57,8 @@ class FixturesCardTile extends StatelessWidget {
                       child: title != null
                           ? Text(
                               title!,
-                              style: TextStyle(
+                              style: CLTextStyle.nameTextStyle.copyWith(
                                 fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
                                 color: PublicController.pc.toggleTextColor(),
                               ),
                             )
@@ -109,9 +108,8 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamOne!,
-                                    style: TextStyle(
+                                    style: CLTextStyle.nameTextStyle.copyWith(
                                         fontSize: dSize(.045),
-                                        fontWeight: FontWeight.w500,
                                         color: PublicController.pc
                                             .toggleTextColor()),
                                   ),
@@ -173,9 +171,8 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamTwo!,
-                                    style: TextStyle(
+                                    style: CLTextStyle.nameTextStyle.copyWith(
                                         fontSize: dSize(.045),
-                                        fontWeight: FontWeight.w500,
                                         color: PublicController.pc
                                             .toggleTextColor()),
                                   ),
@@ -215,35 +212,28 @@ class FixturesCardTile extends StatelessWidget {
                       thickness: 1,
                       color: Colors.grey.shade300,
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              desc!,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            desc!,
+                            textAlign: TextAlign.center,
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
                                 fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              date!,
-                              style: TextStyle(
-                                fontSize: dSize(.035),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                          ],
-                        ),
+                                color: PublicController.pc.toggleTextColor()),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(date!,
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  fontSize: dSize(.035),
+                                  color:
+                                      PublicController.pc.toggleTextColor())),
+                        ],
                       ),
                     )
                   ],

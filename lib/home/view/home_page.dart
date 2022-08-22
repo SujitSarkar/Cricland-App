@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/finished_tab_page.dart';
 import 'package:cricland/home/view/fixtures_tab_page.dart';
 import 'package:cricland/home/view/home_tab_page.dart';
@@ -53,14 +54,12 @@ class _HomePageState extends State<HomePage>
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 2),
-                    child: Text(
-                      "CrickLand",
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: Text("CrickLand",
+                        style: CLTextStyle.nameTextStyle.copyWith(
+                          fontSize: dSize(.04),
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        )),
                   ),
                   const SizedBox(
                     width: 10,
@@ -76,11 +75,14 @@ class _HomePageState extends State<HomePage>
                           horizontal: 8.0, vertical: 2),
                       child: Text(
                         "Premium",
-                        style: TextStyle(
+                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                           fontSize: dSize(.04),
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
+                        // style: TextStyle(
+
+                        // ),
                       ),
                     ),
                   ),
@@ -138,6 +140,8 @@ class _HomePageState extends State<HomePage>
               color: PublicController.pc.toggleTabColor(),
             ),
             unselectedLabelColor: Colors.grey,
+            unselectedLabelStyle: CLTextStyle.optionTextStyle,
+            labelStyle: CLTextStyle.optionTextStyle,
             indicatorSize: TabBarIndicatorSize.label,
             physics: const BouncingScrollPhysics(),
             tabs: [

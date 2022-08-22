@@ -1,15 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview.dart';
 import 'package:cricland/news/view/news_page.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/colors.dart';
 import '../../../../public/variables/config.dart';
 import '../../../../public/variables/variable.dart';
 
 class PlayerDetailsPage extends StatefulWidget {
-  const PlayerDetailsPage({Key? key}) : super(key: key);
+  final String playerId;
+  const PlayerDetailsPage({Key? key, required this.playerId}) : super(key: key);
 
   @override
   State<PlayerDetailsPage> createState() => _PlayerDetailsPageState();
@@ -24,6 +31,15 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
     super.initState();
     _tabController =
         TabController(length: Variables.playerDetails.length, vsync: this);
+    fetchData();
+  }
+
+  fetchData() async {
+    //getPlayer Data
+    HomeController homeController = Get.put(HomeController());
+    await homeController.getPlayerInfo(widget.playerId);
+
+    setState(() {});
   }
 
   final TextStyle _titleStyle = TextStyle(
@@ -33,54 +49,73 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverOverlapAbsorber(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver: SliverAppBar(
-                // title: const Text('Books'),
-                floating: true,
-                pinned: true,
-                snap: false,
-                forceElevated: innerBoxIsScrolled,
-                expandedHeight: dSize(.52),
-                flexibleSpace: Stack(
-                  children: [
-                    Positioned.fill(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(left: dSize(.055)),
-                            child: RichText(
-                              text: TextSpan(
-                                style: _titleStyle,
-                                children: [
-                                  const TextSpan(text: 'Sakib Al Hasan\n\n'),
-                                  TextSpan(
-                                      text: 'Bangladesh * 35 yrs',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: dSize(.035))),
-                                ],
-                              ),
-                            )),
-                        Image.asset('assets/player.png',
-                            height: 150, fit: BoxFit.fitHeight),
-                      ],
-                    ))
-                  ],
+    return GetBuilder<HomeController>(builder: (homeController) {
+      return Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverAppBar(
+                  // title: const Text('Books'),
+                  floating: true,
+                  pinned: true,
+                  snap: false,
+                  forceElevated: innerBoxIsScrolled,
+                  expandedHeight: dSize(.52),
+                  flexibleSpace: Stack(
+                    children: [
+                      Positioned.fill(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.only(left: dSize(.055)),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: _titleStyle,
+                                  children: [
+                                    TextSpan(
+                                        text:
+                                            '${homeController.playerInfoModel.name} \n\n'),
+                                    TextSpan(
+                                        text:
+                                            '${homeController.playerInfoModel.intlTeam} \n${homeController.playerInfoModel.doB}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: dSize(.035))),
+                                  ],
+                                ),
+                              )),
+                          Container(
+                            height: 130,
+                            width: 130,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                    ApiEndpoints.imageMidPoint +
+                                        "${homeController.playerInfoModel.faceImageId}" +
+                                        ApiEndpoints.imageLastPoint,
+                                    headers: ApiEndpoints.headers,
+                                  ),
+                                  fit: BoxFit.fill),
+                            ),
+                          ),
+                        ],
+                      ))
+                    ],
+                  ),
+                  bottom: _tabBar(),
                 ),
-                bottom: _tabBar(),
               ),
-            ),
-          ];
-        },
-        body: _bodyUI(),
-      ),
-    );
+            ];
+          },
+          body: _bodyUI(),
+        ),
+      );
+    });
   }
 
   Widget _bodyUI() => TabBarView(
@@ -88,7 +123,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
         children: [
           PlayerOverview(),
           PlayerMatches(),
-          NewsPage(),
+          // NewsPage(),
           PlayerInfo(),
         ],
       );

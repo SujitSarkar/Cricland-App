@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/slider_card_tile.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
@@ -75,6 +76,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                                 "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
                                             seriesID:
                                                 "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesId}",
+                                            isLive: false,
                                           ),
                                         ),
                                       );
@@ -109,7 +111,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     ),
                     Text(
                       'Featured Series',
-                      style: TextStyle(
+                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                         fontSize: dSize(.04),
                         fontWeight: FontWeight.w500,
                         color: PublicController.pc.toggleTextColor(),
@@ -170,9 +172,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                         "${homeController.featureSeriesModel.seriesMapProto![index].series!.first.name}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: dSize(.04),
-                                          fontWeight: FontWeight.w500,
+                                        style:
+                                            CLTextStyle.nameTextStyle.copyWith(
+                                          fontSize: dSize(.035),
                                           color: PublicController.pc
                                               .toggleTextColor(),
                                         ),

@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -57,6 +58,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2(
+                      style: CLTextStyle.optionTextStyle,
                       alignment: Alignment.center,
                       iconEnabledColor: PublicController.pc.toggleTextColor(),
                       dropdownDecoration: BoxDecoration(
@@ -120,7 +122,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                               child: Center(
                                 child: Text(
                                   typeList[index],
-                                  style: TextStyle(
+                                  style: CLTextStyle.optionTextStyle.copyWith(
                                     fontSize: dSize(.04),
                                     fontWeight: FontWeight.w500,
                                     color:

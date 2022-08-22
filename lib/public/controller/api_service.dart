@@ -40,6 +40,7 @@ class ApiService {
       ApiEndpoints.baseURL + url,
       headers: ApiEndpoints.headers,
     );
+    print(response.body);
     return _processResponse(response);
   }
 
@@ -70,7 +71,7 @@ class ApiService {
 
   ///check if the response is valid (everything went fine) / else throw error
   dynamic _processResponse(Response response) {
-    // print('statusCode:- ${response.statusCode}');
+    print('statusCode:- ${response.statusCode}');
     // print('response:- ${response.body}');
     switch (response.statusCode) {
       case 200:

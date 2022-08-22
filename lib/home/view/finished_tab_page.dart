@@ -1,13 +1,10 @@
 import 'package:cricland/home/controller/home_controller.dart';
-
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/finished_card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import 'home_details_screen.dart';
 
 class FinishedTabScreen extends StatefulWidget {
   const FinishedTabScreen({Key? key}) : super(key: key);
@@ -37,10 +34,10 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                   ),
                   Text(
                     "Yesterday",
-                    style: TextStyle(
-                        fontSize: dSize(.045),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor()),
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      fontSize: dSize(.045),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
                   ),
                   SizedBox(
                     height: 12,

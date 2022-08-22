@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/commentary_profile_card_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -373,13 +374,23 @@ class _CommentaryViewState extends State<CommentaryView> {
                           RichText(
                             text: TextSpan(
                               text: 'NSW ',
-                              style: DefaultTextStyle.of(context).style,
-                              children: const <TextSpan>[
+                              style: CLTextStyle.paragraphHeadLineTextStyle
+                                  .copyWith(
+                                      color: PublicController.pc
+                                          .toggleTextColor()),
+                              children: <TextSpan>[
                                 TextSpan(
                                     text: 'vs',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ' OIW'),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: PublicController.pc
+                                            .toggleTextColor())),
+                                TextSpan(
+                                    text: ' OIW',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: PublicController.pc
+                                            .toggleTextColor())),
                               ],
                             ),
                           ),
@@ -403,7 +414,13 @@ class _CommentaryViewState extends State<CommentaryView> {
                       ),
                       trailing: TextButton(
                         onPressed: () {},
-                        child: Text("See Key Events"),
+                        child: Text(
+                          "See Key Events",
+                          style:
+                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
                       ),
                     ),
                     ListView.builder(
@@ -421,8 +438,14 @@ class _CommentaryViewState extends State<CommentaryView> {
                               ),
                               ListTile(
                                 leading: Icon(Icons.message),
-                                title: Text(homeController.commentariesModel
-                                    .commentaryList![index].commText!),
+                                title: Text(
+                                  homeController.commentariesModel
+                                      .commentaryList![index].commText!,
+                                  style: CLTextStyle.paragraphTextStyle
+                                      .copyWith(
+                                          color: PublicController.pc
+                                              .toggleTextColor()),
+                                ),
                               ),
                             ],
                           );

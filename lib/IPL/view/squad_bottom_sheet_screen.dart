@@ -170,10 +170,13 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                PlayerDetailsPage()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => PlayerDetailsPage(
+                                          playerId: "6635",
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

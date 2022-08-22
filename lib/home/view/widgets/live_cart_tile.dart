@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/constants.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -56,14 +56,11 @@ class _LiveCardTileState extends State<LiveCardTile> {
               children: [
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      widget.title,
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    )),
+                    child: Text(widget.title,
+                        style: CLTextStyle.nameTextStyle.copyWith(
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ))),
                 const SizedBox(
                   height: 10,
                 ),
@@ -88,30 +85,30 @@ class _LiveCardTileState extends State<LiveCardTile> {
                         ),
                         Text(
                           widget.leadingCountryName,
-                          style: TextStyle(
-                              fontSize: dSize(.04),
-                              fontWeight: FontWeight.w500,
-                              color: PublicController.pc.toggleTextColor()),
+                          style: CLTextStyle.nameTextStyle.copyWith(
+                            fontSize: dSize(.04),
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
                         ),
                         Row(
                           children: [
                             RichText(
                               text: TextSpan(
                                 text: widget.leadingRuns,
-                                style: TextStyle(
-                                    fontSize: dSize(.03),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor()),
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  fontSize: dSize(.03),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: widget.leadingOvers,
-                                    style: TextStyle(
-                                        fontSize: dSize(.02),
-                                        fontWeight: FontWeight.w500,
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
+                                    style: CLTextStyle.paragraphTextStyle
+                                        .copyWith(
+                                            fontSize: dSize(.02),
+                                            color: PublicController.pc
+                                                .toggleTextColor()),
                                   ),
+
                                   // TextSpan(text: ' world!'),
                                 ],
                               ),
@@ -178,9 +175,8 @@ class _LiveCardTileState extends State<LiveCardTile> {
                         ),
                         Text(
                           widget.trailingCountryName,
-                          style: TextStyle(
+                          style: CLTextStyle.nameTextStyle.copyWith(
                             fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
                             color: PublicController.pc.toggleTextColor(),
                           ),
                         ),
@@ -189,20 +185,20 @@ class _LiveCardTileState extends State<LiveCardTile> {
                             RichText(
                               text: TextSpan(
                                 text: widget.trailingRuns,
-                                style: TextStyle(
-                                    fontSize: dSize(.03),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor()),
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  fontSize: dSize(.03),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: widget.trailingOvers,
-                                    style: TextStyle(
-                                        fontSize: dSize(.02),
-                                        fontWeight: FontWeight.w500,
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
+                                    style: CLTextStyle.paragraphTextStyle
+                                        .copyWith(
+                                            fontSize: dSize(.02),
+                                            color: PublicController.pc
+                                                .toggleTextColor()),
                                   ),
+
                                   // TextSpan(text: ' world!'),
                                 ],
                               ),
@@ -217,7 +213,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
                   child: Text(
                     widget.needText,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                         color: Colors.green,
                         fontSize: 12,
                         fontWeight: FontWeight.w700),
