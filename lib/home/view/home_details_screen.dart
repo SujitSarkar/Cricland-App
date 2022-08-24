@@ -80,10 +80,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
   }
 
   fetchData() async {
-    //getScore Data
     HomeController homeController = Get.put(HomeController());
     await homeController.getScoreCard("40381/scard");
-    //getScore Data
     await homeController.getSeriesMatches("3641");
     setState(() {});
   }
@@ -112,7 +110,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             ],
           ),
         ),
-        //Text(widget.appBarTitle),
         actions: const [
           Icon(
             Icons.push_pin_outlined,
