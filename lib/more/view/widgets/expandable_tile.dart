@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +18,7 @@ class ExpandableTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(dSize(.02),dSize(.02),dSize(.02),0.0),
+      padding: EdgeInsets.fromLTRB(dSize(.02), dSize(.02), dSize(.02), 0.0),
       decoration: BoxDecoration(
         color: PublicController.pc.toggleCardBg(),
         borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
@@ -27,22 +28,32 @@ class ExpandableTile extends StatelessWidget {
             iconColor: PublicController.pc.toggleTextColor(),
             collapseIcon: LineAwesomeIcons.angle_up,
             expandIcon: LineAwesomeIcons.angle_down,
-            iconSize: dSize(.04)
-        ),
+            iconSize: dSize(.04)),
         header: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset('assets/bd_logo.png',height: dSize(.12)),
+            Image.asset('assets/bd_logo.png', height: dSize(.12)),
             SizedBox(width: dSize(.02)),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('BAN vs SRI 2022',style: TextStyle(color: PublicController.pc.toggleLoadingColor(),fontSize: dSize(.04),fontWeight: FontWeight.bold),),
-                  Text('${DateFormat('dd MMM').format(DateTime.now())} '
-                      '- ${DateFormat('dd MMM').format(DateTime.now().add(const Duration(days: 2)))} * Played for Ban',
-                    style: _textStyle,)
+                  Text(
+                    'BAN vs SRI 2022',
+                    style: CLTextStyle.nameTextStyle.copyWith(
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                  Text(
+                    '${DateFormat('dd MMM').format(DateTime.now())} '
+                    '- ${DateFormat('dd MMM').format(DateTime.now().add(const Duration(days: 2)))} * Played for Ban',
+                    style: CLTextStyle.paragraphTextStyle.copyWith(
+                      fontSize: dSize(.03),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  )
                 ],
               ),
             )
@@ -55,8 +66,7 @@ class ExpandableTile extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   color: PublicController.pc.toggleCardBg(),
-                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
               child: Column(
                 children: [
                   ///TEST Card Header
@@ -68,46 +78,83 @@ class ExpandableTile extends StatelessWidget {
                         //margin: EdgeInsets.only(left: dSize(.03)),
                         decoration: BoxDecoration(
                             color: PublicController.pc.toggleCardHeader(),
-                            borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-                            border: Border.all(color: PublicController.pc.toggleCardHeader())
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(dSize(.02))),
+                            border: Border.all(
+                                color: PublicController.pc.toggleCardHeader())),
                         child: Row(
-                          children: Variables.playerMatchOverview.map((item) => Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    border: item==Variables.playerMatchOverview.last
-                                        ?null:const Border(right: BorderSide(color: Colors.grey,width: 0.1))
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: dSize(.03)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text('40',maxLines:1,style: _textStyle.copyWith(fontSize: dSize(.04),fontWeight: FontWeight.bold)),
-                                    Text(item,maxLines:1,style: _textStyle),
-                                  ],
-                                ),
-                              ))
-                          ).toList(),
+                          children: Variables.playerMatchOverview
+                              .map((item) => Expanded(
+                                      child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        border: item ==
+                                                Variables
+                                                    .playerMatchOverview.last
+                                            ? null
+                                            : const Border(
+                                                right: BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 0.1))),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: dSize(.03)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '40',
+                                          maxLines: 1,
+                                          style: CLTextStyle
+                                              .paragraphHeadLineTextStyle
+                                              .copyWith(
+                                            fontSize: dSize(.04),
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                        Text(
+                                          item,
+                                          maxLines: 1,
+                                          style: CLTextStyle.paragraphTextStyle
+                                              .copyWith(
+                                            fontSize: dSize(.03),
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )))
+                              .toList(),
                         ),
                       ),
                       Positioned(
                         left: 0.0,
                         child: Container(
-                            padding: EdgeInsets.symmetric(vertical: dSize(.037)),
+                            padding:
+                                EdgeInsets.symmetric(vertical: dSize(.037)),
                             decoration: BoxDecoration(
                                 color: PublicController.pc.toggleCardBg(),
-                                borderRadius: BorderRadius.all(Radius.circular(dSize(.04))),
-                                border: Border.all(color: Colors.grey,width:.3)
-                            ),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(dSize(.04))),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
                             child: Transform.rotate(
                                 angle: 270 * math.pi / 180,
-                                child: Text("TEST",style: _textStyle.copyWith(fontSize: dSize(.032),fontWeight: FontWeight.w500))
-                            )
-                          //Text('T20',style: _textStyle.copyWith(fontSize: dSize(.035))),
-                        ),
+                                child: Text(
+                                  "TEST",
+                                  style:
+                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                    fontSize: dSize(.03),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
+                                ))
+                            //Text('T20',style: _textStyle.copyWith(fontSize: dSize(.035))),
+                            ),
                       )
                     ],
                   ),
@@ -119,34 +166,74 @@ class ExpandableTile extends StatelessWidget {
                     children: [
                       Expanded(
                           flex: 2,
-                          child: Text(Variables.scoreDateMatch.first,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch.first,
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                       Expanded(
                           flex: 2,
-                          child: Text(Variables.scoreDateMatch[1],style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch[1],
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                       Expanded(
-                          flex: 3,
-                          child: Text(Variables.scoreDateMatch.last,textAlign: TextAlign.end,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                        flex: 3,
+                        child: Text(
+                          Variables.scoreDateMatch.last,
+                          textAlign: TextAlign.end,
+                          style: CLTextStyle.paragraphTextStyle.copyWith(
+                            fontSize: dSize(.03),
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 2,
-                    itemBuilder: (context,index)=>Row(
+                    itemBuilder: (context, index) => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 2,
-                            child: Text('105(117)',style: _textStyle.copyWith(fontSize: dSize(.033),fontWeight: FontWeight.bold))),
+                            child: Text(
+                              '105(117)',
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                         Expanded(
                             flex: 2,
-                            child: Text('02 Apr',style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                            child: Text(
+                              '02 Apr',
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                         Expanded(
                             flex: 3,
-                            child: Text('3dr TEST vs SRI',textAlign: TextAlign.end,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                            child: Text(
+                              '3dr TEST vs SRI',
+                              textAlign: TextAlign.end,
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                       ],
                     ),
-                    separatorBuilder: (context,index)=>Divider(color: Colors.grey,thickness: 0.1,height: dSize(.1)),
+                    separatorBuilder: (context, index) => Divider(
+                        color: Colors.grey, thickness: 0.1, height: dSize(.1)),
                   ),
                   SizedBox(height: dSize(.1)),
 
@@ -159,46 +246,83 @@ class ExpandableTile extends StatelessWidget {
                         //margin: EdgeInsets.only(left: dSize(.03)),
                         decoration: BoxDecoration(
                             color: PublicController.pc.toggleCardHeader(),
-                            borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-                            border: Border.all(color: PublicController.pc.toggleCardHeader())
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(dSize(.02))),
+                            border: Border.all(
+                                color: PublicController.pc.toggleCardHeader())),
                         child: Row(
-                          children: Variables.playerMatchOverview.map((item) => Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    border: item==Variables.playerMatchOverview.last
-                                        ?null:const Border(right: BorderSide(color: Colors.grey,width: 0.1))
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: dSize(.03)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text('40',maxLines:1,style: _textStyle.copyWith(fontSize: dSize(.04),fontWeight: FontWeight.bold)),
-                                    Text(item,maxLines:1,style: _textStyle),
-                                  ],
-                                ),
-                              ))
-                          ).toList(),
+                          children: Variables.playerMatchOverview
+                              .map((item) => Expanded(
+                                      child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        border: item ==
+                                                Variables
+                                                    .playerMatchOverview.last
+                                            ? null
+                                            : const Border(
+                                                right: BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 0.1))),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: dSize(.03)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '40',
+                                          maxLines: 1,
+                                          style: CLTextStyle
+                                              .paragraphHeadLineTextStyle
+                                              .copyWith(
+                                            fontSize: dSize(.04),
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                        Text(
+                                          item,
+                                          maxLines: 1,
+                                          style: CLTextStyle.paragraphTextStyle
+                                              .copyWith(
+                                            fontSize: dSize(.03),
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )))
+                              .toList(),
                         ),
                       ),
                       Positioned(
                         left: 0.0,
                         child: Container(
-                            padding: EdgeInsets.symmetric(vertical: dSize(.037)),
+                            padding:
+                                EdgeInsets.symmetric(vertical: dSize(.037)),
                             decoration: BoxDecoration(
                                 color: PublicController.pc.toggleCardBg(),
-                                borderRadius: BorderRadius.all(Radius.circular(dSize(.04))),
-                                border: Border.all(color: Colors.grey,width:.3)
-                            ),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(dSize(.04))),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
                             child: Transform.rotate(
                                 angle: 270 * math.pi / 180,
-                                child: Text("ODI",style: _textStyle.copyWith(fontSize: dSize(.032),fontWeight: FontWeight.w500))
-                            )
-                          //Text('T20',style: _textStyle.copyWith(fontSize: dSize(.035))),
-                        ),
+                                child: Text(
+                                  "ODI",
+                                  style:
+                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                    fontSize: dSize(.03),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
+                                ))
+                            //Text('T20',style: _textStyle.copyWith(fontSize: dSize(.035))),
+                            ),
                       )
                     ],
                   ),
@@ -210,34 +334,74 @@ class ExpandableTile extends StatelessWidget {
                     children: [
                       Expanded(
                           flex: 2,
-                          child: Text(Variables.scoreDateMatch.first,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch.first,
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                       Expanded(
                           flex: 2,
-                          child: Text(Variables.scoreDateMatch[1],style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch[1],
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                       Expanded(
                           flex: 3,
-                          child: Text(Variables.scoreDateMatch.last,textAlign: TextAlign.end,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch.last,
+                            textAlign: TextAlign.end,
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                     ],
                   ),
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 2,
-                    itemBuilder: (context,index)=>Row(
+                    itemBuilder: (context, index) => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                            flex: 2,
-                            child: Text('105(117)',style: _textStyle.copyWith(fontSize: dSize(.033),fontWeight: FontWeight.bold))),
+                          flex: 2,
+                          child: Text(
+                            '105(117)',
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ),
                         Expanded(
                             flex: 2,
-                            child: Text('02 Apr',style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                            child: Text(
+                              '02 Apr',
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                         Expanded(
                             flex: 3,
-                            child: Text('3dr TEST vs SRI',textAlign: TextAlign.end,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                            child: Text(
+                              '3dr TEST vs SRI',
+                              textAlign: TextAlign.end,
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                       ],
                     ),
-                    separatorBuilder: (context,index)=>Divider(color: Colors.grey,thickness: 0.1,height: dSize(.1)),
+                    separatorBuilder: (context, index) => Divider(
+                        color: Colors.grey, thickness: 0.1, height: dSize(.1)),
                   ),
                   SizedBox(height: dSize(.1)),
 
@@ -250,46 +414,83 @@ class ExpandableTile extends StatelessWidget {
                         //margin: EdgeInsets.only(left: dSize(.03)),
                         decoration: BoxDecoration(
                             color: PublicController.pc.toggleCardHeader(),
-                            borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-                            border: Border.all(color: PublicController.pc.toggleCardHeader())
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(dSize(.02))),
+                            border: Border.all(
+                                color: PublicController.pc.toggleCardHeader())),
                         child: Row(
-                          children: Variables.playerMatchOverview.map((item) => Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    border: item==Variables.playerMatchOverview.last
-                                        ?null:const Border(right: BorderSide(color: Colors.grey,width: 0.1))
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: dSize(.03)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text('40',maxLines:1,style: _textStyle.copyWith(fontSize: dSize(.04),fontWeight: FontWeight.bold)),
-                                    Text(item,maxLines:1,style: _textStyle),
-                                  ],
-                                ),
-                              ))
-                          ).toList(),
+                          children: Variables.playerMatchOverview
+                              .map((item) => Expanded(
+                                      child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        border: item ==
+                                                Variables
+                                                    .playerMatchOverview.last
+                                            ? null
+                                            : const Border(
+                                                right: BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 0.1))),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: dSize(.03)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '40',
+                                          maxLines: 1,
+                                          style: CLTextStyle
+                                              .paragraphHeadLineTextStyle
+                                              .copyWith(
+                                            fontSize: dSize(.04),
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                        Text(
+                                          item,
+                                          maxLines: 1,
+                                          style: CLTextStyle.paragraphTextStyle
+                                              .copyWith(
+                                            fontSize: dSize(.03),
+                                            color: PublicController.pc
+                                                .toggleTextColor(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )))
+                              .toList(),
                         ),
                       ),
                       Positioned(
                         left: 0.0,
                         child: Container(
-                            padding: EdgeInsets.symmetric(vertical: dSize(.037)),
+                            padding:
+                                EdgeInsets.symmetric(vertical: dSize(.037)),
                             decoration: BoxDecoration(
                                 color: PublicController.pc.toggleCardBg(),
-                                borderRadius: BorderRadius.all(Radius.circular(dSize(.04))),
-                                border: Border.all(color: Colors.grey,width:.3)
-                            ),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(dSize(.04))),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
                             child: Transform.rotate(
                                 angle: 270 * math.pi / 180,
-                                child: Text("T20",style: _textStyle.copyWith(fontSize: dSize(.032),fontWeight: FontWeight.w500))
-                            )
-                          //Text('T20',style: _textStyle.copyWith(fontSize: dSize(.035))),
-                        ),
+                                child: Text(
+                                  "T20",
+                                  style:
+                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                    fontSize: dSize(.03),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
+                                ))
+                            //Text('T20',style: _textStyle.copyWith(fontSize: dSize(.035))),
+                            ),
                       )
                     ],
                   ),
@@ -301,34 +502,73 @@ class ExpandableTile extends StatelessWidget {
                     children: [
                       Expanded(
                           flex: 2,
-                          child: Text(Variables.scoreDateMatch.first,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch.first,
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                       Expanded(
                           flex: 2,
-                          child: Text(Variables.scoreDateMatch[1],style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch[1],
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                       Expanded(
                           flex: 3,
-                          child: Text(Variables.scoreDateMatch.last,textAlign: TextAlign.end,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                          child: Text(
+                            Variables.scoreDateMatch.last,
+                            textAlign: TextAlign.end,
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          )),
                     ],
                   ),
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 2,
-                    itemBuilder: (context,index)=>Row(
+                    itemBuilder: (context, index) => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 2,
-                            child: Text('105(117)',style: _textStyle.copyWith(fontSize: dSize(.033),fontWeight: FontWeight.bold))),
+                            child: Text(
+                              '105(117)',
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                         Expanded(
                             flex: 2,
-                            child: Text('02 Apr',style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                            child: Text(
+                              '02 Apr',
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                         Expanded(
                             flex: 3,
-                            child: Text('3dr TEST vs SRI',textAlign: TextAlign.end,style: _textStyle.copyWith(fontSize: dSize(.033)))),
+                            child: Text(
+                              '3dr TEST vs SRI',
+                              textAlign: TextAlign.end,
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            )),
                       ],
                     ),
-                    separatorBuilder: (context,index)=>Divider(color: Colors.grey,thickness: 0.1,height: dSize(.1)),
+                    separatorBuilder: (context, index) => Divider(
+                        color: Colors.grey, thickness: 0.1, height: dSize(.1)),
                   ),
 
                   SizedBox(height: dSize(.02))

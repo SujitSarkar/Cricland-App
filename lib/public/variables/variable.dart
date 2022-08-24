@@ -62,11 +62,11 @@ class Variables {
   ];
   static const List<String> iplDetailsTabsCategory = [
     'Info',
-    'Fantasy',
+    // 'Fantasy',
     'Commentary',
     'Live',
     'Scorecard',
-    'Graphs',
+    // 'Graphs',
     'Points Table',
   ];
   static const List<String> keyStateTabsCategory = [

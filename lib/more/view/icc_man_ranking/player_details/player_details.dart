@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview.dart';
@@ -74,7 +75,7 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
                               padding: EdgeInsets.only(left: dSize(.055)),
                               child: RichText(
                                 text: TextSpan(
-                                  style: _titleStyle,
+                                  style: CLTextStyle.nameTextStyle,
                                   children: [
                                     TextSpan(
                                         text:
@@ -155,7 +156,11 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
                 .map<Widget>((String item) => Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: dSize(.01), horizontal: dSize(.02)),
-                      child: Text(item),
+                      child: Text(
+                        item,
+                        style: CLTextStyle.optionTextStyle
+                            .copyWith(fontSize: dSize(.04)),
+                      ),
                     ))
                 .toList(),
           ),

@@ -10,15 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'home/view/delete_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: kIsWeb? const FirebaseOptions(
-      apiKey: "AIzaSyAXH46EheF_v8Sb0mzXB3ye-gwNkLraG7o",
-      appId: "1:788456208019:web:3fe44b77e8b2d5186d3f66",
-      messagingSenderId: "788456208019",
-      projectId: "cricland",
-    ):null,
+    options: kIsWeb
+        ? const FirebaseOptions(
+            apiKey: "AIzaSyAXH46EheF_v8Sb0mzXB3ye-gwNkLraG7o",
+            appId: "1:788456208019:web:3fe44b77e8b2d5186d3f66",
+            messagingSenderId: "788456208019",
+            projectId: "cricland",
+          )
+        : null,
   );
   Variables.portraitMood;
   Variables.darkStatusBarTheme;
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
           theme: pc.toggleTheme(),
-          home: const SplashScreen());
+          home: SplashScreen());
     });
   }
 }

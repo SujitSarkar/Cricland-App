@@ -3,8 +3,6 @@ import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/model/score_card_model.dart';
 import 'package:cricland/home/view/details_view/commentary_view.dart';
-import 'package:cricland/home/view/details_view/fantasy_view.dart';
-import 'package:cricland/home/view/details_view/graphs_view.dart';
 import 'package:cricland/home/view/details_view/info_view.dart';
 import 'package:cricland/home/view/details_view/live_view.dart';
 import 'package:cricland/home/view/details_view/points_table.dart';
@@ -18,6 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../public/controller/api_endpoints.dart';
 
@@ -60,21 +59,24 @@ class HomeDetailsScreen extends StatefulWidget {
 class _HomeDetailsScreenState extends State<HomeDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final String _iplTabType = Variables.iplDetailsTabsCategory.first;
+  // late SharedPreferences pref;
 
-  ScoreCardModel? scoreCardModel;
-
+  int? tabIndex;
   @override
   void initState() {
     super.initState();
+    fetchTabData();
 
+    fetchData();
+  }
+
+  fetchTabData() async {
+    final prefs = await SharedPreferences.getInstance();
     _tabController = TabController(
-        initialIndex: 3,
+        initialIndex: prefs.getInt('tabIndex')!,
         length: Variables.iplDetailsTabsCategory.length,
         vsync: this);
-
-    print(widget.seriesID);
-    fetchData();
+    setState(() {});
   }
 
   fetchData() async {
@@ -110,7 +112,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             ],
           ),
         ),
-
         //Text(widget.appBarTitle),
         actions: const [
           Icon(
@@ -122,7 +123,41 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             color: Colors.white,
           ),
         ],
-        bottom: _tabBar(),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(dSize(.04)),
+          child: TabBar(
+            onTap: (covariant) async {
+              final prefs = await SharedPreferences.getInstance();
+              setState(() => _tabController.index = covariant);
+
+              await prefs.setInt("tabIndex", _tabController.index);
+              print(_tabController.index);
+            },
+            isScrollable: true,
+            controller: _tabController,
+            labelColor: PublicController.pc.toggleLoadingColor(),
+            indicator: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(dSize(.02)),
+                    topRight: Radius.circular(dSize(.02))),
+                color: PublicController.pc.toggleTabColor()),
+            unselectedLabelColor: Colors.grey,
+            indicatorSize: TabBarIndicatorSize.label,
+            physics: const BouncingScrollPhysics(),
+            tabs: Variables.iplDetailsTabsCategory.map<Widget>((String item) {
+              print(item);
+
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: dSize(.01), horizontal: dSize(.02)),
+                child: Text(
+                  item,
+                  style: CLTextStyle.optionTextStyle,
+                ),
+              );
+            }).toList(),
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -366,14 +401,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               controller: _tabController,
               children: <Widget>[
                 InfoView(),
-                FantasyView(),
                 CommentaryView(),
                 LiveView(
                   team1ImageID: widget.team1ImageID,
                   team2ImageID: widget.team2ImageID,
                 ),
                 ScoreCardView(),
-                GraphView(),
                 PointTableView(),
               ],
             ),
@@ -383,33 +416,34 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
     );
   }
 
-  PreferredSize _tabBar() => PreferredSize(
-        preferredSize: Size.fromHeight(dSize(.04)),
-        child: TabBar(
-          onTap: (covariant) async {
-            setState(() => _tabController.index = covariant);
-          },
-          isScrollable: true,
-          controller: _tabController,
-          labelColor: PublicController.pc.toggleLoadingColor(),
-          indicator: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(dSize(.02)),
-                  topRight: Radius.circular(dSize(.02))),
-              color: PublicController.pc.toggleTabColor()),
-          unselectedLabelColor: Colors.grey,
-          indicatorSize: TabBarIndicatorSize.label,
-          physics: const BouncingScrollPhysics(),
-          tabs: Variables.iplDetailsTabsCategory
-              .map<Widget>((String item) => Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: dSize(.01), horizontal: dSize(.02)),
-                    child: Text(
-                      item,
-                      style: CLTextStyle.optionTextStyle,
-                    ),
-                  ))
-              .toList(),
-        ),
-      );
+  // PreferredSize _tabBar() => PreferredSize(
+  //       preferredSize: Size.fromHeight(dSize(.04)),
+  //       child: TabBar(
+  //         onTap: (covariant) {
+  //           setState(() => _tabController.index = covariant);
+  //           print("KKKKKK");
+  //         },
+  //         isScrollable: true,
+  //         controller: _tabController,
+  //         labelColor: PublicController.pc.toggleLoadingColor(),
+  //         indicator: BoxDecoration(
+  //             borderRadius: BorderRadius.only(
+  //                 topLeft: Radius.circular(dSize(.02)),
+  //                 topRight: Radius.circular(dSize(.02))),
+  //             color: PublicController.pc.toggleTabColor()),
+  //         unselectedLabelColor: Colors.grey,
+  //         indicatorSize: TabBarIndicatorSize.label,
+  //         physics: const BouncingScrollPhysics(),
+  //         tabs: Variables.iplDetailsTabsCategory.map<Widget>((String item) {
+  //           return Padding(
+  //             padding: EdgeInsets.symmetric(
+  //                 vertical: dSize(.01), horizontal: dSize(.02)),
+  //             child: Text(
+  //               item,
+  //               style: CLTextStyle.optionTextStyle,
+  //             ),
+  //           );
+  //         }).toList(),
+  //       ),
+  //     );
 }

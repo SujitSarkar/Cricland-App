@@ -8,6 +8,7 @@ import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
 import 'package:cricland/IPL/view/widgets/most_run_card.dart';
 import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
@@ -40,21 +41,17 @@ class _OverViewTabState extends State<OverViewTab> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Featured Matches",
-                    style: TextStyle(
-                      fontSize: dSize(.04),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
+                  Text("Featured Matches",
+                      style: CLTextStyle.nameTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
                   TextButton(
                     onPressed: () {},
                     child: Text(
                       "All Matches >",
-                      style: TextStyle(
+                      style: CLTextStyle.nameTextStyle.copyWith(
                         fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
                         color: PublicController.pc.toggleTextColor(),
                       ),
                     ),
@@ -111,14 +108,11 @@ class _OverViewTabState extends State<OverViewTab> {
                       })
                   : CircularProgressIndicator(),
               ListTile(
-                  leading: Text(
-                    "Key Stats",
-                    style: TextStyle(
-                      fontSize: dSize(.04),
-                      fontWeight: FontWeight.w500,
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
+                  leading: Text("Key Stats",
+                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
                   trailing: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -128,14 +122,11 @@ class _OverViewTabState extends State<OverViewTab> {
                         ),
                       );
                     },
-                    child: Text(
-                      "See All >",
-                      style: TextStyle(
-                        fontSize: dSize(.04),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
+                    child: Text("See All >",
+                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        )),
                   )),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -241,14 +232,11 @@ class _OverViewTabState extends State<OverViewTab> {
                 height: 10,
               ),
               ListTile(
-                leading: Text(
-                  "Team Squads",
-                  style: TextStyle(
-                    fontSize: dSize(.035),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
+                leading: Text("Team Squads",
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    )),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -300,14 +288,13 @@ class _OverViewTabState extends State<OverViewTab> {
                                           height: 10,
                                         ),
                                         Text(
-                                          "${homeController.matchSquadModel.squads![i].squadType}",
-                                          style: TextStyle(
-                                            fontSize: dSize(.04),
-                                            fontWeight: FontWeight.w500,
-                                            color: PublicController.pc
-                                                .toggleTextColor(),
-                                          ),
-                                        ),
+                                            "${homeController.matchSquadModel.squads![i].squadType}",
+                                            style: CLTextStyle.nameTextStyle
+                                                .copyWith(
+                                              fontSize: dSize(.04),
+                                              color: PublicController.pc
+                                                  .toggleTextColor(),
+                                            )),
                                       ],
                                     ),
                                   ),
@@ -319,14 +306,11 @@ class _OverViewTabState extends State<OverViewTab> {
                 ),
               ),
               ListTile(
-                leading: Text(
-                  "Series Info",
-                  style: TextStyle(
-                    fontSize: dSize(.035),
-                    fontWeight: FontWeight.w500,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
+                leading: Text("Series Info",
+                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      fontSize: dSize(.04),
+                      color: PublicController.pc.toggleTextColor(),
+                    )),
               ),
               homeController.seriesMatchListModel.matchDetails != null
                   ? InfoCardTile(

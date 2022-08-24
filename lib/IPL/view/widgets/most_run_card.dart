@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:core';
 import 'dart:core';
 
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -45,14 +46,11 @@ class MostRunCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title!,
-                      style: TextStyle(
-                        fontSize: dSize(.035),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
+                    Text(title!,
+                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                          fontSize: dSize(.03),
+                          color: PublicController.pc.toggleTextColor(),
+                        )),
                     SizedBox(
                       height: 10,
                     ),
@@ -69,22 +67,16 @@ class MostRunCard extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              playerName!,
-                              style: TextStyle(
-                                fontSize: dSize(.04),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                            Text(
-                              teamName!,
-                              style: TextStyle(
-                                fontSize: dSize(.025),
-                                fontWeight: FontWeight.w500,
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
+                            Text(playerName!,
+                                style: CLTextStyle.nameTextStyle.copyWith(
+                                  fontSize: dSize(.04),
+                                  color: PublicController.pc.toggleTextColor(),
+                                )),
+                            Text(teamName!,
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  fontSize: dSize(.025),
+                                  color: PublicController.pc.toggleTextColor(),
+                                )),
                           ],
                         )
                       ],
@@ -93,22 +85,16 @@ class MostRunCard extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Text(
-                      runs!,
-                      style: TextStyle(
-                        fontSize: dSize(.06),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
-                    Text(
-                      "Runs",
-                      style: TextStyle(
-                        fontSize: dSize(.03),
-                        fontWeight: FontWeight.w500,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
+                    Text(runs!,
+                        style: CLTextStyle.paragraphTextStyle.copyWith(
+                          fontSize: dSize(.05),
+                          color: PublicController.pc.toggleTextColor(),
+                        )),
+                    Text("Runs",
+                        style: CLTextStyle.paragraphTextStyle.copyWith(
+                          fontSize: dSize(.03),
+                          color: PublicController.pc.toggleTextColor(),
+                        )),
                   ],
                 ),
               ],

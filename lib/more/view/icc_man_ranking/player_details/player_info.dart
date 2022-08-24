@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
@@ -78,9 +79,14 @@ class PlayerInfo extends StatelessWidget {
             decoration: BoxDecoration(
                 color: PublicController.pc.toggleCardBg(),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Text(Variables.aboutSakib,
-                textAlign: TextAlign.justify,
-                style: _textStyle.copyWith(fontSize: dSize(.035))),
+            child: Text(
+              Variables.aboutSakib,
+              textAlign: TextAlign.justify,
+              style: CLTextStyle.paragraphTextStyle.copyWith(
+                fontSize: dSize(.03),
+                color: PublicController.pc.toggleTextColor(),
+              ),
+            ),
           ),
           SizedBox(height: dSize(.1)),
           Row(
@@ -101,12 +107,22 @@ class PlayerInfo extends StatelessWidget {
         children: [
           Expanded(
               flex: 1,
-              child:
-                  Text(key, style: _textStyle.copyWith(fontSize: dSize(.035)))),
+              child: Text(
+                key,
+                style: CLTextStyle.paragraphTextStyle.copyWith(
+                  fontSize: dSize(.03),
+                  color: PublicController.pc.toggleTextColor(),
+                ),
+              )),
           Expanded(
               flex: 2,
-              child: Text(value,
-                  style: _textStyle.copyWith(fontSize: dSize(.035)))),
+              child: Text(
+                value,
+                style: CLTextStyle.paragraphTextStyle.copyWith(
+                  fontSize: dSize(.03),
+                  color: PublicController.pc.toggleTextColor(),
+                ),
+              )),
         ],
       );
 
@@ -115,7 +131,13 @@ class PlayerInfo extends StatelessWidget {
           children: [
             Icon(icon,
                 size: dSize(.05), color: PublicController.pc.toggleTextColor()),
-            Text(' $title', style: _textStyle)
+            Text(
+              ' $title',
+              style: CLTextStyle.paragraphTextStyle.copyWith(
+                fontSize: dSize(.03),
+                color: PublicController.pc.toggleTextColor(),
+              ),
+            )
           ],
         ),
       );

@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -27,60 +28,42 @@ class InfoCardTile extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: Text(
-                "Series",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-              title: Text(
-                series!,
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
+              leading: Text("Series",
+                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  )),
+              title: Text(series!,
+                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  )),
             ),
             Divider(),
             ListTile(
-              leading: Text(
-                "Duration",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-              title: Text(
-                duration!,
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
+              leading: Text("Duration",
+                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  )),
+              title: Text(duration!,
+                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  )),
             ),
             Divider(),
             ListTile(
-              leading: Text(
-                "Format",
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
-              trailing: Text(
-                format!,
-                style: TextStyle(
-                  fontSize: dSize(.04),
-                  fontWeight: FontWeight.w500,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
+              leading: Text("Format",
+                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  )),
+              trailing: Text(format!,
+                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                    fontSize: dSize(.04),
+                    color: PublicController.pc.toggleTextColor(),
+                  )),
             ),
             Divider(),
           ],

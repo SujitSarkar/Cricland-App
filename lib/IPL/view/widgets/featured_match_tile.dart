@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -64,14 +65,11 @@ class FeaturedMatchTile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        teamOne,
-                        style: TextStyle(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      )
+                      Text(teamOne,
+                          style: CLTextStyle.nameTextStyle.copyWith(
+                            fontSize: dSize(.04),
+                            color: PublicController.pc.toggleTextColor(),
+                          ))
                     ],
                   ),
                   Column(
@@ -81,15 +79,12 @@ class FeaturedMatchTile extends StatelessWidget {
                       ),
                       Container(
                         width: 100,
-                        child: Text(
-                          wonTeam,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: dSize(.03),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
-                        ),
+                        child: Text(wonTeam,
+                            textAlign: TextAlign.center,
+                            style: CLTextStyle.nameTextStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleTextColor(),
+                            )),
                       ),
                       SizedBox(
                         height: 20,
@@ -98,14 +93,11 @@ class FeaturedMatchTile extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        teamTwo,
-                        style: TextStyle(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
+                      Text(teamTwo,
+                          style: CLTextStyle.nameTextStyle.copyWith(
+                            fontSize: dSize(.04),
+                            color: PublicController.pc.toggleTextColor(),
+                          )),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
@@ -143,10 +135,11 @@ class FeaturedMatchTile extends StatelessWidget {
                     color: Colors.pink,
                   ),
                   child: Center(
-                    child: Text(
-                      state,
-                      style: TextStyle(color: Colors.white70),
-                    ),
+                    child: Text(state,
+                        style: CLTextStyle.nameTextStyle.copyWith(
+                          fontSize: dSize(.03),
+                          color: PublicController.pc.toggleCardBg(),
+                        )),
                   ),
                 ))
           ],

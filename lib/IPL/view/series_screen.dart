@@ -4,6 +4,7 @@ import 'package:cricland/IPL/view/matches_tab.dart';
 import 'package:cricland/IPL/view/over_view_tab.dart';
 import 'package:cricland/IPL/view/squads_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/details_view/points_table.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -110,17 +111,16 @@ class _SeriesScreenState extends State<SeriesScreen>
                               RichText(
                                 text: TextSpan(
                                   text: 'IPL 2022 ',
-                                  style: TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: dSize(.04)),
+                                  style: CLTextStyle.paragraphHeadLineTextStyle,
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: '26 Mar to 29 May',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: dSize(.02),
-                                      ),
-                                    ),
+                                        text: '26 Mar to 29 May',
+                                        style: CLTextStyle
+                                            .paragraphHeadLineTextStyle
+                                            .copyWith(
+                                          color: Colors.white70,
+                                          fontSize: dSize(.02),
+                                        )),
                                   ],
                                 ),
                               ),
@@ -262,7 +262,10 @@ class _SeriesScreenState extends State<SeriesScreen>
               .map<Widget>((String item) => Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: dSize(.01), horizontal: dSize(.02)),
-                    child: Text(item),
+                    child: Text(
+                      item,
+                      style: CLTextStyle.optionTextStyle,
+                    ),
                   ))
               .toList(),
         ),

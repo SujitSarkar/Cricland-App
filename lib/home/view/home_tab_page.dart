@@ -30,81 +30,154 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          for (int i = 0;
-                              i <
-                                  homeController.recentMatchModel.typeMatches!
-                                          .first.seriesMatches!.length -
-                                      1;
-                              i++)
-                            homeController.recentMatchModel.typeMatches![0]
-                                        .seriesMatches![i].seriesAdWrapper ==
-                                    null
-                                ? SizedBox()
-                                : SliderCardTile(
-                                    title:
-                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesName}",
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => HomeDetailsScreen(
-                                            teamS2Name:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                                            matchID:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
-                                            teamS1Name:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                                            matchDesc:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
-                                            team1RunWicket:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
-                                            winningStatus:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.status}",
-                                            team2RunWicket:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
-                                            team1Over:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
-                                            team2Over:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
-                                            team1ImageID:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
-                                            team2ImageID:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
-                                            seriesID:
-                                                "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesId}",
-                                            isLive: false,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    onStaticTap: () {},
-                                    //TODO runs and overs problem
-                                    leftCountryName:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
-                                    leftCountryOvers:
-                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
-                                    leftCountryRuns:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
-                                    leftCountryURL:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
-                                    trailingWidget: 'Upcoming',
-                                    rightCountryName:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
-                                    rightCountryOvers:
-                                        "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
-                                    rightCountryRuns:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
-                                    rightCountryURL:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
-                                    wonStatus:
-                                        '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.status}',
-                                  ),
-                        ],
-                      ),
+                    // SingleChildScrollView(
+                    //   scrollDirection: Axis.horizontal,
+                    //   child: Row(
+                    //     children: [
+                    //       for (int i = 0;
+                    //           i <
+                    //               homeController.recentMatchModel.typeMatches!
+                    //                       .first.seriesMatches!.length -
+                    //                   1;
+                    //           i++)
+                    //         homeController.recentMatchModel.typeMatches![0]
+                    //                     .seriesMatches![i].seriesAdWrapper ==
+                    //                 null
+                    //             ? SizedBox()
+                    //             : SliderCardTile(
+                    //                 title:
+                    //                     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesName}",
+                    //                 onTap: () {
+                    //                   Navigator.push(
+                    //                     context,
+                    //                     MaterialPageRoute(
+                    //                       builder: (_) => HomeDetailsScreen(
+                    //                         teamS2Name:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                    //                         matchID:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                    //                         teamS1Name:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                    //                         matchDesc:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                    //                         team1RunWicket:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
+                    //                         winningStatus:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.status}",
+                    //                         team2RunWicket:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
+                    //                         team1Over:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
+                    //                         team2Over:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
+                    //                         team1ImageID:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                    //                         team2ImageID:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                    //                         seriesID:
+                    //                             "${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.seriesId}",
+                    //                         isLive: false,
+                    //                       ),
+                    //                     ),
+                    //                   );
+                    //                 },
+                    //                 onStaticTap: () {},
+                    //                 //TODO runs and overs problem
+                    //                 leftCountryName:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                    //                 leftCountryOvers:
+                    //                     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
+                    //                 leftCountryRuns:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
+                    //                 leftCountryURL:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                    //                 trailingWidget: 'Upcoming',
+                    //                 rightCountryName:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                    //                 rightCountryOvers:
+                    //                     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
+                    //                 rightCountryRuns:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
+                    //                 rightCountryURL:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                    //                 wonStatus:
+                    //                     '${homeController.recentMatchModel.typeMatches![0].seriesMatches![i].seriesAdWrapper!.matches!.first.matchInfo!.status}',
+                    //               ),
+                    //     ],
+                    //   ),
+                    // ),
+
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: homeController.recentMatchModel.typeMatches!
+                          .first.seriesMatches!.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return homeController.recentMatchModel.typeMatches![0]
+                                    .seriesMatches![index].seriesAdWrapper ==
+                                null
+                            ? SizedBox()
+                            : SliderCardTile(
+                                title:
+                                    "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.seriesName}",
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => HomeDetailsScreen(
+                                        teamS2Name:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                                        matchID:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                                        teamS1Name:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                                        matchDesc:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                                        team1RunWicket:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
+                                        winningStatus:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.status}",
+                                        team2RunWicket:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
+                                        team1Over:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
+                                        team2Over:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
+                                        team1ImageID:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                                        team2ImageID:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                                        seriesID:
+                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.seriesId}",
+                                        isLive: false,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                onStaticTap: () {},
+                                //TODO runs and overs problem
+                                leftCountryName:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                                leftCountryOvers:
+                                    "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
+                                leftCountryRuns:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
+                                leftCountryURL:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                                trailingWidget: 'Upcoming',
+                                rightCountryName:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                                rightCountryOvers:
+                                    "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
+                                rightCountryRuns:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
+                                rightCountryURL:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                                wonStatus:
+                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.status}',
+                              );
+                        //LiveCart(context);
+                      },
                     ),
                     const SizedBox(
                       height: 10,
