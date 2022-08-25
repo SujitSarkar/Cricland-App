@@ -94,7 +94,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
         title: RichText(
           text: TextSpan(
             text: widget.teamS1Name,
-            style: CLTextStyle.nameTextStyle,
+            style: CLTextStyle.nameTextStyle.copyWith(color: Colors.white),
             children: <TextSpan>[
               const TextSpan(
                   text: '  VS  ',
@@ -126,19 +126,17 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             onTap: (covariant) async {
               final prefs = await SharedPreferences.getInstance();
               setState(() => _tabController.index = covariant);
-
               await prefs.setInt("tabIndex", _tabController.index);
-              print(_tabController.index);
             },
             isScrollable: true,
             controller: _tabController,
-            labelColor: PublicController.pc.toggleLoadingColor(),
+            labelColor: Colors.black,
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(dSize(.02)),
                     topRight: Radius.circular(dSize(.02))),
                 color: PublicController.pc.toggleTabColor()),
-            unselectedLabelColor: Colors.grey,
+            unselectedLabelColor: Colors.white70,
             indicatorSize: TabBarIndicatorSize.label,
             physics: const BouncingScrollPhysics(),
             tabs: Variables.iplDetailsTabsCategory.map<Widget>((String item) {
@@ -149,7 +147,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     vertical: dSize(.01), horizontal: dSize(.02)),
                 child: Text(
                   item,
-                  style: CLTextStyle.optionTextStyle,
                 ),
               );
             }).toList(),
@@ -164,87 +161,135 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                   color: AllColor.appDarkBg,
                   //color: Colors.grey,
                   height: 150,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //  crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //  crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            'assets/bd_flag.png',
-                            height: 50,
-                            width: 50,
-                          ),
-                          SizedBox(
-                            width: 10,
+                          Row(
+                            children: [
+                              Image.asset(
+                                'assets/bd_flag.png',
+                                height: 50,
+                                width: 50,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.teamS1Name,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: dSize(.05),
+                                    ),
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      text: '140-5',
+                                      style: TextStyle(
+                                          fontSize: dSize(.04),
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: ' 16.35',
+                                          style: TextStyle(
+                                              fontSize: dSize(.02),
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
+                                        // TextSpan(text: ' world!'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                widget.teamS1Name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: dSize(.05),
-                                ),
+                              const SizedBox(
+                                height: 10,
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  text: '140-5',
-                                  style: TextStyle(
-                                      fontSize: dSize(.04),
+                              const Icon(
+                                FontAwesomeIcons.volumeHigh,
+                                color: Colors.white,
+                                size: 15,
+                              ),
+
+                              Lottie.asset('assets/out.json',
+                                  height: 40, width: 4),
+                              // Image.asset(
+                              //   'assets/out.gif',
+                              //   height: 50,
+                              //   width: 50,
+                              // ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 18.0),
+                                  child: Text(
+                                    "Caught Out",
+                                    style: TextStyle(
+                                      fontSize: dSize(.05),
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: ' 16.35',
-                                      style: TextStyle(
-                                          fontSize: dSize(.02),
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
+                                      color: Colors.white,
                                     ),
-                                    // TextSpan(text: ' world!'),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Divider(
+                        color: Colors.white,
+                        thickness: 1,
+                        height: 1,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Icon(
-                            FontAwesomeIcons.volumeHigh,
-                            color: Colors.white,
-                            size: 15,
-                          ),
-                          Spacer(),
-                          Lottie.asset('assets/out.json', height: 40, width: 4),
-                          // Image.asset(
-                          //   'assets/out.gif',
-                          //   height: 50,
-                          //   width: 50,
-                          // ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 18.0),
-                              child: Text(
-                                "Caught Out",
-                                style: TextStyle(
-                                  fontSize: dSize(.05),
-                                  fontWeight: FontWeight.w500,
+                          Row(
+                            children: [
+                              Text(
+                                "CRR: 13.00",
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
                                   color: Colors.white,
+                                  fontSize: 10,
                                 ),
                               ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "RRR: 14.11",
+                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            "Target: 140",
+                            style: CLTextStyle.paragraphTextStyle.copyWith(
+                              color: Colors.white,
+                              fontSize: 10,
                             ),
                           ),
-                          Spacer(),
                         ],
                       ),
                     ],
@@ -393,21 +438,39 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     ],
                   ),
                 ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                InfoView(),
-                CommentaryView(),
-                LiveView(
-                  team1ImageID: widget.team1ImageID,
-                  team2ImageID: widget.team2ImageID,
+          widget.isLive
+              ? Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: <Widget>[
+                      InfoView(),
+                      CommentaryView(),
+                      LiveView(
+                        team1ImageID: widget.team1ImageID,
+                        team2ImageID: widget.team2ImageID,
+                        isLive: true,
+                      ),
+                      ScoreCardView(),
+                      PointTableView(),
+                    ],
+                  ),
+                )
+              : Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: <Widget>[
+                      InfoView(),
+                      CommentaryView(),
+                      LiveView(
+                        team1ImageID: widget.team1ImageID,
+                        team2ImageID: widget.team2ImageID,
+                        isLive: false,
+                      ),
+                      ScoreCardView(),
+                      PointTableView(),
+                    ],
+                  ),
                 ),
-                ScoreCardView(),
-                PointTableView(),
-              ],
-            ),
-          ),
         ],
       ),
     );

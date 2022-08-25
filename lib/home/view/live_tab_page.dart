@@ -46,19 +46,38 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                               itemBuilder: (context, index) {
                                 return LiveCardTile(
                                   onTap: () {
-                                    // Get.to(
-                                    //   HomeDetailsScreen(
-                                    //     teamS2Name: '',
-                                    //     teamS1Name: '',
-                                    //     matchIndex: index,
-                                    //     matchDesc: '',
-                                    //     team1RunWicket: '',
-                                    //     winningStatus: '',
-                                    //     team1Over: '',
-                                    //     team2Over: '',
-                                    //     team2RunWicket: '',
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => HomeDetailsScreen(
+                                          teamS2Name:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                                          matchID:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                                          teamS1Name:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                                          matchDesc:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                                          team1RunWicket:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
+                                          winningStatus:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.status}",
+                                          team2RunWicket:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
+                                          team1Over:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
+                                          team2Over:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
+                                          team1ImageID:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                                          team2ImageID:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                                          seriesID:
+                                              "${homeController.liveMatchesModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.seriesId}",
+                                          isLive: true,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   title:
                                       "${homeController.liveMatchesModel.typeMatches![index].seriesMatches!.first.seriesAdWrapper!.seriesName}",

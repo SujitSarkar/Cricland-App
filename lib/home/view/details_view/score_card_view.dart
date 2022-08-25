@@ -25,77 +25,80 @@ class _ScoreCardViewState extends State<ScoreCardView> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: isLeft
-                            ? MaterialStateProperty.all(Colors.indigo)
-                            : MaterialStateProperty.all(Colors.grey),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isLeft = true;
-                        });
-                      },
-                      child: Text(
-                        "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                        style: CLTextStyle.optionTextStyle.copyWith(
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleCardBg(),
+          child: homeController.scoreCardModel.scoreCard == null
+              ? SizedBox(child: Center(child: CircularProgressIndicator()))
+              : Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: isLeft
+                                  ? MaterialStateProperty.all(Colors.indigo)
+                                  : MaterialStateProperty.all(Colors.grey),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isLeft = true;
+                              });
+                            },
+                            child: Text(
+                              "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
+                              style: CLTextStyle.optionTextStyle.copyWith(
+                                fontSize: dSize(.03),
+                                color: PublicController.pc.toggleCardBg(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Expanded(
+                            child: TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: !isLeft
+                                      ? MaterialStateProperty.all(Colors.indigo)
+                                      : MaterialStateProperty.all(Colors.grey),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isLeft = false;
+                                  });
+                                },
+                                child: Text(
+                                  "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard![1].scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard![1].scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard![1].scoreDetails!.overs!})    ",
+                                  style: CLTextStyle.optionTextStyle.copyWith(
+                                    fontSize: dSize(.04),
+                                    color: PublicController.pc.toggleCardBg(),
+                                  ),
+                                ))),
+                      ],
+                    ),
+                    ScorecardBatterTile(
+                      isLeft: isLeft,
+                    ),
+                    ScorecardBowlerTile(isLeft: isLeft),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          "Fall Of Wicket",
+                          style:
+                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                            fontSize: dSize(.03),
+                            color: PublicController.pc.toggleCardBg(),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                      child: TextButton(
-                          style: ButtonStyle(
-                            backgroundColor: !isLeft
-                                ? MaterialStateProperty.all(Colors.indigo)
-                                : MaterialStateProperty.all(Colors.grey),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              isLeft = false;
-                            });
-                          },
-                          child: Text(
-                            "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard![1].scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard![1].scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard![1].scoreDetails!.overs!})    ",
-                            style: CLTextStyle.optionTextStyle.copyWith(
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleCardBg(),
-                            ),
-                          ))),
-                ],
-              ),
-              ScorecardBatterTile(
-                isLeft: isLeft,
-              ),
-              ScorecardBowlerTile(isLeft: isLeft),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    "Fall Of Wicket",
-                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
-                      fontSize: dSize(.03),
-                      color: PublicController.pc.toggleCardBg(),
+                    ScorecardWicketCardTile(
+                      isLeft: isLeft,
                     ),
-                  ),
+                  ],
                 ),
-              ),
-              ScorecardWicketCardTile(
-                isLeft: isLeft,
-              ),
-            ],
-          ),
         ),
       );
     });

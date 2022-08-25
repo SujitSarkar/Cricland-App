@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -48,11 +49,7 @@ class BatterCardTile extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       "Batter",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
+                      style: CLTextStyle.paragraphHeadLineTextStyle,
                     )),
                 Expanded(
                   flex: 1,
@@ -61,39 +58,23 @@ class BatterCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "R(B)",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphHeadLineTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "4s",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphHeadLineTextStyle,
                         ),
                       ),
                       Expanded(
                           child: Text(
                         "6s",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphHeadLineTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "SR",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphHeadLineTextStyle,
                         ),
                       ),
                     ],
@@ -108,15 +89,12 @@ class BatterCardTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                    flex: 1,
-                    child: Text(
-                      "R Pretorius",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: dSize(.03),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    )),
+                  flex: 1,
+                  child: Text(
+                    "R Pretorius",
+                    style: CLTextStyle.nameTextStyle,
+                  ),
+                ),
                 Expanded(
                   flex: 1,
                   child: Row(
@@ -124,39 +102,23 @@ class BatterCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "20(17)",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "2",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.03),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                           child: Text(
                         "1",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "117.6",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.03),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                       ),
                     ],
@@ -174,11 +136,7 @@ class BatterCardTile extends StatelessWidget {
                   flex: 1,
                   child: Text(
                     "M Adair",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.03),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.nameTextStyle,
                   ),
                 ),
                 Expanded(
@@ -188,40 +146,24 @@ class BatterCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "0(0)",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "0",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.03),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "0",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.03),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "-",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.03),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                       ),
                     ],
@@ -239,21 +181,13 @@ class BatterCardTile extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       "P'ship 1(0)",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: dSize(.03),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
+                      style: CLTextStyle.nameTextStyle,
                     )),
                 Expanded(
                   flex: 1,
                   child: Text(
                     "Last wkt: J Lawlor 17(12)",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.03),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.paragraphTextStyle,
                   ),
                 ),
               ],

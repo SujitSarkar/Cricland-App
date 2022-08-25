@@ -17,10 +17,12 @@ import '../../../public/controller/api_endpoints.dart';
 class LiveView extends StatefulWidget {
   final String team1ImageID;
   final String team2ImageID;
+  final bool isLive;
   const LiveView({
     Key? key,
     required this.team1ImageID,
     required this.team2ImageID,
+    required this.isLive,
   }) : super(key: key);
 
   @override
@@ -28,25 +30,27 @@ class LiveView extends StatefulWidget {
 }
 
 class _LiveViewState extends State<LiveView> {
-  final bool _isLive = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: _isLive
+          child: widget.isLive
               ? Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         "NZ lead by 119 runs",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphHeadLineTextStyle,
                       ),
                     ),
                     MoreCard(
@@ -55,19 +59,11 @@ class _LiveViewState extends State<LiveView> {
                       children: [
                         Text(
                           "Day 4:Session2",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                         Text(
                           "Over Left Today: 36.0",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style: CLTextStyle.paragraphTextStyle,
                         ),
                       ],
                     )),
@@ -81,12 +77,7 @@ class _LiveViewState extends State<LiveView> {
                                 children: [
                                   Text(
                                     "Over 1",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: dSize(.04),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
+                                    style: CLTextStyle.paragraphTextStyle,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(2.0),
@@ -97,12 +88,7 @@ class _LiveViewState extends State<LiveView> {
                                           color: Colors.white),
                                       child: Text(
                                         '0',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
@@ -114,12 +100,7 @@ class _LiveViewState extends State<LiveView> {
                                           shape: BoxShape.circle),
                                       child: Text(
                                         'wd',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
@@ -132,12 +113,7 @@ class _LiveViewState extends State<LiveView> {
                                           color: Colors.redAccent),
                                       child: Text(
                                         'W',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
@@ -149,12 +125,7 @@ class _LiveViewState extends State<LiveView> {
                                           shape: BoxShape.circle),
                                       child: Text(
                                         '4',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
@@ -166,12 +137,7 @@ class _LiveViewState extends State<LiveView> {
                                           shape: BoxShape.circle),
                                       child: Text(
                                         '0',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
@@ -183,23 +149,13 @@ class _LiveViewState extends State<LiveView> {
                                           shape: BoxShape.circle),
                                       child: Text(
                                         '6',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
                                   Text(
                                     '=',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: dSize(.04),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
+                                    style: CLTextStyle.paragraphTextStyle,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(2.0),
@@ -209,12 +165,7 @@ class _LiveViewState extends State<LiveView> {
                                           shape: BoxShape.circle),
                                       child: Text(
                                         '10',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: dSize(.04),
-                                          color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                        style: CLTextStyle.paragraphTextStyle,
                                       ),
                                     ),
                                   ),
@@ -257,19 +208,11 @@ class _LiveViewState extends State<LiveView> {
                             children: [
                               Text(
                                 "SA",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: dSize(.04),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                                style: CLTextStyle.nameTextStyle,
                               ),
                               Text(
                                 "36-1",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: dSize(.04),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                                style: CLTextStyle.paragraphTextStyle,
                               ),
                             ],
                           ),
@@ -285,11 +228,7 @@ class _LiveViewState extends State<LiveView> {
                               ),
                               Text(
                                 "After 5.5 overs",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: dSize(.04),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                                style: CLTextStyle.paragraphTextStyle,
                               ),
                             ],
                           ),
@@ -297,19 +236,11 @@ class _LiveViewState extends State<LiveView> {
                             children: [
                               Text(
                                 "IND",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: dSize(.04),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                                style: CLTextStyle.nameTextStyle,
                               ),
                               Text(
                                 "37-0",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: dSize(.04),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                                style: CLTextStyle.paragraphTextStyle,
                               ),
                             ],
                           ),
@@ -333,11 +264,7 @@ class _LiveViewState extends State<LiveView> {
                           ),
                           Text(
                             "Share Score",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                            style: CLTextStyle.paragraphHeadLineTextStyle,
                           ),
                         ],
                       ),
@@ -356,11 +283,7 @@ class _LiveViewState extends State<LiveView> {
                       ),
                       title: Text(
                         "Match Settings",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphHeadLineTextStyle,
                       ),
                     )
                   ],

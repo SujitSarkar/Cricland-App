@@ -3,30 +3,35 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class CLTextStyle {
-  static const TextStyle menuBarTextStyle = TextStyle(
+  static TextStyle menuBarTextStyle = TextStyle(
     fontWeight: FontWeight.w900,
     fontFamily: "CarterOne",
-    fontSize: 12,
+    fontSize: dSize(.04),
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static const TextStyle nameTextStyle = TextStyle(
+  static TextStyle nameTextStyle = TextStyle(
     fontFamily: "Shrikhand",
-    fontSize: 12,
+    fontSize: dSize(.04),
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static const TextStyle paragraphTextStyle = TextStyle(
-    fontSize: 12,
+  static TextStyle paragraphTextStyle = TextStyle(
+    fontSize: dSize(.02),
     fontFamily: "KdamThmorPro",
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static const TextStyle optionTextStyle = TextStyle(
-    fontSize: 12,
+  static TextStyle optionTextStyle = TextStyle(
+    fontSize: dSize(.04),
     fontFamily: "CarterOne",
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static const TextStyle paragraphHeadLineTextStyle = TextStyle(
-    fontSize: 12,
+  static TextStyle paragraphHeadLineTextStyle = TextStyle(
+    fontSize: dSize(.04),
     fontFamily: "AbrilFatface",
+    color: PublicController.pc.toggleTextColor(),
   );
   // static TextStyle CLHeader = TextStyle(
   //   fontWeight: FontWeight.w900,
@@ -65,10 +70,10 @@ class CLTextStyle {
 Icon backButton = Icon(
   Icons.arrow_back_ios,
   color: PublicController.pc.toggleTextColor(),
-  size: 20,
+  size: dSize(.04),
 );
 Icon menuButton = Icon(
   Icons.menu_outlined,
   color: PublicController.pc.toggleTextColor(),
-  size: 20,
+  size: dSize(.04),
 );

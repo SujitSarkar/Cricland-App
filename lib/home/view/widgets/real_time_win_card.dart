@@ -4,6 +4,8 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../model/custom_widget/constants.dart';
+
 class LiveWinCardTile extends StatelessWidget {
   const LiveWinCardTile({
     Key? key,
@@ -49,19 +51,11 @@ class LiveWinCardTile extends StatelessWidget {
                 children: [
                   Text(
                     "NWW",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.nameTextStyle,
                   ),
                   Text(
                     "43%",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.paragraphTextStyle,
                   ),
                 ],
               ),
@@ -69,11 +63,7 @@ class LiveWinCardTile extends StatelessWidget {
                 children: [
                   Text(
                     "Realtime Win %",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.paragraphHeadLineTextStyle,
                   ),
                   Padding(
                     padding:
@@ -85,11 +75,8 @@ class LiveWinCardTile extends StatelessWidget {
                       animation: true,
                       center: Text(
                         "50.0%",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.02),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                        style: CLTextStyle.paragraphTextStyle
+                            .copyWith(fontSize: 10),
                       ),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       backgroundColor: Colors.grey,
@@ -102,19 +89,11 @@ class LiveWinCardTile extends StatelessWidget {
                 children: [
                   Text(
                     "NK",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.nameTextStyle,
                   ),
                   Text(
                     "57%",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                    style: CLTextStyle.paragraphTextStyle,
                   ),
                 ],
               ),
