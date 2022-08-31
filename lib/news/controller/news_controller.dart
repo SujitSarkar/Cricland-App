@@ -95,6 +95,7 @@ class NewsController extends GetxController{
           category: element.doc['category'],
           article: element.doc['article'],
           imageLink: element.doc['image_link'],
+          youtubeVideoLink: element.doc['youtube_video_link'],
           timeStamp: element.doc['time_stamp'],
         );
         articleList.add(model);
@@ -127,6 +128,7 @@ class NewsController extends GetxController{
           category: element.doc['category'],
           article: element.doc['article'],
           imageLink: element.doc['image_link'],
+          youtubeVideoLink: element.doc['youtube_video_link'],
           timeStamp: element.doc['time_stamp'],
         );
         articleList.add(model);
@@ -161,6 +163,7 @@ class NewsController extends GetxController{
           category: element.doc['category'],
           article: element.doc['article'],
           imageLink: element.doc['image_link'],
+          youtubeVideoLink: element.doc['youtube_video_link'],
           timeStamp: element.doc['time_stamp'],
         );
         articleList.add(model);

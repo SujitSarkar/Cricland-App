@@ -4,6 +4,7 @@ class ArticleModel {
   late String? category;
   late String? article;
   late String? imageLink;
+  late String? youtubeVideoLink;
   late int? timeStamp;
 
   ArticleModel({this.id,
@@ -11,5 +12,6 @@ class ArticleModel {
       this.category,
       this.article,
       this.imageLink,
+      this.youtubeVideoLink,
       this.timeStamp});
 }
