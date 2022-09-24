@@ -80,20 +80,42 @@ class WeatherCardTile extends StatelessWidget {
                   ],
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
-                      leading: Icon(Icons.water_drop_outlined),
-                      trailing: Text("25% (Humidity)"),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.water_drop_outlined,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("25% (Humidity)"),
+                      ],
                     ),
-                    ListTile(
-                      leading: Icon(Icons.cloud),
-                      trailing: Text("Chance"),
-                    )
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.cloud,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Chance"),
+                      ],
+                    ),
                   ],
                 ),
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Sunny",
