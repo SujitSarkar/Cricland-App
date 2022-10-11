@@ -1,10 +1,10 @@
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/view/finished_tab_page.dart';
-import 'package:cricland/home/view/fixtures_tab_page.dart';
-import 'package:cricland/home/view/home_tab_page.dart';
-import 'package:cricland/home/view/live_tab_page.dart';
-import 'package:cricland/home/view/upcomming_tab_page.dart';
+import 'package:cricland/home/view/details_view/finished_details/finished_tab_page.dart';
+import 'package:cricland/home/view/details_view/fixture_details/fixtures_tab_page.dart';
+import 'package:cricland/home/view/details_view/home_details/home_tab_page.dart';
+import 'package:cricland/home/view/details_view/live_details/live_tab_page.dart';
+import 'package:cricland/home/view/details_view/upcoming_details/upcomming_tab_page.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';

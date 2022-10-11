@@ -16,6 +16,7 @@ class ApiEndpoints {
   static String featureSeriesData = 'series/$apiVersion/international';
   static String matchesInfo = 'mcenter/$apiVersion/';
   static String liveMatches = 'matches/$apiVersion/live';
+  static String overSummery = 'mcenter/$apiVersion/';
 
   //For Image
   static const String imageMidPoint = baseURL + "img/$apiVersion/i1/c";

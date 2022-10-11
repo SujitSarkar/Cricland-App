@@ -7,7 +7,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'home_details_screen.dart';
+import '../home_details/home_details_screen.dart';
 
 class FixturesTabScreen extends StatefulWidget {
   const FixturesTabScreen({Key? key}) : super(key: key);

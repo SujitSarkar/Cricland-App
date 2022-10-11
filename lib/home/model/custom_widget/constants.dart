@@ -25,7 +25,7 @@ class CLTextStyle {
   static TextStyle optionTextStyle = TextStyle(
     fontSize: dSize(.04),
     fontFamily: "CarterOne",
-    color: PublicController.pc.toggleTextColor(),
+    // color: PublicController.pc.toggleTextColor(),
   );
 
   static TextStyle paragraphHeadLineTextStyle = TextStyle(

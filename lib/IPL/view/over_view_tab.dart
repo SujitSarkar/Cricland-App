@@ -9,7 +9,7 @@ import 'package:cricland/IPL/view/widgets/most_run_card.dart';
 import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/view/home_details_screen.dart';
+import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -86,7 +86,6 @@ class _OverViewTabState extends State<OverViewTab> {
                                         team1RunWicket: '',
                                         team2RunWicket: '',
                                         team1Over: '',
-                                        isLive: false,
                                       ),
                                     ),
                                   );

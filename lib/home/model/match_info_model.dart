@@ -4,13 +4,14 @@
 
 import 'dart:convert';
 
-MatchInfoModel matchInfoModelFromJson(String str) =>
-    MatchInfoModel.fromJson(json.decode(str));
+RecentMatchInfoModel matchInfoModelFromJson(String str) =>
+    RecentMatchInfoModel.fromJson(json.decode(str));
 
-String matchInfoModelToJson(MatchInfoModel data) => json.encode(data.toJson());
+String matchInfoModelToJson(RecentMatchInfoModel data) =>
+    json.encode(data.toJson());
 
-class MatchInfoModel {
-  MatchInfoModel({
+class RecentMatchInfoModel {
+  RecentMatchInfoModel({
     this.matchInfo,
     this.venueInfo,
   });
@@ -18,7 +19,8 @@ class MatchInfoModel {
   MatchInfo? matchInfo;
   VenueInfo? venueInfo;
 
-  factory MatchInfoModel.fromJson(Map<String, dynamic> json) => MatchInfoModel(
+  factory RecentMatchInfoModel.fromJson(Map<String, dynamic> json) =>
+      RecentMatchInfoModel(
         matchInfo: MatchInfo.fromJson(json["matchInfo"]),
         venueInfo: VenueInfo.fromJson(json["venueInfo"]),
       );
@@ -41,7 +43,6 @@ class MatchInfo {
     this.matchCompleteTimestamp,
     this.dayNight,
     this.year,
-    this.dayNumber,
     this.state,
     this.team1,
     this.team2,
@@ -72,20 +73,19 @@ class MatchInfo {
   int? matchCompleteTimestamp;
   bool? dayNight;
   int? year;
-  int? dayNumber;
   String? state;
   Team? team1;
   Team? team2;
   Series? series;
   Referee? umpire1;
   Referee? umpire2;
-  Umpire3? umpire3;
+  Referee? umpire3;
   Referee? referee;
   TossResults? tossResults;
   Result? result;
   Venue? venue;
   String? status;
-  List<dynamic>? playersOfTheMatch;
+  List<PlayersOfTheMatch>? playersOfTheMatch;
   List<dynamic>? playersOfTheSeries;
   RevisedTarget? revisedTarget;
   List<MatchTeamInfo>? matchTeamInfo;
@@ -103,21 +103,21 @@ class MatchInfo {
         matchCompleteTimestamp: json["matchCompleteTimestamp"],
         dayNight: json["dayNight"],
         year: json["year"],
-        dayNumber: json["dayNumber"],
         state: json["state"],
         team1: Team.fromJson(json["team1"]),
         team2: Team.fromJson(json["team2"]),
         series: Series.fromJson(json["series"]),
         umpire1: Referee.fromJson(json["umpire1"]),
         umpire2: Referee.fromJson(json["umpire2"]),
-        umpire3: Umpire3.fromJson(json["umpire3"]),
+        umpire3: Referee.fromJson(json["umpire3"]),
         referee: Referee.fromJson(json["referee"]),
         tossResults: TossResults.fromJson(json["tossResults"]),
         result: Result.fromJson(json["result"]),
         venue: Venue.fromJson(json["venue"]),
         status: json["status"],
-        playersOfTheMatch:
-            List<dynamic>.from(json["playersOfTheMatch"].map((x) => x)),
+        playersOfTheMatch: List<PlayersOfTheMatch>.from(
+            json["playersOfTheMatch"]
+                .map((x) => PlayersOfTheMatch.fromJson(x))),
         playersOfTheSeries:
             List<dynamic>.from(json["playersOfTheSeries"].map((x) => x)),
         revisedTarget: RevisedTarget.fromJson(json["revisedTarget"]),
@@ -138,7 +138,6 @@ class MatchInfo {
         "matchCompleteTimestamp": matchCompleteTimestamp,
         "dayNight": dayNight,
         "year": year,
-        "dayNumber": dayNumber,
         "state": state,
         "team1": team1!.toJson(),
         "team2": team2!.toJson(),
@@ -152,7 +151,7 @@ class MatchInfo {
         "venue": venue!.toJson(),
         "status": status,
         "playersOfTheMatch":
-            List<dynamic>.from(playersOfTheMatch!.map((x) => x)),
+            List<dynamic>.from(playersOfTheMatch!.map((x) => x.toJson())),
         "playersOfTheSeries":
             List<dynamic>.from(playersOfTheSeries!.map((x) => x)),
         "revisedTarget": revisedTarget!.toJson(),
@@ -188,6 +187,55 @@ class MatchTeamInfo {
         "battingTeamShortName": battingTeamShortName,
         "bowlingTeamId": bowlingTeamId,
         "bowlingTeamShortName": bowlingTeamShortName,
+      };
+}
+
+class PlayersOfTheMatch {
+  PlayersOfTheMatch({
+    this.id,
+    this.name,
+    this.fullName,
+    this.nickName,
+    this.captain,
+    this.keeper,
+    this.substitute,
+    this.teamName,
+    this.faceImageId,
+  });
+
+  int? id;
+  String? name;
+  String? fullName;
+  String? nickName;
+  bool? captain;
+  bool? keeper;
+  bool? substitute;
+  String? teamName;
+  int? faceImageId;
+
+  factory PlayersOfTheMatch.fromJson(Map<String, dynamic> json) =>
+      PlayersOfTheMatch(
+        id: json["id"],
+        name: json["name"],
+        fullName: json["fullName"],
+        nickName: json["nickName"],
+        captain: json["captain"],
+        keeper: json["keeper"],
+        substitute: json["substitute"],
+        teamName: json["teamName"],
+        faceImageId: json["faceImageId"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "fullName": fullName,
+        "nickName": nickName,
+        "captain": captain,
+        "keeper": keeper,
+        "substitute": substitute,
+        "teamName": teamName,
+        "faceImageId": faceImageId,
       };
 }
 
@@ -278,6 +326,7 @@ class Series {
     this.odiSeriesResult,
     this.t20SeriesResult,
     this.testSeriesResult,
+    this.tournament,
   });
 
   int? id;
@@ -289,6 +338,7 @@ class Series {
   String? odiSeriesResult;
   String? t20SeriesResult;
   String? testSeriesResult;
+  bool? tournament;
 
   factory Series.fromJson(Map<String, dynamic> json) => Series(
         id: json["id"],
@@ -300,6 +350,7 @@ class Series {
         odiSeriesResult: json["odiSeriesResult"],
         t20SeriesResult: json["t20SeriesResult"],
         testSeriesResult: json["testSeriesResult"],
+        tournament: json["tournament"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -312,6 +363,7 @@ class Series {
         "odiSeriesResult": odiSeriesResult,
         "t20SeriesResult": t20SeriesResult,
         "testSeriesResult": testSeriesResult,
+        "tournament": tournament,
       };
 }
 
@@ -411,8 +463,8 @@ final battingStyleValues =
     EnumValues({"LEFT": BattingStyle.LEFT, "RIGHT": BattingStyle.RIGHT});
 
 enum Role {
-  BATSMAN,
   WK_BATSMAN,
+  BATSMAN,
   BATTING_ALLROUNDER,
   BOWLING_ALLROUNDER,
   BOWLER
@@ -448,14 +500,6 @@ class TossResults {
         "tossWinnerName": tossWinnerName,
         "decision": decision,
       };
-}
-
-class Umpire3 {
-  Umpire3();
-
-  factory Umpire3.fromJson(Map<String, dynamic> json) => Umpire3();
-
-  Map<String, dynamic> toJson() => {};
 }
 
 class Venue {
@@ -520,7 +564,7 @@ class VenueInfo {
 
   int? established;
   String? capacity;
-  dynamic? knownAs;
+  dynamic knownAs;
   String? ends;
   String? city;
   String? country;

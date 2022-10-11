@@ -2,8 +2,8 @@ import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/point_table_tile.dart';
 import 'package:flutter/material.dart';
 
-import '../../../public/controller/public_controller.dart';
-import '../../../public/variables/config.dart';
+import '../../../../public/controller/public_controller.dart';
+import '../../../../public/variables/config.dart';
 
 class PointTableView extends StatefulWidget {
   const PointTableView({Key? key}) : super(key: key);

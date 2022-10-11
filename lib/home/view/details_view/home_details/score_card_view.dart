@@ -6,9 +6,9 @@ import 'package:cricland/home/view/widgets/score_card_wicket_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-import '../../../public/controller/public_controller.dart';
-import '../../../public/variables/config.dart';
-import '../../model/custom_widget/constants.dart';
+import '../../../../public/controller/public_controller.dart';
+import '../../../../public/variables/config.dart';
+import '../../../model/custom_widget/constants.dart';
 
 class ScoreCardView extends StatefulWidget {
   const ScoreCardView({Key? key}) : super(key: key);

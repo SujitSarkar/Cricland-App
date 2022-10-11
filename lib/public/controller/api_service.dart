@@ -40,7 +40,7 @@ class ApiService {
       ApiEndpoints.baseURL + url,
       headers: ApiEndpoints.headers,
     );
-    print(response.body);
+
     return _processResponse(response);
   }
 

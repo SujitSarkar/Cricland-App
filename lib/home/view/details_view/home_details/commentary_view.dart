@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-import '../../controller/home_controller.dart';
+import '../../../controller/home_controller.dart';
 
 class CommentaryView extends StatefulWidget {
   const CommentaryView({Key? key}) : super(key: key);
@@ -444,7 +444,8 @@ class _CommentaryViewState extends State<CommentaryView> {
                                   style: CLTextStyle.paragraphTextStyle
                                       .copyWith(
                                           color: PublicController.pc
-                                              .toggleTextColor()),
+                                              .toggleTextColor(),
+                                          fontSize: 14),
                                 ),
                               ),
                             ],

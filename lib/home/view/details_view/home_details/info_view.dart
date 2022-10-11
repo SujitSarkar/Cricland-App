@@ -1,19 +1,14 @@
 import 'package:cricland/IPL/view/series_screen.dart';
-import 'package:cricland/IPL/view/over_view_tab.dart';
 import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/view/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:cricland/home/view/widgets/head_to_head_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class InfoView extends StatefulWidget {
   const InfoView({Key? key}) : super(key: key);
@@ -35,6 +30,8 @@ class _InfoViewState extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
+      // print(homeController.matcheInfoModel.matchInfo!.status);
+      print("From Info: ${homeController.matcheInfoModel.venueInfo}");
       return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -42,7 +39,7 @@ class _InfoViewState extends State<InfoView> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ListTile(
@@ -50,8 +47,7 @@ class _InfoViewState extends State<InfoView> {
                 title: RichText(
                   text: TextSpan(
                     text:
-                        // homeController.matcheInfoModel.matchInfo!.tossResults!
-                        //     .tossWinnerName!,
+                        //  homeController.matcheInfoModel.matchInfo!.status,
                         'NWW',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
@@ -70,11 +66,21 @@ class _InfoViewState extends State<InfoView> {
                     ],
                   ),
                 ),
-                leading: Image.asset(
-                  'assets/t20.png',
-                  height: 20,
-                  width: 20,
-                ),
+                // leading: Container(
+                //   height: 60,
+                //   width: 60,
+                //   decoration: BoxDecoration(
+                //     shape: BoxShape.circle,
+                //     image: DecorationImage(
+                //         image: CachedNetworkImageProvider(
+                //           ApiEndpoints.imageMidPoint +
+                //               widget.team1ImageID +
+                //               ApiEndpoints.imageLastPoint,
+                //           headers: ApiEndpoints.headers,
+                //         ),
+                //         fit: BoxFit.fill),
+                //   ),
+                // ),
               ),
               const SizedBox(
                 height: 10,

@@ -73,7 +73,7 @@ class _BottomSheetViewState extends State<BottomSheetView> {
                 ],
               ),
               LiveWinCardTile(
-                title: '',
+                selectedIndex: 0,
                 onTap: () {},
               ),
               Row(
