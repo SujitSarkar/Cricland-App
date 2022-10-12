@@ -1,28 +1,39 @@
 class ApiEndpoints {
   static const String baseURL = 'https://cricbuzz-cricket.p.rapidapi.com/';
   static const String apiVersion = "v1";
-  static String recentMatchData = 'matches/$apiVersion/recent';
-  static String scoreCardData = 'mcenter/v1/';
-  static String seriesMatchListData = 'series/v1/';
-  static String seriesPointTableData = 'stats/v1/series/';
-  static String commentariesData = 'mcenter/v1/';
-  static String squadsData = 'series/v1/';
-  static String playerSquadsData = 'series/v1/';
-  static String playerInfoData = 'stats/v1/player/';
-  static String upComingMatchData = 'matches/$apiVersion/upcoming';
-  static String fixturesMatchDayData = 'schedule/$apiVersion/all';
-  static String fixturesMatchSeriesData = 'series/$apiVersion/international';
-  static String fixturesMatchTeamData = 'teams/$apiVersion/international';
-  static String featureSeriesData = 'series/$apiVersion/international';
-  static String matchesInfo = 'mcenter/$apiVersion/';
-  static String liveMatches = 'matches/$apiVersion/live';
-  static String overSummery = 'mcenter/$apiVersion/';
+  static String recentMatchData = baseURL + 'matches/$apiVersion/recent';
+  static String scoreCardData = baseURL + 'mcenter/v1/';
+  static String seriesMatchListData = baseURL + 'series/v1/';
+  static String seriesPointTableData = baseURL + 'stats/v1/series/';
+  static String commentariesData = baseURL + 'mcenter/v1/';
+  static String squadsData = baseURL + 'series/v1/';
+  static String playerSquadsData = baseURL + 'series/v1/';
+  static String playerInfoData = baseURL + 'stats/v1/player/';
+  static String upComingMatchData = baseURL + 'matches/$apiVersion/upcoming';
+  static String fixturesMatchDayData = baseURL + 'schedule/$apiVersion/all';
+  static String fixturesMatchSeriesData =
+      baseURL + 'series/$apiVersion/international';
+  static String fixturesMatchTeamData =
+      baseURL + 'teams/$apiVersion/international';
+  static String featureSeriesData =
+      baseURL + 'series/$apiVersion/international';
+  static String matchesInfo = baseURL + 'mcenter/$apiVersion/';
+  static String liveMatches = baseURL + 'matches/$apiVersion/live';
+  static String overSummery = baseURL + 'mcenter/$apiVersion/';
 
   //For Image
   static const String imageMidPoint = baseURL + "img/$apiVersion/i1/c";
   static const String imageLastPoint = "/i.jpg";
   static const Map<String, String> headers = <String, String>{
-    'X-RapidAPI-Key': '2589067106msh2631899972a518bp121677jsn8394db5148ef',
+    'X-RapidAPI-Key': '32611f2cdamsh520fe0c09fc6a72p1167d1jsn17370117b6c5',
     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
   };
+
+  //MonkAPI
+  static const String monkAPIToken =
+      '?api_token=9RODKPfLKiDtR4p0eHPqao2VYIda3fKIAQimw0DED1Md2u78DcTqsUhlmVkD';
+  static const String monkApiVersion = "api/v2.0/";
+  static const String monkBaseURL =
+      'https://cricket.sportmonks.com/' + monkApiVersion;
+  static String monkLiveMatches = 'livescores' + monkAPIToken;
 }

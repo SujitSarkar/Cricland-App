@@ -12,7 +12,7 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,7 +64,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
     super.initState();
     fetchTabData();
 
-    fetchData();
+    print("Match ID : ${widget.matchID}");
+
+    // fetchData();
   }
 
   fetchTabData() async {
@@ -79,10 +81,10 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
 
   fetchData() async {
     HomeController homeController = Get.put(HomeController());
-    // await homeController.getMatchInfo("41881");
-    await homeController.getCommentaries(widget.matchID);
-    // // await homeController.getScoreCard("40381/scard");
-    // await homeController.getSeriesMatches("3641");
+    await homeController.getMatchInfo("41881");
+    //await homeController.getCommentaries(widget.matchID);
+    //  await homeController.getScoreCard("40381/scard");
+    await homeController.getSeriesMatches("3641");
 
     if (mounted) {
       setState(() {});
@@ -312,14 +314,22 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               controller: _tabController,
               children: <Widget>[
                 InfoView(),
-                CommentaryView(),
+                CommentaryView(
+                  matchId: widget.matchID,
+                ),
                 LiveView(
                   team1ImageID: widget.team1ImageID,
                   team2ImageID: widget.team2ImageID,
+                  matchId: widget.matchID,
                   state: '',
                 ),
-                ScoreCardView(),
-                PointTableView(),
+                ScoreCardView(
+                  matchId: widget.matchID,
+                ),
+                PointTableView(
+                  matchId: widget.matchID,
+                  seriesId: widget.seriesID,
+                ),
               ],
             ),
           ),

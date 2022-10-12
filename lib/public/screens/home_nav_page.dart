@@ -34,7 +34,7 @@ class _HomeNavPageState extends State<HomeNavPage> {
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.newspaper),
-                  label: 'News',
+                  label: 'Trending',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.trophy),
@@ -42,7 +42,7 @@ class _HomeNavPageState extends State<HomeNavPage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.solidChessKnight),
-                  label: 'Home',
+                  label: 'Match',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.ellipsisVertical),

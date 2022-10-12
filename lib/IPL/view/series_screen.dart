@@ -19,9 +19,11 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class SeriesScreen extends StatefulWidget {
   final String? seriesID;
+  final String? matchId;
   const SeriesScreen({
     Key? key,
     this.seriesID,
+    this.matchId,
   }) : super(key: key);
 
   @override
@@ -227,11 +229,14 @@ class _SeriesScreenState extends State<SeriesScreen>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: const <Widget>[
+                children: <Widget>[
                   OverViewTab(),
                   MatchesTab(),
                   SquadsTab(),
-                  PointTableView(),
+                  PointTableView(
+                    matchId: widget.matchId!,
+                    seriesId: widget.seriesID!,
+                  ),
                 ],
               ),
             ),

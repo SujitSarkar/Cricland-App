@@ -34,11 +34,22 @@ class ApiService {
 
   ///get api request
   Future<dynamic> get(String url) async {
-    print("Score URL: ${ApiEndpoints.baseURL + url}");
+    print("URL: ${url}");
+    print("Headers: ${ApiEndpoints.headers}");
+    var response = await getConnect.httpClient.get(
+      url,
+      headers: ApiEndpoints.headers,
+    );
+
+    return _processResponse(response);
+  }
+
+  ///get api request
+  Future<dynamic> getWithoutHeader(String url) async {
+    print("Score URL: ${ApiEndpoints.monkBaseURL + url}");
     print("Score Headers: ${ApiEndpoints.headers}");
     var response = await getConnect.httpClient.get(
-      ApiEndpoints.baseURL + url,
-      headers: ApiEndpoints.headers,
+      ApiEndpoints.monkBaseURL + url,
     );
 
     return _processResponse(response);

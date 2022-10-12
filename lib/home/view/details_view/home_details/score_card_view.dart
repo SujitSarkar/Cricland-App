@@ -4,6 +4,8 @@ import 'package:cricland/home/view/widgets/bowller_card_tile.dart';
 import 'package:cricland/home/view/widgets/score_card_batter_tile.dart';
 import 'package:cricland/home/view/widgets/score_card_wicket_card_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../../../public/controller/public_controller.dart';
@@ -11,7 +13,8 @@ import '../../../../public/variables/config.dart';
 import '../../../model/custom_widget/constants.dart';
 
 class ScoreCardView extends StatefulWidget {
-  const ScoreCardView({Key? key}) : super(key: key);
+  final String matchId;
+  const ScoreCardView({Key? key, required this.matchId}) : super(key: key);
 
   @override
   _ScoreCardViewState createState() => _ScoreCardViewState();
@@ -19,6 +22,23 @@ class ScoreCardView extends StatefulWidget {
 
 class _ScoreCardViewState extends State<ScoreCardView> {
   bool isLeft = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchData();
+  }
+
+  fetchData() async {
+    HomeController homeController = Get.put(HomeController());
+    await homeController.getScoreCard("${widget.matchId}/scard");
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {

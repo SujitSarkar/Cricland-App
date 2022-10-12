@@ -12,18 +12,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-import '../../../../more/view/icc_man_ranking/player_details/player_details.dart';
-import '../../../../public/controller/api_endpoints.dart';
-
 class LiveView extends StatefulWidget {
   final String team1ImageID;
   final String team2ImageID;
+  final String matchId;
   final String state;
 
   const LiveView({
     Key? key,
     required this.team1ImageID,
     required this.team2ImageID,
+    required this.matchId,
     required this.state,
   }) : super(key: key);
 
@@ -94,7 +93,11 @@ class _LiveViewState extends State<LiveView> {
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: Text(
-                                '${homeController.overSummeryModel.overSummaryList![i].overNum!.toInt()}',
+                                homeController
+                                            .overSummeryModel.overSummaryList !=
+                                        null
+                                    ? '${homeController.overSummeryModel.overSummaryList![i].overNum!.toInt()}'
+                                    : "",
                                 style: CLTextStyle.paragraphTextStyle,
                               ),
                             ),
@@ -106,7 +109,11 @@ class _LiveViewState extends State<LiveView> {
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),
                               child: Text(
-                                '${homeController.overSummeryModel.overSummaryList![i].oSummary}',
+                                homeController
+                                            .overSummeryModel.overSummaryList !=
+                                        null
+                                    ? '${homeController.overSummeryModel.overSummaryList![i].oSummary}'
+                                    : "",
                                 style: CLTextStyle.paragraphTextStyle,
                               ),
                             ),
@@ -122,7 +129,11 @@ class _LiveViewState extends State<LiveView> {
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),
                               child: Text(
-                                '${homeController.overSummeryModel.overSummaryList![i].runs}',
+                                homeController
+                                            .overSummeryModel.overSummaryList !=
+                                        null
+                                    ? '${homeController.overSummeryModel.overSummaryList![i].runs}'
+                                    : "",
                                 style: CLTextStyle.paragraphTextStyle,
                               ),
                             ),

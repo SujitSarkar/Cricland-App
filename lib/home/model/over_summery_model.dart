@@ -20,6 +20,7 @@ class OverSummeryModel {
     this.bowlerNonStriker,
     this.overs,
     this.recentOvsStats,
+    this.target,
     this.partnerShip,
     this.currentRunRate,
     this.requiredRunRate,
@@ -31,6 +32,7 @@ class OverSummeryModel {
     this.status,
     this.lastWicketScore,
     this.remRunsToWin,
+    this.matchHeader,
     this.responseLastUpdated,
   });
 
@@ -42,6 +44,7 @@ class OverSummeryModel {
   BowlerStriker? bowlerNonStriker;
   double? overs;
   String? recentOvsStats;
+  int? target;
   PartnerShip? partnerShip;
   double? currentRunRate;
   double? requiredRunRate;
@@ -53,6 +56,7 @@ class OverSummeryModel {
   String? status;
   int? lastWicketScore;
   int? remRunsToWin;
+  MatchHeader? matchHeader;
   int? responseLastUpdated;
 
   factory OverSummeryModel.fromJson(Map<String, dynamic> json) =>
@@ -65,6 +69,7 @@ class OverSummeryModel {
         bowlerNonStriker: BowlerStriker.fromJson(json["bowlerNonStriker"]),
         overs: json["overs"].toDouble(),
         recentOvsStats: json["recentOvsStats"],
+        target: json["target"],
         partnerShip: PartnerShip.fromJson(json["partnerShip"]),
         currentRunRate: json["currentRunRate"].toDouble(),
         requiredRunRate: json["requiredRunRate"],
@@ -80,6 +85,7 @@ class OverSummeryModel {
         status: json["status"],
         lastWicketScore: json["lastWicketScore"],
         remRunsToWin: json["remRunsToWin"],
+        matchHeader: MatchHeader.fromJson(json["matchHeader"]),
         responseLastUpdated: json["responseLastUpdated"],
       );
 
@@ -92,6 +98,7 @@ class OverSummeryModel {
         "bowlerNonStriker": bowlerNonStriker!.toJson(),
         "overs": overs,
         "recentOvsStats": recentOvsStats,
+        "target": target,
         "partnerShip": partnerShip!.toJson(),
         "currentRunRate": currentRunRate,
         "requiredRunRate": requiredRunRate,
@@ -105,6 +112,7 @@ class OverSummeryModel {
         "status": status,
         "lastWicketScore": lastWicketScore,
         "remRunsToWin": remRunsToWin,
+        "matchHeader": matchHeader!.toJson(),
         "responseLastUpdated": responseLastUpdated,
       };
 }
@@ -166,7 +174,7 @@ class BatsmanNStriker {
         batMins: json["batMins"],
         batRuns: json["batRuns"],
         batSixes: json["batSixes"],
-        batStrikeRate: json["batStrikeRate"].toDouble(),
+        batStrikeRate: json["batStrikeRate"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -196,7 +204,7 @@ class BowlerStriker {
   });
 
   int? bowlId;
-  String? bowlName;
+  BowlName? bowlName;
   int? bowlMaidens;
   int? bowlNoballs;
   double? bowlOvs;
@@ -207,19 +215,19 @@ class BowlerStriker {
 
   factory BowlerStriker.fromJson(Map<String, dynamic> json) => BowlerStriker(
         bowlId: json["bowlId"],
-        bowlName: json["bowlName"],
+        bowlName: bowlNameValues.map![json["bowlName"]],
         bowlMaidens: json["bowlMaidens"],
         bowlNoballs: json["bowlNoballs"],
-        bowlOvs: json["bowlOvs"],
+        bowlOvs: json["bowlOvs"].toDouble(),
         bowlRuns: json["bowlRuns"],
         bowlWides: json["bowlWides"],
         bowlWkts: json["bowlWkts"],
-        bowlEcon: json["bowlEcon"],
+        bowlEcon: json["bowlEcon"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
         "bowlId": bowlId,
-        "bowlName": bowlName,
+        "bowlName": bowlNameValues.reverse[bowlName],
         "bowlMaidens": bowlMaidens,
         "bowlNoballs": bowlNoballs,
         "bowlOvs": bowlOvs,
@@ -229,6 +237,14 @@ class BowlerStriker {
         "bowlEcon": bowlEcon,
       };
 }
+
+enum BowlName { TANUSH_KOTIAN, SHAMS_MULANI, CHINTAN_GAJA }
+
+final bowlNameValues = EnumValues({
+  "Chintan Gaja": BowlName.CHINTAN_GAJA,
+  "Shams Mulani": BowlName.SHAMS_MULANI,
+  "Tanush Kotian": BowlName.TANUSH_KOTIAN
+});
 
 class LatestPerformance {
   LatestPerformance({
@@ -252,6 +268,309 @@ class LatestPerformance {
         "runs": runs,
         "wkts": wkts,
         "label": label,
+      };
+}
+
+class MatchHeader {
+  MatchHeader({
+    this.matchId,
+    this.matchDescription,
+    this.matchFormat,
+    this.matchType,
+    this.complete,
+    this.domestic,
+    this.matchStartTimestamp,
+    this.matchCompleteTimestamp,
+    this.dayNight,
+    this.year,
+    this.dayNumber,
+    this.state,
+    this.status,
+    this.tossResults,
+    this.result,
+    this.revisedTarget,
+    this.playersOfTheMatch,
+    this.playersOfTheSeries,
+    this.matchTeamInfo,
+    this.isMatchNotCovered,
+    this.team1,
+    this.team2,
+    this.seriesDesc,
+    this.seriesId,
+    this.seriesName,
+  });
+
+  int? matchId;
+  String? matchDescription;
+  String? matchFormat;
+  String? matchType;
+  bool? complete;
+  bool? domestic;
+  int? matchStartTimestamp;
+  int? matchCompleteTimestamp;
+  bool? dayNight;
+  int? year;
+  int? dayNumber;
+  String? state;
+  String? status;
+  TossResults? tossResults;
+  Result? result;
+  RevisedTarget? revisedTarget;
+  List<PlayersOfThe>? playersOfTheMatch;
+  List<PlayersOfThe>? playersOfTheSeries;
+  List<MatchTeamInfo>? matchTeamInfo;
+  bool? isMatchNotCovered;
+  Team? team1;
+  Team? team2;
+  String? seriesDesc;
+  int? seriesId;
+  String? seriesName;
+
+  factory MatchHeader.fromJson(Map<String, dynamic> json) => MatchHeader(
+        matchId: json["matchId"],
+        matchDescription: json["matchDescription"],
+        matchFormat: json["matchFormat"],
+        matchType: json["matchType"],
+        complete: json["complete"],
+        domestic: json["domestic"],
+        matchStartTimestamp: json["matchStartTimestamp"],
+        matchCompleteTimestamp: json["matchCompleteTimestamp"],
+        dayNight: json["dayNight"],
+        year: json["year"],
+        dayNumber: json["dayNumber"],
+        state: json["state"],
+        status: json["status"],
+        tossResults: TossResults.fromJson(json["tossResults"]),
+        result: Result.fromJson(json["result"]),
+        revisedTarget: RevisedTarget.fromJson(json["revisedTarget"]),
+        playersOfTheMatch: List<PlayersOfThe>.from(
+            json["playersOfTheMatch"].map((x) => PlayersOfThe.fromJson(x))),
+        playersOfTheSeries: List<PlayersOfThe>.from(
+            json["playersOfTheSeries"].map((x) => PlayersOfThe.fromJson(x))),
+        matchTeamInfo: List<MatchTeamInfo>.from(
+            json["matchTeamInfo"].map((x) => MatchTeamInfo.fromJson(x))),
+        isMatchNotCovered: json["isMatchNotCovered"],
+        team1: Team.fromJson(json["team1"]),
+        team2: Team.fromJson(json["team2"]),
+        seriesDesc: json["seriesDesc"],
+        seriesId: json["seriesId"],
+        seriesName: json["seriesName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "matchId": matchId,
+        "matchDescription": matchDescription,
+        "matchFormat": matchFormat,
+        "matchType": matchType,
+        "complete": complete,
+        "domestic": domestic,
+        "matchStartTimestamp": matchStartTimestamp,
+        "matchCompleteTimestamp": matchCompleteTimestamp,
+        "dayNight": dayNight,
+        "year": year,
+        "dayNumber": dayNumber,
+        "state": state,
+        "status": status,
+        "tossResults": tossResults?.toJson(),
+        "result": result?.toJson(),
+        "revisedTarget": revisedTarget?.toJson(),
+        "playersOfTheMatch":
+            List<dynamic>.from(playersOfTheMatch!.map((x) => x.toJson())),
+        "playersOfTheSeries":
+            List<dynamic>.from(playersOfTheSeries!.map((x) => x.toJson())),
+        "matchTeamInfo":
+            List<dynamic>.from(matchTeamInfo!.map((x) => x.toJson())),
+        "isMatchNotCovered": isMatchNotCovered,
+        "team1": team1!.toJson(),
+        "team2": team2!.toJson(),
+        "seriesDesc": seriesDesc,
+        "seriesId": seriesId,
+        "seriesName": seriesName,
+      };
+}
+
+class MatchTeamInfo {
+  MatchTeamInfo({
+    this.battingTeamId,
+    this.battingTeamShortName,
+    this.bowlingTeamId,
+    this.bowlingTeamShortName,
+  });
+
+  int? battingTeamId;
+  String? battingTeamShortName;
+  int? bowlingTeamId;
+  String? bowlingTeamShortName;
+
+  factory MatchTeamInfo.fromJson(Map<String, dynamic> json) => MatchTeamInfo(
+        battingTeamId: json["battingTeamId"],
+        battingTeamShortName: json["battingTeamShortName"],
+        bowlingTeamId: json["bowlingTeamId"],
+        bowlingTeamShortName: json["bowlingTeamShortName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "battingTeamId": battingTeamId,
+        "battingTeamShortName": battingTeamShortName,
+        "bowlingTeamId": bowlingTeamId,
+        "bowlingTeamShortName": bowlingTeamShortName,
+      };
+}
+
+class PlayersOfThe {
+  PlayersOfThe({
+    this.id,
+    this.name,
+    this.fullName,
+    this.nickName,
+    this.captain,
+    this.keeper,
+    this.substitute,
+    this.teamName,
+    this.faceImageId,
+    this.bowlingStyle,
+  });
+
+  int? id;
+  String? name;
+  String? fullName;
+  String? nickName;
+  bool? captain;
+  bool? keeper;
+  bool? substitute;
+  String? teamName;
+  int? faceImageId;
+  String? bowlingStyle;
+
+  factory PlayersOfThe.fromJson(Map<String, dynamic> json) => PlayersOfThe(
+        id: json["id"],
+        name: json["name"],
+        fullName: json["fullName"],
+        nickName: json["nickName"],
+        captain: json["captain"],
+        keeper: json["keeper"],
+        substitute: json["substitute"],
+        teamName: json["teamName"] == null ? null : json["teamName"],
+        faceImageId: json["faceImageId"],
+        bowlingStyle:
+            json["bowlingStyle"] == null ? null : json["bowlingStyle"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "fullName": fullName,
+        "nickName": nickName,
+        "captain": captain,
+        "keeper": keeper,
+        "substitute": substitute,
+        "teamName": teamName == null ? null : teamName,
+        "faceImageId": faceImageId,
+        "bowlingStyle": bowlingStyle == null ? null : bowlingStyle,
+      };
+}
+
+class Result {
+  Result({
+    this.resultType,
+    this.winningTeam,
+    this.winningteamId,
+    this.winningMargin,
+    this.winByRuns,
+    this.winByInnings,
+  });
+
+  String? resultType;
+  String? winningTeam;
+  int? winningteamId;
+  int? winningMargin;
+  bool? winByRuns;
+  bool? winByInnings;
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+        resultType: json["resultType"],
+        winningTeam: json["winningTeam"],
+        winningteamId: json["winningteamId"],
+        winningMargin: json["winningMargin"],
+        winByRuns: json["winByRuns"],
+        winByInnings: json["winByInnings"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "resultType": resultType,
+        "winningTeam": winningTeam,
+        "winningteamId": winningteamId,
+        "winningMargin": winningMargin,
+        "winByRuns": winByRuns,
+        "winByInnings": winByInnings,
+      };
+}
+
+class RevisedTarget {
+  RevisedTarget({
+    this.reason,
+  });
+
+  String? reason;
+
+  factory RevisedTarget.fromJson(Map<String, dynamic> json) => RevisedTarget(
+        reason: json["reason"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "reason": reason,
+      };
+}
+
+class Team {
+  Team({
+    this.id,
+    this.name,
+    this.playerDetails,
+    this.shortName,
+  });
+
+  int? id;
+  String? name;
+  List<dynamic>? playerDetails;
+  String? shortName;
+
+  factory Team.fromJson(Map<String, dynamic> json) => Team(
+        id: json["id"],
+        name: json["name"],
+        playerDetails: List<dynamic>.from(json["playerDetails"].map((x) => x)),
+        shortName: json["shortName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "playerDetails": List<dynamic>.from(playerDetails!.map((x) => x)),
+        "shortName": shortName,
+      };
+}
+
+class TossResults {
+  TossResults({
+    this.tossWinnerId,
+    this.tossWinnerName,
+    this.decision,
+  });
+
+  int? tossWinnerId;
+  String? tossWinnerName;
+  String? decision;
+
+  factory TossResults.fromJson(Map<String, dynamic> json) => TossResults(
+        tossWinnerId: json["tossWinnerId"],
+        tossWinnerName: json["tossWinnerName"],
+        decision: json["decision"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "tossWinnerId": tossWinnerId,
+        "tossWinnerName": tossWinnerName,
+        "decision": decision,
       };
 }
 
@@ -357,58 +676,6 @@ class InningsScoreList {
       };
 }
 
-class MatchTeamInfo {
-  MatchTeamInfo({
-    this.battingTeamId,
-    this.battingTeamShortName,
-    this.bowlingTeamId,
-    this.bowlingTeamShortName,
-  });
-
-  int? battingTeamId;
-  String? battingTeamShortName;
-  int? bowlingTeamId;
-  String? bowlingTeamShortName;
-
-  factory MatchTeamInfo.fromJson(Map<String, dynamic> json) => MatchTeamInfo(
-        battingTeamId: json["battingTeamId"],
-        battingTeamShortName: json["battingTeamShortName"],
-        bowlingTeamId: json["bowlingTeamId"],
-        bowlingTeamShortName: json["bowlingTeamShortName"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "battingTeamId": battingTeamId,
-        "battingTeamShortName": battingTeamShortName,
-        "bowlingTeamId": bowlingTeamId,
-        "bowlingTeamShortName": bowlingTeamShortName,
-      };
-}
-
-class TossResults {
-  TossResults({
-    this.tossWinnerId,
-    this.tossWinnerName,
-    this.decision,
-  });
-
-  int? tossWinnerId;
-  String? tossWinnerName;
-  String? decision;
-
-  factory TossResults.fromJson(Map<String, dynamic> json) => TossResults(
-        tossWinnerId: json["tossWinnerId"],
-        tossWinnerName: json["tossWinnerName"],
-        decision: json["decision"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "tossWinnerId": tossWinnerId,
-        "tossWinnerName": tossWinnerName,
-        "decision": decision,
-      };
-}
-
 class OverSummaryList {
   OverSummaryList({
     this.score,
@@ -442,15 +709,15 @@ class OverSummaryList {
   String? oSummary;
   int? runs;
   List<int>? batStrikerIds;
-  List<BatStrikerName>? batStrikerNames;
+  List<String>? batStrikerNames;
   int? batStrikerRuns;
   int? batStrikerBalls;
   List<int>? batNonStrikerIds;
-  List<BatStrikerName>? batNonStrikerNames;
+  List<String>? batNonStrikerNames;
   int? batNonStrikerRuns;
   int? batNonStrikerBalls;
   List<int>? bowlIds;
-  List<String>? bowlNames;
+  List<BowlName>? bowlNames;
   double? bowlOvers;
   int? bowlMaidens;
   int? bowlRuns;
@@ -468,19 +735,20 @@ class OverSummaryList {
         oSummary: json["o_summary"],
         runs: json["runs"],
         batStrikerIds: List<int>.from(json["batStrikerIds"].map((x) => x)),
-        batStrikerNames: List<BatStrikerName>.from(
-            json["batStrikerNames"].map((x) => batStrikerNameValues.map![x])),
+        batStrikerNames:
+            List<String>.from(json["batStrikerNames"].map((x) => x)),
         batStrikerRuns: json["batStrikerRuns"],
         batStrikerBalls: json["batStrikerBalls"],
         batNonStrikerIds:
             List<int>.from(json["batNonStrikerIds"].map((x) => x)),
-        batNonStrikerNames: List<BatStrikerName>.from(json["batNonStrikerNames"]
-            .map((x) => batStrikerNameValues.map![x])),
+        batNonStrikerNames:
+            List<String>.from(json["batNonStrikerNames"].map((x) => x)),
         batNonStrikerRuns: json["batNonStrikerRuns"],
         batNonStrikerBalls: json["batNonStrikerBalls"],
         bowlIds: List<int>.from(json["bowlIds"].map((x) => x)),
-        bowlNames: List<String>.from(json["bowlNames"].map((x) => x)),
-        bowlOvers: json["bowlOvers"],
+        bowlNames: List<BowlName>.from(
+            json["bowlNames"].map((x) => bowlNameValues.map![x])),
+        bowlOvers: json["bowlOvers"].toDouble(),
         bowlMaidens: json["bowlMaidens"],
         bowlRuns: json["bowlRuns"],
         bowlWickets: json["bowlWickets"],
@@ -497,17 +765,17 @@ class OverSummaryList {
         "o_summary": oSummary,
         "runs": runs,
         "batStrikerIds": List<dynamic>.from(batStrikerIds!.map((x) => x)),
-        "batStrikerNames": List<dynamic>.from(
-            batStrikerNames!.map((x) => batStrikerNameValues.reverse[x])),
+        "batStrikerNames": List<dynamic>.from(batStrikerNames!.map((x) => x)),
         "batStrikerRuns": batStrikerRuns,
         "batStrikerBalls": batStrikerBalls,
         "batNonStrikerIds": List<dynamic>.from(batNonStrikerIds!.map((x) => x)),
-        "batNonStrikerNames": List<dynamic>.from(
-            batNonStrikerNames!.map((x) => batStrikerNameValues.reverse[x])),
+        "batNonStrikerNames":
+            List<dynamic>.from(batNonStrikerNames!.map((x) => x)),
         "batNonStrikerRuns": batNonStrikerRuns,
         "batNonStrikerBalls": batNonStrikerBalls,
         "bowlIds": List<dynamic>.from(bowlIds!.map((x) => x)),
-        "bowlNames": List<dynamic>.from(bowlNames!.map((x) => x)),
+        "bowlNames": List<dynamic>.from(
+            bowlNames!.map((x) => bowlNameValues.reverse[x])),
         "bowlOvers": bowlOvers,
         "bowlMaidens": bowlMaidens,
         "bowlRuns": bowlRuns,
@@ -519,16 +787,9 @@ class OverSummaryList {
       };
 }
 
-enum BatStrikerName { JAISWAL, SARFARAZ_KHAN }
+enum BatTeamName { SZONE }
 
-final batStrikerNameValues = EnumValues({
-  "Jaiswal": BatStrikerName.JAISWAL,
-  "Sarfaraz Khan": BatStrikerName.SARFARAZ_KHAN
-});
-
-enum BatTeamName { WZONE }
-
-final batTeamNameValues = EnumValues({"WZONE": BatTeamName.WZONE});
+final batTeamNameValues = EnumValues({"SZONE": BatTeamName.SZONE});
 
 enum Event { OVER_BREAK }
 
@@ -569,7 +830,9 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    reverseMap ??= map!.map((k, v) => MapEntry(v, k));
+    if (reverseMap == null) {
+      reverseMap = map!.map((k, v) => new MapEntry(v, k));
+    }
     return reverseMap!;
   }
 }

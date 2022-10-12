@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 
 class CLTextStyle {
   static TextStyle menuBarTextStyle = TextStyle(
-    fontWeight: FontWeight.w900,
     fontFamily: "CarterOne",
-    fontSize: dSize(.04),
+    fontSize: dSize(.027),
     color: PublicController.pc.toggleTextColor(),
   );
 
