@@ -138,7 +138,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                 onTap: () {
                                   Get.to(
                                     SeriesScreen(
-                                      seriesID: "3641",
+                                      seriesID: "4492",
+                                      // matchId: "${homeController.featureSeriesModel.seriesMapProto![index].series.first.}",
                                     ),
                                   );
                                 },

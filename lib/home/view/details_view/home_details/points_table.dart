@@ -42,13 +42,12 @@ class _PointTableViewState extends State<PointTableView> {
   @override
   void initState() {
     super.initState();
-
     fetchData();
   }
 
   fetchData() async {
     HomeController homeController = Get.put(HomeController());
-    await homeController.getPointTable('4527');
+    await homeController.getPointTable('3718');
     if (mounted) {
       setState(() {});
     }

@@ -72,7 +72,7 @@ class HomeController extends GetxController {
     await getFeatureSeries();
     // await getPointTable("3718");
     // await getCommentaries("38356");
-    await getMatchSquad("3718");
+    //  await getMatchSquad("3718");
     await getPlayerSquad("3718", "15826");
     await getPlayerInfo("6635");
     await getMatchInfo("38356");
@@ -187,7 +187,6 @@ class HomeController extends GetxController {
   }
 
   Future<void> getMatchSquad(String seriesID) async {
-    print("Squad URL ${ApiEndpoints.squadsData + "3718/squads"}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance
@@ -207,17 +206,13 @@ class HomeController extends GetxController {
   }
 
   Future<void> getSeriesMatches(String seriesID) async {
-    print("Series URL ${ApiEndpoints.seriesMatchListData + seriesID}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance
             .get(ApiEndpoints.seriesMatchListData + seriesID),
         onSuccess: (response) {
-          print("Series Response: ${response}");
-
           seriesMatchListModel =
               seriesMatchListModelFromJson(jsonEncode(response));
-
           loading(false);
         },
         onError: (error) {

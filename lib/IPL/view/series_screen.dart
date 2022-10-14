@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/info_tab.dart';
 import 'package:cricland/IPL/view/matches_tab.dart';
 import 'package:cricland/IPL/view/over_view_tab.dart';
+import 'package:cricland/IPL/view/points_table_tab.dart';
 import 'package:cricland/IPL/view/squads_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
@@ -40,15 +41,6 @@ class _SeriesScreenState extends State<SeriesScreen>
     super.initState();
     _tabController =
         TabController(length: Variables.iplTabsCategory.length, vsync: this);
-
-    fetchData();
-  }
-
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    //getScore Data
-    await homeController.getSeriesMatches("3641");
-    setState(() {});
   }
 
   @override
@@ -82,7 +74,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                             child: Container(
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.all(
+                                                      const BorderRadius.all(
                                                           Radius.circular(10)),
                                                   border: Border.all(
                                                       color: Colors.green)),
@@ -230,13 +222,33 @@ class _SeriesScreenState extends State<SeriesScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
-                  OverViewTab(),
-                  MatchesTab(),
-                  SquadsTab(),
-                  PointTableView(
-                    matchId: widget.matchId!,
+                  OverViewTab(
                     seriesId: widget.seriesID!,
                   ),
+                  MatchesTab(),
+                  SquadsTab(),
+                  SeriesPointsTableTab(),
+                  SeriesInfoTab(
+                      seriesName: homeController
+                          .seriesMatchListModel
+                          .matchDetails!
+                          .first
+                          .matchDetailsMap!
+                          .match!
+                          .first
+                          .matchInfo!
+                          .seriesName!,
+                      duration: homeController.seriesMatchListModel
+                          .matchDetails!.first.matchDetailsMap!.key!,
+                      format: homeController
+                          .seriesMatchListModel
+                          .matchDetails!
+                          .first
+                          .matchDetailsMap!
+                          .match!
+                          .first
+                          .matchInfo!
+                          .matchFormat!)
                 ],
               ),
             ),

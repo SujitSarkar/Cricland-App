@@ -26,37 +26,31 @@ class _MatchesTabState extends State<MatchesTab> {
                 itemCount:
                     homeController.seriesMatchListModel.matchDetails!.length,
                 itemBuilder: (BuildContext context, int index) {
+                  var path = homeController.seriesMatchListModel
+                      .matchDetails![index].matchDetailsMap;
                   return homeController.seriesMatchListModel
                               .matchDetails![index].matchDetailsMap ==
                           null
                       ? SizedBox()
                       : FixturesCardTile(
-                          title: homeController
-                              .seriesMatchListModel
-                              .matchDetails![index]
-                              .matchDetailsMap!
-                              .match!
-                              .first
-                              .matchInfo!
-                              .seriesName,
+                          title: path!.match!.first.matchInfo!.seriesName,
                           leadingUrlOne:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.imageId}",
+                              "${path.match!.first.matchInfo!.team1!.imageId}",
                           leadingUrlTwo:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.imageId}",
+                              "${path.match!.first.matchInfo!.team2!.imageId}",
                           teamOne:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.teamName}",
+                              "${path.match!.first.matchInfo!.team1!.teamSName}",
                           teamTwo:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.teamName}",
+                              "${path.match!.first.matchInfo!.team2!.teamSName}",
                           reachTitleOne:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchScore!.team1Score!.inngs1!.runs}-${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchScore!.team1Score!.inngs1!.wickets}",
+                              "${path.match!.first.matchScore!.team1Score!.inngs1!.runs}-${path.match!.first.matchScore!.team1Score!.inngs1!.wickets}",
                           reachTitleTwo:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchScore!.team2Score!.inngs1!.runs}-${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchScore!.team2Score!.inngs1!.wickets}",
+                              "${path.match!.first.matchScore!.team2Score!.inngs1!.runs}-${path.match!.first.matchScore!.team2Score!.inngs1!.wickets}",
                           reachSubTitleOne:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchScore!.team1Score!.inngs1!.overs}",
+                              "${path.match!.first.matchScore!.team1Score!.inngs1!.overs}",
                           reachSubTitleTwo:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchScore!.team2Score!.inngs1!.overs}",
-                          desc:
-                              "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.status}",
+                              "${path.match!.first.matchScore!.team2Score!.inngs1!.overs}",
+                          desc: "${path.match!.first.matchInfo!.status}",
                           date: "",
                           onTap: () {
                             // Navigator.push(

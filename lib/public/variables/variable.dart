@@ -59,6 +59,7 @@ class Variables {
     'Matches',
     'Squads',
     'Points Table',
+    'Info',
   ];
   static const List<String> iplDetailsTabsCategory = [
     'Info',

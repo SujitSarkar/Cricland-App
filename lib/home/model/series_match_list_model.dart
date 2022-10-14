@@ -236,32 +236,23 @@ class Team {
   });
 
   int? teamId;
-  TeamName? teamName;
-  TeamSName? teamSName;
+  String? teamName;
+  String? teamSName;
   int? imageId;
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
         teamId: json["teamId"],
-        teamName: teamNameValues.map![json["teamName"]],
-        teamSName: teamSNameValues.map![json["teamSName"]],
+        teamName: json["teamName"],
+        teamSName: json["teamSName"],
         imageId: json["imageId"],
       );
   Map<String, dynamic> toJson() => {
         "teamId": teamId,
-        "teamName": teamNameValues.reverse[teamName],
-        "teamSName": teamSNameValues.reverse[teamSName],
+        "teamName": teamName,
+        "teamSName": teamSName,
         "imageId": imageId,
       };
 }
-
-enum TeamName { INDIA, WEST_INDIES }
-
-final teamNameValues =
-    EnumValues({"India": TeamName.INDIA, "West Indies": TeamName.WEST_INDIES});
-
-enum TeamSName { IND, WI }
-
-final teamSNameValues = EnumValues({"IND": TeamSName.IND, "WI": TeamSName.WI});
 
 class VenueInfo {
   VenueInfo({

@@ -6,6 +6,8 @@ import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'over_view_tab.dart';
@@ -18,6 +20,17 @@ class SquadsTab extends StatefulWidget {
 }
 
 class _SquadsTabState extends State<SquadsTab> {
+  void initState() {
+    super.initState();
+    // fetchData();
+  }
+
+  fetchData() async {
+    HomeController homeController = Get.put(HomeController());
+    await homeController.getMatchSquad("3641");
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
@@ -47,7 +60,9 @@ class _SquadsTabState extends State<SquadsTab> {
                 shrinkWrap: true,
                 itemCount: homeController.matchSquadModel.squads!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return homeController.matchSquadModel.squads != null
+                  return homeController
+                              .matchSquadModel.squads![index].squadId !=
+                          null
                       ? Column(
                           children: [
                             ListTile(
