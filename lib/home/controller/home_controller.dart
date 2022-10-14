@@ -108,8 +108,6 @@ class HomeController extends GetxController {
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.matchesInfo + matchId),
         onSuccess: (response) {
-          print("Match Info Response: ${response}");
-
           //TODO
           matcheInfoModel = matchInfoModelFromJson(response);
           //
@@ -250,7 +248,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getScoreCard(String matchID) async {
-    print("Score Card URL ${ApiEndpoints.scoreCardData + matchID}");
+    //  print("Score Card URL ${ApiEndpoints.scoreCardData + matchID}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async =>

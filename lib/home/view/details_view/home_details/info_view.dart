@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InfoView extends StatefulWidget {
-  const InfoView({Key? key}) : super(key: key);
+  final String matchId;
+  const InfoView({Key? key, required this.matchId}) : super(key: key);
 
   @override
   _InfoViewState createState() => _InfoViewState();
@@ -28,10 +29,23 @@ class _InfoViewState extends State<InfoView> {
     Colors.green
   ];
   @override
+  void initState() {
+    super.initState();
+
+    fetchData();
+  }
+
+  fetchData() async {
+    HomeController homeController = Get.put(HomeController());
+    await homeController.getMatchInfo(widget.matchId);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      // print(homeController.matcheInfoModel.matchInfo!.status);
-      print("From Info: ${homeController.matcheInfoModel.venueInfo}");
       return SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

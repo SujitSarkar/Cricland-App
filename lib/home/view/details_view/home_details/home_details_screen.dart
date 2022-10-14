@@ -313,7 +313,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             child: TabBarView(
               controller: _tabController,
               children: <Widget>[
-                InfoView(),
+                InfoView(
+                  matchId: widget.matchID,
+                ),
                 CommentaryView(
                   matchId: widget.matchID,
                 ),

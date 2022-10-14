@@ -268,7 +268,9 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
             child: TabBarView(
               controller: _tabController,
               children: <Widget>[
-                InfoView(),
+                InfoView(
+                  matchId: widget.matchID,
+                ),
                 CommentaryView(
                   matchId: widget.matchID,
                 ),
