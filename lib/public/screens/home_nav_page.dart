@@ -4,6 +4,7 @@ import 'package:cricland/home/view/home_page.dart';
 import 'package:cricland/more/view/more_page.dart';
 import 'package:cricland/news/view/news_page.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -17,9 +18,10 @@ class HomeNavPage extends StatefulWidget {
 
 class _HomeNavPageState extends State<HomeNavPage> {
   static const List<Widget> _homeWidgets = [
-    NewsPage(),
+    ProfileScreen(),
     SeriesScreen(),
     HomePage(),
+    NewsPage(),
     MorePage()
   ];
 
@@ -31,20 +33,28 @@ class _HomeNavPageState extends State<HomeNavPage> {
         bottomNavigationBar: Obx(() => BottomNavigationBar(
               selectedLabelStyle: CLTextStyle.menuBarTextStyle,
               unselectedLabelStyle: CLTextStyle.menuBarTextStyle,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(FontAwesomeIcons.newspaper),
-                  label: 'Trending',
+              items:  [
+                const BottomNavigationBarItem(
+                  icon:         Icon(
+                    Icons.person,
+                    size: 30,
+                  ),
+                  label: 'Profile',
                 ),
-                BottomNavigationBarItem(
+                const BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.trophy),
                   label: 'IPL',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(FontAwesomeIcons.solidChessKnight),
+                  icon: Image.asset('assets/match_logo.png',height: 30,width: 30,color: pc.selectedIndex.value==2? AllColor.blueColor:Colors.grey,),
+
                   label: 'Match',
                 ),
-                BottomNavigationBarItem(
+                const BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.newspaper),
+                  label: 'Trending',
+                ),
+                const BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.ellipsisVertical),
                   label: 'More',
                 ),

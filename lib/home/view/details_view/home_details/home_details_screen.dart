@@ -62,6 +62,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: Variables.iplDetailsTabsCategory.length,
+        vsync: this);
     fetchTabData();
 
     print("Match ID : ${widget.matchID}");

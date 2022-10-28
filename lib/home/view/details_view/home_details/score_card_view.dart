@@ -90,7 +90,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                                 child: Text(
                                   "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard![1].scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard![1].scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard![1].scoreDetails!.overs!})    ",
                                   style: CLTextStyle.optionTextStyle.copyWith(
-                                    fontSize: dSize(.04),
+                                    fontSize: dSize(.03),
                                     color: PublicController.pc.toggleCardBg(),
                                   ),
                                 ))),

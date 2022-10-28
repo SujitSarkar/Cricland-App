@@ -45,8 +45,10 @@ class _HomePageState extends State<HomePage>
               title: Row(
                 children: [
                   Image.asset(
-                    'assets/logo.png',
-                    scale: 14,
+                    'assets/main_logo.png',
+
+                    width: 40,
+                    height: 35,
                   ),
                   const SizedBox(
                     width: 10,
@@ -64,43 +66,16 @@ class _HomePageState extends State<HomePage>
                   const SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        border:
-                            Border.all(width: 1, color: AllColor.hintColor)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 2),
-                      child: Text(
-                        "Premium",
-                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                        // style: TextStyle(
 
-                        // ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
               actions: const [
                 Icon(
                   Icons.search_outlined,
                 ),
+
                 SizedBox(
                   width: 15,
-                ),
-                Icon(
-                  Icons.person,
-                  size: 30,
-                ),
-                SizedBox(
-                  width: 8,
                 ),
               ],
               bottom: _tabBar(homeController),
@@ -120,67 +95,73 @@ class _HomePageState extends State<HomePage>
   }
 
   PreferredSize _tabBar(HomeController homeController) => PreferredSize(
-        preferredSize: Size.fromHeight(dSize(.04)),
-        child: TabBar(
-            onTap: (covariant) async {
-              setState(() => _tabController.index = covariant);
-            },
-            isScrollable: true,
-            controller: _tabController,
-            labelColor: PublicController.pc.toggleLoadingColor(),
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  dSize(.02),
-                ),
-                topRight: Radius.circular(
-                  dSize(.02),
-                ),
-              ),
-              color: PublicController.pc.toggleTabColor(),
-            ),
-            unselectedLabelColor: Colors.grey,
-            unselectedLabelStyle: CLTextStyle.optionTextStyle,
-            labelStyle: CLTextStyle.optionTextStyle,
-            indicatorSize: TabBarIndicatorSize.label,
-            physics: const BouncingScrollPhysics(),
-            tabs: [
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01),
-                    horizontal: dSize(.02),
+        preferredSize: Size.fromHeight(dSize(.07)),
+        child: Column(
+
+          children: [
+         const SizedBox(height: 8,),
+            TabBar(
+                onTap: (covariant) async {
+                  setState(() => _tabController.index = covariant);
+                },
+                isScrollable: true,
+                controller: _tabController,
+                labelColor: PublicController.pc.toggleLoadingColor(),
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      dSize(.02),
+                    ),
+                    topRight: Radius.circular(
+                      dSize(.02),
+                    ),
                   ),
-                  child: Text(
-                    'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
-                  )),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
+                  color: PublicController.pc.toggleTabColor(),
                 ),
-                child: const Text('Home'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: const Text('Upcoming'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: const Text('Finished'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: const Text('Fixtures'),
-              ),
-            ]),
+                unselectedLabelColor: Colors.grey,
+                unselectedLabelStyle: CLTextStyle.optionTextStyle,
+                labelStyle: CLTextStyle.optionTextStyle,
+                indicatorSize: TabBarIndicatorSize.label,
+                physics: const BouncingScrollPhysics(),
+                tabs: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: dSize(.01),
+                        horizontal: dSize(.02),
+                      ),
+                      child: Text(
+                        'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
+                      )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Home'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Upcoming'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Finished'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Fixtures'),
+                  ),
+                ]),
+          ],
+        ),
       );
 }

@@ -2,6 +2,7 @@ import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../home/model/custom_widget/constants.dart';
 import '../controller/public_controller.dart';
 import '../variables/config.dart';
 
@@ -47,6 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
       init: PublicController(),
       builder: (pc) {
       return Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
           child: FadeTransition(
             opacity: _animation,
@@ -54,17 +56,24 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/logo.png',
-                    width: dSize(.7), fit: BoxFit.cover),
+                Container(
+                  color: Colors.white,
+                  child: Image.asset('assets/dark_logo.png',
+                      width: dSize(.7),
+                      height: dSize(.7),
+                      fit: BoxFit.cover),
+                ),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    style: TextStyle(
-                        color: const Color(0xffFF002D),
-                        fontSize: dSize(.09),
-                        fontWeight: FontWeight.w900),
+                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                          color: const Color(0xffFF002D),
+                          fontSize: dSize(.09),
+                          fontWeight: FontWeight.w900
+                      ),
+
                     children: const <TextSpan>[
-                      TextSpan(text: 'Cricland'),
+                      TextSpan(text: 'Crickland'),
                     ],
                   ),
                 )

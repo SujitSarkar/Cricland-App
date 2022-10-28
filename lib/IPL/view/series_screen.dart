@@ -6,7 +6,6 @@ import 'package:cricland/IPL/view/points_table_tab.dart';
 import 'package:cricland/IPL/view/squads_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/view/details_view/home_details/points_table.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
@@ -14,8 +13,6 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class SeriesScreen extends StatefulWidget {
@@ -33,8 +30,8 @@ class SeriesScreen extends StatefulWidget {
 
 class _SeriesScreenState extends State<SeriesScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  String _iplTabType = Variables.iplTabsCategory.first;
+  late final TabController _tabController;
+  final String _iplTabType = Variables.iplTabsCategory.first;
 
   @override
   void initState() {
@@ -53,22 +50,43 @@ class _SeriesScreenState extends State<SeriesScreen>
               color: AllColor.appDarkBg,
               child: Column(
                 children: <Widget>[
-                  const SizedBox(
-                    height: 25,
-                  ),
+                  widget.seriesID != null
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
                   Container(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     color: AllColor.appDarkBg,
                     child: widget.seriesID == null
                         ? Column(
                             children: [
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width * .06,
+                              ),
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
                                     Row(
                                       children: [
-                                        for (var i = 0; i < 10; i++)
+                                        for (var i = 0;
+                                            i <
+                                                homeController
+                                                    .featureSeriesModel
+                                                    .seriesMapProto![1]
+                                                    .series!
+                                                    .length;
+                                            i++)
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Container(
@@ -84,11 +102,29 @@ class _SeriesScreenState extends State<SeriesScreen>
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
-                                                  child: Image.asset(
-                                                    'assets/article_land.jpg',
+                                                  child: Container(
                                                     height: 100,
                                                     width: 100,
-                                                    fit: BoxFit.fill,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.rectangle,
+                                                      color: Colors.white,
+                                                      image: DecorationImage(
+                                                          image:
+                                                              CachedNetworkImageProvider(
+                                                            ApiEndpoints
+                                                                    .imageMidPoint +
+                                                                "${homeController.featureSeriesModel.seriesMapProto![1].series![i].id}" +
+                                                                ApiEndpoints
+                                                                    .imageLastPoint,
+                                                            headers:
+                                                                ApiEndpoints
+                                                                    .headers,
+                                                          ),
+                                                          fit: BoxFit.fill,
+                                                          filterQuality:
+                                                              FilterQuality
+                                                                  .low),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -104,11 +140,16 @@ class _SeriesScreenState extends State<SeriesScreen>
                               ),
                               RichText(
                                 text: TextSpan(
-                                  text: 'IPL 2022 ',
-                                  style: CLTextStyle.paragraphHeadLineTextStyle,
+                                  text:
+                                      '${homeController.featureSeriesModel.seriesMapProto![1].series![1].name} ',
+                                  style: CLTextStyle.paragraphHeadLineTextStyle
+                                      .copyWith(
+                                    color: Colors.white70,
+                                  ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: '26 Mar to 29 May',
+                                        text:
+                                            '${homeController.featureSeriesModel.seriesMapProto![1].date}',
                                         style: CLTextStyle
                                             .paragraphHeadLineTextStyle
                                             .copyWith(
@@ -130,7 +171,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 40,
                                       ),
                                       Align(
@@ -159,7 +200,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                                         .matchInfo!
                                                         .seriesName!,
                                                     // "The Hundred 2022",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -173,7 +214,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                                         .matchDetailsMap!
                                                         .key!,
                                                     // "032 Aug to 03 Sep 2022",
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -206,53 +247,37 @@ class _SeriesScreenState extends State<SeriesScreen>
                                       ),
                                     ],
                                   )
-                                : CircularProgressIndicator(),
+                                : const CircularProgressIndicator(),
                           ),
                   ),
                 ],
               ),
             )),
-        body: Column(
-          children: [
-            Material(
-              color: AllColor.appDarkBg,
-              child: _tabBar(),
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: <Widget>[
-                  OverViewTab(
-                    seriesId: widget.seriesID!,
-                  ),
-                  MatchesTab(),
-                  SquadsTab(),
-                  SeriesPointsTableTab(),
-                  SeriesInfoTab(
-                      seriesName: homeController
-                          .seriesMatchListModel
-                          .matchDetails!
-                          .first
-                          .matchDetailsMap!
-                          .match!
-                          .first
-                          .matchInfo!
-                          .seriesName!,
-                      duration: homeController.seriesMatchListModel
-                          .matchDetails!.first.matchDetailsMap!.key!,
-                      format: homeController
-                          .seriesMatchListModel
-                          .matchDetails!
-                          .first
-                          .matchDetailsMap!
-                          .match!
-                          .first
-                          .matchInfo!
-                          .matchFormat!)
-                ],
+        body: SafeArea(
+          child: Column(
+            children: [
+              Material(
+                color: AllColor.appDarkBg,
+                child: _tabBar(),
               ),
-            ),
-          ],
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    OverViewTab(
+                      seriesId: widget.seriesID != null
+                          ? widget.seriesID!
+                          : "${homeController.featureSeriesModel.seriesMapProto!.first.series!.first.id!}",
+                    ),
+                    const MatchesTab(),
+                    const SquadsTab(),
+                    const SeriesPointsTableTab(),
+                    const SeriesInfoTab()
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
     });
