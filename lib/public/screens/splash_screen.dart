@@ -59,8 +59,8 @@ class _SplashScreenState extends State<SplashScreen>
                 Container(
                   color: Colors.white,
                   child: Image.asset('assets/dark_logo.png',
-                      width: dSize(.7),
-                      height: dSize(.7),
+                      width: dSize(.4),
+                      height: dSize(.4),
                       fit: BoxFit.cover),
                 ),
                 RichText(
