@@ -27,45 +27,110 @@ class InfoCardTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ListTile(
-              leading: Text("Series",
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  )),
-              title: Text(series!,
-                  style: CLTextStyle.paragraphTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Text("Series",
+                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
+                ),
+                Flexible(
+                  flex: 4,
+                  child: Text(series!,
+                      style: CLTextStyle.paragraphTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
+                ),
+              ],
             ),
             Divider(),
-            ListTile(
-              leading: Text("Duration",
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  )),
-              title: Text(duration!,
-                  style: CLTextStyle.paragraphTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Text("Duration",
+                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
+                ),
+                Flexible(
+                  flex: 4,
+                  child: Text(duration!,
+                      style: CLTextStyle.paragraphTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
+                ),
+              ],
             ),
             Divider(),
-            ListTile(
-              leading: Text("Format",
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  )),
-              trailing: Text(format!,
-                  style: CLTextStyle.paragraphTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Text("Format",
+                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
+                ),
+                Flexible(
+                  flex: 4,
+                  child: Text(format!,
+                      style: CLTextStyle.paragraphTextStyle.copyWith(
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      )),
+                ),
+              ],
             ),
-            Divider(),
+            // ListTile(
+            //   leading: Text("Series",
+            //       style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+            //         fontSize: dSize(.04),
+            //         color: PublicController.pc.toggleTextColor(),
+            //       )),
+            //   trailing: Text(series!,
+            //       style: CLTextStyle.paragraphTextStyle.copyWith(
+            //         fontSize: dSize(.04),
+            //         color: PublicController.pc.toggleTextColor(),
+            //       )),
+            // ),
+            // Divider(),
+            // ListTile(
+            //   leading: Text("Duration",
+            //       style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+            //         fontSize: dSize(.04),
+            //         color: PublicController.pc.toggleTextColor(),
+            //       )),
+            //   trailing: Text(duration!,
+            //       style: CLTextStyle.paragraphTextStyle.copyWith(
+            //         fontSize: dSize(.04),
+            //         color: PublicController.pc.toggleTextColor(),
+            //       )),
+            // ),
+            // Divider(),
+            // ListTile(
+            //   leading: Text("Format",
+            //       style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+            //         fontSize: dSize(.04),
+            //         color: PublicController.pc.toggleTextColor(),
+            //       )),
+            //   trailing: Text(format!,
+            //       style: CLTextStyle.paragraphTextStyle.copyWith(
+            //         fontSize: dSize(.04),
+            //         color: PublicController.pc.toggleTextColor(),
+            //       )),
+            // ),
+            // Divider(),
           ],
         ),
       ),

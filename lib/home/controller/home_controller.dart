@@ -3,6 +3,7 @@ import 'package:cricland/home/model/commentaries_model.dart';
 import 'package:cricland/home/model/feature_series_model.dart';
 import 'package:cricland/home/model/fixtures_match_model.dart';
 import 'package:cricland/home/model/match_info_model.dart';
+import 'package:cricland/home/model/monk/monk_live_model.dart';
 import 'package:cricland/home/model/over_summery_model.dart';
 import 'package:cricland/home/model/point_table_model.dart';
 import 'package:cricland/home/model/recent_match_model.dart';
@@ -21,6 +22,7 @@ import '../model/score_card_model.dart';
 class HomeController extends GetxController {
   // late MatchesModel matchesModel;
   late LiveMatchesModel liveMatchesModel;
+  late MonkLiveModel monkLiveModel;
   late RecentMatchModel recentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
   late FixturesMatchModel fixturesMatchModel;
@@ -42,6 +44,7 @@ class HomeController extends GetxController {
   void onInit() async {
     //Home Data Model
     liveMatchesModel = LiveMatchesModel();
+    monkLiveModel = MonkLiveModel();
     recentMatchModel = RecentMatchModel();
     matcheInfoModel = RecentMatchInfoModel(); //Todo Data Fetching Problem
     commentariesModel =
@@ -62,19 +65,20 @@ class HomeController extends GetxController {
     await getLiveMatches();
     await getUpComingMatches();
     await getRecentMatches();
+
     //get Fixture
     await getFixturesMatches();
-
     //get Series
     await getFeatureSeries();
-    await getPointTable("3718");
+    // await getPointTable("3718");
     // await getCommentaries("38356");
-    await getMatchSquad("3718");
+    //  await getMatchSquad("3718");
     await getPlayerSquad("3718", "15826");
     await getPlayerInfo("6635");
+    await getMatchInfo("38356");
 
-    // await getMatchInfo("38356");
-
+    //Get Monk API
+    await getMonkLiveMatches();
     super.onInit();
   }
 
@@ -104,8 +108,6 @@ class HomeController extends GetxController {
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.matchesInfo + matchId),
         onSuccess: (response) {
-          print("Match Info Response: ${response}");
-
           //TODO
           matcheInfoModel = matchInfoModelFromJson(response);
           //
@@ -185,7 +187,6 @@ class HomeController extends GetxController {
   }
 
   Future<void> getMatchSquad(String seriesID) async {
-    print("Squad URL ${ApiEndpoints.squadsData + "3718/squads"}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance
@@ -205,17 +206,13 @@ class HomeController extends GetxController {
   }
 
   Future<void> getSeriesMatches(String seriesID) async {
-    print("Series URL ${ApiEndpoints.seriesMatchListData + seriesID}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance
             .get(ApiEndpoints.seriesMatchListData + seriesID),
         onSuccess: (response) {
-          print("Series Response: ${response}");
-
           seriesMatchListModel =
               seriesMatchListModelFromJson(jsonEncode(response));
-
           loading(false);
         },
         onError: (error) {
@@ -226,8 +223,6 @@ class HomeController extends GetxController {
   }
 
   Future<void> getPointTable(String seriesID) async {
-    print(
-        "Point URL ${ApiEndpoints.scoreCardData + seriesID + "/points-table"}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance.get(
@@ -248,7 +243,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getScoreCard(String matchID) async {
-    print("Score Card URL ${ApiEndpoints.scoreCardData + matchID}");
+    //  print("Score Card URL ${ApiEndpoints.scoreCardData + matchID}");
     loading(true);
     await ApiService.instance.apiCall(
         execute: () async =>
@@ -324,6 +319,26 @@ class HomeController extends GetxController {
     update();
   }
 
+  Future<void> getMonkLiveMatches() async {
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance
+            .getWithoutHeader(ApiEndpoints.monkLiveMatches),
+        onSuccess: (response) {
+          print(response);
+
+          monkLiveModel = monkLiveModelFromJson(jsonEncode(response));
+          //
+          print("Monk Live Matches:${monkLiveModel.data!.length}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
   Future<void> getLiveMatches() async {
     loading(true);
     await ApiService.instance.apiCall(
@@ -351,8 +366,8 @@ class HomeController extends GetxController {
         execute: () async => await ApiService.instance
             .get(ApiEndpoints.overSummery + matchID + "/overs"),
         onSuccess: (response) {
+          print("Over Summery Model: ${response}");
           overSummeryModel = overSummeryModelFromJson(jsonEncode(response));
-          print("Over Summery Model: ${overSummeryModel.inningsId}");
 
           loading(false);
         },

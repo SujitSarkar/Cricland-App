@@ -268,15 +268,24 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
             child: TabBarView(
               controller: _tabController,
               children: <Widget>[
-                InfoView(),
-                CommentaryView(),
+                InfoView(
+                  matchId: widget.matchID,
+                ),
+                CommentaryView(
+                  matchId: widget.matchID,
+                ),
                 UpcomingLiveView(
                   team1ImageID: widget.team1ImageID,
                   team2ImageID: widget.team2ImageID,
                   selectedIndex: widget.selectedIndex,
                 ),
-                ScoreCardView(),
-                PointTableView(),
+                ScoreCardView(
+                  matchId: widget.matchID,
+                ),
+                PointTableView(
+                  matchId: widget.matchID,
+                  seriesId: widget.seriesID,
+                ),
               ],
             ),
           ),

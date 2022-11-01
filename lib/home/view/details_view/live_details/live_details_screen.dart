@@ -77,6 +77,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
     HomeController homeController = Get.put(HomeController());
     await homeController.getScoreCard("40381/scard");
     await homeController.getSeriesMatches("3641");
+
     setState(() {});
   }
 
@@ -339,15 +340,25 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                 child: TabBarView(
                   controller: _tabController,
                   children: <Widget>[
-                    InfoView(),
-                    CommentaryView(),
+                    InfoView(
+                      matchId: widget.matchID,
+                    ),
+                    CommentaryView(
+                      matchId: widget.matchID,
+                    ),
                     LiveView(
                       team1ImageID: widget.team1ImageID,
                       team2ImageID: widget.team2ImageID,
+                      matchId: widget.matchID,
                       state: widget.state,
                     ),
-                    ScoreCardView(),
-                    PointTableView(),
+                    ScoreCardView(
+                      matchId: widget.matchID,
+                    ),
+                    PointTableView(
+                      matchId: widget.matchID,
+                      seriesId: widget.seriesID,
+                    ),
                   ],
                 ),
               )

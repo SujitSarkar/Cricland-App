@@ -31,48 +31,50 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: homeController.recentMatchModel.typeMatches!
                           .first.seriesMatches!.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return homeController.recentMatchModel.typeMatches![0]
-                                    .seriesMatches![index].seriesAdWrapper ==
+                        var dataPath = homeController.recentMatchModel.typeMatches![0]
+                            .seriesMatches![index].seriesAdWrapper;
+                        return dataPath ==
                                 null
                             ? SizedBox()
                             : SliderCardTile(
                                 title:
-                                    "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.seriesName}",
+                                    "${dataPath.seriesName}",
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) => HomeDetailsScreen(
                                         teamS2Name:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                                            "${dataPath.matches![0].matchInfo!.team2!.teamSName}",
                                         matchID:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                                            "${dataPath.matches![0].matchInfo!.matchId}",
                                         teamS1Name:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                                            "${dataPath.matches![0].matchInfo!.team1!.teamSName}",
                                         matchDesc:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                                            "${dataPath.matches![0].matchInfo!.matchDesc}",
                                         team1RunWicket:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
+                                        dataPath.matches!.first.matchScore==null?"": '${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
                                         winningStatus:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.status}",
+                                            "${dataPath.matches![0].matchInfo!.status}",
                                         team2RunWicket:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
+                                            "${dataPath.matches![0].matchScore!.team2Score!.inngs1!.runs}-${dataPath.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
                                         team1Over:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
+                                            "${dataPath.matches![0].matchScore!.team1Score!.inngs1!.overs}",
                                         team2Over:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
+                                            "${dataPath.matches![0].matchScore!.team2Score!.inngs1!.overs}",
                                         team1ImageID:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                                            "${dataPath.matches![0].matchInfo!.team1!.imageId}",
                                         team2ImageID:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                                            "${dataPath.matches![0].matchInfo!.team2!.imageId}",
                                         seriesID:
-                                            "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.seriesId}",
+                                            "${dataPath.seriesId}",
                                       ),
                                     ),
                                   );
@@ -80,24 +82,24 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                 onStaticTap: () {},
                                 //TODO runs and overs problem
                                 leftCountryName:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
+                                    '${dataPath.matches!.first.matchInfo!.team1!.teamSName}',
                                 leftCountryOvers:
-                                    "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
+                                dataPath.matches!.first.matchScore==null?"":  "${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
                                 leftCountryRuns:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
+                                dataPath.matches!.first.matchScore==null?"": '${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
                                 leftCountryURL:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
+                                    '${dataPath.matches!.first.matchInfo!.team1!.imageId}',
                                 trailingWidget: 'Upcoming',
                                 rightCountryName:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
+                                    '${dataPath.matches!.first.matchInfo!.team2!.teamSName}',
                                 rightCountryOvers:
-                                    "${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
+                                dataPath.matches!.first.matchScore==null?"":  "${dataPath.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
                                 rightCountryRuns:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${homeController.recentMatchModel.typeMatches![0].seriesMatches![0].seriesAdWrapper!.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
+                                dataPath.matches!.first.matchScore==null?"":  '${dataPath.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${dataPath.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
                                 rightCountryURL:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
+                                    '${dataPath.matches!.first.matchInfo!.team2!.imageId}',
                                 wonStatus:
-                                    '${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.status}',
+                                    '${dataPath.matches!.first.matchInfo!.status}',
                               );
                         //LiveCart(context);
                       },
@@ -138,7 +140,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                 onTap: () {
                                   Get.to(
                                     SeriesScreen(
-                                      seriesID: "3641",
+                                      seriesID: "4492",
+                                      // matchId: "${homeController.featureSeriesModel.seriesMapProto![index].series.first.}",
                                     ),
                                   );
                                 },

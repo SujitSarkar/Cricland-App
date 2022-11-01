@@ -132,182 +132,198 @@ class PointTableTile extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ListView.builder(
-                itemCount: homeController
-                    .pointTableModel.pointsTable!.first.pointsTableInfo!.length,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Divider(),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            homeController.pointTableModel.pointsTable != null
+                ? ListView.builder(
+                    itemCount: homeController.pointTableModel.pointsTable!.first
+                        .pointsTableInfo!.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
                         children: [
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 25,
-                                  width: 25,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: CachedNetworkImageProvider(
-                                          ApiEndpoints.imageMidPoint +
-                                              "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].teamImageId!}" +
-                                              ApiEndpoints.imageLastPoint,
-                                          headers: ApiEndpoints.headers,
-                                        ),
-                                        fit: BoxFit.fill),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].teamName!.name}",
-                                  style:
-                                      CLTextStyle.paragraphTextStyle.copyWith(
-                                    fontSize: dSize(.03),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          Divider(),
+                          SizedBox(
+                            height: 5,
                           ),
-                          Expanded(
-                            flex: 3,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesPlayed!}",
-                                  style:
-                                      CLTextStyle.paragraphTextStyle.copyWith(
-                                    fontSize: dSize(.03),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                )),
-                                Expanded(
-                                  child: Text(
-                                    homeController
-                                                .pointTableModel
-                                                .pointsTable!
-                                                .first
-                                                .pointsTableInfo![index]
-                                                .matchesWon !=
-                                            null
-                                        ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
-                                        : "0",
-                                    style:
-                                        CLTextStyle.paragraphTextStyle.copyWith(
-                                      fontSize: dSize(.03),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 25,
+                                      width: 25,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                              ApiEndpoints.imageMidPoint +
+                                                  "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].teamImageId!}" +
+                                                  ApiEndpoints.imageLastPoint,
+                                              headers: ApiEndpoints.headers,
+                                            ),
+                                            fit: BoxFit.fill),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Text(
-                                  homeController
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      homeController
+                                                  .pointTableModel
+                                                  .pointsTable!
+                                                  .first
+                                                  .pointsTableInfo![index]
+                                                  .teamName !=
+                                              null
+                                          ? homeController
                                               .pointTableModel
                                               .pointsTable!
                                               .first
                                               .pointsTableInfo![index]
-                                              .matchesDrawn !=
-                                          null
-                                      ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
-                                      : "0",
-                                  style:
-                                      CLTextStyle.paragraphTextStyle.copyWith(
-                                    fontSize: dSize(.03),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                )),
-                                Expanded(
-                                  child: Text(
-                                    homeController
+                                              .teamName!
+                                              .name
+                                          : "NA",
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
+                                        fontSize: dSize(.03),
+                                        color: PublicController.pc
+                                            .toggleTextColor(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                      "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesPlayed!}",
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
+                                        fontSize: dSize(.03),
+                                        color: PublicController.pc
+                                            .toggleTextColor(),
+                                      ),
+                                    )),
+                                    Expanded(
+                                      child: Text(
+                                        homeController
+                                                    .pointTableModel
+                                                    .pointsTable!
+                                                    .first
+                                                    .pointsTableInfo![index]
+                                                    .matchesWon !=
+                                                null
+                                            ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
+                                            : "0",
+                                        style: CLTextStyle.paragraphTextStyle
+                                            .copyWith(
+                                          fontSize: dSize(.03),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                      homeController
+                                                  .pointTableModel
+                                                  .pointsTable!
+                                                  .first
+                                                  .pointsTableInfo![index]
+                                                  .matchesDrawn !=
+                                              null
+                                          ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
+                                          : "0",
+                                      style: CLTextStyle.paragraphTextStyle
+                                          .copyWith(
+                                        fontSize: dSize(.03),
+                                        color: PublicController.pc
+                                            .toggleTextColor(),
+                                      ),
+                                    )),
+                                    Expanded(
+                                      child: Text(
+                                        homeController
+                                                    .pointTableModel
+                                                    .pointsTable!
+                                                    .first
+                                                    .pointsTableInfo![index]
+                                                    .noRes !=
+                                                null
+                                            ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].noRes!}"
+                                            : "0",
+                                        style: CLTextStyle.paragraphTextStyle
+                                            .copyWith(
+                                          fontSize: dSize(.03),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        homeController
+                                                    .pointTableModel
+                                                    .pointsTable!
+                                                    .first
+                                                    .pointsTableInfo![index]
+                                                    .noRes !=
+                                                null
+                                            ? homeController
                                                 .pointTableModel
                                                 .pointsTable!
                                                 .first
                                                 .pointsTableInfo![index]
-                                                .noRes !=
-                                            null
-                                        ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].noRes!}"
-                                        : "0",
-                                    style:
-                                        CLTextStyle.paragraphTextStyle.copyWith(
-                                      fontSize: dSize(.03),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
+                                                .nrr!
+                                            : "0",
+                                        style: CLTextStyle.paragraphTextStyle
+                                            .copyWith(
+                                          fontSize: dSize(.03),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    homeController
-                                                .pointTableModel
-                                                .pointsTable!
-                                                .first
-                                                .pointsTableInfo![index]
-                                                .noRes !=
-                                            null
-                                        ? homeController
-                                            .pointTableModel
-                                            .pointsTable!
-                                            .first
-                                            .pointsTableInfo![index]
-                                            .nrr!
-                                        : "0",
-                                    style:
-                                        CLTextStyle.paragraphTextStyle.copyWith(
-                                      fontSize: dSize(.03),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
+                                    SizedBox(
+                                      width: 10,
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    homeController
-                                                .pointTableModel
-                                                .pointsTable!
-                                                .first
-                                                .pointsTableInfo![index]
-                                                .points !=
-                                            null
-                                        ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].points!}"
-                                        : "0",
-                                    style:
-                                        CLTextStyle.paragraphTextStyle.copyWith(
-                                      fontSize: dSize(.03),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
+                                    Expanded(
+                                      child: Text(
+                                        homeController
+                                                    .pointTableModel
+                                                    .pointsTable!
+                                                    .first
+                                                    .pointsTableInfo![index]
+                                                    .points !=
+                                                null
+                                            ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].points!}"
+                                            : "0",
+                                        style: CLTextStyle.paragraphTextStyle
+                                            .copyWith(
+                                          fontSize: dSize(.03),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                         ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  );
-                }),
+                      );
+                    })
+                : const CircularProgressIndicator(),
           ],
         ),
       );

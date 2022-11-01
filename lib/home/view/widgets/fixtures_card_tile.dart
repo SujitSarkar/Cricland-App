@@ -218,12 +218,15 @@ class FixturesCardTile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            desc!,
-                            textAlign: TextAlign.center,
-                            style: CLTextStyle.paragraphTextStyle.copyWith(
-                                fontSize: dSize(.04),
-                                color: PublicController.pc.toggleTextColor()),
+                          SizedBox(
+                            width: 150,
+                            child: Text(
+                              desc!,
+                              textAlign: TextAlign.center,
+                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  fontSize: dSize(.04),
+                                  color: PublicController.pc.toggleTextColor()),
+                            ),
                           ),
                           SizedBox(
                             height: 5,

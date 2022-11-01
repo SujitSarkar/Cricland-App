@@ -6,7 +6,6 @@ import 'package:cricland/home/view/details_view/home_details/home_tab_page.dart'
 import 'package:cricland/home/view/details_view/live_details/live_tab_page.dart';
 import 'package:cricland/home/view/details_view/upcoming_details/upcomming_tab_page.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
@@ -41,146 +40,139 @@ class _HomePageState extends State<HomePage>
         autoRemove: true,
         builder: (homeController) {
           return Scaffold(
-            appBar: AppBar(
-              title: Row(
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    scale: 14,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 2),
-                    child: Text("CrickLand",
-                        style: CLTextStyle.nameTextStyle.copyWith(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        )),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        border:
-                            Border.all(width: 1, color: AllColor.hintColor)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 2),
-                      child: Text(
-                        "Premium",
-                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
-                          fontSize: dSize(.04),
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                        // style: TextStyle(
+            body: NestedScrollView(
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                    SliverAppBar(
+                      elevation: 0,
+                    title:innerBoxIsScrolled? const SizedBox():  Row(
+                      children: [
+                        Image.asset(
+                          'assets/main_logo.png',
 
-                        // ),
-                      ),
+                          width: 40,
+                          height: 40,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 2),
+                          child: Text("CrickLand",
+                              style: CLTextStyle.nameTextStyle.copyWith(
+                                fontSize: dSize(.05),
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              )),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+
+                      ],
                     ),
+                    actions: [
+                      innerBoxIsScrolled? const SizedBox():    const Icon(
+                        Icons.search_outlined,
+                      ),
+
+                      innerBoxIsScrolled? const SizedBox():    const SizedBox(
+                        width: 15,
+                      ),
+                    ],
+                    pinned: true,
+                    floating: true,
+                    forceElevated: innerBoxIsScrolled,
+                    bottom: _tabBar(homeController),
+
                   ),
+                ];
+
+              },
+              body:TabBarView(
+                controller: _tabController,
+                children: const [
+                  LiveTabScreen(),
+                  HomeTabScreen(),
+                  UpComingTabScreen(),
+                  FinishedTabScreen(),
+                  FixturesTabScreen(),
                 ],
               ),
-              actions: const [
-                Icon(
-                  Icons.search_outlined,
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Icon(
-                  Icons.person,
-                  size: 30,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-              ],
-              bottom: _tabBar(homeController),
-            ),
-            body: TabBarView(
-              controller: _tabController,
-              children: const [
-                LiveTabScreen(),
-                HomeTabScreen(),
-                UpComingTabScreen(),
-                FinishedTabScreen(),
-                FixturesTabScreen(),
-              ],
             ),
           );
         });
   }
 
   PreferredSize _tabBar(HomeController homeController) => PreferredSize(
-        preferredSize: Size.fromHeight(dSize(.04)),
-        child: TabBar(
-            onTap: (covariant) async {
-              setState(() => _tabController.index = covariant);
-            },
-            isScrollable: true,
-            controller: _tabController,
-            labelColor: PublicController.pc.toggleLoadingColor(),
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  dSize(.02),
-                ),
-                topRight: Radius.circular(
-                  dSize(.02),
-                ),
-              ),
-              color: PublicController.pc.toggleTabColor(),
-            ),
-            unselectedLabelColor: Colors.grey,
-            unselectedLabelStyle: CLTextStyle.optionTextStyle,
-            labelStyle: CLTextStyle.optionTextStyle,
-            indicatorSize: TabBarIndicatorSize.label,
-            physics: const BouncingScrollPhysics(),
-            tabs: [
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: dSize(.01),
-                    horizontal: dSize(.02),
+        preferredSize: Size.fromHeight(dSize(.09)),
+        child: Column(
+
+          children: [
+
+            TabBar(
+                onTap: (covariant) async {
+                  setState(() => _tabController.index = covariant);
+                },
+                isScrollable: true,
+                controller: _tabController,
+                labelColor: PublicController.pc.toggleLoadingColor(),
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      dSize(.02),
+                    ),
+                    topRight: Radius.circular(
+                      dSize(.02),
+                    ),
                   ),
-                  child: Text(
-                    'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
-                  )),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
+                  color: PublicController.pc.toggleTabColor(),
                 ),
-                child: const Text('Home'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: const Text('Upcoming'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: const Text('Finished'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dSize(.01),
-                  horizontal: dSize(.02),
-                ),
-                child: const Text('Fixtures'),
-              ),
-            ]),
+                unselectedLabelColor: Colors.grey,
+                unselectedLabelStyle: CLTextStyle.optionTextStyle,
+                labelStyle: CLTextStyle.optionTextStyle,
+                indicatorSize: TabBarIndicatorSize.label,
+                physics: const BouncingScrollPhysics(),
+                tabs: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: dSize(.01),
+                        horizontal: dSize(.02),
+                      ),
+                      child: Text(
+                        'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
+                      )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Home'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Upcoming'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Finished'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dSize(.01),
+                      horizontal: dSize(.02),
+                    ),
+                    child: const Text('Fixtures'),
+                  ),
+                ]),
+          ],
+        ),
       );
 }

@@ -1,12 +1,19 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/widgets/point_table_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/config.dart';
+import '../../../controller/home_controller.dart';
 
 class PointTableView extends StatefulWidget {
-  const PointTableView({Key? key}) : super(key: key);
+  final String seriesId;
+  final String matchId;
+  const PointTableView(
+      {Key? key, required this.seriesId, required this.matchId})
+      : super(key: key);
 
   @override
   _PointTableViewState createState() => _PointTableViewState();
@@ -29,6 +36,20 @@ class _PointTableViewState extends State<PointTableView> {
         textValue = 'Switch Button is OFF';
       });
       print('Switch Button is OFF');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  fetchData() async {
+    HomeController homeController = Get.put(HomeController());
+    await homeController.getPointTable('3718');
+    if (mounted) {
+      setState(() {});
     }
   }
 
