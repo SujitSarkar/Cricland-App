@@ -1,10 +1,16 @@
+import 'package:cricland/more/controller/ranking_controller.dart';
+import 'package:cricland/more/model/ranking_model.dart';
+import 'package:cricland/more/tile/ranking_tile.dart';
+import 'package:cricland/more/tile/team_ranking_tile.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
+import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/variables/style.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../public/variables/colors.dart';
-import '../../../public/variables/config.dart';
 
 class ICCManRankingPage extends StatefulWidget {
   const ICCManRankingPage({Key? key}) : super(key: key);
@@ -15,45 +21,65 @@ class ICCManRankingPage extends StatefulWidget {
 
 class _ICCManRankingPageState extends State<ICCManRankingPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  String _gameType = Variables.manGameType.first;
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    initializeData();
   }
 
-  final TextStyle _titleStyle = TextStyle(
-      fontSize: dSize(.038), color: PublicController.pc.toggleTextColor());
+  Future<void> initializeData() async {
+    RankingController rankingController = Get.find();
+    rankingController.manPlayerTypeTabController =
+        TabController(length: 4, vsync: this);
+
+    ///Add listener to tabcontroller
+    rankingController.manPlayerTypeTabController.addListener(() async {
+      if (rankingController.manPlayerTypeTabController.index !=
+          rankingController.manPlayerTypeTabController.previousIndex) {
+        await rankingController.getManRankingList();
+      }
+    });
+    await rankingController.initData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-            body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: SliverAppBar(
-                  title: Text('ICC Men\'s Rankings',
-                      style: TextStyle(fontSize: dSize(.045))),
-                  titleSpacing: -8.0,
-                  floating: true,
-                  pinned: true,
-                  snap: false,
-                  forceElevated: innerBoxIsScrolled,
-                  bottom: _tabBar(),
-                ),
-              ),
-            ];
-          },
-          body: _bodyUI(),
-        )));
+    return GetBuilder<RankingController>(
+        init: RankingController(),
+        builder: (rankingController) {
+          return Obx(() => Stack(
+                children: [
+                  Scaffold(
+                      body: NestedScrollView(
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
+                      return [
+                        SliverOverlapAbsorber(
+                          handle:
+                              NestedScrollView.sliverOverlapAbsorberHandleFor(
+                                  context),
+                          sliver: SliverAppBar(
+                            title: Text('ICC Men\'s Rankings',
+                                style: TextStyle(fontSize: dSize(.045))),
+                            titleSpacing: -8.0,
+                            floating: true,
+                            pinned: true,
+                            snap: false,
+                            forceElevated: innerBoxIsScrolled,
+                            bottom: _tabBar(rankingController),
+                          ),
+                        ),
+                      ];
+                    },
+                    body: _bodyUI(rankingController),
+                  )),
+                  if (rankingController.bodyLoading.value) const LoadingWidget()
+                ],
+              ));
+        });
   }
 
-  Widget _bodyUI() => Column(
+  Widget _bodyUI(RankingController rankingController) => Column(
         children: [
           SizedBox(height: dSize(.19)),
 
@@ -64,7 +90,10 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
               children: Variables.manGameType
                   .map((item) => Expanded(
                           child: InkWell(
-                        onTap: () => setState(() => _gameType = item),
+                        onTap: () async {
+                          rankingController.selectedManGameType.value = item;
+                          await rankingController.getManRankingList();
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.only(
@@ -74,13 +103,17 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                                   : 0.0),
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: item == _gameType
+                                  color: item ==
+                                          rankingController
+                                              .selectedManGameType!.value
                                       ? AllColor.primaryColor
                                       : PublicController.pc.isLight.value
                                           ? Colors.grey
                                           : PublicController.pc.toggleCardBg(),
                                   width: 0.5),
-                              color: item == _gameType
+                              color: item ==
+                                      rankingController
+                                          .selectedManGameType!.value
                                   ? AllColor.primaryColor
                                   : PublicController.pc.toggleCardBg(),
                               borderRadius: BorderRadius.all(
@@ -93,7 +126,9 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                             style: TextStyle(
                                 fontSize: dSize(.035),
                                 fontWeight: FontWeight.w500,
-                                color: item == _gameType
+                                color: item ==
+                                        rankingController
+                                            .selectedManGameType!.value
                                     ? Colors.white
                                     : PublicController.pc.toggleTextColor()),
                           ),
@@ -107,20 +142,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _teamData(),
-                _individualData(),
-                _individualData(),
-                _individualData()
-              ],
-            ),
+            child: rankingController.manPlayerTypeTabController.index == 3
+                ? _teamData(rankingController)
+                : _individualData(rankingController),
           ))
         ],
       );
 
-  Widget _teamData() => Column(
+  Widget _teamData(RankingController rankingController) => Column(
         children: [
           Row(
             children: [
@@ -131,14 +160,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                     Expanded(
                         flex: 1,
                         child: Text('Rank',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text('Team',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                   ],
                 ),
@@ -149,18 +178,18 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                   children: [
                     Expanded(
                         child: Text('Matches',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text('Points',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text('Ratings',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                   ],
                 ),
@@ -171,64 +200,16 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
             child: ListView.separated(
               padding: EdgeInsets.only(top: dSize(.04)),
               physics: const BouncingScrollPhysics(),
-              itemCount: 30,
-              itemBuilder: (context, index) => Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Text('${index + 1}',
-                                style: _titleStyle,
-                                textAlign: TextAlign.start)),
-                        Expanded(
-                            flex: 3,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset('assets/bd_logo.png',
-                                    height: dSize(.06), width: dSize(.06)),
-                                SizedBox(width: dSize(.02)),
-                                Expanded(
-                                    child: Text('Bangladesh',
-                                        style: _titleStyle,
-                                        textAlign: TextAlign.start)),
-                              ],
-                            )),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                            child: Text('200',
-                                style: _titleStyle,
-                                textAlign: TextAlign.center)),
-                        Expanded(
-                            child: Text('654',
-                                style: _titleStyle,
-                                textAlign: TextAlign.center)),
-                        Expanded(
-                          child: Text('4.8',
-                              style: _titleStyle, textAlign: TextAlign.center),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              itemCount: rankingController.manTeamRankingList.length,
+              itemBuilder: (context, index) => TeamRankingTile(
+                  model: rankingController.manTeamRankingList[index]),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )
         ],
       );
 
-  Widget _individualData() => Column(
+  Widget _individualData(RankingController rankingController) => Column(
         children: [
           Row(
             children: [
@@ -240,14 +221,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                     Expanded(
                         flex: 1,
                         child: Text('Rank',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text('Player',
-                            style: _titleStyle.copyWith(
-                                fontWeight: FontWeight.w500),
+                            style: Style.titleStyle
+                                .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                   ],
                 ),
@@ -255,7 +236,8 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
               Expanded(
                   flex: 1,
                   child: Text('Ratings',
-                      style: _titleStyle.copyWith(fontWeight: FontWeight.w500),
+                      style: Style.titleStyle
+                          .copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center)),
             ],
           ),
@@ -263,74 +245,23 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
             child: ListView.separated(
               padding: EdgeInsets.only(top: dSize(.04)),
               physics: const BouncingScrollPhysics(),
-              itemCount: 30,
-              itemBuilder: (context, index) => Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Text('${index + 1}',
-                                style: _titleStyle.copyWith(
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.start)),
-                        Expanded(
-                            flex: 3,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Image.asset('assets/bd_logo.png',
-                                    height: dSize(.1), width: dSize(.1)),
-                                SizedBox(width: dSize(.02)),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                        onTap: () {
-                                          Get.to(() => PlayerDetailsPage(
-                                                playerId: "6635",
-                                              ));
-                                        },
-                                        child: Text('Sakib Al Hasan',
-                                            style: _titleStyle,
-                                            textAlign: TextAlign.start)),
-                                    Text('Bangladesh',
-                                        style: _titleStyle.copyWith(
-                                            fontSize: dSize(.032)),
-                                        textAlign: TextAlign.start),
-                                  ],
-                                ),
-                              ],
-                            )),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Text('476',
-                          style:
-                              _titleStyle.copyWith(fontWeight: FontWeight.w500),
-                          textAlign: TextAlign.center)),
-                ],
-              ),
+              itemCount: rankingController.manRankingList.length,
+              itemBuilder: (context, index) =>
+                  RankingTile(model: rankingController.manRankingList[index]),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )
         ],
       );
 
-  PreferredSize _tabBar() => PreferredSize(
+  PreferredSize _tabBar(RankingController rankingController) => PreferredSize(
         preferredSize: Size.fromHeight(dSize(.1)),
         child: TabBar(
           onTap: (covariant) async {
-            setState(() => _tabController.index = covariant);
+            rankingController.manPlayerTypeTabController.index = covariant;
           },
           isScrollable: true,
-          controller: _tabController,
+          controller: rankingController.manPlayerTypeTabController,
           labelColor: PublicController.pc.toggleLoadingColor(),
           indicator: BoxDecoration(
               borderRadius: BorderRadius.only(

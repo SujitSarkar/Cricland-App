@@ -11,12 +11,9 @@ class Variables {
   // };
 
   static const List<String> manCategoryList = [
-    'Team',
-    'Batter',
-    'Bowler',
-    'All Rounder'
+    'Batsmen', 'Bowlers', 'Allrounders', 'Teams'
   ];
-  static const List<String> manGameType = ['ODI', 'T20', 'Test'];
+  static const List<String> manGameType = ['Test', 'ODI', 'T20'];
   static const List<String> manGameType2 = [
     'All',
     'ODI',
