@@ -35,7 +35,8 @@ class RankingTile extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(dSize(0.05)),
                         child: CachedNetworkImage(
-                            imageUrl: ApiEndpoint.imageUrl(model.faceImageId!),
+                            imageUrl:
+                                ApiEndpoint.imageUrl(model.faceImageId ?? ''),
                             httpHeaders: ApiEndpoint.header,
                             fit: BoxFit.fitWidth,
                             height: dSize(.1),

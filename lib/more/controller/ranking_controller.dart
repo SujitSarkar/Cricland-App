@@ -19,7 +19,7 @@ class RankingController extends GetxController {
   RxList<TeamRankingModel> manTeamRankingList = <TeamRankingModel>[].obs;
 
   RxList<RankingModel> womenRankingList = <RankingModel>[].obs;
-  RxList<TeamRankingModel> womwnTeamRankingList = <TeamRankingModel>[].obs;
+  RxList<TeamRankingModel> womenTeamRankingList = <TeamRankingModel>[].obs;
 
   @override
   void onInit() async {
@@ -27,7 +27,7 @@ class RankingController extends GetxController {
   }
 
   Future<void> initData() async {
-    await getManRankingList();
+    // await getManRankingList();
   }
 
   Future<void> getManRankingList() async {
@@ -50,8 +50,50 @@ class RankingController extends GetxController {
             manRankingList.value =
                 rankingModelFromJson(jsonEncode(jsonData['rank']));
           }
+        } else if (response.statusCode == 204) {
+          manTeamRankingList.clear();
+          manRankingList.clear();
+          showToast('No data found');
         } else {
           showToast('Man\'s ranking data fetching error');
+        }
+        bodyLoading(false);
+      } catch (error) {
+        bodyLoading(false);
+        print(error.toString());
+        showToast(error.toString());
+      }
+    } else {
+      // showToast('Another process running');
+    }
+  }
+
+  Future<void> getWomenRankingList() async {
+    if (!bodyLoading.value) {
+      bodyLoading(true);
+      try {
+        final url =
+            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}/${Variables.manCategoryList[womenPlayerTypeTabController.index].toLowerCase()}?isWomen=1&formatType=${selectedWomenGameType.value.toLowerCase()}';
+        http.Response response =
+            await http.get(Uri.parse(url), headers: ApiEndpoint.header);
+        print(url);
+        print(response.statusCode);
+        // print(response.body);
+        if (response.statusCode == 200) {
+          var jsonData = jsonDecode(response.body);
+          if (womenPlayerTypeTabController.index == 3) {
+            womenTeamRankingList.value =
+                teamRankingModelFromJson(jsonEncode(jsonData['rank']));
+          } else {
+            womenRankingList.value =
+                rankingModelFromJson(jsonEncode(jsonData['rank']));
+          }
+        } else if (response.statusCode == 204) {
+          womenTeamRankingList.clear();
+          womenRankingList.clear();
+          showToast('No data found');
+        } else {
+          showToast('Women\'s ranking data fetching error');
         }
         bodyLoading(false);
       } catch (error) {

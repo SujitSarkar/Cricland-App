@@ -1,10 +1,12 @@
 import 'package:cricland/more/controller/more_controller.dart';
 import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
+import 'package:cricland/more/view/icc_women_ranking/icc_women_ranking_page.dart';
 import 'package:cricland/more/view/premium_page.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/more/view/widgets/toogle_btn.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,7 +15,6 @@ import 'package:launch_review/launch_review.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../public/variables/colors.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _MorePageState extends State<MorePage> {
                       leadingIcon: FontAwesomeIcons.userLarge,
                       title: 'ICC Women\'s Ranking',
                       onTap: () {
-                        Get.to(() => const ICCManRankingPage());
+                        Get.to(() => const ICCWomenRankingPage());
                       })
                 ],
               ),

@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
           theme: pc.toggleTheme(),
-          home: SplashScreen());
+          home: const SplashScreen());
     });
   }
 }
