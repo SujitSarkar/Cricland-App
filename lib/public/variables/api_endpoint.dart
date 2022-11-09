@@ -7,7 +7,8 @@ class ApiEndpoint {
   static const String baseUrl = 'https://cricbuzz-cricket.p.rapidapi.com/';
   static const String version = 'v1';
 
-  static const String rankings = 'stats/$version/rankings';
+  static const String rankings = 'stats/$version/rankings/';
+  static const String playerInfo = 'stats/$version/player/';
 
   static String imageUrl(String imageId, {String? p = 'gthumb'}) =>
       '${ApiEndpoint.baseUrl}img/v1/i1/c$imageId/i.jpg?p=$p&d=low';

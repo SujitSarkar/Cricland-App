@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/model/ranking_model.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
@@ -41,6 +42,10 @@ class RankingTile extends StatelessWidget {
                             fit: BoxFit.fitWidth,
                             height: dSize(.1),
                             width: dSize(.1),
+                             errorWidget: (context, url, error) => Icon(
+                                      Icons.error,
+                                      size: dSize(.01),
+                                      color: Colors.grey),
                             placeholder: (context, url) => Icon(Icons.image,
                                 size: dSize(.01), color: Colors.grey)),
                       ),
@@ -50,9 +55,8 @@ class RankingTile extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () {
-                                Get.to(() => const PlayerDetailsPage(
-                                      playerId: "6635",
-                                    ));
+                                RankingController.instance
+                                    .manPlayerOnTap(model.id!);
                               },
                               child: Text('${model.name}',
                                   style: Style.titleStyle,

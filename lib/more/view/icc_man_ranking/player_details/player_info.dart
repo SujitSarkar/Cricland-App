@@ -1,11 +1,10 @@
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/more/controller/ranking_controller.dart';
+import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import '../../../../home/controller/home_controller.dart';
-import '../../../../public/controller/public_controller.dart';
-import '../../../../public/variables/config.dart';
-import '../../../../public/variables/variable.dart';
+import 'package:get/get.dart';
 
 class PlayerInfo extends StatelessWidget {
   PlayerInfo({Key? key}) : super(key: key);
@@ -17,89 +16,96 @@ class PlayerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (homeController) {
-      return ListView(
-        padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
-        children: [
-          SizedBox(height: dSize(.45)),
-          Container(
-            padding: EdgeInsets.all(dSize(.04)),
-            decoration: BoxDecoration(
-                color: PublicController.pc.toggleCardBg(),
-                borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Column(
-              children: [
-                _aboutBuilder(
-                    'Role:', '${homeController.playerInfoModel.role}'),
-                Divider(height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                _aboutBuilder('Bats:', '${homeController.playerInfoModel.bat}'),
-                Divider(height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                _aboutBuilder(
-                    'Bowl:',
-                    homeController.playerInfoModel.bowl != null
-                        ? '${homeController.playerInfoModel.bowl}'
-                        : "N/A"),
-              ],
-            ),
-          ),
-          SizedBox(height: dSize(.1)),
-          Text('About "${homeController.playerInfoModel.name}"',
-              style: _textStyle.copyWith(
-                  fontSize: dSize(.04), fontWeight: FontWeight.bold)),
-          SizedBox(height: dSize(.02)),
-          Container(
-            padding: EdgeInsets.all(dSize(.04)),
-            decoration: BoxDecoration(
-                color: PublicController.pc.toggleCardBg(),
-                borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Column(
-              children: [
-                _aboutBuilder('Name', '${homeController.playerInfoModel.name}'),
-                Divider(height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                _aboutBuilder(
-                    'Birth', '${homeController.playerInfoModel.doBFormat}'),
-                Divider(height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                _aboutBuilder('Birth Place',
-                    '${homeController.playerInfoModel.birthPlace}'),
-                Divider(height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                _aboutBuilder(
-                    'Height',
-                    homeController.playerInfoModel.height != null
-                        ? '${homeController.playerInfoModel.height}'
-                        : "N/A"),
-                Divider(height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                _aboutBuilder('Nationality',
-                    '${homeController.playerInfoModel.intlTeam}'),
-              ],
-            ),
-          ),
-          SizedBox(height: dSize(.1)),
-          Container(
-            padding: EdgeInsets.all(dSize(.02)),
-            decoration: BoxDecoration(
-                color: PublicController.pc.toggleCardBg(),
-                borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Text(
-              Variables.aboutSakib,
-              textAlign: TextAlign.justify,
-              style: CLTextStyle.paragraphTextStyle.copyWith(
-                fontSize: dSize(.03),
-                color: PublicController.pc.toggleTextColor(),
-              ),
-            ),
-          ),
-          SizedBox(height: dSize(.1)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+    final RankingController rankingController = Get.find();
+    return rankingController.playerInfoModel.value.name != null
+        ? ListView(
+            padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
             children: [
-              _socialRowBuilder(FontAwesomeIcons.instagram, 'sakibalhasan'),
-              _socialRowBuilder(FontAwesomeIcons.twitter, 'sakibsakib'),
+              SizedBox(height: dSize(.45)),
+              Container(
+                padding: EdgeInsets.all(dSize(.04)),
+                decoration: BoxDecoration(
+                    color: PublicController.pc.toggleCardBg(),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(dSize(.02)))),
+                child: Column(
+                  children: [
+                    _aboutBuilder('Role:',
+                        '${rankingController.playerInfoModel.value.role}'),
+                    Divider(
+                        height: dSize(.1), thickness: 0.2, color: Colors.grey),
+                    _aboutBuilder('Bats:',
+                        '${rankingController.playerInfoModel.value.bat}'),
+                    Divider(
+                        height: dSize(.1), thickness: 0.2, color: Colors.grey),
+                    _aboutBuilder(
+                        'Bowl:',
+                        rankingController.playerInfoModel.value.bowl != null
+                            ? '${rankingController.playerInfoModel.value.bowl}'
+                            : "N/A"),
+                  ],
+                ),
+              ),
+              SizedBox(height: dSize(.1)),
+              Text('About "${rankingController.playerInfoModel.value.name}"',
+                  style: _textStyle.copyWith(
+                      fontSize: dSize(.04), fontWeight: FontWeight.bold)),
+              SizedBox(height: dSize(.02)),
+              Container(
+                padding: EdgeInsets.all(dSize(.04)),
+                decoration: BoxDecoration(
+                    color: PublicController.pc.toggleCardBg(),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(dSize(.02)))),
+                child: Column(
+                  children: [
+                    _aboutBuilder('Name',
+                        '${rankingController.playerInfoModel.value.name}'),
+                    Divider(
+                        height: dSize(.1), thickness: 0.2, color: Colors.grey),
+                    _aboutBuilder('Birth',
+                        '${rankingController.playerInfoModel.value.doBFormat}'),
+                    Divider(
+                        height: dSize(.1), thickness: 0.2, color: Colors.grey),
+                    _aboutBuilder('Birth Place',
+                        '${rankingController.playerInfoModel.value.birthPlace}'),
+                    Divider(
+                        height: dSize(.1), thickness: 0.2, color: Colors.grey),
+                    _aboutBuilder(
+                        'Height',
+                        rankingController.playerInfoModel.value.height != null
+                            ? '${rankingController.playerInfoModel.value.height}'
+                            : "N/A"),
+                    Divider(
+                        height: dSize(.1), thickness: 0.2, color: Colors.grey),
+                    _aboutBuilder('Nationality',
+                        '${rankingController.playerInfoModel.value.intlTeam}'),
+                  ],
+                ),
+              ),
+              SizedBox(height: dSize(.1)),
+              Container(
+                padding: EdgeInsets.all(dSize(.02)),
+                decoration: BoxDecoration(
+                    color: PublicController.pc.toggleCardBg(),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(dSize(.02)))),
+                child: Text(
+                  rankingController.playerInfoModel.value.bio ?? '',
+                  textAlign: TextAlign.justify,
+                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                    fontSize: dSize(.03),
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
+                ),
+              ),
+              SizedBox(height: dSize(.1)),
+              _socialRowBuilder(FontAwesomeIcons.earthAsia,
+                  '${rankingController.playerInfoModel.value.name}'),
+              SizedBox(height: dSize(.1)),
             ],
-          ),
-          SizedBox(height: dSize(.1)),
-        ],
-      );
-    });
+          )
+        : const SizedBox.shrink();
   }
 
   Widget _aboutBuilder(String key, String value) => Row(

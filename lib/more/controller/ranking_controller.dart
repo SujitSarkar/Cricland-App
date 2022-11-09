@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:cricland/home/model/player_info_model.dart';
 import 'package:cricland/more/model/ranking_model.dart';
 import 'package:cricland/more/model/team_ranking_model.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class RankingController extends GetxController {
+  static final RankingController instance = Get.find();
   RxBool bodyLoading = false.obs;
   late TabController manPlayerTypeTabController;
   late TabController womenPlayerTypeTabController;
@@ -20,6 +23,10 @@ class RankingController extends GetxController {
 
   RxList<RankingModel> womenRankingList = <RankingModel>[].obs;
   RxList<TeamRankingModel> womenTeamRankingList = <TeamRankingModel>[].obs;
+
+  Rx<PlayerInfoModel> playerInfoModel = PlayerInfoModel().obs;
+  String selectedPlayerId = '';
+  String selectedTeamId = '';
 
   @override
   void onInit() async {
@@ -35,7 +42,7 @@ class RankingController extends GetxController {
       bodyLoading(true);
       try {
         final url =
-            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}/${Variables.manCategoryList[manPlayerTypeTabController.index].toLowerCase()}?formatType=${selectedManGameType.value.toLowerCase()}';
+            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}${Variables.manCategoryList[manPlayerTypeTabController.index].toLowerCase()}?formatType=${selectedManGameType.value.toLowerCase()}';
         http.Response response =
             await http.get(Uri.parse(url), headers: ApiEndpoint.header);
         print(url);
@@ -73,7 +80,7 @@ class RankingController extends GetxController {
       bodyLoading(true);
       try {
         final url =
-            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}/${Variables.manCategoryList[womenPlayerTypeTabController.index].toLowerCase()}?isWomen=1&formatType=${selectedWomenGameType.value.toLowerCase()}';
+            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}${Variables.manCategoryList[womenPlayerTypeTabController.index].toLowerCase()}?isWomen=1&formatType=${selectedWomenGameType.value.toLowerCase()}';
         http.Response response =
             await http.get(Uri.parse(url), headers: ApiEndpoint.header);
         print(url);
@@ -94,6 +101,43 @@ class RankingController extends GetxController {
           showToast('No data found');
         } else {
           showToast('Women\'s ranking data fetching error');
+        }
+        bodyLoading(false);
+      } catch (error) {
+        bodyLoading(false);
+        print(error.toString());
+        showToast(error.toString());
+      }
+    } else {
+      // showToast('Another process running');
+    }
+  }
+
+  Future<void> manPlayerOnTap(String id) async {
+    selectedPlayerId = id;
+    getPlayerInfo();
+    Get.to(() => const PlayerDetailsPage());
+  }
+
+  Future<void> manTeamOnTap() async {}
+
+  Future<void> getPlayerInfo() async {
+    if (!bodyLoading.value) {
+      bodyLoading(true);
+      try {
+        final url =
+            '${ApiEndpoint.baseUrl}${ApiEndpoint.playerInfo}$selectedPlayerId';
+        http.Response response =
+            await http.get(Uri.parse(url), headers: ApiEndpoint.header);
+        print(url);
+        print(response.statusCode);
+        // print(response.body);
+        if (response.statusCode == 200) {
+          playerInfoModel.value = playerInfoModelFromJson(response.body);
+        } else if (response.statusCode == 204) {
+          showToast('Player info not found');
+        } else {
+          showToast('Player info fetching error');
         }
         bodyLoading(false);
       } catch (error) {

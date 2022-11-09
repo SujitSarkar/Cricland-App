@@ -26,7 +26,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
   }
 
   Future<void> initializeData() async {
-    RankingController rankingController = Get.find();
+    final RankingController rankingController = Get.find();
     rankingController.manPlayerTypeTabController =
         TabController(length: 4, vsync: this);
 

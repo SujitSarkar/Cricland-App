@@ -33,6 +33,10 @@ class TeamRankingTile extends StatelessWidget {
                           fit: BoxFit.fill,
                           height: dSize(.05),
                           width: dSize(.07),
+                          errorWidget: (context, url, error) => Icon(
+                              Icons.error,
+                              size: dSize(.06),
+                              color: Colors.grey),
                           placeholder: (context, url) => Icon(Icons.image,
                               size: dSize(.06), color: Colors.grey)),
                       SizedBox(width: dSize(.02)),

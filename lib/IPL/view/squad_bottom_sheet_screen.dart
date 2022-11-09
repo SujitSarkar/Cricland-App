@@ -172,9 +172,8 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (_) => PlayerDetailsPage(
-                                          playerId: "6635",
-                                        ),
+                                        builder: (_) =>
+                                            const PlayerDetailsPage(),
                                       ),
                                     );
                                   },
