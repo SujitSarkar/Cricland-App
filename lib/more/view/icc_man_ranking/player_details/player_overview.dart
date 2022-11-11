@@ -1,13 +1,17 @@
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/view/widgets/article_card_landscape.dart';
+import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
+import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-import '../../../../home/controller/home_controller.dart';
-import '../../../../public/controller/public_controller.dart';
-import '../../../../public/variables/colors.dart';
-import '../../../../public/variables/config.dart';
 
 class PlayerOverview extends StatefulWidget {
   const PlayerOverview({Key? key}) : super(key: key);
@@ -26,6 +30,8 @@ class _PlayerOverviewState extends State<PlayerOverview> {
 
   @override
   Widget build(BuildContext context) {
+    final RankingController rankingController = Get.find();
+    final PublicController publicController = Get.find();
     return GetBuilder<HomeController>(builder: (homeController) {
       return ListView(
         padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
@@ -38,9 +44,7 @@ class _PlayerOverviewState extends State<PlayerOverview> {
                 color: PublicController.pc.toggleTextColor(),
                 size: dSize(.05),
               ),
-              SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Text(
                 homeController.playerInfoModel.bat!,
                 style: CLTextStyle.nameTextStyle.copyWith(
@@ -360,7 +364,8 @@ class _PlayerOverviewState extends State<PlayerOverview> {
                 color: PublicController.pc.toggleCardBg(),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
             child: Text(
-              homeController.playerInfoModel.teams!,
+              rankingController.playerInfoModel.value.teams ?? 'N/A',
+              textAlign: TextAlign.justify,
               style: CLTextStyle.paragraphTextStyle.copyWith(
                 fontSize: dSize(.038),
                 color: PublicController.pc.toggleTextColor(),
@@ -374,7 +379,7 @@ class _PlayerOverviewState extends State<PlayerOverview> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'About ${homeController.playerInfoModel.name}',
+                'About ${homeController.playerInfoModel.name ?? ''}',
                 style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                   fontSize: dSize(.04),
                   color: PublicController.pc.toggleTextColor(),
@@ -390,57 +395,71 @@ class _PlayerOverviewState extends State<PlayerOverview> {
             ],
           ),
           SizedBox(height: dSize(.04)),
-          Container(
-            padding: EdgeInsets.all(dSize(.04)),
-            decoration: BoxDecoration(
-                color: PublicController.pc.toggleCardBg(),
-                borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Column(
-              children: [
-                _aboutBuilder('Name', '${homeController.playerInfoModel.name}'),
-                Divider(height: dSize(.1), thickness: 0.3, color: Colors.grey),
-                _aboutBuilder(
-                    'Birth', '${homeController.playerInfoModel.doBFormat}'),
-                Divider(height: dSize(.1), thickness: 0.3, color: Colors.grey),
-                _aboutBuilder('Birth Place',
-                    '${homeController.playerInfoModel.birthPlace}'),
-                Divider(height: dSize(.1), thickness: 0.3, color: Colors.grey),
-                _aboutBuilder(
-                    'Height',
-                    homeController.playerInfoModel.height != null
-                        ? '${homeController.playerInfoModel.height}'
-                        : "N/A"),
-                Divider(height: dSize(.1), thickness: 0.3, color: Colors.grey),
-                _aboutBuilder('Nationality',
-                    '${homeController.playerInfoModel.intlTeam}'),
-              ],
-            ),
-          ),
-          SizedBox(height: dSize(.1)),
-
-          Container(
-            padding: EdgeInsets.all(dSize(.02)),
-            decoration: BoxDecoration(
-                color: PublicController.pc.toggleCardBg(),
-                borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Text(
-              homeController.playerInfoModel.bio!,
-              textAlign: TextAlign.justify,
-              style: CLTextStyle.paragraphTextStyle.copyWith(
-                fontSize: dSize(.035),
-                color: PublicController.pc.toggleTextColor(),
+          if (rankingController.playerInfoModel.value.name != null)
+            Container(
+              padding: EdgeInsets.all(dSize(.04)),
+              decoration: BoxDecoration(
+                  color: PublicController.pc.toggleCardBg(),
+                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
+              child: Column(
+                children: [
+                  _aboutBuilder('Name',
+                      rankingController.playerInfoModel.value.name ?? 'N/A'),
+                  Divider(
+                      height: dSize(.1), thickness: 0.3, color: Colors.grey),
+                  _aboutBuilder(
+                      'Birth',
+                      rankingController.playerInfoModel.value.doBFormat ??
+                          'N/A'),
+                  Divider(
+                      height: dSize(.1), thickness: 0.3, color: Colors.grey),
+                  _aboutBuilder(
+                      'Birth Place',
+                      rankingController.playerInfoModel.value.birthPlace ??
+                          'N/A'),
+                  Divider(
+                      height: dSize(.1), thickness: 0.3, color: Colors.grey),
+                  _aboutBuilder('Height',
+                      rankingController.playerInfoModel.value.height ?? "N/A"),
+                  Divider(
+                      height: dSize(.1), thickness: 0.3, color: Colors.grey),
+                  _aboutBuilder(
+                      'Nationality',
+                      rankingController.playerInfoModel.value.intlTeam ??
+                          'N/A'),
+                ],
               ),
             ),
-          ),
           SizedBox(height: dSize(.1)),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              _socialRowBuilder(FontAwesomeIcons.instagram, 'sakibalhasan'),
-              _socialRowBuilder(FontAwesomeIcons.twitter, 'sakibsakib'),
-            ],
-          ),
+          Container(
+              padding: EdgeInsets.all(dSize(.02)),
+              decoration: BoxDecoration(
+                  color: PublicController.pc.toggleCardBg(),
+                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
+              child: Html(
+                data:
+                    """ ${rankingController.playerInfoModel.value.bio ?? ''} """,
+                style: {
+                  'strong': Style(color: publicController.toggleTextColor()),
+                  'body': Style(color: publicController.toggleTextColor()),
+                  'span': Style(color: publicController.toggleTextColor()),
+                  'p': Style(color: publicController.toggleTextColor()),
+                  'li': Style(color: publicController.toggleTextColor()),
+                  'ul': Style(color: publicController.toggleTextColor()),
+                  'table': Style(color: publicController.toggleTextColor()),
+                  'tbody': Style(color: publicController.toggleTextColor()),
+                  'tr': Style(color: publicController.toggleTextColor()),
+                  'td': Style(color: publicController.toggleTextColor()),
+                  'th': Style(color: publicController.toggleTextColor())
+                },
+              )),
+          SizedBox(height: dSize(.1)),
+
+          _socialRowBuilder(
+              FontAwesomeIcons.earthAsia,
+              rankingController.playerInfoModel.value.name ?? '',
+              rankingController.playerInfoModel.value.appIndex!.webUrl ?? ''),
           SizedBox(height: dSize(.1)),
         ],
       );
@@ -471,19 +490,25 @@ class _PlayerOverviewState extends State<PlayerOverview> {
         ],
       );
 
-  Widget _socialRowBuilder(IconData icon, String title) => Expanded(
-        child: Row(
-          children: [
-            Icon(icon,
-                size: dSize(.05), color: PublicController.pc.toggleTextColor()),
-            Text(
-              ' $title',
-              style: CLTextStyle.paragraphTextStyle.copyWith(
-                fontSize: dSize(.04),
-                color: PublicController.pc.toggleTextColor(),
-              ),
-            )
-          ],
+  Widget _socialRowBuilder(IconData icon, String title, String url) => Expanded(
+        child: InkWell(
+          onTap: () {
+            launchInWebViewOrVC(url);
+          },
+          child: Row(
+            children: [
+              Icon(icon,
+                  size: dSize(.05),
+                  color: PublicController.pc.toggleTextColor()),
+              Text(
+                ' $title',
+                style: CLTextStyle.paragraphTextStyle.copyWith(
+                  fontSize: dSize(.04),
+                  color: PublicController.pc.toggleTextColor(),
+                ),
+              )
+            ],
+          ),
         ),
       );
 }

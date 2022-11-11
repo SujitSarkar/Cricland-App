@@ -3,6 +3,7 @@ import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class PlayerInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RankingController rankingController = Get.find();
+    final PublicController publicController = Get.find();
     return rankingController.playerInfoModel.value.name != null
         ? ListView(
             padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
@@ -31,23 +33,21 @@ class PlayerInfo extends StatelessWidget {
                 child: Column(
                   children: [
                     _aboutBuilder('Role:',
-                        '${rankingController.playerInfoModel.value.role}'),
+                        rankingController.playerInfoModel.value.role ?? "N/A"),
                     Divider(
                         height: dSize(.1), thickness: 0.2, color: Colors.grey),
                     _aboutBuilder('Bats:',
-                        '${rankingController.playerInfoModel.value.bat}'),
+                        rankingController.playerInfoModel.value.bat ?? "N/A"),
                     Divider(
                         height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                    _aboutBuilder(
-                        'Bowl:',
-                        rankingController.playerInfoModel.value.bowl != null
-                            ? '${rankingController.playerInfoModel.value.bowl}'
-                            : "N/A"),
+                    _aboutBuilder('Bowl:',
+                        rankingController.playerInfoModel.value.bowl ?? "N/A"),
                   ],
                 ),
               ),
               SizedBox(height: dSize(.1)),
-              Text('About "${rankingController.playerInfoModel.value.name}"',
+              Text(
+                  'About ${rankingController.playerInfoModel.value.name ?? ''}',
                   style: _textStyle.copyWith(
                       fontSize: dSize(.04), fontWeight: FontWeight.bold)),
               SizedBox(height: dSize(.02)),
@@ -60,48 +60,65 @@ class PlayerInfo extends StatelessWidget {
                 child: Column(
                   children: [
                     _aboutBuilder('Name',
-                        '${rankingController.playerInfoModel.value.name}'),
+                        rankingController.playerInfoModel.value.name ?? "N/A"),
                     Divider(
                         height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                    _aboutBuilder('Birth',
-                        '${rankingController.playerInfoModel.value.doBFormat}'),
+                    _aboutBuilder(
+                        'Birth',
+                        rankingController.playerInfoModel.value.doBFormat ??
+                            "N/A"),
                     Divider(
                         height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                    _aboutBuilder('Birth Place',
-                        '${rankingController.playerInfoModel.value.birthPlace}'),
+                    _aboutBuilder(
+                        'Birth Place',
+                        rankingController.playerInfoModel.value.birthPlace ??
+                            "N/A"),
                     Divider(
                         height: dSize(.1), thickness: 0.2, color: Colors.grey),
                     _aboutBuilder(
                         'Height',
-                        rankingController.playerInfoModel.value.height != null
-                            ? '${rankingController.playerInfoModel.value.height}'
-                            : "N/A"),
+                        rankingController.playerInfoModel.value.height ??
+                            "N/A"),
                     Divider(
                         height: dSize(.1), thickness: 0.2, color: Colors.grey),
-                    _aboutBuilder('Nationality',
-                        '${rankingController.playerInfoModel.value.intlTeam}'),
+                    _aboutBuilder(
+                        'Nationality',
+                        rankingController.playerInfoModel.value.intlTeam ??
+                            "N/A"),
                   ],
                 ),
               ),
               SizedBox(height: dSize(.1)),
               Container(
-                padding: EdgeInsets.all(dSize(.02)),
-                decoration: BoxDecoration(
-                    color: PublicController.pc.toggleCardBg(),
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(dSize(.02)))),
-                child: Text(
-                  rankingController.playerInfoModel.value.bio ?? '',
-                  textAlign: TextAlign.justify,
-                  style: CLTextStyle.paragraphTextStyle.copyWith(
-                    fontSize: dSize(.03),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
-              ),
+                  padding: EdgeInsets.all(dSize(.02)),
+                  decoration: BoxDecoration(
+                      color: PublicController.pc.toggleCardBg(),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(dSize(.02)))),
+                  child: Html(
+                    data:
+                        """ ${rankingController.playerInfoModel.value.bio ?? ''} """,
+                    style: {
+                      'strong':
+                          Style(color: publicController.toggleTextColor()),
+                      'body': Style(color: publicController.toggleTextColor()),
+                      'span': Style(color: publicController.toggleTextColor()),
+                      'p': Style(color: publicController.toggleTextColor()),
+                      'li': Style(color: publicController.toggleTextColor()),
+                      'ul': Style(color: publicController.toggleTextColor()),
+                      'table': Style(color: publicController.toggleTextColor()),
+                      'tbody': Style(color: publicController.toggleTextColor()),
+                      'tr': Style(color: publicController.toggleTextColor()),
+                      'td': Style(color: publicController.toggleTextColor()),
+                      'th': Style(color: publicController.toggleTextColor()),
+                    },
+                  )),
               SizedBox(height: dSize(.1)),
-              _socialRowBuilder(FontAwesomeIcons.earthAsia,
-                  '${rankingController.playerInfoModel.value.name}'),
+              _socialRowBuilder(
+                  FontAwesomeIcons.earthAsia,
+                  rankingController.playerInfoModel.value.name ?? '',
+                  rankingController.playerInfoModel.value.appIndex!.webUrl ??
+                      ''),
               SizedBox(height: dSize(.1)),
             ],
           )
@@ -132,19 +149,25 @@ class PlayerInfo extends StatelessWidget {
         ],
       );
 
-  Widget _socialRowBuilder(IconData icon, String title) => Expanded(
-        child: Row(
-          children: [
-            Icon(icon,
-                size: dSize(.05), color: PublicController.pc.toggleTextColor()),
-            Text(
-              ' $title',
-              style: CLTextStyle.paragraphTextStyle.copyWith(
-                fontSize: dSize(.03),
-                color: PublicController.pc.toggleTextColor(),
-              ),
-            )
-          ],
+  Widget _socialRowBuilder(IconData icon, String title, String url) => Expanded(
+        child: InkWell(
+          onTap: () {
+            launchInWebViewOrVC(url);
+          },
+          child: Row(
+            children: [
+              Icon(icon,
+                  size: dSize(.05),
+                  color: PublicController.pc.toggleTextColor()),
+              Text(
+                ' $title',
+                style: CLTextStyle.paragraphTextStyle.copyWith(
+                  fontSize: dSize(.03),
+                  color: PublicController.pc.toggleTextColor(),
+                ),
+              )
+            ],
+          ),
         ),
       );
 }
