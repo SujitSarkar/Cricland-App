@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/model/player_info_model.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_info_man.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches_man.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview_man.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/colors.dart';
@@ -14,15 +14,14 @@ import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PlayerDetailsPage extends StatefulWidget {
-  // final String playerId;
-  const PlayerDetailsPage({Key? key}) : super(key: key);
+class PlayerDetailsPageMan extends StatefulWidget {
+  const PlayerDetailsPageMan({Key? key}) : super(key: key);
 
   @override
-  State<PlayerDetailsPage> createState() => _PlayerDetailsPageState();
+  State<PlayerDetailsPageMan> createState() => _PlayerDetailsPageManState();
 }
 
-class _PlayerDetailsPageState extends State<PlayerDetailsPage>
+class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -144,10 +143,10 @@ class _PlayerDetailsPageState extends State<PlayerDetailsPage>
   Widget _bodyUI() => TabBarView(
         controller: _tabController,
         children: [
-          PlayerOverview(),
-          PlayerMatches(),
+          PlayerOverviewMan(),
+          PlayerMatchesMan(),
           // NewsPage(),
-          PlayerInfo(),
+          PlayerInfoMan(),
         ],
       );
 

@@ -13,14 +13,14 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-class PlayerOverview extends StatefulWidget {
-  const PlayerOverview({Key? key}) : super(key: key);
+class PlayerOverviewMan extends StatefulWidget {
+  const PlayerOverviewMan({Key? key}) : super(key: key);
 
   @override
-  State<PlayerOverview> createState() => _PlayerOverviewState();
+  State<PlayerOverviewMan> createState() => _PlayerOverviewManState();
 }
 
-class _PlayerOverviewState extends State<PlayerOverview> {
+class _PlayerOverviewManState extends State<PlayerOverviewMan> {
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.03),
       fontWeight: FontWeight.w500,
@@ -379,7 +379,7 @@ class _PlayerOverviewState extends State<PlayerOverview> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'About ${homeController.playerInfoModel.name ?? ''}',
+                'About ${rankingController.playerInfoModel.value.name ?? ''}',
                 style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
                   fontSize: dSize(.04),
                   color: PublicController.pc.toggleTextColor(),

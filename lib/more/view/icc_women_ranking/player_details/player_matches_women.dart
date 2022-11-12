@@ -6,14 +6,14 @@ import '../../../../public/variables/colors.dart';
 import '../../../../public/variables/config.dart';
 import '../../../../public/variables/variable.dart';
 
-class PlayerMatches extends StatefulWidget {
-  const PlayerMatches({Key? key}) : super(key: key);
+class PlayerMatchesWomen extends StatefulWidget {
+  const PlayerMatchesWomen({Key? key}) : super(key: key);
 
   @override
-  State<PlayerMatches> createState() => _PlayerMatchesState();
+  State<PlayerMatchesWomen> createState() => _PlayerMatchesWomenState();
 }
 
-class _PlayerMatchesState extends State<PlayerMatches> {
+class _PlayerMatchesWomenState extends State<PlayerMatchesWomen> {
   String _gameType = Variables.manGameType.first;
 
   @override

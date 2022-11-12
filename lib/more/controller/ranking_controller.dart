@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:cricland/home/model/player_info_model.dart';
 import 'package:cricland/more/model/ranking_model.dart';
 import 'package:cricland/more/model/team_ranking_model.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_details_man.dart';
+import 'package:cricland/more/view/icc_women_ranking/player_details/player_details_women.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
@@ -116,10 +117,18 @@ class RankingController extends GetxController {
   Future<void> manPlayerOnTap(String id) async {
     selectedPlayerId = id;
     getPlayerInfo();
-    Get.to(() => const PlayerDetailsPage());
+    Get.to(() => const PlayerDetailsPageMan());
+  }
+
+  Future<void> womenPlayerOnTap(String id) async {
+    selectedPlayerId = id;
+    getPlayerInfo();
+    Get.to(() =>  const PlayerDetailsPageWomen());
   }
 
   Future<void> manTeamOnTap() async {}
+
+  Future<void> womenTeamOnTap() async {}
 
   Future<void> getPlayerInfo() async {
     if (!bodyLoading.value) {

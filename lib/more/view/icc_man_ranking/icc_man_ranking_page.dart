@@ -244,8 +244,13 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
               padding: EdgeInsets.only(top: dSize(.04)),
               physics: const BouncingScrollPhysics(),
               itemCount: rankingController.manRankingList.length,
-              itemBuilder: (context, index) =>
-                  RankingTile(model: rankingController.manRankingList[index]),
+              itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    rankingController.manPlayerOnTap(
+                        rankingController.manRankingList[index].id!);
+                  },
+                  child: RankingTile(
+                      model: rankingController.manRankingList[index])),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )

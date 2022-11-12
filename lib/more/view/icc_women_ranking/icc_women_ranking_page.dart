@@ -245,7 +245,10 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
               physics: const BouncingScrollPhysics(),
               itemCount: rankingController.womenRankingList.length,
               itemBuilder: (context, index) =>
-                  RankingTile(model: rankingController.womenRankingList[index]),
+                  InkWell(onTap:(){
+                     rankingController.womenPlayerOnTap(
+                        rankingController.womenRankingList[index].id!);
+                  },child: RankingTile(model: rankingController.womenRankingList[index])),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )

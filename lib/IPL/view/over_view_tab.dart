@@ -10,7 +10,7 @@ import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_info.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_info_man.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -21,7 +21,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-import '../../more/view/icc_man_ranking/player_details/player_details.dart';
+import '../../more/view/icc_man_ranking/player_details/player_details_man.dart';
 import '../../public/variables/colors.dart';
 
 class OverViewTab extends StatefulWidget {
