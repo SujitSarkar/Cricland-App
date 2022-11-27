@@ -465,7 +465,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                                   color: Colors.white70,
                                                   fontSize: dSize(.02),
                                                 )),
-                                          ],
+                                           ],
                                         ),
                                       ),
                                     ],
