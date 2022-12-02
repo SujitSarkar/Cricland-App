@@ -33,7 +33,7 @@ dependencies {
 }
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 32
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,12 +47,16 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+
     }
 
     buildTypes {
         release {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+
+            minifyEnabled true
+            useProguard true
         }
     }
 }

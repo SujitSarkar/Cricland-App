@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/home/model/commentaries_model.dart';
 import 'package:cricland/home/model/feature_series_model.dart';
 import 'package:cricland/home/model/fixtures_match_model.dart';
@@ -14,7 +15,10 @@ import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../public/model/usermodel.dart';
+import '../../public/variables/variable.dart';
 import '../model/player_info_model.dart';
 import '../model/player_squad_model.dart';
 import '../model/score_card_model.dart';
@@ -36,6 +40,7 @@ class HomeController extends GetxController {
   late PlayerInfoModel playerInfoModel;
   late PlayerSquadModel playerSquadModel;
   late OverSummeryModel overSummeryModel;
+  late UserModel userModel;
 
   RxList fixtureMatchList = [].obs;
   RxList playerSquadModelList = [].obs;
@@ -60,6 +65,7 @@ class HomeController extends GetxController {
     playerInfoModel = PlayerInfoModel();
     playerSquadModel = PlayerSquadModel();
     overSummeryModel = OverSummeryModel();
+    userModel = UserModel();
 
     //get Matches
     await getLiveMatches();
@@ -79,6 +85,9 @@ class HomeController extends GetxController {
 
     //Get Monk API
     await getMonkLiveMatches();
+
+    //Get User
+
     super.onInit();
   }
 
@@ -377,4 +386,139 @@ class HomeController extends GetxController {
         });
     update();
   }
+
+  Future<bool> registerUser(String firstName, String lastName, String phone,
+      String password) async {
+    final snapshot1 =
+    await FirebaseFirestore.instance.collection('Users').doc(phone).get();
+    if (snapshot1.exists) {
+      showToast('This User is Already Exist');
+      return false;
+    } else {
+      DateTime date = DateTime.now();
+      String dateData = '${date.day}-${date.month}-${date.year}';
+      Map<String, dynamic> map = {
+        'firstName': firstName,
+        'lastName': lastName,
+        'phone': phone,
+        'password': password,
+        'date': dateData,
+        'id': phone,
+        'profileImage': '',
+        'totalPoint': '00',
+      };
+
+
+
+      try {
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .doc(map['id'])
+            .set(map);
+       await getUser(phone);
+        return true;
+      } catch (err) {
+        showToast('$err');
+        print(err);
+
+        return false;
+      }
+
+    }
+
+  }
+
+
+  // RxBool isLogIn = false.obs;
+  Future<void> getUser(String userId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .get()
+          .then((snapShot) {
+        UserModel user = UserModel(
+          firstName: snapShot['firstName'],
+          lastName: snapShot['lastName'],
+          phone: snapShot['phone'],
+          password: snapShot['password'],
+          date: snapShot['date'],
+          id: snapShot['id'],
+          profileImage: snapShot['profileImage'],
+          totalPoint: snapShot['totalPoint'],
+        );
+        userModel = user;
+      });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userId', userModel.id!);
+
+    } catch (error) {
+      showToast('$error');
+    }
+    update();
+  }
+  Future<bool> loginData(
+      String inputPhone, String inputPassword ) async {
+    final snapshot1 = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(inputPhone)
+        .get();
+    if (snapshot1.exists) {
+     await getUser(inputPhone);
+      update();
+      return false;
+    } else {
+      showToast('This User is Not Exist');
+    }
+    update();
+    return false;
+  }
+
+  Future<bool> sellPoint(String sellPoints, String transectionNumber, String password,
+      String transectionMethod) async {
+
+      DateTime date = DateTime.now();
+      String dateData = '${date.day}-${date.month}-${date.year}';
+      Map<String, dynamic> map = {
+        'sellPoints': sellPoints,
+        'transectionNumber': transectionNumber,
+        'transectionMethod': transectionMethod,
+        'password': password,
+        'date': dateData,
+        'id': "${date.microsecondsSinceEpoch}",
+      };
+      try {
+        await FirebaseFirestore.instance
+            .collection("SellPoint")
+            .doc(map['id'])
+            .set(map);
+
+       await  updatePoints(sellPoints);
+
+        return true;
+      } catch (err) {
+        showToast('$err');
+        print(err);
+
+        return false;
+      }
+
+
+
+  }
+  
+  Future<bool>updatePoints(String sellPoint)async{
+    final prefs = await SharedPreferences.getInstance();
+print(" Pref ID: ${prefs.getString('userId')}");
+
+     await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(prefs.getString('userId'))
+        .update({
+      "totalPoint": "${int.parse(userModel.totalPoint!) - int.parse(sellPoint)}",
+    });
+    await getUser(prefs.getString('userId')!);
+    return true;
+  }
+
 }

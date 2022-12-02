@@ -4,7 +4,9 @@ import 'package:cricland/home/view/home_page.dart';
 import 'package:cricland/more/view/more_page.dart';
 import 'package:cricland/news/view/news_page.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/screens/auth_screen.dart';
 import 'package:cricland/public/screens/profile_screen.dart';
+import 'package:cricland/public/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -17,8 +19,9 @@ class HomeNavPage extends StatefulWidget {
 }
 
 class _HomeNavPageState extends State<HomeNavPage> {
+
   static const List<Widget> _homeWidgets = [
-    ProfileScreen(),
+    AuthScreen(),
     SeriesScreen(),
     HomePage(),
     NewsPage(),

@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../public/variables/colors.dart';
 
@@ -256,6 +257,15 @@ class _MorePageState extends State<MorePage> {
                       leadingIcon: FontAwesomeIcons.lock,
                       title: 'Privacy Policy',
                       onTap: () {}),
+                 const SizedBox(height: 20,),
+                  CardTile(
+                      leadingIcon: FontAwesomeIcons.signOut,
+                      title: 'Logout',
+                      onTap: () async{
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.remove('userId');
+
+                      }),
                 ],
               ),
             ),
