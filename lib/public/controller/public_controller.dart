@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/usermodel.dart';
 import '../variables/colors.dart';
 import '../variables/variable.dart';
 
@@ -57,5 +58,8 @@ class PublicController extends GetxController{
   Color toggleTabColor()=> isLight.value?AllColor.appLightBg:AllColor.primaryColor;
   Color toggleCardHeader()=> isLight.value?AllColor.lightCardHeader:AllColor.darkCardHeader;
   dynamic toggleStatusBar()=> isLight.value?Variables.lightStatusBarTheme:Variables.darkStatusBarTheme;
+
+
+
 
 }
