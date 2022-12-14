@@ -11,16 +11,13 @@ class Variables {
   // };
 
   static const List<String> manCategoryList = [
-    'Batsmen', 'Bowlers', 'Allrounders', 'Teams'
+    'Batsmen',
+    'Bowlers',
+    'Allrounders',
+    'Teams'
   ];
-  static const List<String> manGameType = ['Test', 'ODI', 'T20'];
-  static const List<String> manGameType2 = [
-    'All',
-    'ODI',
-    'T20',
-    'Test',
-    '100B'
-  ];
+  static const List<String> manGameType = ['ODI', 'T20'];
+  static const List<String> manGameType2 = ['All', 'ODI', 'T20', '100B'];
   static const List<String> playerDetails = [
     'Overview',
     'Matches',
