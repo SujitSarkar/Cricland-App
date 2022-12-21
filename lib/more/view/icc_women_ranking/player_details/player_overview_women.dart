@@ -46,7 +46,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
               ),
               const SizedBox(width: 10),
               Text(
-                rankingController.playerInfoModel.value.bat!,
+                rankingController.playerInfoModel.value.bat ?? '',
                 style: CLTextStyle.nameTextStyle.copyWith(
                   fontSize: dSize(.035),
                 ),
@@ -455,10 +455,11 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
               )),
           SizedBox(height: dSize(.1)),
 
-          _socialRowBuilder(
-              FontAwesomeIcons.earthAsia,
-              rankingController.playerInfoModel.value.name ?? '',
-              rankingController.playerInfoModel.value.appIndex!.webUrl ?? ''),
+          if (rankingController.playerInfoModel.value.name != null)
+            _socialRowBuilder(
+                FontAwesomeIcons.earthAsia,
+                rankingController.playerInfoModel.value.name ?? '',
+                rankingController.playerInfoModel.value.appIndex!.webUrl ?? ''),
           SizedBox(height: dSize(.1)),
         ],
       );

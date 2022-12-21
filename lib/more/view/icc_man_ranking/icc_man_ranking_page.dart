@@ -139,11 +139,15 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
           ///Data Title
           Expanded(
               child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
-            child: rankingController.manPlayerTypeTabController.index == 3
-                ? _teamData(rankingController)
-                : _individualData(rankingController),
-          ))
+                  padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
+                  child: TabBarView(
+                      controller: rankingController.manPlayerTypeTabController,
+                      children: [
+                        _individualData(rankingController),
+                        _individualData(rankingController),
+                        _individualData(rankingController),
+                        _teamData(rankingController),
+                      ])))
         ],
       );
 

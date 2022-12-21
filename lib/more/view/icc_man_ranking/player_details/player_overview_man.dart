@@ -456,10 +456,11 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               )),
           SizedBox(height: dSize(.1)),
 
-          _socialRowBuilder(
-              FontAwesomeIcons.earthAsia,
-              rankingController.playerInfoModel.value.name ?? '',
-              rankingController.playerInfoModel.value.appIndex!.webUrl ?? ''),
+          if (rankingController.playerInfoModel.value.name != null)
+            _socialRowBuilder(
+                FontAwesomeIcons.earthAsia,
+                rankingController.playerInfoModel.value.name ?? '',
+                rankingController.playerInfoModel.value.appIndex!.webUrl ?? ''),
           SizedBox(height: dSize(.1)),
         ],
       );

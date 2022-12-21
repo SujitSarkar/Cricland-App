@@ -139,11 +139,16 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
           ///Data Title
           Expanded(
               child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
-            child: rankingController.womenPlayerTypeTabController.index == 3
-                ? _teamData(rankingController)
-                : _individualData(rankingController),
-          ))
+                  padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
+                  child: TabBarView(
+                    controller: rankingController.womenPlayerTypeTabController,
+                    children: [
+                      _individualData(rankingController),
+                      _individualData(rankingController),
+                      _individualData(rankingController),
+                      _teamData(rankingController)
+                    ],
+                  )))
         ],
       );
 
@@ -244,11 +249,13 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
               padding: EdgeInsets.only(top: dSize(.04)),
               physics: const BouncingScrollPhysics(),
               itemCount: rankingController.womenRankingList.length,
-              itemBuilder: (context, index) =>
-                  InkWell(onTap:(){
-                     rankingController.womenPlayerOnTap(
+              itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    rankingController.womenPlayerOnTap(
                         rankingController.womenRankingList[index].id!);
-                  },child: RankingTile(model: rankingController.womenRankingList[index])),
+                  },
+                  child: RankingTile(
+                      model: rankingController.womenRankingList[index])),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )

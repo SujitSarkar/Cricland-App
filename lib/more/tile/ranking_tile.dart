@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/model/ranking_model.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -45,7 +44,7 @@ class RankingTile extends StatelessWidget {
                                 size: dSize(.01),
                                 color: Colors.grey),
                             placeholder: (context, url) => Icon(Icons.image,
-                                size: dSize(.01), color: Colors.grey)),
+                                size: dSize(.1), color: Colors.grey)),
                       ),
                       SizedBox(width: dSize(.02)),
                       Column(
