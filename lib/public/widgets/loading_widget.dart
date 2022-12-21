@@ -1,9 +1,9 @@
+import 'package:cricland/public/controller/public_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/public_controller.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key,this.color}) : super(key: key);
+  const LoadingWidget({Key? key, this.color}) : super(key: key);
   final Color? color;
 
   @override
@@ -13,7 +13,8 @@ class LoadingWidget extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       alignment: Alignment.center,
-      child: Obx(()=>CircularProgressIndicator(color: color?? PublicController.pc.toggleLoadingColor())),
+      child: Obx(() => CircularProgressIndicator(
+          color: color ?? PublicController.pc.toggleLoadingColor())),
     );
   }
 }

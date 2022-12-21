@@ -11,13 +11,32 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  get: ^4.6.1
+  get: ^4.6.5
   shared_preferences: ^2.0.14
   fluttertoast: ^8.0.9
   intl: ^0.17.0
   http: ^0.13.4
-  line_awesome_flutter: ^2.0.0
   cloud_firestore: ^3.1.14
+  font_awesome_flutter: ^10.1.0
+  line_awesome_flutter: ^2.0.0
+  connectivity_plus: ^2.0.2
+  package_info_plus: ^1.4.2
+  expandable: ^5.0.1
+  carousel_slider: ^4.1.1
+  launch_review: ^3.0.1
+  share_plus: ^4.0.4
+  url_launcher: ^6.1.2
+  dropdown_button2: ^1.5.2
+  lottie: ^1.3.0
+  expandable_widgets: ^1.0.3+1
+  device_preview: ^1.1.0
+  percent_indicator: ^4.2.2
+  dio: ^4.0.4
+  cached_network_image: ^3.2.1
+  pull_to_refresh: ^2.0.0
+  youtube_player_iframe: ^3.0.4
+  flutter_html: ^3.0.0-alpha.6
+
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +47,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/language/
 
   fonts:
     - family: openSans
@@ -38,17 +58,16 @@ flutter:
           weight: 500
         - asset: assets/fonts/OpenSans-SemiBold.ttf
           weight: 600
-
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+    - family: AbrilFatface
+      fonts:
+        - asset: assets/fonts/AbrilFatface-Regular.ttf
+    - family: CarterOne
+      fonts:
+        - asset: assets/fonts/CarterOne.ttf
+    - family: KdamThmorPro
+      fonts:
+        - asset: assets/fonts/KdamThmorPro-Regular.ttf
+    - family: Shrikhand
+      fonts:
+        - asset: assets/fonts/Shrikhand-Regular.ttf
 

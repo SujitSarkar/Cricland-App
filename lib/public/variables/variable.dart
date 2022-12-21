@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'color_variable.dart';
+import 'colors.dart';
 
 class Variables {
   //static const String baseUrl = 'http://tashfia.binduitsolutions.com/api/';
@@ -10,18 +10,95 @@ class Variables {
   //   'Authorization': 'Bearer ${PublicController.pc.loginResponse.value.token}',
   // };
 
+  static const List<String> manCategoryList = [
+    'Batsmen',
+    'Bowlers',
+    'Allrounders',
+    'Teams'
+  ];
+  static const List<String> manGameType = ['ODI', 'T20'];
+  static const List<String> manGameType2 = ['All', 'ODI', 'T20', '100B'];
+  static const List<String> playerDetails = [
+    'Overview',
+    'Matches',
+    'Player Info'
+  ];
+  static const List<String> playerOverview = [
+    'Matches',
+    'Innings',
+    'Wickets',
+    'Best'
+  ];
+  static const List<String> bowlerOverview = [
+    'Econ',
+    '3 Wkts',
+    '5 Wkts',
+    'Avg'
+  ];
+  static const List<String> iccRank = ['SR', 'Maiden', 'ICC Rank', ''];
+  static const List<String> playerMatchOverview = [
+    'Runs',
+    'Inns',
+    'Strike Rate',
+    'Average'
+  ];
+  static const List<String> scoreDateMatch = ['Score', 'Date', 'Match'];
+  static const List<String> newsCategory = [
+    'News',
+    'Video',
+    'Biography',
+  ];
+  static const List<String> iplTabsCategory = [
+    'Overview',
+    'Matches',
+    'Squads',
+    'Points Table',
+    'Info',
+  ];
+  static const List<String> iplDetailsTabsCategory = [
+    'Info',
+    // 'Fantasy',
+    'Commentary',
+    'Live',
+    'Scorecard',
+    // 'Graphs',
+    'Points Table',
+  ];
+  static const List<String> keyStateTabsCategory = [
+    'Most Runs',
+    'Most Wickets',
+    'Most Sixes',
+    'Highest Score',
+    'Best Figures',
+    'Strike Rate',
+    'Best Economy',
+    'Best Fantasy Points',
+  ];
+
+  static const List<String> teamSquadsTabsCategory = [
+    'ENG',
+    'NZ',
+  ];
+  static const List<String> homeTabsCategory = [
+    'Live(3)',
+    'Home',
+    'Upcoming',
+    'Finished',
+    'Fixtures',
+  ];
+
   static final lightStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
+          statusBarColor: AllColor.appLightBg,
           statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.dark
-      ));
+          statusBarIconBrightness: Brightness.dark,
+          systemStatusBarContrastEnforced: true));
   static final darkStatusBarTheme = SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
+          statusBarColor: AllColor.appDarkBg,
           statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.light
-      ));
+          statusBarIconBrightness: Brightness.light,
+          systemStatusBarContrastEnforced: true));
 
   static final portraitMood = SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -29,7 +106,23 @@ class Variables {
   static final ThemeData lightThemeData = ThemeData(
       primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appLightBg,
+      appBarTheme: AppBarTheme(
+          backgroundColor: AllColor.appDarkBg,
+          titleTextStyle: TextStyle(
+              color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
+          elevation: 0.0),
       canvasColor: Colors.transparent,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AllColor.primaryColor,
+        elevation: 0.0,
+        showUnselectedLabels: true,
+        selectedItemColor: AllColor.primaryColor,
+        unselectedItemColor: Colors.grey,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      bottomSheetTheme:
+          const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',
       textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "openSans"),
@@ -44,14 +137,28 @@ class Variables {
           bodyText2: TextStyle(fontFamily: "openSans"),
           caption: TextStyle(fontFamily: "openSans"),
           button: TextStyle(fontFamily: "openSans"),
-          overline: TextStyle(fontFamily: "openSans")
-      )
-  );
+          overline: TextStyle(fontFamily: "openSans")));
 
   static final ThemeData darkThemeData = ThemeData(
       primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appDarkBg,
+      appBarTheme: AppBarTheme(
+          backgroundColor: AllColor.appDarkBg,
+          titleTextStyle: TextStyle(
+              color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
+          elevation: 0.0),
       canvasColor: Colors.transparent,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AllColor.appDarkBg,
+        showUnselectedLabels: true,
+        elevation: 0.0,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      bottomSheetTheme:
+          const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',
       textTheme: const TextTheme(
           headline1: TextStyle(fontFamily: "openSans"),
@@ -66,10 +173,24 @@ class Variables {
           bodyText2: TextStyle(fontFamily: "openSans"),
           caption: TextStyle(fontFamily: "openSans"),
           button: TextStyle(fontFamily: "openSans"),
-          overline: TextStyle(fontFamily: "openSans")
-      )
-  );
+          overline: TextStyle(fontFamily: "openSans")));
 
+  static String aboutSakib =
+      'Shakib Al Hasan made his test debut in 2007 against India. His breakthrough came in the '
+      'Test against New Zealand in Chittagong in 2008. He picked up 7/36, which to date is the best figure by a Bangladeshi '
+      'bowler. In the 2012 Asia Cup, Shakib scored 237 runs, including three fifties, and took six wickets. Bangladesh '
+      'progressed to the tournament\'s final for the first time, where they lost to Pakistan by two runs. Shakib Al Hasan\n\n'
+      ' received many awards for his performance in the game. He was awarded the Player of the Tournament award in the 2019 '
+      'Cricket World Cup for hitting back to back centuries and half-centuries for his country.[10] He ended up as 3rd most'
+      ' run-scorer in the tournament with 606 runs in total.[11] He has received 31 man-of-the-match awards and 16 '
+      'man-of-the-series awards in all formats.[12] Currently, he holds the 3rd most Player of the tournament awards in\n\n'
+      ' all forms after Sachin Tendulkar and Virat Kohli.[13]Between 2009 and 2022, he captained the Bangladesh cricket '
+      'team in 85 matches across all three formats.Shakib is a vital cog in Bangladesh\'s line-up as a genuine all-rounder.'
+      ' He has been a consistent performer for his country over the years. Shakib was ranked No. 1 among the all-rounders by\n\n '
+      'the ICC thanks to his consistency. He is a very controversial figure in Bangladeshi cricket history, always making at '
+      'the top of the headlines for aggressive behavior inside and outside of the field. He is the most followed person on'
+      ' Facebook from Bangladesh, with more than 15.5 million followers.[14] As of March 2022, Shakib holds the record for'
+      ' the most men\'s Twenty20 International wickets, at 119.';
 }
 
 void showToast(message) => Fluttertoast.showToast(
@@ -79,5 +200,4 @@ void showToast(message) => Fluttertoast.showToast(
     timeInSecForIosWeb: 1,
     backgroundColor: Colors.black87,
     textColor: Colors.white,
-    fontSize: 16.0
-);
+    fontSize: 16.0);
