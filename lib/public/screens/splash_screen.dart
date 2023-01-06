@@ -15,7 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 1350),
+    duration: const Duration(seconds: 2),
     vsync: this,
   )..repeat(reverse: true);
   late final Animation<double> _animation = CurvedAnimation(
@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _initData();
   }
+
 
   Future<void> _initData() async {
     Future.delayed(const Duration(seconds: 3))

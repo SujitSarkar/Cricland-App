@@ -208,28 +208,35 @@ class _SellPointScreenState extends State<SellPointScreen> {
               backgroundColor: AllColor.purpleColor,
             ),
               onPressed: (){
-              if(sellPointController.text.isNotEmpty && transectionMediaController.text.isNotEmpty && passwordController.text.isNotEmpty && _radioVal.isNotEmpty ){
-                setState(() {
-                  _isLoading = true;
-                  homeController
-                      .sellPoint(
-                    sellPointController.text,
-                    transectionMediaController.text,
-                    passwordController.text,
-                    _radioVal,
-                  ).then((value) {
-                    setState(() {
-                      _isLoading = false;
-                    });
+              if(sellPointController.text.isNotEmpty && transectionMediaController.text.isNotEmpty && passwordController.text.isNotEmpty && _radioVal.isNotEmpty){
 
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const HomeNavPage(),),);
-                    //
-                    // _emptyFieldCreator();
+                if(passwordController.text == homeController.userModel.password){
+
+                  setState(() {
+                    _isLoading = true;
+                    homeController
+                        .sellPoint(
+                      sellPointController.text,
+                      transectionMediaController.text,
+                      passwordController.text,
+                      _radioVal,
+                    ).then((value) {
+                      setState(() {
+                        _isLoading = false;
+                      });
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const HomeNavPage(),),);
+                      //
+                      _emptyFieldCreator();
+                    });
                   });
-                });
+                }else{
+                  showToast('You have entered Wrong Password');
+                }
+
 
 
               }else {
