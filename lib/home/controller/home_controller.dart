@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/home/model/commentaries_model.dart';
 import 'package:cricland/home/model/feature_series_model.dart';
@@ -15,18 +16,26 @@ import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../public/model/usermodel.dart';
 import '../../public/variables/variable.dart';
+import '../model/monk/league_model.dart';
+import '../model/monk/monk_league_model.dart';
+import '../model/monk/monk_vanue_model.dart';
 import '../model/player_info_model.dart';
 import '../model/player_squad_model.dart';
 import '../model/score_card_model.dart';
 
 class HomeController extends GetxController {
   // late MatchesModel matchesModel;
-  late LiveMatchesModel liveMatchesModel;
+//  late LiveMatchesModel liveMatchesModel;
+
   late MonkLiveModel monkLiveModel;
+  late LeagueUpdateModel  monkListLeagueModel;
+  late MonkVanueModel  monkVanueModel;
+ // late MonkLeagueModel monkLeague;
   late RecentMatchModel recentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
   late FixturesMatchModel fixturesMatchModel;
@@ -48,8 +57,8 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     //Home Data Model
-    liveMatchesModel = LiveMatchesModel();
-    monkLiveModel = MonkLiveModel();
+   // liveMatchesModel = LiveMatchesModel();
+
     recentMatchModel = RecentMatchModel();
     matcheInfoModel = RecentMatchInfoModel(); //Todo Data Fetching Problem
     commentariesModel =
@@ -65,30 +74,50 @@ class HomeController extends GetxController {
     playerInfoModel = PlayerInfoModel();
     playerSquadModel = PlayerSquadModel();
     overSummeryModel = OverSummeryModel();
+    monkLiveModel = MonkLiveModel();
+    monkListLeagueModel = LeagueUpdateModel();
+    monkVanueModel = MonkVanueModel();
+  //  monkLeague = MonkLeagueModel();
+
     userModel = UserModel();
-
+    fetchInitData();
     //get Matches
-    await getLiveMatches();
-    await getUpComingMatches();
-    await getRecentMatches();
-
-    //get Fixture
-    await getFixturesMatches();
-    //get Series
-    await getFeatureSeries();
-    // await getPointTable("3718");
-    // await getCommentaries("38356");
-    //  await getMatchSquad("3718");
-    await getPlayerSquad("3718", "15826");
-    await getPlayerInfo("6635");
-    await getMatchInfo("38356");
-
-    //Get Monk API
-    await getMonkLiveMatches();
-
-    //Get User
+    // await getLiveMatches();
 
     super.onInit();
+  }
+  fetchInitData()async{
+
+    Future.delayed(const Duration(seconds: 3), () async{
+      await getRecentMatches();
+      await getUpComingMatches();
+
+
+      //get Fixture
+      await getFixturesMatches();
+      //get Series
+      await getFeatureSeries();
+      // await getPointTable("3718");
+      // await getCommentaries("38356");
+      //  await getMatchSquad("3718");
+      await getPlayerSquad("3718", "15826");
+      await getPlayerInfo("6635");
+      await getMatchInfo("38356");
+
+      //Get Monk API
+      await getMonkLiveMatches();
+      // await getLeague("5");
+
+      //Get User
+      final prefs = await SharedPreferences.getInstance();
+      String? uId= prefs.getString('userId');
+      if(uId != null){
+        getUser(uId);
+      }
+
+
+    });
+
   }
 
   Future<void> getRecentMatches() async {
@@ -348,18 +377,27 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getLiveMatches() async {
+  Future<LeagueUpdateModel> getLeague(String leagueId) async {
     loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.liveMatches),
-        onSuccess: (response) {
-          print(response);
 
-          liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
+
+
+    await ApiService.instance.apiCall(
+        execute: () async {
+          return await ApiService.instance
+            .getWithoutHeader(ApiEndpoints.monkLeague+leagueId+ApiEndpoints.monkAPIToken);
+        },
+        onSuccess: (response) {
+          print("DDDDDDDDDDDDD: ${response["data"]["name"]}");
+          // MonkLeagueModel(resource: )
+
+        var  responseData = jsonDecode(response.body)["data"];
+
+          monkListLeagueModel = leagueUpdateModelFromJson(jsonEncode(responseData["data"]));
+          // monkLeague = monkLeague.fromJason(e);
+         // monkLeague = leagueFromJson(jsonEncode(response));
           //
-          print(
-              "Live Matches:${liveMatchesModel.filters!.matchType!.first.capitalizeFirst}");
+        //  print("Monk League :${monkLeagueModel.data!.length}");
           loading(false);
         },
         onError: (error) {
@@ -367,7 +405,108 @@ class HomeController extends GetxController {
           loading(false);
         });
     update();
+    return monkListLeagueModel;
+
   }
+  Future<MonkVanueModel> getVanue(String vanueID) async {
+    loading(true);
+
+    await ApiService.instance.apiCall(
+        execute: () async {
+          return await ApiService.instance
+              .getWithoutHeader(ApiEndpoints.monkVanue+vanueID+ApiEndpoints.monkAPIToken);
+        },
+        onSuccess: (response) {
+          print("DDDDDDDDDDDDD: ${response["data"]["name"]}");
+          // MonkLeagueModel(resource: )
+
+          var  responseData = jsonDecode(response.body)["data"];
+
+          monkVanueModel = monkVanueModelFromJson(jsonEncode(responseData["data"]));
+          // monkLeague = monkLeague.fromJason(e);
+          // monkLeague = leagueFromJson(jsonEncode(response));
+          //
+          //  print("Monk League :${monkLeagueModel.data!.length}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+    return monkVanueModel;
+
+  }
+  final GetConnect getConnect = GetConnect();
+
+  Future<MonkVanueModel?> getMonkVanue(String vanueID) async {
+    // Response res = await get(apiUrl, headers: headers);
+    var body;
+    var res = await getConnect.httpClient.get(
+      ApiEndpoints.monkBaseURL + ApiEndpoints.monkVanue+vanueID+ApiEndpoints.monkAPIToken,
+    );
+
+    if (res.statusCode == 200) {
+      // this mean that we are connected to the data base
+      body = res.body;
+      print("Api service: ${body["city"]}}");
+
+      print("Api service: ${body}"); // to debug
+      MonkVanueModel vanue = body;
+      return vanue;
+    }
+   return null;
+  }
+  // Future<List<LeagueUpdateModel>> getLeague(String leagueId) async {
+  //   loading(true);
+  //
+  //
+  //
+  //   await ApiService.instance.apiCall(
+  //       execute: () async => await ApiService.instance
+  //           .getWithoutHeader(ApiEndpoints.monkLeague+leagueId+ApiEndpoints.monkAPIToken),
+  //       onSuccess: (response) {
+  //         print(response);
+  //         // MonkLeagueModel(resource: )
+  //
+  //         var  responseData = jsonDecode(response.body);
+  //
+  //         monkListLeagueModel = leagueUpdateModelFromJson(jsonEncode(responseData["data"]));
+  //         // monkLeague = monkLeague.fromJason(e);
+  //         // monkLeague = leagueFromJson(jsonEncode(response));
+  //         //
+  //         //  print("Monk League :${monkLeagueModel.data!.length}");
+  //         loading(false);
+  //       },
+  //       onError: (error) {
+  //         print(error.toString());
+  //         loading(false);
+  //       });
+  //   update();
+  //   return monkListLeagueModel;
+  //
+  // }
+
+  // Future<void> getLiveMatches() async {
+  //   loading(true);
+  //   await ApiService.instance.apiCall(
+  //       execute: () async =>
+  //           await ApiService.instance.get(ApiEndpoints.liveMatches),
+  //       onSuccess: (response) {
+  //         print(response);
+  //
+  //         liveMatchesModel = liveMatchesModelFromJson(jsonEncode(response));
+  //         //
+  //         print(
+  //             "Live Matches:${liveMatchesModel.filters!.matchType!.first.capitalizeFirst}");
+  //         loading(false);
+  //       },
+  //       onError: (error) {
+  //         print(error.toString());
+  //         loading(false);
+  //       });
+  //   update();
+  // }
 
   Future<void> getOverSummery(String matchID) async {
     loading(true);
@@ -493,7 +632,7 @@ class HomeController extends GetxController {
             .doc(map['id'])
             .set(map);
 
-       await  updatePoints(sellPoints);
+       await  updatePoints(sellPoints,false);
 
         return true;
       } catch (err) {
@@ -507,15 +646,14 @@ class HomeController extends GetxController {
 
   }
   
-  Future<bool>updatePoints(String sellPoint)async{
+  Future<bool>updatePoints(String sellPoint, bool isAdd)async{
     final prefs = await SharedPreferences.getInstance();
-print(" Pref ID: ${prefs.getString('userId')}");
 
      await FirebaseFirestore.instance
         .collection('Users')
         .doc(prefs.getString('userId'))
         .update({
-      "totalPoint": "${int.parse(userModel.totalPoint!) - int.parse(sellPoint)}",
+      "totalPoint":isAdd? "${int.parse(userModel.totalPoint!) + int.parse(sellPoint)}":"${int.parse(userModel.totalPoint!) - int.parse(sellPoint)}",
     });
     await getUser(prefs.getString('userId')!);
     return true;

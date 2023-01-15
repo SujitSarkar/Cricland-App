@@ -33,9 +33,6 @@ class UpcomingCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dt = DateTime.fromMillisecondsSinceEpoch(int.parse(startTime!) * 1000);
-    print(dt.year);
-
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -140,7 +137,7 @@ class UpcomingCardTile extends StatelessWidget {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                DateFormat('hh:mm a').format(dt).toString(),
+                                DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(startTime!) * 1000)).toString(),
                                 style: CLTextStyle.paragraphTextStyle.copyWith(
                                     color: Colors.green,
                                     fontSize: dSize(.03),

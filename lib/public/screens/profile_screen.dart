@@ -74,9 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: PublicController.pc.toggleTextColor()),
                     children:  <TextSpan>[
                       TextSpan(text: '  ${homeController.userModel.firstName} ${homeController.userModel.lastName}',style: _textStyle.copyWith(fontSize: dSize(.05),fontWeight: FontWeight.bold,color: AllColor.fbColor),
-                        recognizer:  TapGestureRecognizer()..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>const SignUpScreen(),),);
-                        },
+
                       ),
 
                     ],
@@ -92,9 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: PublicController.pc.toggleTextColor()),
                     children:  <TextSpan>[
                       TextSpan(text: '  ${homeController.userModel.phone}',style: _textStyle.copyWith(fontSize: dSize(.05),fontWeight: FontWeight.bold,color: AllColor.fbColor),
-                        recognizer:  TapGestureRecognizer()..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>const SignUpScreen(),),);
-                        },
+
                       ),
 
                     ],
@@ -110,15 +106,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: PublicController.pc.toggleTextColor()),
                     children:  <TextSpan>[
                       TextSpan(text: '  ${homeController.userModel.totalPoint} Pts',style: _textStyle.copyWith(fontSize: dSize(.05),fontWeight: FontWeight.bold,color: AllColor.fbColor),
-                        recognizer:  TapGestureRecognizer()..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>const SignUpScreen(),),);
-                        },
+
                       ),
 
                     ],
                   ),
                 ),
-
                 SizedBox(height: dSize(.5)),
                 TextButton(style: TextButton.styleFrom(
                   backgroundColor: AllColor.purpleColor,
@@ -132,8 +125,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),)
               ],
             ),
-
-
           ],
         ),
       ),

@@ -449,7 +449,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                       innerBoxIsScrolled?const SizedBox():     RichText(
                                         text: TextSpan(
                                           text:
-                                              '${homeController.featureSeriesModel.seriesMapProto![1].series![1].name} ',
+                                              '${homeController.featureSeriesModel.seriesMapProto![1].series!.first.name} ',
                                           style: CLTextStyle
                                               .paragraphHeadLineTextStyle
                                               .copyWith(

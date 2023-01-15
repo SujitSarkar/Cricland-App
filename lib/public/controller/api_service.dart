@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:get/get.dart';
+import 'package:get/get_connect/connect.dart';
+
+
 import 'api_endpoints.dart';
 
 class ApiService {
@@ -13,6 +15,16 @@ class ApiService {
   }
 
   final GetConnect getConnect = GetConnect();
+
+  // Future<League> getLeague() async{
+  //   Response response = await get("${ApiEndpoints.monkBaseURL}+${ApiEndpoints.monkLeague}+${"/5"}+${ApiEndpoints.monkAPIToken}");
+  //   if(response.statusCode ==200){
+  //     final result = jsonDecode(response.body);
+  //   return result;
+  //   }else{
+  //     throw Exception(response.statusCode);
+  //   }
+  // }
 
   Future<void> apiCall(
       {required Function execute,

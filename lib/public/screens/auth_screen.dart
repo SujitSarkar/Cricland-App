@@ -26,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
     setState(() {
 
     });
-  print(userId);
+
   }
 
   @override

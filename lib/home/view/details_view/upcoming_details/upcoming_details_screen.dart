@@ -87,9 +87,6 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    print(DateFormat('dd-MM-yyyy hh:mm a').format(
-        DateTime.fromMicrosecondsSinceEpoch(
-            int.parse(widget.startDate) * 1000)));
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

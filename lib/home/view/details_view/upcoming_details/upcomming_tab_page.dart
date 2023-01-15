@@ -21,7 +21,7 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(50),
@@ -30,9 +30,9 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
         ),
         child: homeController.upcomingMatchModel.typeMatches != null
             ? ListView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   Text(
@@ -42,11 +42,11 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                       color: PublicController.pc.toggleTextColor(),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: homeController.upcomingMatchModel.typeMatches!
                         .first.seriesMatches!.length,
                     shrinkWrap: true,
@@ -84,6 +84,7 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                                     ),
                                   ),
                                 );
+
                               },
                               title:
                                   "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesName}",
@@ -97,16 +98,14 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                                   '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
                               startTime:
                                   '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.startDate}',
-
-                              //TODO state.Upcoming
                               status:
-                                  '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.state}',
+                                  '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.state}'.split(".")[1],
                             )
                           : const SizedBox();
                       //LiveCart(context);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                 ],

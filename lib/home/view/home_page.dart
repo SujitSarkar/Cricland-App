@@ -140,8 +140,9 @@ class _HomePageState extends State<HomePage>
                         vertical: dSize(.01),
                         horizontal: dSize(.02),
                       ),
-                      child: Text(
-                        'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
+                      child: const Text(
+                        'Live ( 0 )',
+                        // 'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
                       )),
                   Padding(
                     padding: EdgeInsets.symmetric(

@@ -16,6 +16,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../public/variables/variable.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -266,6 +267,7 @@ class _MorePageState extends State<MorePage> {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.remove('userId');
 
+                        showToast('Successfully Logout');
                       }),
                 ],
               ),
