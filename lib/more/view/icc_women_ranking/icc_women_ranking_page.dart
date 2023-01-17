@@ -10,14 +10,14 @@ import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ICCManRankingPage extends StatefulWidget {
-  const ICCManRankingPage({Key? key}) : super(key: key);
+class ICCWomenRankingPage extends StatefulWidget {
+  const ICCWomenRankingPage({Key? key}) : super(key: key);
 
   @override
-  State<ICCManRankingPage> createState() => _ICCManRankingPageState();
+  State<ICCWomenRankingPage> createState() => _ICCWomenRankingPageState();
 }
 
-class _ICCManRankingPageState extends State<ICCManRankingPage>
+class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
@@ -26,18 +26,18 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
   }
 
   Future<void> initializeData() async {
-    final RankingController rankingController = Get.find();
-    rankingController.manPlayerTypeTabController =
+    RankingController rankingController = Get.find();
+    rankingController.womenPlayerTypeTabController =
         TabController(length: 4, vsync: this);
 
     ///Add listener to tabcontroller
-    rankingController.manPlayerTypeTabController.addListener(() async {
-      if (rankingController.manPlayerTypeTabController.index !=
-          rankingController.manPlayerTypeTabController.previousIndex) {
-        await rankingController.getManRankingList();
+    rankingController.womenPlayerTypeTabController.addListener(() async {
+      if (rankingController.womenPlayerTypeTabController.index !=
+          rankingController.womenPlayerTypeTabController.previousIndex) {
+        await rankingController.getWomenRankingList();
       }
     });
-    await rankingController.getManRankingList();
+    await rankingController.getWomenRankingList();
   }
 
   @override
@@ -57,7 +57,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                               NestedScrollView.sliverOverlapAbsorberHandleFor(
                                   context),
                           sliver: SliverAppBar(
-                            title: Text('ICC Men\'s Rankings',
+                            title: Text('ICC Womens\'s Rankings',
                                 style: TextStyle(fontSize: dSize(.045))),
                             titleSpacing: -8.0,
                             floating: true,
@@ -89,8 +89,8 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                   .map((item) => Expanded(
                           child: InkWell(
                         onTap: () async {
-                          rankingController.selectedManGameType.value = item;
-                          await rankingController.getManRankingList();
+                          rankingController.selectedWomenGameType.value = item;
+                          await rankingController.getWomenRankingList();
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -103,7 +103,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                               border: Border.all(
                                   color: item ==
                                           rankingController
-                                              .selectedManGameType.value
+                                              .selectedWomenGameType.value
                                       ? AllColor.primaryColor
                                       : PublicController.pc.isLight.value
                                           ? Colors.grey
@@ -111,7 +111,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                                   width: 0.5),
                               color: item ==
                                       rankingController
-                                          .selectedManGameType.value
+                                          .selectedWomenGameType.value
                                   ? AllColor.primaryColor
                                   : PublicController.pc.toggleCardBg(),
                               borderRadius: BorderRadius.all(
@@ -126,7 +126,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                                 fontWeight: FontWeight.w500,
                                 color: item ==
                                         rankingController
-                                            .selectedManGameType.value
+                                            .selectedWomenGameType.value
                                     ? Colors.white
                                     : PublicController.pc.toggleTextColor()),
                           ),
@@ -141,13 +141,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: dSize(.04)),
                   child: TabBarView(
-                      controller: rankingController.manPlayerTypeTabController,
-                      children: [
-                        _individualData(rankingController),
-                        _individualData(rankingController),
-                        _individualData(rankingController),
-                        _teamData(rankingController),
-                      ])))
+                    controller: rankingController.womenPlayerTypeTabController,
+                    children: [
+                      _individualData(rankingController),
+                      _individualData(rankingController),
+                      _individualData(rankingController),
+                      _teamData(rankingController)
+                    ],
+                  )))
         ],
       );
 
@@ -202,9 +203,9 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
             child: ListView.separated(
               padding: EdgeInsets.only(top: dSize(.04)),
               physics: const BouncingScrollPhysics(),
-              itemCount: rankingController.manTeamRankingList.length,
+              itemCount: rankingController.womenTeamRankingList.length,
               itemBuilder: (context, index) => TeamRankingTile(
-                  model: rankingController.manTeamRankingList[index]),
+                  model: rankingController.womenTeamRankingList[index]),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )
@@ -247,14 +248,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
             child: ListView.separated(
               padding: EdgeInsets.only(top: dSize(.04)),
               physics: const BouncingScrollPhysics(),
-              itemCount: rankingController.manRankingList.length,
+              itemCount: rankingController.womenRankingList.length,
               itemBuilder: (context, index) => InkWell(
                   onTap: () {
-                    rankingController.manPlayerOnTap(
-                        rankingController.manRankingList[index].id!);
+                    rankingController.womenPlayerOnTap(
+                        rankingController.womenRankingList[index].id!);
                   },
                   child: RankingTile(
-                      model: rankingController.manRankingList[index])),
+                      model: rankingController.womenRankingList[index])),
               separatorBuilder: (context, index) => Divider(height: dSize(.12)),
             ),
           )
@@ -265,10 +266,10 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
         preferredSize: Size.fromHeight(dSize(.1)),
         child: TabBar(
           onTap: (covariant) async {
-            rankingController.manPlayerTypeTabController.index = covariant;
+            rankingController.womenPlayerTypeTabController.index = covariant;
           },
           isScrollable: true,
-          controller: rankingController.manPlayerTypeTabController,
+          controller: rankingController.womenPlayerTypeTabController,
           labelColor: PublicController.pc.toggleLoadingColor(),
           indicator: BoxDecoration(
               borderRadius: BorderRadius.only(

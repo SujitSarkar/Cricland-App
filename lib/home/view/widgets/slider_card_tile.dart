@@ -65,9 +65,7 @@ class SliderCardTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,

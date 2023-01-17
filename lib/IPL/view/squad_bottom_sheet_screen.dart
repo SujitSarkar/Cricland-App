@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/player_squad_model.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_details_man.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
@@ -172,9 +172,8 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (_) => PlayerDetailsPage(
-                                          playerId: "6635",
-                                        ),
+                                        builder: (_) =>
+                                            const PlayerDetailsPageMan(),
                                       ),
                                     );
                                   },

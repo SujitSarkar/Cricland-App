@@ -1,5 +1,6 @@
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/controller/more_controller.dart';
+import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/screens/splash_screen.dart';
@@ -9,8 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'home/view/delete_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +29,7 @@ void main() async {
   Get.put(LanguageController());
   Get.put(HomeController());
   Get.put(MoreController());
+  Get.put(RankingController());
 
   runApp(const MyApp()
       // DevicePreview(
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
           theme: pc.toggleTheme(),
-          home: SplashScreen());
+          home: const SplashScreen());
     });
   }
 }

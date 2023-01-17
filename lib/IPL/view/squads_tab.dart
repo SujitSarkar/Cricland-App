@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_details.dart';
+import 'package:cricland/more/view/icc_man_ranking/player_details/player_details_man.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
