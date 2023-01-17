@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,15 +32,20 @@ class _MorePageState extends State<MorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('More', style: TextStyle(fontSize: dSize(.045))),
-      ),
-      body: _bodyUI(context),
-    );
+    final LanguageController lc = Get.find();
+    return GetBuilder<MoreController>(builder: (moreController) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(lc.languageModel.value.more!,
+              style: TextStyle(fontSize: dSize(.045))),
+        ),
+        body: _bodyUI(context, moreController, lc),
+      );
+    });
   }
 
-  Widget _bodyUI(BuildContext context) {
+  Widget _bodyUI(BuildContext context, MoreController moreController,
+      LanguageController lc) {
     return Obx(() => ListView(
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.all(dSize(.04)),
@@ -52,14 +56,14 @@ class _MorePageState extends State<MorePage> {
                 children: [
                   CardTile(
                       leadingIcon: FontAwesomeIcons.userLarge,
-                      title: 'ICC Men\'s Ranking',
+                      title: lc.languageModel.value.iccMenRanking!,
                       showDivider: true,
                       onTap: () {
                         Get.to(() => const ICCManRankingPage());
                       }),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.userLarge,
-                      title: 'ICC Women\'s Ranking',
+                      title: lc.languageModel.value.iccWomenRanking!,
                       onTap: () {
                         Get.to(() => const ICCWomenRankingPage());
                       })
@@ -69,7 +73,7 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Premium
-            Text('Premium', style: _titleStyle),
+            Text(lc.languageModel.value.premium!, style: _titleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
@@ -77,7 +81,7 @@ class _MorePageState extends State<MorePage> {
                     Get.to(() => PremiumPage());
                   },
                   leadingIcon: FontAwesomeIcons.crown,
-                  title: 'Cricland',
+                  title: lc.languageModel.value.cricland!,
                   trailingWidget: Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: dSize(.03), vertical: dSize(.01)),
@@ -89,7 +93,7 @@ class _MorePageState extends State<MorePage> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Premium',
+                        Text(lc.languageModel.value.premium!,
                             style: TextStyle(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor())),
@@ -102,14 +106,14 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Follow Us
-            Text('Follow Us', style: _titleStyle),
+            Text(lc.languageModel.value.followUs!, style: _titleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
                 children: [
                   CardTile(
                       leadingIcon: FontAwesomeIcons.youtube,
-                      title: 'Youtube',
+                      title: lc.languageModel.value.youtube!,
                       showDivider: true,
                       onTap: () async {
                         if (await canLaunchUrl(
@@ -120,7 +124,7 @@ class _MorePageState extends State<MorePage> {
                       }),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.facebook,
-                      title: 'Facebook',
+                      title: lc.languageModel.value.facebook!,
                       showDivider: true,
                       onTap: () async {
                         if (await canLaunchUrl(
@@ -131,7 +135,7 @@ class _MorePageState extends State<MorePage> {
                       }),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.instagram,
-                      title: 'Instagram',
+                      title: lc.languageModel.value.instagram!,
                       onTap: () async {
                         if (await canLaunchUrl(
                             Uri.parse('https://icons8.com/line-awesome'))) {
@@ -145,12 +149,12 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Settings
-            Text('Setting & Appearance', style: _titleStyle),
+            Text(lc.languageModel.value.settingAppearence!, style: _titleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
                 leadingIcon: FontAwesomeIcons.language,
-                title: 'App Language',
+                title: lc.languageModel.value.appLanguage!,
                 trailingWidget: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: dSize(.03), vertical: dSize(.01)),
@@ -161,7 +165,7 @@ class _MorePageState extends State<MorePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('English',
+                      Text(lc.languageModel.value.language!,
                           style: TextStyle(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor())),
@@ -181,14 +185,14 @@ class _MorePageState extends State<MorePage> {
                 children: [
                   CardTile(
                       leadingIcon: FontAwesomeIcons.solidLightbulb,
-                      title: 'Change Theme',
+                      title: lc.languageModel.value.changeTheme!,
                       showDivider: true,
                       onTap: () {
-                        _showThemeChangeSheet(context);
+                        _showThemeChangeSheet(context, lc);
                       }),
                   CardTile(
                     leadingIcon: FontAwesomeIcons.bell,
-                    title: 'Notifications',
+                    title: lc.languageModel.value.notifications!,
                     trailingWidget: SizedBox(
                       height: dSize(.04),
                       child: Switch(
@@ -209,14 +213,14 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Support
-            Text('Rate Us', style: _titleStyle),
+            Text(lc.languageModel.value.rateUs!, style: _titleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
                 children: [
                   CardTile(
                       leadingIcon: FontAwesomeIcons.star,
-                      title: 'Rate Us',
+                      title: lc.languageModel.value.rateUs!,
                       showDivider: true,
                       onTap: () {
                         LaunchReview.launch(
@@ -225,7 +229,7 @@ class _MorePageState extends State<MorePage> {
                       }),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.message,
-                      title: 'Feedback',
+                      title: lc.languageModel.value.feedback!,
                       showDivider: true,
                       onTap: () {
                         LaunchReview.launch(
@@ -234,7 +238,7 @@ class _MorePageState extends State<MorePage> {
                       }),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.shareNodes,
-                      title: 'Share App',
+                      title: lc.languageModel.value.shareApp!,
                       onTap: () {
                         Share.share(
                             'https://play.google.com/store/apps/details?id=com.glamworlditltd.muktodhara');
@@ -245,25 +249,27 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Terms & privacy
-            Text('About', style: _titleStyle),
+            Text(lc.languageModel.value.about!, style: _titleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
                 children: [
                   CardTile(
                       leadingIcon: FontAwesomeIcons.gavel,
-                      title: 'Terms of Use',
+                      title: lc.languageModel.value.termsOfUse!,
                       showDivider: true,
                       onTap: () {}),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.lock,
-                      title: 'Privacy Policy',
+                      title: lc.languageModel.value.privacyPolicy!,
                       onTap: () {}),
-                 const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.signOut,
-                      title: 'Logout',
-                      onTap: () async{
+                      title: lc.languageModel.value.logout!,
+                      onTap: () async {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.remove('userId');
 
@@ -274,14 +280,16 @@ class _MorePageState extends State<MorePage> {
             ),
             SizedBox(height: dSize(.08)),
 
-            Text('Version: ${PublicController.pc.packageInfo.version}',
-                textAlign: TextAlign.center, style: _titleStyle),
+            Text(
+                '${lc.languageModel.value.version!}: ${PublicController.pc.packageInfo.version}',
+                textAlign: TextAlign.center,
+                style: _titleStyle),
             SizedBox(height: dSize(.02)),
           ],
         ));
   }
 
-  void _showThemeChangeSheet(BuildContext context) {
+  void _showThemeChangeSheet(BuildContext context, LanguageController lc) {
     showModalBottomSheet(
         context: context,
         builder: (_) => Container(
@@ -298,28 +306,15 @@ class _MorePageState extends State<MorePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(),
-                          Container(
-                              width: dSize(.1),
-                              height: dSize(.01),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(dSize(.05))))),
-                          InkWell(
-                              onTap: () => Get.back(),
-                              child: Icon(
-                                LineAwesomeIcons.times,
-                                size: dSize(.06),
-                                color: Colors.grey,
-                              ))
-                        ],
-                      ),
+                      Container(
+                          width: dSize(.1),
+                          height: dSize(.01),
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(dSize(.05))))),
                       SizedBox(height: dSize(.1)),
-                      Text('Change the app theme by your own choice',
+                      Text(lc.languageModel.value.changeThemeTitle!,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: PublicController.pc.toggleTextColor(),
@@ -327,7 +322,10 @@ class _MorePageState extends State<MorePage> {
                               fontWeight: FontWeight.w500)),
                       SizedBox(height: dSize(.08)),
                       AnimatedToggleButton(
-                        values: const ['Light', 'Dark'],
+                        values: [
+                          lc.languageModel.value.light!,
+                          lc.languageModel.value.dark!
+                        ],
                         toggleValue: PublicController.pc.isLight.value,
                         width: dSize(.85),
                         height: dSize(0.12),
@@ -528,10 +526,10 @@ class _MorePageState extends State<MorePage> {
                                       onPressed: () {
                                         if (_isEnglishSelected) {
                                           LanguageController.lc
-                                              .changeLanguage(true);
+                                              .changeLanguage('english');
                                         } else {
                                           LanguageController.lc
-                                              .changeLanguage(false);
+                                              .changeLanguage('bangla');
                                         }
                                         Navigator.pop(context);
                                       },

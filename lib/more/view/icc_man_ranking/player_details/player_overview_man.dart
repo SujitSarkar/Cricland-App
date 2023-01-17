@@ -46,7 +46,7 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               ),
               const SizedBox(width: 10),
               Text(
-                homeController.playerInfoModel.bat!,
+                homeController.playerInfoModel.bat ?? '',
                 style: CLTextStyle.nameTextStyle.copyWith(
                   fontSize: dSize(.035),
                 ),

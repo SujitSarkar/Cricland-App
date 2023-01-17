@@ -1,6 +1,6 @@
 class ApiEndpoint {
   static const Map<String, String> header = {
-    'X-RapidAPI-Key': '32611f2cdamsh520fe0c09fc6a72p1167d1jsn17370117b6c5',
+    'X-RapidAPI-Key': 'e0f55ded3cmsha1be58abe55a686p1a02f2jsn56d8f078493f',
     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
   };
 
