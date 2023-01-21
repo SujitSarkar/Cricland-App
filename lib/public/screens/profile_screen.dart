@@ -1,9 +1,6 @@
 import 'package:cricland/public/screens/sell_points_screen.dart';
-import 'package:cricland/public/screens/signup_screen.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';

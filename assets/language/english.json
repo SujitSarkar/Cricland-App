@@ -37,5 +37,11 @@
   "light":"Light",
   "dark":"Dark",
 
-  "change_theme_title":"Change the app theme by your own choice"
+  "change_theme_title":"Change the app theme by your own choice",  
+
+  "manCategoryList": ["Batsmen","Bowlers","Allrounders","Teams"],
+  "manGameType": ["ODI","T20"],
+  "player_ranking_table_header": ["Rank","Player","Ratings"],
+  "team_ranking_table_header": ["Rank","Team","Matches","Points","Ratings"],
+  "playerDetails": ["Overview", "Matches","Player Info"]
 }

@@ -175,7 +175,7 @@ class _MorePageState extends State<MorePage> {
                   ),
                 ),
                 onTap: () {
-                  _showLanguageChangeSheet(context);
+                  _showLanguageChangeSheet(context, lc);
                 },
               ),
             ),
@@ -346,7 +346,7 @@ class _MorePageState extends State<MorePage> {
             ));
   }
 
-  void _showLanguageChangeSheet(BuildContext context) {
+  void _showLanguageChangeSheet(BuildContext context, LanguageController lc) {
     bool _isEnglishSelected = false;
     bool _isBanglaSelected = false;
     bool _isHindiSelected = false;
@@ -377,7 +377,7 @@ class _MorePageState extends State<MorePage> {
                                 child: TextButton(
                                   onPressed: () => Get.back(),
                                   child: Text(
-                                    'Close',
+                                    lc.languageModel.value.close!,
                                     style: TextStyle(
                                         color: PublicController.pc
                                             .toggleTextColor()),
@@ -387,7 +387,7 @@ class _MorePageState extends State<MorePage> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'App Language',
+                                  lc.languageModel.value.appLanguage!,
                                   style: TextStyle(
                                       fontSize: 20,
                                       color: PublicController.pc
@@ -431,9 +431,7 @@ class _MorePageState extends State<MorePage> {
                                       PublicController.pc.toggleStatusBar(),
                                 ),
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
+                              const SizedBox(height: 5),
                               Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -470,9 +468,7 @@ class _MorePageState extends State<MorePage> {
                                       PublicController.pc.toggleStatusBar(),
                                 ),
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
+                              const SizedBox(height: 5),
                               Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -514,10 +510,11 @@ class _MorePageState extends State<MorePage> {
                                 children: [
                                   Expanded(
                                     child: ElevatedButton(
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 18.0),
-                                        child: Text('Continue'),
+                                        child: Text(lc.languageModel.value
+                                            .languageModelContinue!),
                                       ),
                                       style: ElevatedButton.styleFrom(
                                         onPrimary: Colors.white,

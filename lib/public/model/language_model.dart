@@ -1,91 +1,98 @@
-// To parse this JSON data, do
-//
-//     final languageModel = languageModelFromJson(jsonString);
-
 import 'dart:convert';
 
-LanguageModel languageModelFromJson(String str) => LanguageModel.fromJson(json.decode(str));
+LanguageModel languageModelFromJson(String str) =>
+    LanguageModel.fromJson(json.decode(str));
 
-String languageModelToJson(LanguageModel? data) => json.encode(data!.toJson());
+String languageModelToJson(LanguageModel data) => json.encode(data.toJson());
 
 class LanguageModel {
-    LanguageModel({
-        this.profile,
-        this.ipl,
-        this.match,
-        this.trending,
-        this.more,
-        this.iccMenRanking,
-        this.iccWomenRanking,
-        this.cricland,
-        this.facebook,
-        this.youtube,
-        this.instagram,
-        this.appLanguage,
-        this.changeTheme,
-        this.notifications,
-        this.rateUs,
-        this.followUs,
-        this.feedback,
-        this.shareApp,
-        this.termsOfUse,
-        this.privacyPolicy,
-        this.logout,
-        this.login,
-        this.english,
-        this.bangla,
-        this.hindi,
-        this.close,
-        this.settings,
-        this.settingAppearence,
-        this.languageModelContinue,
-        this.premium,
-        this.version,
-        this.about,
-        this.language,
-        this.light,
-        this.dark,
-        this.changeThemeTitle,
-    });
+  LanguageModel({
+    this.profile,
+    this.ipl,
+    this.match,
+    this.trending,
+    this.more,
+    this.iccMenRanking,
+    this.iccWomenRanking,
+    this.cricland,
+    this.facebook,
+    this.youtube,
+    this.instagram,
+    this.appLanguage,
+    this.changeTheme,
+    this.notifications,
+    this.rateUs,
+    this.followUs,
+    this.feedback,
+    this.shareApp,
+    this.termsOfUse,
+    this.privacyPolicy,
+    this.logout,
+    this.login,
+    this.english,
+    this.bangla,
+    this.hindi,
+    this.close,
+    this.settings,
+    this.settingAppearence,
+    this.languageModelContinue,
+    this.premium,
+    this.version,
+    this.about,
+    this.language,
+    this.light,
+    this.dark,
+    this.changeThemeTitle,
+    this.manCategoryList,
+    this.manGameType,
+    this.playerRankingTableHeader,
+    this.teamRankingTableHeader,
+    this.playerDetails,
+  });
 
-    final String? profile;
-    final String? ipl;
-    final String? match;
-    final String? trending;
-    final String? more;
-    final String? iccMenRanking;
-    final String? iccWomenRanking;
-    final String? cricland;
-    final String? facebook;
-    final String? youtube;
-    final String? instagram;
-    final String? appLanguage;
-    final String? changeTheme;
-    final String? notifications;
-    final String? rateUs;
-    final String? followUs;
-    final String? feedback;
-    final String? shareApp;
-    final String? termsOfUse;
-    final String? privacyPolicy;
-    final String? logout;
-    final String? login;
-    final String? english;
-    final String? bangla;
-    final String? hindi;
-    final String? close;
-    final String? settings;
-    final String? settingAppearence;
-    final String? languageModelContinue;
-    final String? premium;
-    final String? version;
-    final String? about;
-    final String? language;
-    final String? light;
-    final String? dark;
-    final String? changeThemeTitle;
+  final String? profile;
+  final String? ipl;
+  final String? match;
+  final String? trending;
+  final String? more;
+  final String? iccMenRanking;
+  final String? iccWomenRanking;
+  final String? cricland;
+  final String? facebook;
+  final String? youtube;
+  final String? instagram;
+  final String? appLanguage;
+  final String? changeTheme;
+  final String? notifications;
+  final String? rateUs;
+  final String? followUs;
+  final String? feedback;
+  final String? shareApp;
+  final String? termsOfUse;
+  final String? privacyPolicy;
+  final String? logout;
+  final String? login;
+  final String? english;
+  final String? bangla;
+  final String? hindi;
+  final String? close;
+  final String? settings;
+  final String? settingAppearence;
+  final String? languageModelContinue;
+  final String? premium;
+  final String? version;
+  final String? about;
+  final String? language;
+  final String? light;
+  final String? dark;
+  final String? changeThemeTitle;
+  final List<String>? manCategoryList;
+  final List<String>? manGameType;
+  final List<String>? playerRankingTableHeader;
+  final List<String>? teamRankingTableHeader;
+  final List<String>? playerDetails;
 
-    factory LanguageModel.fromJson(Map<String, dynamic> json) => LanguageModel(
+  factory LanguageModel.fromJson(Map<String, dynamic> json) => LanguageModel(
         profile: json["profile"],
         ipl: json["ipl"],
         match: json["match"],
@@ -122,9 +129,26 @@ class LanguageModel {
         light: json["light"],
         dark: json["dark"],
         changeThemeTitle: json["change_theme_title"],
-    );
+        manCategoryList: json["manCategoryList"] == null
+            ? []
+            : List<String>.from(json["manCategoryList"]!.map((x) => x)),
+        manGameType: json["manGameType"] == null
+            ? []
+            : List<String>.from(json["manGameType"]!.map((x) => x)),
+        playerRankingTableHeader: json["player_ranking_table_header"] == null
+            ? []
+            : List<String>.from(
+                json["player_ranking_table_header"]!.map((x) => x)),
+        teamRankingTableHeader: json["team_ranking_table_header"] == null
+            ? []
+            : List<String>.from(
+                json["team_ranking_table_header"]!.map((x) => x)),
+        playerDetails: json["playerDetails"] == null
+            ? []
+            : List<String>.from(json["playerDetails"]!.map((x) => x)),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "profile": profile,
         "ipl": ipl,
         "match": match,
@@ -161,5 +185,20 @@ class LanguageModel {
         "light": light,
         "dark": dark,
         "change_theme_title": changeThemeTitle,
-    };
+        "manCategoryList": manCategoryList == null
+            ? []
+            : List<dynamic>.from(manCategoryList!.map((x) => x)),
+        "manGameType": manGameType == null
+            ? []
+            : List<dynamic>.from(manGameType!.map((x) => x)),
+        "player_ranking_table_header": playerRankingTableHeader == null
+            ? []
+            : List<dynamic>.from(playerRankingTableHeader!.map((x) => x)),
+        "team_ranking_table_header": teamRankingTableHeader == null
+            ? []
+            : List<dynamic>.from(teamRankingTableHeader!.map((x) => x)),
+        "playerDetails": playerDetails == null
+            ? []
+            : List<dynamic>.from(playerDetails!.map((x) => x)),
+      };
 }

@@ -123,7 +123,7 @@ class RankingController extends GetxController {
   Future<void> womenPlayerOnTap(String id) async {
     selectedPlayerId = id;
     getPlayerInfo();
-    Get.to(() =>  const PlayerDetailsPageWomen());
+    Get.to(() => const PlayerDetailsPageWomen());
   }
 
   Future<void> manTeamOnTap() async {}

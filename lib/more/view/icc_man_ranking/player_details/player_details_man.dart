@@ -5,6 +5,7 @@ import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info_man.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_matches_man.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_overview_man.dart';
+import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/colors.dart';
@@ -41,6 +42,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
   @override
   Widget build(BuildContext context) {
     final RankingController rankingController = Get.find();
+    final LanguageController lc = Get.find();
     return Obx(() {
       return Stack(
         children: [
@@ -126,7 +128,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                                   : const SizedBox.shrink())
                         ],
                       ),
-                      bottom: _tabBar(),
+                      bottom: _tabBar(lc),
                     ),
                   ),
                 ];
@@ -150,7 +152,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
         ],
       );
 
-  PreferredSize _tabBar() => PreferredSize(
+  PreferredSize _tabBar(LanguageController lc) => PreferredSize(
         preferredSize: Size.fromHeight(dSize(.3)),
         child: Container(
           color: AllColor.appDarkBg,
@@ -173,7 +175,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                 TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
             indicatorSize: TabBarIndicatorSize.label,
             physics: const BouncingScrollPhysics(),
-            tabs: Variables.playerDetails
+            tabs: lc.languageModel.value.playerDetails!
                 .map<Widget>((String item) => Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: dSize(.01), horizontal: dSize(.02)),
