@@ -1,4 +1,5 @@
 import 'package:cricland/more/controller/more_controller.dart';
+import 'package:cricland/more/view/feedback_page.dart';
 import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
 import 'package:cricland/more/view/icc_women_ranking/icc_women_ranking_page.dart';
 import 'package:cricland/more/view/premium_page.dart';
@@ -232,9 +233,7 @@ class _MorePageState extends State<MorePage> {
                       title: lc.languageModel.value.feedback!,
                       showDivider: true,
                       onTap: () {
-                        LaunchReview.launch(
-                            androidAppId: "bd.com.baghmama.bm",
-                            iOSAppId: "585027354");
+                        Get.to(() => const FeedbackPage());
                       }),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.shareNodes,

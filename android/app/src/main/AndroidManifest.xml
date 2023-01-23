@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mth_production_pvt.circland">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+    <intent>
+      <action android:name="android.intent.action.SENDTO" />
+      <data android:scheme="mailto" />
+    </intent>
+  </queries>
    <application
         android:label="Cricland"
-        android:name="${applicationName}"
+        android:name="androidx.multidex.MultiDexApplication"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

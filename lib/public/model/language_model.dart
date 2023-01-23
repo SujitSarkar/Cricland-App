@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final languageModel = languageModelFromJson(jsonString);
+
 import 'dart:convert';
 
 LanguageModel languageModelFromJson(String str) =>
@@ -48,6 +52,13 @@ class LanguageModel {
     this.playerRankingTableHeader,
     this.teamRankingTableHeader,
     this.playerDetails,
+    this.submit,
+    this.provideAllData,
+    this.success,
+    this.failed,
+    this.emailOrPhone,
+    this.email,
+    this.name,
   });
 
   final String? profile;
@@ -91,6 +102,13 @@ class LanguageModel {
   final List<String>? playerRankingTableHeader;
   final List<String>? teamRankingTableHeader;
   final List<String>? playerDetails;
+  final String? submit;
+  final String? provideAllData;
+  final String? success;
+  final String? failed;
+  final String? emailOrPhone;
+  final String? email;
+  final String? name;
 
   factory LanguageModel.fromJson(Map<String, dynamic> json) => LanguageModel(
         profile: json["profile"],
@@ -146,6 +164,13 @@ class LanguageModel {
         playerDetails: json["playerDetails"] == null
             ? []
             : List<String>.from(json["playerDetails"]!.map((x) => x)),
+        submit: json["submit"],
+        provideAllData: json["provide_all_data"],
+        success: json["success"],
+        failed: json["failed"],
+        emailOrPhone: json["email_or_phone"],
+        email: json["email"],
+        name: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -200,5 +225,12 @@ class LanguageModel {
         "playerDetails": playerDetails == null
             ? []
             : List<dynamic>.from(playerDetails!.map((x) => x)),
+        "submit": submit,
+        "provide_all_data": provideAllData,
+        "success": success,
+        "failed": failed,
+        "email_or_phone": emailOrPhone,
+        "email": email,
+        "name": name,
       };
 }

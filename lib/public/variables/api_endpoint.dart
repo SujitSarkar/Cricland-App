@@ -4,6 +4,9 @@ class ApiEndpoint {
     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
   };
 
+  static const String emailSendBaseUrl =
+      'https://api.emailjs.com/api/v1.0/email/send';
+
   static const String baseUrl = 'https://cricbuzz-cricket.p.rapidapi.com/';
   static const String version = 'v1';
 

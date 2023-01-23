@@ -43,5 +43,13 @@
   "manGameType": ["ওডিআই","টি-২০"],
   "player_ranking_table_header": ["ক্রম","প্লেয়ার","রেটিং"],
   "team_ranking_table_header": ["ক্রম","দল","ম্যাচ","পয়েন্ট","রেটিং"],
-  "playerDetails": ["ওভারভিউ", "ম্যাচ","প্লেয়ার তথ্য"]
+  "playerDetails": ["ওভারভিউ", "ম্যাচ","প্লেয়ার তথ্য"],
+
+  "submit": "সাবমিট",
+  "provide_all_data": "সমস্ত তথ্য প্রদান",
+  "success": "সফল হয়েছে",
+  "failed":"অসাফল্য",
+  "email_or_phone": "ইমেইল অথবা ফোন",
+  "email":"ইমেইল ঠিকানা",
+  "name":"পুরো নাম"
 }

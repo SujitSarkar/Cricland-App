@@ -43,5 +43,13 @@
   "manGameType": ["ODI","T20"],
   "player_ranking_table_header": ["Rank","Player","Ratings"],
   "team_ranking_table_header": ["Rank","Team","Matches","Points","Ratings"],
-  "playerDetails": ["Overview", "Matches","Player Info"]
+  "playerDetails": ["Overview", "Matches","Player Info"],
+
+  "submit":"Submit",
+  "provide_all_data":"Provide all data",
+  "success":"Success",
+  "failed":"Faild",
+  "email_or_phone": "Email or Phone",
+  "email":"Email Address",
+  "name":"Full Name"
 }
