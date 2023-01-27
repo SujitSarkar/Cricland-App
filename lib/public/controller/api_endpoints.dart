@@ -35,7 +35,7 @@ class ApiEndpoints {
   static const String monkApiVersion = "api/v2.0/";
   static const String monkBaseURL =
       'https://cricket.sportmonks.com/' + monkApiVersion;
-  static String monkLiveMatches = 'livescores' + monkAPIToken;
-  static String monkLeague = 'leagues/';
+  static String monkLiveMatches =monkBaseURL+ 'livescores'+ monkAPIToken;
+  static String monkLeague = monkBaseURL+'leagues/';
   static String monkVanue = 'venues/';
 }

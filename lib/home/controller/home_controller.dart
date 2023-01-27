@@ -80,7 +80,7 @@ class HomeController extends GetxController {
   //  monkLeague = MonkLeagueModel();
 
     userModel = UserModel();
-    fetchInitData();
+  // fetchInitData();
     //get Matches
     // await getLiveMatches();
 
