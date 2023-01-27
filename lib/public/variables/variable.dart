@@ -4,12 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'colors.dart';
 
 class Variables {
-  //static const String baseUrl = 'http://tashfia.binduitsolutions.com/api/';
-  // final Map<String, String> authHeader = {
-  //   "Content-Type": "application/json",
-  //   'Authorization': 'Bearer ${PublicController.pc.loginResponse.value.token}',
-  // };
-
   static const List<String> manCategoryList = [
     'Batsmen',
     'Bowlers',
@@ -17,7 +11,7 @@ class Variables {
     'Teams'
   ];
   static const List<String> manGameType = ['ODI', 'T20'];
-  static const List<String> manGameType2 = ['All', 'ODI', 'T20', '100B'];
+  static const List<String> manGameType2 = ['All', 'ODI', 'T20'];
   static const List<String> playerDetails = [
     'Overview',
     'Matches',
@@ -174,23 +168,6 @@ class Variables {
           caption: TextStyle(fontFamily: "openSans"),
           button: TextStyle(fontFamily: "openSans"),
           overline: TextStyle(fontFamily: "openSans")));
-
-  static String aboutSakib =
-      'Shakib Al Hasan made his test debut in 2007 against India. His breakthrough came in the '
-      'Test against New Zealand in Chittagong in 2008. He picked up 7/36, which to date is the best figure by a Bangladeshi '
-      'bowler. In the 2012 Asia Cup, Shakib scored 237 runs, including three fifties, and took six wickets. Bangladesh '
-      'progressed to the tournament\'s final for the first time, where they lost to Pakistan by two runs. Shakib Al Hasan\n\n'
-      ' received many awards for his performance in the game. He was awarded the Player of the Tournament award in the 2019 '
-      'Cricket World Cup for hitting back to back centuries and half-centuries for his country.[10] He ended up as 3rd most'
-      ' run-scorer in the tournament with 606 runs in total.[11] He has received 31 man-of-the-match awards and 16 '
-      'man-of-the-series awards in all formats.[12] Currently, he holds the 3rd most Player of the tournament awards in\n\n'
-      ' all forms after Sachin Tendulkar and Virat Kohli.[13]Between 2009 and 2022, he captained the Bangladesh cricket '
-      'team in 85 matches across all three formats.Shakib is a vital cog in Bangladesh\'s line-up as a genuine all-rounder.'
-      ' He has been a consistent performer for his country over the years. Shakib was ranked No. 1 among the all-rounders by\n\n '
-      'the ICC thanks to his consistency. He is a very controversial figure in Bangladeshi cricket history, always making at '
-      'the top of the headlines for aggressive behavior inside and outside of the field. He is the most followed person on'
-      ' Facebook from Bangladesh, with more than 15.5 million followers.[14] As of March 2022, Shakib holds the record for'
-      ' the most men\'s Twenty20 International wickets, at 119.';
 }
 
 void showToast(message) => Fluttertoast.showToast(
