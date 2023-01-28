@@ -52,11 +52,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           children: [
 
-            const CircleAvatar(
-              radius: 70,
-              backgroundImage: AssetImage('assets/player.png'),
+        homeController.userModel.firstName ==null ?  const CircleAvatar(
+   radius: 70,
+              backgroundImage:  AssetImage('assets/player.png')
 
-            ),
+            ):CircleAvatar(
+  radius: 70,
+  backgroundImage: NetworkImage(homeController.userModel.profileImage!),
+
+  ),
             SizedBox(height: dSize(.05)),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,

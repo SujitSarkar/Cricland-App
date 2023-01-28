@@ -294,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (_) => Container(
           height: dSize(.7),
-          width: MediaQuery.of(context).size.width,
+          width: dSize(1),
           padding: EdgeInsets.all(dSize(.04)),
           decoration: BoxDecoration(
               color: PublicController.pc.toggleCardBg(),
@@ -441,31 +441,32 @@ class _LoginScreenState extends State<LoginScreen> {
       idToken:  googleAuth.idToken,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) async{
 
         setState(() {
           _isLoading = true;
           homeController
-              .registerUser(
+              .registerUserWithGoogle(
             _user!.displayName!,
             lastNameController.text,
             _user.email,
-            _user.authentication.obs.value.toString(),
+              _user.email,
             _user.photoUrl!
           ).then((value) {
             setState(() {
               _isLoading = false;
             });
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeNavPage(),),);
 
-            _emptyFieldCreatorSignUp();
+
+
           });
         });
 
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeNavPage(),),);
 
 
      // Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(),),);

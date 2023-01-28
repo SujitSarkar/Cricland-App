@@ -567,7 +567,43 @@ class HomeController extends GetxController {
 
   }
 
+  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,
+      String password,String imageUrl) async {
+    final snapshot1 =
+    await FirebaseFirestore.instance.collection('Users').doc(phone).get();
 
+      DateTime date = DateTime.now();
+      String dateData = '${date.day}-${date.month}-${date.year}';
+      Map<String, dynamic> map = {
+        'firstName': firstName,
+        'lastName': lastName,
+        'phone': phone,
+        'password': password,
+        'date': dateData,
+        'id': phone,
+        'profileImage': imageUrl,
+        'totalPoint': '00',
+      };
+
+
+
+      try {
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .doc(map['id'])
+            .set(map);
+        await getUser(phone);
+        return true;
+      } catch (err) {
+        showToast('$err');
+        print(err);
+
+        return false;
+      }
+
+
+
+  }
   // RxBool isLogIn = false.obs;
   Future<void> getUser(String userId) async {
     try {
