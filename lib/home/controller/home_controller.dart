@@ -527,7 +527,7 @@ class HomeController extends GetxController {
   }
 
   Future<bool> registerUser(String firstName, String lastName, String phone,
-      String password) async {
+      String password,String imageUrl) async {
     final snapshot1 =
     await FirebaseFirestore.instance.collection('Users').doc(phone).get();
     if (snapshot1.exists) {
@@ -543,7 +543,7 @@ class HomeController extends GetxController {
         'password': password,
         'date': dateData,
         'id': phone,
-        'profileImage': '',
+        'profileImage': imageUrl,
         'totalPoint': '00',
       };
 

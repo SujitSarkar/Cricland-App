@@ -1,8 +1,16 @@
 import 'package:cricland/public/screens/home_nav_page.dart';
+import 'package:cricland/public/screens/profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
@@ -86,7 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: dSize(.1)),
             TextFieldTile(controller: passwordController,hintText: "Password",labelText: "Password",),
             SizedBox(height: dSize(.3)),
-
+            TextButton(onPressed: (){
+              _showLoginModal(context,homeController);
+            }, child: const Text("Social SignIn"),),
             RichText(
               text: TextSpan(
                 text: 'If You Are a New User ',
@@ -207,6 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextFieldTile(controller: passwordController,hintText: "Password",labelText: "Password",obscure:true),
             SizedBox(height: dSize(.06)),
 
+
             RichText(
               text: TextSpan(
                 text: 'Already Have an account ?',
@@ -238,6 +249,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       lastNameController.text,
                       phoneController.text,
                       passwordController.text,
+                      ""
+
                     ).then((value) {
                       setState(() {
                         _isLoading = false;
@@ -275,5 +288,187 @@ class _LoginScreenState extends State<LoginScreen> {
     phoneController.clear();
     passwordController.clear();
 
+  }
+  void _showLoginModal(BuildContext context,HomeController homeController) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) => Container(
+          height: dSize(.7),
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.all(dSize(.04)),
+          decoration: BoxDecoration(
+              color: PublicController.pc.toggleCardBg(),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              )),
+          child: Obx(() => Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Login/Signup',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: PublicController.pc.toggleTextColor(),
+                          fontSize: dSize(.06),
+                          fontWeight: FontWeight.bold)),
+                  InkWell(onTap:()=>Get.back(),
+                      child: Icon(LineAwesomeIcons.times,size: dSize(.05),color: Colors.black,))
+                ],
+              ),
+              Divider(height: dSize(.09)),
+              //SizedBox(height: dSize(.1)),
+
+              ///Google button
+              ElevatedButton(
+                onPressed: (){
+                  _googleLogin(homeController);
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.google,color: Colors.white,size: dSize(.06)),
+                      SizedBox(width: dSize(.03)),
+                      Text('Google',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
+                    ],
+                  ),
+                ),style: ElevatedButton.styleFrom(
+                  primary: AllColor.googleColor,
+                  elevation: 0.0
+              ),),
+              SizedBox(height: dSize(.05)),
+
+              ///Facebook button
+              ElevatedButton(
+                onPressed: (){
+                  _facebookLogin();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(FontAwesomeIcons.facebook,color: Colors.white,size: dSize(.06)),
+                      SizedBox(width: dSize(.03)),
+                      Text('Facebook',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
+                    ],
+                  ),
+                ),style: ElevatedButton.styleFrom(
+                  primary: AllColor.fbColor,
+                  elevation: 0.0
+              ),),
+              const Spacer(),
+
+              RichText(
+                text: TextSpan(
+                  style: _textStyle.copyWith(fontSize: dSize(.028)),
+                  children:[
+                    const TextSpan(text: 'I agree with the '),
+                    TextSpan(text: 'terms of use',
+                        recognizer: TapGestureRecognizer()..onTap = (){},
+                        style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
+                    const TextSpan(text: ' and '),
+                    TextSpan(text: 'privacy policy',
+                        recognizer: TapGestureRecognizer()..onTap = (){},
+                        style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
+                  ],
+                ),
+              )
+            ],
+          )),
+        ));
+  }
+  _facebookLogin()async{
+
+    final fb = FacebookLogin();
+
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+
+
+    switch (res.status) {
+
+      case FacebookLoginStatus.success:
+
+        final FacebookAccessToken? accessToken = res.accessToken;
+        print('Access token: ${accessToken!.token}');
+
+        // Get profile data
+        final profile = await fb.getUserProfile();
+        print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+
+        // Get user profile image url
+        final imageUrl = await fb.getProfileImageUrl(width: 100);
+        print('Your profile image: $imageUrl');
+
+        // Get email (since we request email permission)
+        final email = await fb.getUserEmail();
+        // But user can decline permission
+        if (email != null)
+          print('And your email is $email');
+
+        break;
+      case FacebookLoginStatus.cancel:
+      // User cancel log in
+        break;
+      case FacebookLoginStatus.error:
+      // Log in failed
+        print('Error while log in: ${res.error}');
+        break;
+    }
+  }
+
+  _googleLogin(HomeController homeController)async{
+    final googleSignIn = GoogleSignIn();
+    GoogleSignInAccount? _user;
+    final googleUser = await googleSignIn.signIn();
+    if(googleUser == null)return;
+    _user = googleUser;
+
+
+
+    final googleAuth = await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken:  googleAuth.accessToken,
+      idToken:  googleAuth.idToken,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+
+        setState(() {
+          _isLoading = true;
+          homeController
+              .registerUser(
+            _user!.displayName!,
+            lastNameController.text,
+            _user.email,
+            _user.authentication.obs.value.toString(),
+            _user.photoUrl!
+          ).then((value) {
+            setState(() {
+              _isLoading = false;
+            });
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeNavPage(),),);
+
+            _emptyFieldCreatorSignUp();
+          });
+        });
+
+
+
+     // Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(),),);
+    });
   }
 }
