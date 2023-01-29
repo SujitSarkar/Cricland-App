@@ -327,14 +327,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                   fontSize: dSize(.04),
                   color: PublicController.pc.toggleTextColor(),
                 ),
-              ),
-              Text(
-                'View All',
-                style: CLTextStyle.paragraphTextStyle.copyWith(
-                  fontSize: dSize(.035),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-              ),
+              )
             ],
           ),
           SizedBox(height: dSize(.04)),
@@ -343,8 +336,9 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (context, index) => ArticleCardLandscape(),
+                itemCount: rankingController.recentArticleList.length,
+                itemBuilder: (context, index) => ArticleCardLandscape(
+                    model: rankingController.recentArticleList[index]),
                 separatorBuilder: (context, index) =>
                     SizedBox(width: dSize(.04))),
           ),
@@ -364,7 +358,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                 color: PublicController.pc.toggleCardBg(),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
             child: Text(
-              rankingController.playerInfoModel.value.teams!,
+              rankingController.playerInfoModel.value.teams ?? '',
               style: CLTextStyle.paragraphTextStyle.copyWith(
                 fontSize: dSize(.038),
                 color: PublicController.pc.toggleTextColor(),

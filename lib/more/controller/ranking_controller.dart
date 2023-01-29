@@ -1,11 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/home/model/player_info_model.dart';
 import 'package:cricland/more/model/ranking_model.dart';
 import 'package:cricland/more/model/team_ranking_model.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_details_man.dart';
 import 'package:cricland/more/view/icc_women_ranking/player_details/player_details_women.dart';
+import 'package:cricland/news/model/article_model.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
+import 'package:cricland/public/variables/app_string.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -29,13 +34,49 @@ class RankingController extends GetxController {
   String selectedPlayerId = '';
   String selectedTeamId = '';
 
+  late RxList<ArticleModel> recentArticleList;
+
   @override
   void onInit() async {
     super.onInit();
+    recentArticleList = <ArticleModel>[].obs;
+    getRecentArticleList();
   }
 
-  Future<void> initData() async {
-    // await getManRankingList();
+    Future<void> getRecentArticleList() async {
+    bodyLoading(true);
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection(AppString.articleCollection)
+          .where('youtube_video_link', isEqualTo: "")
+          .orderBy('time_stamp', descending: true)
+          .limit(30)
+          .get();
+      recentArticleList.clear();
+      for (var element in snapshot.docChanges) {
+        ArticleModel model = ArticleModel(
+          id: element.doc['id'],
+          title: element.doc['title'],
+          category: element.doc['category'],
+          article: element.doc['article'],
+          imageLink: element.doc['image_link'],
+          youtubeVideoLink: element.doc['youtube_video_link'],
+          timeStamp: element.doc['time_stamp'],
+        );
+        recentArticleList.add(model);
+      }
+      if (kDebugMode) {
+        print('Recent Article: ${recentArticleList.length}');
+      }
+      bodyLoading(false);
+    } on SocketException {
+      bodyLoading(false);
+      showToast(AppString.noInternet);
+    } catch (error) {
+      bodyLoading(false);
+      showToast(error.toString());
+      print(error.toString());
+    }
   }
 
   Future<void> getManRankingList() async {
