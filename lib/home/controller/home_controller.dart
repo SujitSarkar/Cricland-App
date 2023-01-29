@@ -83,8 +83,17 @@ class HomeController extends GetxController {
   // fetchInitData();
     //get Matches
     // await getLiveMatches();
-
+    getSetUser();
     super.onInit();
+  }
+  getSetUser()async{
+    //Get User
+    final prefs = await SharedPreferences.getInstance();
+    String? uId= prefs.getString('userId');
+    if(uId != null){
+      getUser(uId);
+    }
+
   }
   fetchInitData()async{
 
@@ -108,12 +117,12 @@ class HomeController extends GetxController {
       await getMonkLiveMatches();
       // await getLeague("5");
 
-      //Get User
-      final prefs = await SharedPreferences.getInstance();
-      String? uId= prefs.getString('userId');
-      if(uId != null){
-        getUser(uId);
-      }
+      // //Get User
+      // final prefs = await SharedPreferences.getInstance();
+      // String? uId= prefs.getString('userId');
+      // if(uId != null){
+      //   getUser(uId);
+      // }
 
 
     });
@@ -567,17 +576,18 @@ class HomeController extends GetxController {
 
   }
 
-  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,
+  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,String email,
       String password,String imageUrl) async {
-    final snapshot1 =
-    await FirebaseFirestore.instance.collection('Users').doc(phone).get();
+    // final snapshot1 =
+    // await FirebaseFirestore.instance.collection('Users').doc(phone).get();
 
       DateTime date = DateTime.now();
       String dateData = '${date.day}-${date.month}-${date.year}';
       Map<String, dynamic> map = {
         'firstName': firstName,
         'lastName': lastName,
-        'phone': phone,
+        'phone': "",
+        'email':email,
         'password': password,
         'date': dateData,
         'id': phone,

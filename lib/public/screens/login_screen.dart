@@ -91,12 +91,33 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: dSize(.1)),
             TextFieldTile(controller: phoneController,hintText: "Phone Number",labelText: "Phone Number",),
-            SizedBox(height: dSize(.1)),
+            SizedBox(height: dSize(.05)),
             TextFieldTile(controller: passwordController,hintText: "Password",labelText: "Password",),
-            SizedBox(height: dSize(.3)),
-            TextButton(onPressed: (){
-              _showLoginModal(context,homeController);
-            }, child: const Text("Social SignIn"),),
+            SizedBox(height: dSize(.05)),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(onPressed: (){
+                    _googleLogin(homeController);
+                  }, icon: Icon(FontAwesomeIcons.google,color: Colors.deepOrangeAccent,size: dSize(.06)),),
+
+
+                  SizedBox(width: dSize(.03)),
+                  IconButton(onPressed: (){
+                    _facebookLogin();
+                  }, icon:   Icon(FontAwesomeIcons.facebook,color: Colors.blueAccent,size: dSize(.06)),)
+
+                ],
+              ),
+            ),
+
+
+
+            // TextButton(onPressed: (){
+            //   _showLoginModal(context,homeController);
+            // }, child: const Text("Social SignIn"),),
             RichText(
               text: TextSpan(
                 text: 'If You Are a New User ',
@@ -115,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
 
-            SizedBox(height: dSize(.1)),
+            SizedBox(height: dSize(.05)),
             TextButton(style: TextButton.styleFrom(
               backgroundColor: AllColor.purpleColor,
             ),
@@ -289,100 +310,100 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.clear();
 
   }
-  void _showLoginModal(BuildContext context,HomeController homeController) {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) => Container(
-          height: dSize(.7),
-          width: dSize(1),
-          padding: EdgeInsets.all(dSize(.04)),
-          decoration: BoxDecoration(
-              color: PublicController.pc.toggleCardBg(),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              )),
-          child: Obx(() => Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Login/Signup',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: PublicController.pc.toggleTextColor(),
-                          fontSize: dSize(.06),
-                          fontWeight: FontWeight.bold)),
-                  InkWell(onTap:()=>Get.back(),
-                      child: Icon(LineAwesomeIcons.times,size: dSize(.05),color: Colors.black,))
-                ],
-              ),
-              Divider(height: dSize(.09)),
-              //SizedBox(height: dSize(.1)),
-
-              ///Google button
-              ElevatedButton(
-                onPressed: (){
-                  _googleLogin(homeController);
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: dSize(.03)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(FontAwesomeIcons.google,color: Colors.white,size: dSize(.06)),
-                      SizedBox(width: dSize(.03)),
-                      Text('Google',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
-                    ],
-                  ),
-                ),style: ElevatedButton.styleFrom(
-                  primary: AllColor.googleColor,
-                  elevation: 0.0
-              ),),
-              SizedBox(height: dSize(.05)),
-
-              ///Facebook button
-              ElevatedButton(
-                onPressed: (){
-                  _facebookLogin();
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: dSize(.03)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(FontAwesomeIcons.facebook,color: Colors.white,size: dSize(.06)),
-                      SizedBox(width: dSize(.03)),
-                      Text('Facebook',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
-                    ],
-                  ),
-                ),style: ElevatedButton.styleFrom(
-                  primary: AllColor.fbColor,
-                  elevation: 0.0
-              ),),
-              const Spacer(),
-
-              RichText(
-                text: TextSpan(
-                  style: _textStyle.copyWith(fontSize: dSize(.028)),
-                  children:[
-                    const TextSpan(text: 'I agree with the '),
-                    TextSpan(text: 'terms of use',
-                        recognizer: TapGestureRecognizer()..onTap = (){},
-                        style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
-                    const TextSpan(text: ' and '),
-                    TextSpan(text: 'privacy policy',
-                        recognizer: TapGestureRecognizer()..onTap = (){},
-                        style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
-                  ],
-                ),
-              )
-            ],
-          )),
-        ));
-  }
+  // void _showLoginModal(BuildContext context,HomeController homeController) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (_) => Container(
+  //         height: dSize(.7),
+  //         width: dSize(1),
+  //         padding: EdgeInsets.all(dSize(.04)),
+  //         decoration: BoxDecoration(
+  //             color: PublicController.pc.toggleCardBg(),
+  //             borderRadius: const BorderRadius.only(
+  //               topLeft: Radius.circular(15),
+  //               topRight: Radius.circular(15),
+  //             )),
+  //         child: Obx(() => Column(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           children: [
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 Text('Login/Signup',
+  //                     textAlign: TextAlign.center,
+  //                     style: TextStyle(
+  //                         color: PublicController.pc.toggleTextColor(),
+  //                         fontSize: dSize(.06),
+  //                         fontWeight: FontWeight.bold)),
+  //                 InkWell(onTap:()=>Get.back(),
+  //                     child: Icon(LineAwesomeIcons.times,size: dSize(.05),color: Colors.black,))
+  //               ],
+  //             ),
+  //             Divider(height: dSize(.09)),
+  //             //SizedBox(height: dSize(.1)),
+  //
+  //             ///Google button
+  //             ElevatedButton(
+  //               onPressed: (){
+  //                 _googleLogin(homeController);
+  //               },
+  //               child: Padding(
+  //                 padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     Icon(FontAwesomeIcons.google,color: Colors.white,size: dSize(.06)),
+  //                     SizedBox(width: dSize(.03)),
+  //                     Text('Google',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
+  //                   ],
+  //                 ),
+  //               ),style: ElevatedButton.styleFrom(
+  //                 primary: AllColor.googleColor,
+  //                 elevation: 0.0
+  //             ),),
+  //             SizedBox(height: dSize(.05)),
+  //
+  //             ///Facebook button
+  //             ElevatedButton(
+  //               onPressed: (){
+  //                 _facebookLogin();
+  //               },
+  //               child: Padding(
+  //                 padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     Icon(FontAwesomeIcons.facebook,color: Colors.white,size: dSize(.06)),
+  //                     SizedBox(width: dSize(.03)),
+  //                     Text('Facebook',style: _textStyle.copyWith(color: Colors.white,fontWeight: FontWeight.bold,fontSize: dSize(.045)))
+  //                   ],
+  //                 ),
+  //               ),style: ElevatedButton.styleFrom(
+  //                 primary: AllColor.fbColor,
+  //                 elevation: 0.0
+  //             ),),
+  //             const Spacer(),
+  //
+  //             RichText(
+  //               text: TextSpan(
+  //                 style: _textStyle.copyWith(fontSize: dSize(.028)),
+  //                 children:[
+  //                   const TextSpan(text: 'I agree with the '),
+  //                   TextSpan(text: 'terms of use',
+  //                       recognizer: TapGestureRecognizer()..onTap = (){},
+  //                       style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
+  //                   const TextSpan(text: ' and '),
+  //                   TextSpan(text: 'privacy policy',
+  //                       recognizer: TapGestureRecognizer()..onTap = (){},
+  //                       style: TextStyle(decoration: TextDecoration.underline,color: PublicController.pc.toggleLoadingColor())),
+  //                 ],
+  //               ),
+  //             )
+  //           ],
+  //         )),
+  //       ));
+  // }
   _facebookLogin()async{
 
     final fb = FacebookLogin();
@@ -448,18 +469,16 @@ class _LoginScreenState extends State<LoginScreen> {
           homeController
               .registerUserWithGoogle(
             _user!.displayName!,
-            lastNameController.text,
-            _user.email,
+            "",
+            _user.id,
               _user.email,
+            "",
             _user.photoUrl!
           ).then((value) {
+
             setState(() {
               _isLoading = false;
             });
-
-
-
-
           });
         });
 

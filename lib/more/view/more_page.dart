@@ -12,6 +12,7 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -271,7 +272,8 @@ class _MorePageState extends State<MorePage> {
                       onTap: () async {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.remove('userId');
-
+                        final googleSignIn = GoogleSignIn();
+                         await googleSignIn.signOut();
                         showToast('Successfully Logout');
                       }),
                 ],
