@@ -106,7 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   SizedBox(width: dSize(.03)),
                   IconButton(onPressed: (){
-                    _facebookLogin();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Upcoming Feature")));
+                   // _facebookLogin();
                   }, icon:   Icon(FontAwesomeIcons.facebook,color: Colors.blueAccent,size: dSize(.06)),)
 
                 ],

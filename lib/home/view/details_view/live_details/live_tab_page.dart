@@ -165,6 +165,8 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
       builder: (homeController) {
          return SingleChildScrollView(
            child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.center,
              children: [
                FutureBuilder(
                future:  getLive(),
@@ -298,7 +300,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                        });
                  }
                  else {
-                 return  const CircularProgressIndicator();
+                 return  Center(child: Text("There are currently no live matches"));
                  }
 
              }
