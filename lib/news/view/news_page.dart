@@ -104,7 +104,7 @@ class _NewsPageState extends State<NewsPage>
                     fontWeight: FontWeight.bold, fontSize: dSize(.045)),
                 indicatorSize: TabBarIndicatorSize.label,
                 physics: const BouncingScrollPhysics(),
-                tabs: Variables.newsCategory
+                tabs: nc.categoryList
                     .map<Widget>((String item) => Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: dSize(.01), horizontal: dSize(.02)),

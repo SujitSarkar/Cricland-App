@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/news/model/article_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ import '../../../public/variables/config.dart';
 import '../../../news/view/read_news_page.dart';
 
 class ArticleCardLandscape extends StatelessWidget {
-  ArticleCardLandscape({Key? key}) : super(key: key);
+  ArticleCardLandscape({Key? key, required this.model}) : super(key: key);
+  final ArticleModel model;
 
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.04),
@@ -17,7 +19,7 @@ class ArticleCardLandscape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(() => ReadNewsPage(model: ArticleModel())),
+      onTap: () => Get.to(() => ReadNewsPage(model: model)),
       child: Container(
         decoration: BoxDecoration(
             color: PublicController.pc.toggleCardBg(),
@@ -29,16 +31,18 @@ class ArticleCardLandscape extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-                child: Image.asset('assets/t20.png',
-                    height: dSize(.35), fit: BoxFit.cover)),
+                child: CachedNetworkImage(
+                    imageUrl: model.imageLink!,
+                    placeholder: ((context, url) => Icon(Icons.image,
+                        size: dSize(.35), color: Colors.grey.shade400)),
+                    height: dSize(.35),
+                    fit: BoxFit.cover)),
             SizedBox(height: dSize(.02)),
             Padding(
               padding: EdgeInsets.only(
                   left: dSize(.02), right: dSize(.02), bottom: dSize(.02)),
               child: Text(
-                'Umran Malik is nowhere near the finished article: Ian Bishop -'
-                ' Firstcricket News, Firstpost Umran Malik is nowhere near the finished article: Ian Bishop -'
-                ' Firstcricket News, Firstpos',
+                model.title!,
                 maxLines: 4,
                 style: CLTextStyle.paragraphTextStyle.copyWith(
                   fontSize: dSize(.04),

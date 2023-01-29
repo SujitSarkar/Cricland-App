@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class NewsController extends GetxController{
+class NewsController extends GetxController {
   static NewsController nc = Get.find();
 
   NewsController({required this.vsync});
@@ -20,6 +20,7 @@ class NewsController extends GetxController{
 
   late RxList<String> categoryList;
   late RxList<ArticleModel> articleList;
+  
 
   @override
   void onInit() {
@@ -27,6 +28,7 @@ class NewsController extends GetxController{
     loading = false.obs;
     categoryList = <String>[].obs;
     articleList = <ArticleModel>[].obs;
+    
     refreshController = RefreshController(initialRefresh: false);
     fetchInitialData();
   }
@@ -53,10 +55,9 @@ class NewsController extends GetxController{
         categoryList.add(element.doc['category_name']);
       }
       NewsController.nc.tabController = TabController(
-          length: NewsController.nc.categoryList.length,
-          vsync: vsync);
+          length: NewsController.nc.categoryList.length, vsync: vsync);
 
-      NewsController.nc.tabController.index=0;
+      NewsController.nc.tabController.index = 0;
       loading(false);
     } on SocketException {
       loading(false);
@@ -74,7 +75,7 @@ class NewsController extends GetxController{
       if (articleList.isEmpty) {
         snapshot = await FirebaseFirestore.instance
             .collection(AppString.articleCollection)
-            .where('category',isEqualTo: categoryList[tabController.index])
+            .where('category', isEqualTo: categoryList[tabController.index])
             .orderBy('time_stamp', descending: true)
             .limit(30)
             .get();
@@ -82,7 +83,7 @@ class NewsController extends GetxController{
         snapshot = await FirebaseFirestore.instance
             .collection(AppString.articleCollection)
             .where('time_stamp', isGreaterThan: articleList.first.timeStamp)
-            .where('category',isEqualTo: categoryList[tabController.index])
+            .where('category', isEqualTo: categoryList[tabController.index])
             .orderBy('time_stamp', descending: true)
             .limit(30)
             .get();
@@ -114,13 +115,13 @@ class NewsController extends GetxController{
   Future<void> getArticleFromTabSwitch() async {
     loading(true);
     try {
-       QuerySnapshot snapshot = await FirebaseFirestore.instance
-            .collection(AppString.articleCollection)
-            .where('category',isEqualTo: categoryList[tabController.index])
-            .orderBy('time_stamp', descending: true)
-            .limit(30)
-            .get();
-       articleList.clear();
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection(AppString.articleCollection)
+          .where('category', isEqualTo: categoryList[tabController.index])
+          .orderBy('time_stamp', descending: true)
+          .limit(30)
+          .get();
+      articleList.clear();
       for (var element in snapshot.docChanges) {
         ArticleModel model = ArticleModel(
           id: element.doc['id'],
@@ -147,11 +148,11 @@ class NewsController extends GetxController{
     }
   }
 
-  Future<void> onRefreshNews() async{
+  Future<void> onRefreshNews() async {
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection(AppString.articleCollection)
-          .where('category',isEqualTo: categoryList[tabController.index])
+          .where('category', isEqualTo: categoryList[tabController.index])
           .orderBy('time_stamp', descending: true)
           .limit(30)
           .get();
@@ -180,7 +181,7 @@ class NewsController extends GetxController{
     update();
   }
 
-  Future<void> onLoadingNews() async{
+  Future<void> onLoadingNews() async {
     await loadNewArticle();
     refreshController.loadComplete();
     update();
