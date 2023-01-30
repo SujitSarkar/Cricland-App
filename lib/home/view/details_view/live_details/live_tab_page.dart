@@ -15,6 +15,20 @@ class LiveTabScreen extends StatefulWidget {
   _LiveTabScreenState createState() => _LiveTabScreenState();
 }
 
+class MonkTeam{
+  int? id;
+  String? name;
+  String? code;
+  String? image_path;
+
+  MonkTeam({
+    this .id,
+    this .name,
+    this .code,
+    this .image_path,
+  });
+
+}
 class MonkLeague{
   int? id;
   String? name;
@@ -25,6 +39,21 @@ class MonkLeague{
     this .id,
     this .name,
     this .code,
+    this .image_path,
+  });
+
+}
+
+class MonkVanue{
+  int? id;
+  String? name;
+  String? city;
+  String? image_path;
+
+  MonkVanue({
+    this .id,
+    this .name,
+    this .city,
     this .image_path,
   });
 
@@ -89,15 +118,66 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    getLeague();
+
     super.initState();
   }
 
-  Future<MonkLeague> getLeague() async {
+
+  Future<MonkTeam> getTeam(String teamId) async {
+    MonkTeam  monkTeam=MonkTeam();
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.monkTeams+teamId+ApiEndpoints.monkAPIToken),
+        onSuccess: (response) {
+          print("Team Response: ${response}");
+          var data = response["data"];
+          monkTeam = MonkTeam(
+              id:data["id"],
+              name: data["name"],
+              code: data["code"],
+              image_path: data["image_path"]
+          );
+
+        },
+        onError: (error) {
+          print(error.toString());
+
+        });
+
+    print(monkTeam.name);
+    return monkTeam;
+  }
+
+  Future<MonkVanue> getVenue(String venueId) async {
+    MonkVanue  monk_venue=MonkVanue();
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.monkVanue+venueId+ApiEndpoints.monkAPIToken),
+        onSuccess: (response) {
+          print("venue Response: ${response}");
+          var data = response["data"];
+          monk_venue = MonkVanue(
+              id:data["id"],
+              name: data["name"],
+              city: data["code"],
+              image_path: data["image_path"]
+          );
+
+        },
+        onError: (error) {
+          print(error.toString());
+
+        });
+
+    print(monk_venue.name);
+    return monk_venue;
+  }
+
+  Future<MonkLeague> getLeague(String leagueId) async {
     MonkLeague  monk_league=MonkLeague();
     await ApiService.instance.apiCall(
         execute: () async =>
-        await ApiService.instance.get(ApiEndpoints.monkLeague+"3"+ApiEndpoints.monkAPIToken),
+        await ApiService.instance.get(ApiEndpoints.monkLeague+leagueId+ApiEndpoints.monkAPIToken),
         onSuccess: (response) {
           print("Leauge Response: ${response}");
           var data = response["data"];
@@ -182,16 +262,16 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                            child: Column(
                              children: [
                                FutureBuilder(
-                                   future:  getLeague(),
-                                   builder: (context,AsyncSnapshot<MonkLeague> leagueSnapshot ) {
-                                     if(leagueSnapshot.hasData){
+                                   future:  getVenue(liveSnapshot.data![index].league_id.toString()),
+                                   builder: (context,AsyncSnapshot<MonkVanue> venueSnapshot ) {
+                                     if(venueSnapshot.hasData){
                                        return Row(
                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                          children: [
                                            Row(
                                              children:  [
-                                               Icon(Icons.pin_end),
-                                               Text(" ${leagueSnapshot.data!.name}"),
+                                               Image.network(venueSnapshot.data!.image_path!,height: 20,width: 20,),
+                                               Text("${venueSnapshot.data!.name}, ${venueSnapshot.data!.city}"),
                                              ],
                                            ),
                                            IconButton(onPressed: (){
@@ -205,7 +285,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                          ],
                                        );
                                      }else{
-                                       return CircularProgressIndicator();
+                                       return const CircularProgressIndicator();
                                      }
 
                                    }
@@ -219,56 +299,47 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                      child: Column(
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
-                                         FutureBuilder(
-                                             future: homeController.getMonkVanue("9"),
-
-                                             // ApiService.instance.apiCall(
-                                             //     execute: () async {
-                                             //       return   await ApiService.instance
-                                             //           .getWithoutHeader(ApiEndpoints.monkVanue+"9"+ApiEndpoints.monkAPIToken);
-                                             //     },
-                                             //     onSuccess: (response) {
-                                             //
-                                             //       return
-                                             //         setState((){
-                                             //           leagueName = response["data"]["name"];
-                                             //
-                                             //         });
-                                             //     },
-                                             //     onError: (error) {
-                                             //       print(error.toString());
-                                             //
-                                             //     }),
-                                             builder: (context, snapshot) {
-                                               print("Snap Data: ${(snapshot.hasData)}");
-                                               if(snapshot.hasData){
-                                                 return Text("snapshot.data");
-                                               }
-                                               else{
-                                                 return CircularProgressIndicator();
-                                               }
-                                             }
-                                         ),
                                          IntrinsicHeight(
                                            child: Row(
                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                              children: [
                                                Column(
                                                  children: [
-                                                   Row(
-                                                     children: const [
-                                                       Icon(Icons.ice_skating),
-                                                       Text("WEL 102-6 15.1"),
-                                                       Icon(Icons.sports_cricket),
-                                                     ],
+                                                   FutureBuilder(
+                                                             future: getTeam(liveSnapshot.data![index].localteam_id.toString()),
+                                                             builder: (context,AsyncSnapshot<MonkTeam> LTsnapshot) {
+
+                                                             if(LTsnapshot.hasData){
+                                                             return Row(
+                                                               children:  [
+                                                                 Image.network(LTsnapshot.data!.name!,height: 30,width: 30,),
+                                                                 Text("${LTsnapshot.data!.code} 102-6 15.1")//TODO
+                                                               ],
+                                                             );
+                                                             }
+                                                             else{
+                                                             return CircularProgressIndicator();
+                                                             }
+                                                             }
                                                    ),
 
-                                                   Row(
-                                                     children: const [
-                                                       Icon(Icons.ice_skating),
-                                                       Text("WEL 102-6 15.1"),
-                                                       Icon(Icons.sports_cricket),
-                                                     ],
+                                                   FutureBuilder(
+                                                   future: homeController.getMonkVanue("9"),
+                                                         builder: (context, snapshot) {
+                                                         print("Snap Data: ${(snapshot.hasData)}");
+                                                         if(snapshot.hasData){
+                                                         return Row(
+                                                           children: const [
+                                                             Icon(Icons.ice_skating),
+                                                             Text("WEL 102-6 15.1"),
+                                                             Icon(Icons.sports_cricket),
+                                                           ],
+                                                         );
+                                                         }
+                                                         else{
+                                                         return CircularProgressIndicator();
+                                                         }
+                                                         }
                                                    ),
 
                                                  ],

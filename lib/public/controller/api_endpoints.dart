@@ -38,4 +38,5 @@ class ApiEndpoints {
   static String monkLiveMatches =monkBaseURL+ 'livescores'+ monkAPIToken;
   static String monkLeague = monkBaseURL+'leagues/';
   static String monkVanue = 'venues/';
+  static String monkTeams = 'teams/';
 }
