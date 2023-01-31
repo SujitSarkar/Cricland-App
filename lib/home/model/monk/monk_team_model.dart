@@ -1,12 +1,10 @@
-
-
-class MonkLeague{
+class MonkTeam{
   int? id;
   String? name;
   String? code;
   String? image_path;
 
-  MonkLeague({
+  MonkTeam({
     this .id,
     this .name,
     this .code,
