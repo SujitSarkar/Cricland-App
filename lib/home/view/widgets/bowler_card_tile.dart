@@ -50,7 +50,7 @@ class BowlerCardTile extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       "Bowler",
-                      style: CLTextStyle.paragraphHeadLineTextStyle,
+                      style: CLTextStyle().paragraphHeadLineTextStyle,
                     )),
                 Expanded(
                   flex: 1,
@@ -59,18 +59,18 @@ class BowlerCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "W-R",
-                        style: CLTextStyle.paragraphHeadLineTextStyle,
+                        style: CLTextStyle().paragraphHeadLineTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "Overs",
-                          style: CLTextStyle.paragraphHeadLineTextStyle,
+                          style: CLTextStyle().paragraphHeadLineTextStyle,
                         ),
                       ),
                       Expanded(
                           child: Text(
                         "Econ",
-                        style: CLTextStyle.paragraphHeadLineTextStyle,
+                        style: CLTextStyle().paragraphHeadLineTextStyle,
                       )),
                     ],
                   ),
@@ -87,7 +87,7 @@ class BowlerCardTile extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       "S Getkate",
-                      style: CLTextStyle.nameTextStyle,
+                      style: CLTextStyle().nameTextStyle,
                     )),
                 Expanded(
                   flex: 1,
@@ -96,18 +96,18 @@ class BowlerCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "1-3",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "0.2",
-                          style: CLTextStyle.paragraphTextStyle,
+                          style: CLTextStyle().paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                           child: Text(
                         "9.00",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       )),
                     ],
                   ),

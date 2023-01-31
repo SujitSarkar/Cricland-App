@@ -1,6 +1,7 @@
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/tile/ranking_tile.dart';
 import 'package:cricland/more/tile/team_ranking_tile.dart';
+import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -42,6 +43,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
 
   @override
   Widget build(BuildContext context) {
+    final LanguageController lc = Get.find();
     return GetBuilder<RankingController>(
         init: RankingController(),
         builder: (rankingController) {
@@ -57,19 +59,19 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                               NestedScrollView.sliverOverlapAbsorberHandleFor(
                                   context),
                           sliver: SliverAppBar(
-                            title: Text('ICC Womens\'s Rankings',
+                            title: Text(lc.languageModel.value.iccWomenRanking!,
                                 style: TextStyle(fontSize: dSize(.045))),
                             titleSpacing: -8.0,
                             floating: true,
                             pinned: true,
                             snap: false,
                             forceElevated: innerBoxIsScrolled,
-                            bottom: _tabBar(rankingController),
+                            bottom: _tabBar(rankingController, lc),
                           ),
                         ),
                       ];
                     },
-                    body: _bodyUI(rankingController),
+                    body: _bodyUI(rankingController, lc),
                   )),
                   if (rankingController.bodyLoading.value) const LoadingWidget()
                 ],
@@ -77,7 +79,8 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
         });
   }
 
-  Widget _bodyUI(RankingController rankingController) => Column(
+  Widget _bodyUI(RankingController rankingController, LanguageController lc) =>
+      Column(
         children: [
           SizedBox(height: dSize(.19)),
 
@@ -143,16 +146,18 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                   child: TabBarView(
                     controller: rankingController.womenPlayerTypeTabController,
                     children: [
-                      _individualData(rankingController),
-                      _individualData(rankingController),
-                      _individualData(rankingController),
-                      _teamData(rankingController)
+                      _individualData(rankingController, lc),
+                      _individualData(rankingController, lc),
+                      _individualData(rankingController, lc),
+                      _teamData(rankingController, lc)
                     ],
                   )))
         ],
       );
 
-  Widget _teamData(RankingController rankingController) => Column(
+  Widget _teamData(
+          RankingController rankingController, LanguageController lc) =>
+      Column(
         children: [
           Row(
             children: [
@@ -162,13 +167,16 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                   children: [
                     Expanded(
                         flex: 1,
-                        child: Text('Rank',
+                        child: Text(
+                            lc.languageModel.value.teamRankingTableHeader!
+                                .first,
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
-                        child: Text('Team',
+                        child: Text(
+                            lc.languageModel.value.teamRankingTableHeader![1],
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
@@ -180,17 +188,20 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                        child: Text('Matches',
+                        child: Text(
+                            lc.languageModel.value.teamRankingTableHeader![2],
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
-                        child: Text('Points',
+                        child: Text(
+                            lc.languageModel.value.teamRankingTableHeader![3],
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
-                        child: Text('Ratings',
+                        child: Text(
+                            lc.languageModel.value.teamRankingTableHeader!.last,
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
@@ -212,7 +223,9 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
         ],
       );
 
-  Widget _individualData(RankingController rankingController) => Column(
+  Widget _individualData(
+          RankingController rankingController, LanguageController lc) =>
+      Column(
         children: [
           Row(
             children: [
@@ -223,13 +236,16 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                   children: [
                     Expanded(
                         flex: 1,
-                        child: Text('Rank',
+                        child: Text(
+                            lc.languageModel.value.playerRankingTableHeader!
+                                .first,
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
-                        child: Text('Player',
+                        child: Text(
+                            lc.languageModel.value.playerRankingTableHeader![1],
                             style: Style.titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
@@ -238,7 +254,8 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
               ),
               Expanded(
                   flex: 1,
-                  child: Text('Ratings',
+                  child: Text(
+                      lc.languageModel.value.playerRankingTableHeader!.last,
                       style: Style.titleStyle
                           .copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center)),
@@ -262,7 +279,9 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
         ],
       );
 
-  PreferredSize _tabBar(RankingController rankingController) => PreferredSize(
+  PreferredSize _tabBar(
+          RankingController rankingController, LanguageController lc) =>
+      PreferredSize(
         preferredSize: Size.fromHeight(dSize(.1)),
         child: TabBar(
           onTap: (covariant) async {
@@ -283,7 +302,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
               TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
           indicatorSize: TabBarIndicatorSize.label,
           physics: const BouncingScrollPhysics(),
-          tabs: Variables.manCategoryList
+          tabs: lc.languageModel.value.manCategoryList!
               .map<Widget>((String item) => Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: dSize(.01), horizontal: dSize(.02)),

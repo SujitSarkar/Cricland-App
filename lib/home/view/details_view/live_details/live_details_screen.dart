@@ -98,7 +98,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
             title: RichText(
               text: TextSpan(
                 text: widget.teamS1Name,
-                style: CLTextStyle.nameTextStyle.copyWith(color: Colors.white),
+                style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
                 children: <TextSpan>[
                   const TextSpan(
                       text: '  VS  ',
@@ -209,20 +209,20 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(widget.teamS1Name,
-                                              style: CLTextStyle.nameTextStyle
+                                              style: CLTextStyle().nameTextStyle
                                                   .copyWith(
                                                       color: Colors.white)),
                                           RichText(
                                             text: TextSpan(
                                               text: widget.team1RunWicket,
-                                              style: CLTextStyle
+                                              style: CLTextStyle()
                                                   .paragraphHeadLineTextStyle
                                                   .copyWith(
                                                       color: Colors.white),
                                               children: <TextSpan>[
                                                 TextSpan(
                                                   text: "  ${widget.team1Over}",
-                                                  style: CLTextStyle
+                                                  style: CLTextStyle()
                                                       .paragraphTextStyle
                                                       .copyWith(
                                                           color: Colors.white),
@@ -258,7 +258,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                               right: 18.0),
                                           child: Text(
                                             "Caught Out",
-                                            style: CLTextStyle.nameTextStyle
+                                            style: CLTextStyle().nameTextStyle
                                                 .copyWith(color: Colors.white),
                                           ),
                                         ),
@@ -307,7 +307,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                           children: [
                             Text(
                               "CRR: ${homeController.overSummeryModel.currentRunRate}",
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                 color: Colors.white,
                                 fontSize: 10,
                               ),
@@ -317,7 +317,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                             ),
                             Text(
                               "RRR: ${homeController.overSummeryModel.requiredRunRate}",
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                 color: Colors.white,
                                 fontSize: 10,
                               ),
@@ -326,7 +326,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                         ),
                         Text(
                           "RRW: ${homeController.overSummeryModel.remRunsToWin}",
-                          style: CLTextStyle.paragraphTextStyle.copyWith(
+                          style: CLTextStyle().paragraphTextStyle.copyWith(
                             color: Colors.white,
                             fontSize: 10,
                           ),

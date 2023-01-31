@@ -70,7 +70,7 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                                     padding: EdgeInsets.only(left: dSize(.055)),
                                     child: RichText(
                                       text: TextSpan(
-                                        style: CLTextStyle.nameTextStyle
+                                        style: CLTextStyle().nameTextStyle
                                             .copyWith(color: Colors.white),
                                         children: [
                                           TextSpan(
@@ -144,8 +144,10 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                     topRight: Radius.circular(dSize(.02))),
                 color: PublicController.pc.toggleTabColor()),
             unselectedLabelColor: Colors.grey.shade400,
-            unselectedLabelStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+            unselectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: dSize(.045),
+                color: Colors.white),
             labelStyle:
                 TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
             indicatorSize: TabBarIndicatorSize.label,
@@ -154,11 +156,7 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                 .map<Widget>((String item) => Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: dSize(.01), horizontal: dSize(.02)),
-                      child: Text(
-                        item,
-                        style: CLTextStyle.optionTextStyle
-                            .copyWith(fontSize: dSize(.04)),
-                      ),
+                      child: Text(item),
                     ))
                 .toList(),
           ),

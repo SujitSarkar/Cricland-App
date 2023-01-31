@@ -400,7 +400,7 @@ class _CommentaryViewState extends State<CommentaryView> {
                               RichText(
                                 text: TextSpan(
                                   text: 'NSW ',
-                                  style: CLTextStyle.paragraphHeadLineTextStyle
+                                  style: CLTextStyle().paragraphHeadLineTextStyle
                                       .copyWith(
                                           color: PublicController.pc
                                               .toggleTextColor()),
@@ -442,7 +442,7 @@ class _CommentaryViewState extends State<CommentaryView> {
                             onPressed: () {},
                             child: Text(
                               "See Key Events",
-                              style: CLTextStyle.paragraphHeadLineTextStyle
+                              style: CLTextStyle().paragraphHeadLineTextStyle
                                   .copyWith(
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -467,7 +467,7 @@ class _CommentaryViewState extends State<CommentaryView> {
                                     title: Text(
                                       homeController.commentariesModel
                                           .commentaryList![index].commText!,
-                                      style: CLTextStyle.paragraphTextStyle
+                                      style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                               color: PublicController.pc
                                                   .toggleTextColor(),

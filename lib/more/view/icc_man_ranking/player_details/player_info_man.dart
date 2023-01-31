@@ -155,7 +155,7 @@ class PlayerInfoMan extends StatelessWidget {
               flex: 1,
               child: Text(
                 key,
-                style: CLTextStyle.paragraphTextStyle.copyWith(
+                style: CLTextStyle().paragraphTextStyle.copyWith(
                   fontSize: dSize(.03),
                   color: PublicController.pc.toggleTextColor(),
                 ),
@@ -164,7 +164,7 @@ class PlayerInfoMan extends StatelessWidget {
               flex: 2,
               child: Text(
                 value,
-                style: CLTextStyle.paragraphTextStyle.copyWith(
+                style: CLTextStyle().paragraphTextStyle.copyWith(
                   fontSize: dSize(.03),
                   color: PublicController.pc.toggleTextColor(),
                 ),
@@ -184,7 +184,7 @@ class PlayerInfoMan extends StatelessWidget {
                   color: PublicController.pc.toggleTextColor()),
               Text(
                 ' $title',
-                style: CLTextStyle.paragraphTextStyle.copyWith(
+                style: CLTextStyle().paragraphTextStyle.copyWith(
                   fontSize: dSize(.03),
                   color: PublicController.pc.toggleTextColor(),
                 ),

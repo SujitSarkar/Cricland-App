@@ -76,7 +76,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                                                   left: dSize(.055)),
                                               child: RichText(
                                                 text: TextSpan(
-                                                  style: CLTextStyle
+                                                  style: CLTextStyle()
                                                       .nameTextStyle
                                                       .copyWith(
                                                           color: Colors.white,
@@ -179,11 +179,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                 .map<Widget>((String item) => Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: dSize(.01), horizontal: dSize(.02)),
-                      child: Text(
-                        item,
-                        style: CLTextStyle.optionTextStyle
-                            .copyWith(fontSize: dSize(.04)),
-                      ),
+                      child: Text(item),
                     ))
                 .toList(),
           ),

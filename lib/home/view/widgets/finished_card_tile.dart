@@ -52,7 +52,7 @@ class FinishedCardTile extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     title,
-                    style: CLTextStyle.nameTextStyle.copyWith(
+                    style: CLTextStyle().nameTextStyle.copyWith(
                       fontSize: dSize(.04),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -84,7 +84,7 @@ class FinishedCardTile extends StatelessWidget {
                       ),
                       Text(
                         leftCountryName!,
-                        style: CLTextStyle.nameTextStyle.copyWith(
+                        style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
@@ -94,7 +94,7 @@ class FinishedCardTile extends StatelessWidget {
                           RichText(
                             text: TextSpan(
                               text: leftCountryRuns,
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -102,7 +102,7 @@ class FinishedCardTile extends StatelessWidget {
                                 TextSpan(
                                   text: leftCountryOvers,
                                   style:
-                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                      CLTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.02),
                                     color:
                                         PublicController.pc.toggleTextColor(),
@@ -133,7 +133,7 @@ class FinishedCardTile extends StatelessWidget {
                         child: Text(
                           wonStatus!,
                           textAlign: TextAlign.center,
-                          style: CLTextStyle.paragraphTextStyle.copyWith(
+                          style: CLTextStyle().paragraphTextStyle.copyWith(
                             fontSize: dSize(.03),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -162,7 +162,7 @@ class FinishedCardTile extends StatelessWidget {
                       ),
                       Text(
                         rightCountryName!,
-                        style: CLTextStyle.nameTextStyle.copyWith(
+                        style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
@@ -172,7 +172,7 @@ class FinishedCardTile extends StatelessWidget {
                           RichText(
                             text: TextSpan(
                               text: rightCountryRuns,
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -180,7 +180,7 @@ class FinishedCardTile extends StatelessWidget {
                                 TextSpan(
                                   text: rightCountryOvers,
                                   style:
-                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                      CLTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.02),
                                     color:
                                         PublicController.pc.toggleTextColor(),
@@ -210,7 +210,7 @@ class FinishedCardTile extends StatelessWidget {
                 children: [
                   Text(
                     "2 More Matches",
-                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                       fontSize: dSize(.03),
                       color: PublicController.pc.toggleTextColor(),
                     ),

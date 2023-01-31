@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/constants.dart';
 import 'package:cricland/more/controller/more_controller.dart';
 import 'package:cricland/more/view/feedback_page.dart';
 import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
@@ -27,11 +28,6 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
-  final TextStyle _titleStyle = TextStyle(
-      fontSize: dSize(.042),
-      fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
-
   @override
   Widget build(BuildContext context) {
     final LanguageController lc = Get.find();
@@ -75,7 +71,8 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Premium
-            Text(lc.languageModel.value.premium!, style: _titleStyle),
+            Text(lc.languageModel.value.premium!,
+                style: CLTextStyle().moreTitleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
@@ -108,7 +105,8 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Follow Us
-            Text(lc.languageModel.value.followUs!, style: _titleStyle),
+            Text(lc.languageModel.value.followUs!,
+                style: CLTextStyle().moreTitleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -151,7 +149,8 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Settings
-            Text(lc.languageModel.value.settingAppearence!, style: _titleStyle),
+            Text(lc.languageModel.value.settingAppearence!,
+                style: CLTextStyle().moreTitleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
@@ -215,7 +214,8 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Support
-            Text(lc.languageModel.value.rateUs!, style: _titleStyle),
+            Text(lc.languageModel.value.rateUs!,
+                style: CLTextStyle().moreTitleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -249,7 +249,8 @@ class _MorePageState extends State<MorePage> {
             SizedBox(height: dSize(.1)),
 
             ///Terms & privacy
-            Text(lc.languageModel.value.about!, style: _titleStyle),
+            Text(lc.languageModel.value.about!,
+                style: CLTextStyle().moreTitleStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -273,7 +274,7 @@ class _MorePageState extends State<MorePage> {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.remove('userId');
                         final googleSignIn = GoogleSignIn();
-                         await googleSignIn.signOut();
+                        await googleSignIn.signOut();
                         showToast('Successfully Logout');
                       }),
                 ],
@@ -284,7 +285,7 @@ class _MorePageState extends State<MorePage> {
             Text(
                 '${lc.languageModel.value.version!}: ${PublicController.pc.packageInfo.version}',
                 textAlign: TextAlign.center,
-                style: _titleStyle),
+                style: CLTextStyle().moreTitleStyle),
             SizedBox(height: dSize(.02)),
           ],
         ));

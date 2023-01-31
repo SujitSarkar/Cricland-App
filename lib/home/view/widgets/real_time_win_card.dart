@@ -35,11 +35,11 @@ class LiveWinCardTile extends StatelessWidget {
                   children: [
                     Text(
                       "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![selectedIndex].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                      style: CLTextStyle.nameTextStyle,
+                      style: CLTextStyle().nameTextStyle,
                     ),
                     Text(
                       "43%",
-                      style: CLTextStyle.paragraphTextStyle,
+                      style: CLTextStyle().paragraphTextStyle,
                     ),
                   ],
                 ),
@@ -47,7 +47,7 @@ class LiveWinCardTile extends StatelessWidget {
                   children: [
                     Text(
                       "Realtime Win %",
-                      style: CLTextStyle.paragraphHeadLineTextStyle,
+                      style: CLTextStyle().paragraphHeadLineTextStyle,
                     ),
                     Padding(
                       padding:
@@ -59,7 +59,7 @@ class LiveWinCardTile extends StatelessWidget {
                         animation: true,
                         center: Text(
                           "50.0%",
-                          style: CLTextStyle.paragraphTextStyle
+                          style: CLTextStyle().paragraphTextStyle
                               .copyWith(fontSize: 10),
                         ),
                         linearStrokeCap: LinearStrokeCap.roundAll,
@@ -73,11 +73,11 @@ class LiveWinCardTile extends StatelessWidget {
                   children: [
                     Text(
                       "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![selectedIndex].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                      style: CLTextStyle.nameTextStyle,
+                      style: CLTextStyle().nameTextStyle,
                     ),
                     Text(
                       "57%",
-                      style: CLTextStyle.paragraphTextStyle,
+                      style: CLTextStyle().paragraphTextStyle,
                     ),
                   ],
                 ),

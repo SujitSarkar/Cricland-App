@@ -93,7 +93,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
         title: RichText(
           text: TextSpan(
             text: widget.teamS1Name,
-            style: CLTextStyle.nameTextStyle.copyWith(color: Colors.white),
+            style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
             children: <TextSpan>[
               const TextSpan(
                   text: '  VS  ',
@@ -147,7 +147,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                     vertical: dSize(.01), horizontal: dSize(.02)),
                 child: Text(
                   item,
-                  style: CLTextStyle.optionTextStyle,
+                  style: CLTextStyle().optionTextStyle,
                 ),
               );
             }).toList(),
@@ -195,7 +195,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(widget.teamS1Name,
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: dSize(.05),
                                 )),
@@ -216,7 +216,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                           children: [
                             Text(
                               widget.teamS2Name,
-                              style: CLTextStyle.nameTextStyle.copyWith(
+                              style: CLTextStyle().nameTextStyle.copyWith(
                                 color: Colors.white,
                                 fontSize: dSize(.05),
                               ),
@@ -252,7 +252,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                   DateFormat('dd-MM-yyyy hh:mm a').format(
                       DateTime.fromMicrosecondsSinceEpoch(
                           int.parse(widget.startDate) * 1000)),
-                  style: CLTextStyle.paragraphHeadLineTextStyle
+                  style: CLTextStyle().paragraphHeadLineTextStyle
                       .copyWith(color: Colors.white),
                 ),
                 SizedBox(
@@ -315,7 +315,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
 //                 vertical: dSize(.01), horizontal: dSize(.02)),
 //             child: Text(
 //               item,
-//               style: CLTextStyle.optionTextStyle,
+//               style: CLTextStyle().optionTextStyle,
 //             ),
 //           );
 //         }).toList(),

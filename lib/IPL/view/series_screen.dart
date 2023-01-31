@@ -143,7 +143,7 @@ class _SeriesScreenState extends State<SeriesScreen>
         //                         text: TextSpan(
         //                           text:
         //                               '${homeController.featureSeriesModel.seriesMapProto![1].series![1].name} ',
-        //                           style: CLTextStyle.paragraphHeadLineTextStyle
+        //                           style: CLTextStyle().paragraphHeadLineTextStyle
         //                               .copyWith(
         //                             color: Colors.white70,
         //                           ),
@@ -151,7 +151,7 @@ class _SeriesScreenState extends State<SeriesScreen>
         //                             TextSpan(
         //                                 text:
         //                                     '${homeController.featureSeriesModel.seriesMapProto![1].date}',
-        //                                 style: CLTextStyle
+        //                                 style: CLTextStyle()
         //                                     .paragraphHeadLineTextStyle
         //                                     .copyWith(
         //                                   color: Colors.white70,
@@ -450,7 +450,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                         text: TextSpan(
                                           text:
                                               '${homeController.featureSeriesModel.seriesMapProto![1].series!.first.name} ',
-                                          style: CLTextStyle
+                                          style: CLTextStyle()
                                               .paragraphHeadLineTextStyle
                                               .copyWith(
                                             color: Colors.white70,
@@ -459,7 +459,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                             TextSpan(
                                                 text:
                                                     '${homeController.featureSeriesModel.seriesMapProto![1].date}',
-                                                style: CLTextStyle
+                                                style: CLTextStyle()
                                                     .paragraphHeadLineTextStyle
                                                     .copyWith(
                                                   color: Colors.white70,
@@ -655,7 +655,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                   //     text: TextSpan(
                   //       text:
                   //       '${homeController.featureSeriesModel.seriesMapProto![1].series![1].name} ',
-                  //       style: CLTextStyle.paragraphHeadLineTextStyle
+                  //       style: CLTextStyle().paragraphHeadLineTextStyle
                   //           .copyWith(
                   //         color: Colors.white70,
                   //       ),
@@ -663,7 +663,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                   //         TextSpan(
                   //             text:
                   //             '${homeController.featureSeriesModel.seriesMapProto![1].date}',
-                  //             style: CLTextStyle
+                  //             style: CLTextStyle()
                   //                 .paragraphHeadLineTextStyle
                   //                 .copyWith(
                   //               color: Colors.white70,
@@ -715,7 +715,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                     horizontal: dSize(.02)),
                                 child: Text(
                                   item,
-                                  style: CLTextStyle.optionTextStyle,
+                                  style: CLTextStyle().optionTextStyle,
                                 ),
                               ))
                           .toList(),

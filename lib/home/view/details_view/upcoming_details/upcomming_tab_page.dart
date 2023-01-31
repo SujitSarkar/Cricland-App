@@ -37,7 +37,7 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                   ),
                   Text(
                     "Today",
-                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                       fontSize: dSize(.045),
                       color: PublicController.pc.toggleTextColor(),
                     ),

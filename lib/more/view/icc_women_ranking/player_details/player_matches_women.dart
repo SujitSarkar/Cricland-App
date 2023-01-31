@@ -53,7 +53,7 @@ class _PlayerMatchesWomenState extends State<PlayerMatchesWomen> {
                       child: Text(
                         item,
                         maxLines: 1,
-                        style: CLTextStyle.optionTextStyle.copyWith(
+                        style: CLTextStyle().optionTextStyle.copyWith(
                           fontSize: dSize(.035),
                           color: item == _gameType
                               ? Colors.white

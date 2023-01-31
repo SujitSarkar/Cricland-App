@@ -58,7 +58,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2(
-                      style: CLTextStyle.optionTextStyle,
+                      style: CLTextStyle().optionTextStyle,
                       alignment: Alignment.center,
                       iconEnabledColor: PublicController.pc.toggleTextColor(),
                       dropdownDecoration: BoxDecoration(
@@ -122,7 +122,7 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                               child: Center(
                                 child: Text(
                                   typeList[index],
-                                  style: CLTextStyle.optionTextStyle.copyWith(
+                                  style: CLTextStyle().optionTextStyle.copyWith(
                                     fontSize: dSize(.04),
                                     fontWeight: FontWeight.w500,
                                     color:

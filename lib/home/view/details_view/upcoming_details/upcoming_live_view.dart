@@ -57,7 +57,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
               ),
               Text(
                 "Match Preview",
-                style: CLTextStyle.nameTextStyle.copyWith(
+                style: CLTextStyle().nameTextStyle.copyWith(
                   fontSize: 15,
                   color: PublicController.pc.toggleTextColor(),
                 ),
@@ -122,7 +122,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                     text: TextSpan(
                       text:
                           "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![widget.selectedIndex].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                      style: CLTextStyle.nameTextStyle,
+                      style: CLTextStyle().nameTextStyle,
                       children: <TextSpan>[
                         const TextSpan(
                           text: ' vs ',
@@ -135,7 +135,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                     ),
                   ),
                   trailingWidget: Text("Head to Head",
-                      style: CLTextStyle.paragraphHeadLineTextStyle),
+                      style: CLTextStyle().paragraphHeadLineTextStyle),
                   onTap: () {},
                 ),
               ),
@@ -169,7 +169,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                               text: TextSpan(
                                 text:
                                     "${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets}",
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   fontSize: dSize(.045),
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
@@ -177,7 +177,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                   TextSpan(
                                     text:
                                         "(${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.ballNbr} b)",
-                                    style: CLTextStyle.nameTextStyle.copyWith(
+                                    style: CLTextStyle().nameTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -191,7 +191,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                               text: TextSpan(
                                 text: homeController.scoreCardModel.scoreCard!
                                     .first.batTeamDetails!.batTeamShortName,
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   fontSize: dSize(.045),
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
@@ -202,7 +202,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                             1
                                         ? "  1st Innings"
                                         : "  2nd Innings",
-                                    style: CLTextStyle.nameTextStyle.copyWith(
+                                    style: CLTextStyle().nameTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -235,7 +235,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                         text: TextSpan(
                                           text:
                                               "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].runs}",
-                                          style: CLTextStyle.nameTextStyle
+                                          style: CLTextStyle().nameTextStyle
                                               .copyWith(
                                             fontSize: dSize(.03),
                                             color: PublicController.pc
@@ -245,7 +245,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                             TextSpan(
                                               text:
                                                   "(${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].balls})",
-                                              style: CLTextStyle.nameTextStyle
+                                              style: CLTextStyle().nameTextStyle
                                                   .copyWith(
                                                 fontSize: dSize(.035),
                                                 color: PublicController.pc
@@ -259,7 +259,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                       title: Text(
                                         "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].batName}",
                                         style:
-                                            CLTextStyle.nameTextStyle.copyWith(
+                                            CLTextStyle().nameTextStyle.copyWith(
                                           fontSize: dSize(.03),
                                           color: PublicController.pc
                                               .toggleTextColor(),
@@ -302,14 +302,14 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                             trailing: RichText(
                               text: TextSpan(
                                 text: "162-4",
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   fontSize: dSize(.045),
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: "(94 b) ",
-                                    style: CLTextStyle.nameTextStyle.copyWith(
+                                    style: CLTextStyle().nameTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -322,14 +322,14 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                             title: RichText(
                               text: TextSpan(
                                 text: "NS",
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   fontSize: dSize(.045),
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: "  2nd Innings",
-                                    style: CLTextStyle.nameTextStyle.copyWith(
+                                    style: CLTextStyle().nameTextStyle.copyWith(
                                       fontSize: dSize(.03),
                                       color:
                                           PublicController.pc.toggleTextColor(),
@@ -361,7 +361,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                         text: TextSpan(
                                           text:
                                               "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].runs}",
-                                          style: CLTextStyle.nameTextStyle
+                                          style: CLTextStyle().nameTextStyle
                                               .copyWith(
                                             fontSize: dSize(.03),
                                             color: PublicController.pc
@@ -371,7 +371,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                             TextSpan(
                                               text:
                                                   "(${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].balls})",
-                                              style: CLTextStyle.nameTextStyle
+                                              style: CLTextStyle().nameTextStyle
                                                   .copyWith(
                                                 fontSize: dSize(.03),
                                                 color: PublicController.pc
@@ -385,7 +385,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                       title: Text(
                                         "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].batName}",
                                         style:
-                                            CLTextStyle.nameTextStyle.copyWith(
+                                            CLTextStyle().nameTextStyle.copyWith(
                                           fontSize: dSize(.03),
                                           color: PublicController.pc
                                               .toggleTextColor(),
@@ -404,7 +404,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
               ),
               Text(
                 "Next Matches",
-                style: CLTextStyle.nameTextStyle.copyWith(
+                style: CLTextStyle().nameTextStyle.copyWith(
                   fontSize: dSize(.04),
                   color: PublicController.pc.toggleTextColor(),
                 ),
@@ -435,7 +435,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                           Flexible(
                                             child: Text(
                                               "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchDesc}, ${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.seriesName}",
-                                              style: CLTextStyle.nameTextStyle
+                                              style: CLTextStyle().nameTextStyle
                                                   .copyWith(
                                                 fontSize: dSize(.03),
                                                 color: PublicController.pc
@@ -489,7 +489,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                                     ),
                                                     Text(
                                                       "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.teamName}",
-                                                      style: CLTextStyle
+                                                      style: CLTextStyle()
                                                           .nameTextStyle
                                                           .copyWith(
                                                         fontSize: dSize(.03),
@@ -534,7 +534,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                                     ),
                                                     Text(
                                                       "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.teamName}",
-                                                      style: CLTextStyle
+                                                      style: CLTextStyle()
                                                           .nameTextStyle
                                                           .copyWith(
                                                         fontSize: dSize(.03),
@@ -557,7 +557,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                               children: [
                                                 Text(
                                                   "Tomorrow",
-                                                  style: CLTextStyle
+                                                  style: CLTextStyle()
                                                       .paragraphTextStyle
                                                       .copyWith(
                                                     fontSize: dSize(.03),
@@ -567,7 +567,7 @@ class _UpcomingLiveViewState extends State<UpcomingLiveView> {
                                                 ),
                                                 Text(
                                                   "07:00 PM",
-                                                  style: CLTextStyle
+                                                  style: CLTextStyle()
                                                       .paragraphTextStyle
                                                       .copyWith(
                                                     fontSize: dSize(.03),
