@@ -52,11 +52,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           children: [
 
-            const CircleAvatar(
-              radius: 70,
-              backgroundImage: AssetImage('assets/player.png'),
+        homeController.userModel.firstName ==null ?  const CircleAvatar(
+   radius: 70,
+              backgroundImage:  AssetImage('assets/player.png')
 
-            ),
+            ):CircleAvatar(
+  radius: 70,
+  backgroundImage: NetworkImage(homeController.userModel.profileImage!),
+
+  ),
             SizedBox(height: dSize(.05)),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -78,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 SizedBox(height: dSize(.05)),
-                RichText(
+                homeController.userModel.phone!.isEmpty?SizedBox():     RichText(
                   text: TextSpan(
                     text: 'Phone:',
                     style: TextStyle(

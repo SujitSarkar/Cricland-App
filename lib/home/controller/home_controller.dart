@@ -83,8 +83,17 @@ class HomeController extends GetxController {
   // fetchInitData();
     //get Matches
     // await getLiveMatches();
-
+    getSetUser();
     super.onInit();
+  }
+  getSetUser()async{
+    //Get User
+    final prefs = await SharedPreferences.getInstance();
+    String? uId= prefs.getString('userId');
+    if(uId != null){
+      getUser(uId);
+    }
+
   }
   fetchInitData()async{
 
@@ -108,12 +117,12 @@ class HomeController extends GetxController {
       await getMonkLiveMatches();
       // await getLeague("5");
 
-      //Get User
-      final prefs = await SharedPreferences.getInstance();
-      String? uId= prefs.getString('userId');
-      if(uId != null){
-        getUser(uId);
-      }
+      // //Get User
+      // final prefs = await SharedPreferences.getInstance();
+      // String? uId= prefs.getString('userId');
+      // if(uId != null){
+      //   getUser(uId);
+      // }
 
 
     });
@@ -527,7 +536,7 @@ class HomeController extends GetxController {
   }
 
   Future<bool> registerUser(String firstName, String lastName, String phone,
-      String password) async {
+      String password,String imageUrl) async {
     final snapshot1 =
     await FirebaseFirestore.instance.collection('Users').doc(phone).get();
     if (snapshot1.exists) {
@@ -543,7 +552,7 @@ class HomeController extends GetxController {
         'password': password,
         'date': dateData,
         'id': phone,
-        'profileImage': '',
+        'profileImage': imageUrl,
         'totalPoint': '00',
       };
 
@@ -567,7 +576,44 @@ class HomeController extends GetxController {
 
   }
 
+  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,String email,
+      String password,String imageUrl) async {
+    // final snapshot1 =
+    // await FirebaseFirestore.instance.collection('Users').doc(phone).get();
 
+      DateTime date = DateTime.now();
+      String dateData = '${date.day}-${date.month}-${date.year}';
+      Map<String, dynamic> map = {
+        'firstName': firstName,
+        'lastName': lastName,
+        'phone': "",
+        'email':email,
+        'password': password,
+        'date': dateData,
+        'id': phone,
+        'profileImage': imageUrl,
+        'totalPoint': '00',
+      };
+
+
+
+      try {
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .doc(map['id'])
+            .set(map);
+        await getUser(phone);
+        return true;
+      } catch (err) {
+        showToast('$err');
+        print(err);
+
+        return false;
+      }
+
+
+
+  }
   // RxBool isLogIn = false.obs;
   Future<void> getUser(String userId) async {
     try {
