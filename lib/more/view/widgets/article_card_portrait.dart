@@ -28,13 +28,12 @@ class _ArticleCardPortraitState extends State<ArticleCardPortrait> {
 
     youtubePlayerController = YoutubePlayerController(
       params: const YoutubePlayerParams(
-          startAt: Duration(seconds: 30),
           showFullscreenButton: true,
           autoPlay: false,
-          mute: true
+          mute: true,
+        
       ),
-    );
-    youtubePlayerController = YoutubePlayerController()..onInit = (){
+    )..onInit = (){
       youtubePlayerController.loadVideo(widget.model.youtubeVideoLink!);
     };
   }
@@ -59,7 +58,8 @@ class _ArticleCardPortraitState extends State<ArticleCardPortrait> {
                   : YoutubePlayer(
                 controller: youtubePlayerController,
                 aspectRatio: 16/9,
-              )),
+              )
+              ),
             SizedBox(height: dSize(.04)),
 
             Padding(
