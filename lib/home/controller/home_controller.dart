@@ -9,20 +9,22 @@ import 'package:cricland/home/model/monk/monk_live_model.dart';
 import 'package:cricland/home/model/over_summery_model.dart';
 import 'package:cricland/home/model/point_table_model.dart';
 import 'package:cricland/home/model/recent_match_model.dart';
-import 'package:cricland/home/model/live_matches_model.dart';
+
 import 'package:cricland/home/model/series_match_list_model.dart';
 import 'package:cricland/home/model/squads_model.dart';
 import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../public/model/usermodel.dart';
 import '../../public/variables/variable.dart';
-import '../model/monk/league_model.dart';
+
 import '../model/monk/monk_league_model.dart';
+import '../model/monk/monk_team_model.dart';
+
 import '../model/monk/monk_vanue_model.dart';
 import '../model/player_info_model.dart';
 import '../model/player_squad_model.dart';
@@ -32,9 +34,6 @@ class HomeController extends GetxController {
   // late MatchesModel matchesModel;
 //  late LiveMatchesModel liveMatchesModel;
 
-  late MonkLiveModel monkLiveModel;
-  late LeagueUpdateModel  monkListLeagueModel;
-  late MonkVanueModel  monkVanueModel;
  // late MonkLeagueModel monkLeague;
   late RecentMatchModel recentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
@@ -74,9 +73,7 @@ class HomeController extends GetxController {
     playerInfoModel = PlayerInfoModel();
     playerSquadModel = PlayerSquadModel();
     overSummeryModel = OverSummeryModel();
-    monkLiveModel = MonkLiveModel();
-    monkListLeagueModel = LeagueUpdateModel();
-    monkVanueModel = MonkVanueModel();
+
   //  monkLeague = MonkLeagueModel();
 
     userModel = UserModel();
@@ -113,8 +110,7 @@ class HomeController extends GetxController {
       await getPlayerInfo("6635");
       await getMatchInfo("38356");
 
-      //Get Monk API
-      await getMonkLiveMatches();
+
       // await getLeague("5");
 
       // //Get User
@@ -127,6 +123,7 @@ class HomeController extends GetxController {
 
     });
 
+    getLive();
   }
 
   Future<void> getRecentMatches() async {
@@ -366,106 +363,124 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getMonkLiveMatches() async {
-    loading(true);
+  //Monk API Service
+  Future<List<MonkLive>> getLive() async {
+    List<MonkLive>   monk_live=[];
     await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance
-            .getWithoutHeader(ApiEndpoints.monkLiveMatches),
-        onSuccess: (response) {
-          print(response);
+        execute: () async =>
 
-          monkLiveModel = monkLiveModelFromJson(jsonEncode(response));
-          //
-          print("Monk Live Matches:${monkLiveModel.data!.length}");
-          loading(false);
+        await ApiService.instance.get(ApiEndpoints.monkLiveMatches),
+        onSuccess: (response) {
+          print("Live Response: $response");
+          var lives = response["data"];
+          for(var live in lives){
+            monk_live.add(MonkLive(
+              id:live["id"],
+              league_id: live["league_id"],
+              round: live["round"],
+              localteam_id: live["localteam_id"],
+              visitorteam_id: live["visitorteam_id"],
+
+              starting_at: live["starting_at"],
+              type: live["type"],
+              live: live["live"],
+              status: live["status"],
+              note: live["note"],
+              venue_id: live["venue_id"],
+              toss_won_team_id: live["toss_won_team_id"],
+              winner_team_id: live["winner_team_id"],
+              draw_noresult: live["draw_noresult"],
+              total_overs_played: live["total_overs_played"],
+              localteam_dl_data: Score(score:live["localteam_dl_data"]["score"],overs:live["localteam_dl_data"]["overs"],wickets_out: live["localteam_dl_data"]["wickets_out"]  ) ,
+              visitorteam_dl_data:Score(score:live["visitorteam_dl_data"]["score"],overs:live["visitorteam_dl_data"]["overs"],wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
+            ));
+          }
         },
         onError: (error) {
           print(error.toString());
-          loading(false);
+
         });
-    update();
+
+    print(monk_live[0].round);
+    return monk_live;
   }
-
-  Future<LeagueUpdateModel> getLeague(String leagueId) async {
-    loading(true);
-
-
-
+  Future<MonkLeague> getLeague(String leagueId) async {
+    MonkLeague  monk_league=MonkLeague();
     await ApiService.instance.apiCall(
-        execute: () async {
-          return await ApiService.instance
-            .getWithoutHeader(ApiEndpoints.monkLeague+leagueId+ApiEndpoints.monkAPIToken);
-        },
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.monkLeague+leagueId+ApiEndpoints.monkAPIToken),
         onSuccess: (response) {
-          print("DDDDDDDDDDDDD: ${response["data"]["name"]}");
-          // MonkLeagueModel(resource: )
+          print("Leauge Response: ${response}");
+          var data = response["data"];
+          monk_league = MonkLeague(
+              id:data["id"],
+              name: data["name"],
+              code: data["code"],
+              image_path: data["image_path"]
+          );
 
-        var  responseData = jsonDecode(response.body)["data"];
-
-          monkListLeagueModel = leagueUpdateModelFromJson(jsonEncode(responseData["data"]));
-          // monkLeague = monkLeague.fromJason(e);
-         // monkLeague = leagueFromJson(jsonEncode(response));
-          //
-        //  print("Monk League :${monkLeagueModel.data!.length}");
-          loading(false);
         },
         onError: (error) {
           print(error.toString());
-          loading(false);
+
         });
+
+    print(monk_league.name);
     update();
-    return monkListLeagueModel;
-
+    return monk_league;
   }
-  Future<MonkVanueModel> getVanue(String vanueID) async {
-    loading(true);
 
+  Future<MonkVanue> getVenue(String venueId) async {
+    MonkVanue  monk_venue=MonkVanue();
     await ApiService.instance.apiCall(
-        execute: () async {
-          return await ApiService.instance
-              .getWithoutHeader(ApiEndpoints.monkVanue+vanueID+ApiEndpoints.monkAPIToken);
-        },
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.monkVanue+venueId+ApiEndpoints.monkAPIToken),
         onSuccess: (response) {
-          print("DDDDDDDDDDDDD: ${response["data"]["name"]}");
-          // MonkLeagueModel(resource: )
+          print("venue Response: ${response}");
+          var data = response["data"];
+          monk_venue = MonkVanue(
+              id:data["id"],
+              name: data["name"],
+              city: data["code"],
+              image_path: data["image_path"]
+          );
 
-          var  responseData = jsonDecode(response.body)["data"];
-
-          monkVanueModel = monkVanueModelFromJson(jsonEncode(responseData["data"]));
-          // monkLeague = monkLeague.fromJason(e);
-          // monkLeague = leagueFromJson(jsonEncode(response));
-          //
-          //  print("Monk League :${monkLeagueModel.data!.length}");
-          loading(false);
         },
         onError: (error) {
           print(error.toString());
-          loading(false);
+
         });
+
+    print(monk_venue.name);
     update();
-    return monkVanueModel;
-
+    return monk_venue;
   }
-  final GetConnect getConnect = GetConnect();
+  Future<MonkTeam> getTeam(String teamId) async {
+    MonkTeam  monkTeam=MonkTeam();
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.monkTeams+teamId+ApiEndpoints.monkAPIToken),
+        onSuccess: (response) {
+          print("Team Response: ${response}");
+          var data = response["data"];
+          monkTeam = MonkTeam(
+              id:data["id"],
+              name: data["name"],
+              code: data["code"],
+              image_path: data["image_path"]
+          );
 
-  Future<MonkVanueModel?> getMonkVanue(String vanueID) async {
-    // Response res = await get(apiUrl, headers: headers);
-    var body;
-    var res = await getConnect.httpClient.get(
-      ApiEndpoints.monkBaseURL + ApiEndpoints.monkVanue+vanueID+ApiEndpoints.monkAPIToken,
-    );
+        },
+        onError: (error) {
+          print(error.toString());
 
-    if (res.statusCode == 200) {
-      // this mean that we are connected to the data base
-      body = res.body;
-      print("Api service: ${body["city"]}}");
+        });
 
-      print("Api service: ${body}"); // to debug
-      MonkVanueModel vanue = body;
-      return vanue;
-    }
-   return null;
+    print(monkTeam.name);
+    update();
+    return monkTeam;
   }
+
   // Future<List<LeagueUpdateModel>> getLeague(String leagueId) async {
   //   loading(true);
   //
