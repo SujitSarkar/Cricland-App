@@ -4,15 +4,37 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class ReadNewsPage extends StatelessWidget {
+class ReadNewsPage extends StatefulWidget {
   ReadNewsPage({Key? key, required this.model}) : super(key: key);
   final ArticleModel model;
 
+  @override
+  State<ReadNewsPage> createState() => _ReadNewsPageState();
+}
+
+class _ReadNewsPageState extends State<ReadNewsPage> {
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.03),
       fontWeight: FontWeight.w500,
       color: PublicController.pc.toggleTextColor());
+  late YoutubePlayerController youtubePlayerController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    youtubePlayerController = YoutubePlayerController(
+      params: const YoutubePlayerParams(
+        showFullscreenButton: true,
+        autoPlay: false,
+        mute: true,
+      ),
+    )..onInit = () {
+        youtubePlayerController.loadVideo(widget.model.youtubeVideoLink!);
+      };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +50,16 @@ class ReadNewsPage extends StatelessWidget {
 
   Widget _bodyUI() => ListView(
         children: [
-          Image.network(model.imageLink!, fit: BoxFit.fitWidth),
+          widget.model.youtubeVideoLink!.isEmpty
+              ? Image.network(widget.model.imageLink!, fit: BoxFit.fitWidth)
+              : YoutubePlayer(
+                  controller: youtubePlayerController,
+                  aspectRatio: 16 / 9,
+                ),
           Padding(
             padding: EdgeInsets.all(dSize(.04)),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(
@@ -39,7 +67,8 @@ class ReadNewsPage extends StatelessWidget {
                   child: Text(
                       DateFormat('MMM dd, yyyy').format(
                           DateTime.fromMillisecondsSinceEpoch(
-                              model.timeStamp!)),
+                              widget.model.timeStamp!)),
+                      textAlign: TextAlign.start,
                       style: _textStyle),
                   decoration: BoxDecoration(
                       color: PublicController.pc.toggleCardBg(),
@@ -47,25 +76,15 @@ class ReadNewsPage extends StatelessWidget {
                           BorderRadius.all(Radius.circular(dSize(.01)))),
                 ),
                 SizedBox(height: dSize(.06)),
-                Text(model.title!,
+                Text(widget.model.title!,
                     style: _textStyle.copyWith(
                         fontSize: dSize(.055), fontWeight: FontWeight.bold)),
                 SizedBox(height: dSize(.06)),
-                Text(model.article!,
+                Text(widget.model.article!,
                     style: _textStyle.copyWith(fontSize: dSize(.04))),
               ],
             ),
           )
         ],
-      );
-
-  Widget _cardTile(String title) => Container(
-        margin: EdgeInsets.only(right: dSize(.02)),
-        padding:
-            EdgeInsets.symmetric(horizontal: dSize(.02), vertical: dSize(.002)),
-        child: Text(title, style: _textStyle),
-        decoration: BoxDecoration(
-            color: PublicController.pc.toggleCardBg(),
-            borderRadius: BorderRadius.all(Radius.circular(dSize(.01)))),
       );
 }
