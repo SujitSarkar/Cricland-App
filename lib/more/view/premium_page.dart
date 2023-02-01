@@ -1,20 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/more/controller/package_controller.dart';
 import 'package:cricland/more/tile/premium_tile.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../public/controller/public_controller.dart';
+import '../../public/model/usermodel.dart';
 import '../../public/variables/config.dart';
+import '../../public/variables/variable.dart';
 
 class PremiumPage extends StatelessWidget {
   PremiumPage({Key? key}) : super(key: key);
 
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
+
+
+  bool _isLoading=false;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +187,9 @@ class PremiumPage extends StatelessWidget {
 
                       ///Google button
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _googleLogin(context);
+                        },
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: dSize(.03)),
                           child: Row(
@@ -252,5 +263,110 @@ class PremiumPage extends StatelessWidget {
                     ],
                   )),
             ));
+  }
+  _googleLogin(BuildContext context)async{
+    final googleSignIn = GoogleSignIn();
+    GoogleSignInAccount? _user;
+    final googleUser = await googleSignIn.signIn();
+    if(googleUser == null)return;
+    _user = googleUser;
+
+
+
+    final googleAuth = await googleUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken:  googleAuth.accessToken,
+      idToken:  googleAuth.idToken,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) async{
+
+
+        _isLoading = true;
+      registerUserWithGoogle(
+            _user!.displayName!,
+            "",
+            _user.id,
+            _user.email,
+            "",
+            _user.photoUrl!
+        ).then((value) {
+
+
+            _isLoading = false;
+
+        });
+        _isLoading = false;
+        Navigator.pop(context);
+
+      // Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(),),);
+    });
+  }
+  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,String email,
+      String password,String imageUrl) async {
+    // final snapshot1 =
+    // await FirebaseFirestore.instance.collection('Users').doc(phone).get();
+
+    DateTime date = DateTime.now();
+    String dateData = '${date.day}-${date.month}-${date.year}';
+    Map<String, dynamic> map = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'phone': "",
+      'email':email,
+      'password': password,
+      'date': dateData,
+      'id': phone,
+      'profileImage': imageUrl,
+      'totalPoint': '00',
+    };
+
+
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(map['id'])
+          .set(map);
+      await getUser(phone);
+      return true;
+    } catch (err) {
+      showToast('$err');
+      print(err);
+
+      return false;
+    }
+
+
+
+  }
+  Future<void> getUser(String userId) async {
+    UserModel userModel = UserModel();
+    try {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .get()
+          .then((snapShot) {
+        UserModel user = UserModel(
+          firstName: snapShot['firstName'],
+          lastName: snapShot['lastName'],
+          phone: snapShot['phone'],
+          password: snapShot['password'],
+          date: snapShot['date'],
+          id: snapShot['id'],
+          profileImage: snapShot['profileImage'],
+          totalPoint: snapShot['totalPoint'],
+        );
+        userModel = user;
+      });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userId', userModel.id!);
+
+    } catch (error) {
+      showToast('$error');
+    }
+
   }
 }

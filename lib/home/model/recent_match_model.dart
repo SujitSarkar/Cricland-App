@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-RecentMatchModel recentMatchModelFromJson(String str) =>
-    RecentMatchModel.fromJson(json.decode(str));
+RecentMatchModel recentMatchModelFromJson(String str) => RecentMatchModel.fromJson(json.decode(str));
 
-String recentMatchModelToJson(RecentMatchModel data) =>
-    json.encode(data.toJson());
+String recentMatchModelToJson(RecentMatchModel data) => json.encode(data.toJson());
 
 class RecentMatchModel {
   RecentMatchModel({
@@ -23,21 +21,19 @@ class RecentMatchModel {
   AppIndex? appIndex;
   String? responseLastUpdated;
 
-  factory RecentMatchModel.fromJson(Map<String, dynamic> json) =>
-      RecentMatchModel(
-        typeMatches: List<TypeMatch>.from(
-            json["typeMatches"].map((x) => TypeMatch.fromJson(x))),
-        filters: Filters.fromJson(json["filters"]),
-        appIndex: AppIndex.fromJson(json["appIndex"]),
-        responseLastUpdated: json["responseLastUpdated"],
-      );
+  factory RecentMatchModel.fromJson(Map<String, dynamic> json) => RecentMatchModel(
+    typeMatches: List<TypeMatch>.from(json["typeMatches"].map((x) => TypeMatch.fromJson(x))),
+    filters: Filters.fromJson(json["filters"]),
+    appIndex: AppIndex.fromJson(json["appIndex"]),
+    responseLastUpdated: json["responseLastUpdated"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "typeMatches": List<dynamic>.from(typeMatches!.map((x) => x.toJson())),
-        "filters": filters!.toJson(),
-        "appIndex": appIndex!.toJson(),
-        "responseLastUpdated": responseLastUpdated,
-      };
+    "typeMatches": List<dynamic>.from(typeMatches!.map((x) => x.toJson())),
+    "filters": filters!.toJson(),
+    "appIndex": appIndex!.toJson(),
+    "responseLastUpdated": responseLastUpdated,
+  };
 }
 
 class AppIndex {
@@ -50,14 +46,14 @@ class AppIndex {
   String? webUrl;
 
   factory AppIndex.fromJson(Map<String, dynamic> json) => AppIndex(
-        seoTitle: json["seoTitle"],
-        webUrl: json["webURL"],
-      );
+    seoTitle: json["seoTitle"],
+    webUrl: json["webURL"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "seoTitle": seoTitle,
-        "webURL": webUrl,
-      };
+    "seoTitle": seoTitle,
+    "webURL": webUrl,
+  };
 }
 
 class Filters {
@@ -68,12 +64,12 @@ class Filters {
   List<String>? matchType;
 
   factory Filters.fromJson(Map<String, dynamic> json) => Filters(
-        matchType: List<String>.from(json["matchType"].map((x) => x)),
-      );
+    matchType: List<String>.from(json["matchType"].map((x) => x)),
+  );
 
   Map<String, dynamic> toJson() => {
-        "matchType": List<dynamic>.from(matchType!.map((x) => x)),
-      };
+    "matchType": List<dynamic>.from(matchType!.map((x) => x)),
+  };
 }
 
 class TypeMatch {
@@ -86,16 +82,14 @@ class TypeMatch {
   List<SeriesMatch>? seriesMatches;
 
   factory TypeMatch.fromJson(Map<String, dynamic> json) => TypeMatch(
-        matchType: json["matchType"],
-        seriesMatches: List<SeriesMatch>.from(
-            json["seriesMatches"].map((x) => SeriesMatch.fromJson(x))),
-      );
+    matchType: json["matchType"],
+    seriesMatches: List<SeriesMatch>.from(json["seriesMatches"].map((x) => SeriesMatch.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "matchType": matchType,
-        "seriesMatches":
-            List<dynamic>.from(seriesMatches!.map((x) => x.toJson())),
-      };
+    "matchType": matchType,
+    "seriesMatches": List<dynamic>.from(seriesMatches!.map((x) => x.toJson())),
+  };
 }
 
 class SeriesMatch {
@@ -108,19 +102,14 @@ class SeriesMatch {
   AdDetail? adDetail;
 
   factory SeriesMatch.fromJson(Map<String, dynamic> json) => SeriesMatch(
-        seriesAdWrapper: json["seriesAdWrapper"] == null
-            ? null
-            : SeriesAdWrapper.fromJson(json["seriesAdWrapper"]),
-        adDetail: json["adDetail"] == null
-            ? null
-            : AdDetail.fromJson(json["adDetail"]),
-      );
+    seriesAdWrapper: SeriesAdWrapper.fromJson(json["seriesAdWrapper"]),
+    adDetail: AdDetail.fromJson(json["adDetail"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "seriesAdWrapper":
-            seriesAdWrapper == null ? null : seriesAdWrapper!.toJson(),
-        "adDetail": adDetail == null ? null : adDetail!.toJson(),
-      };
+    "seriesAdWrapper": seriesAdWrapper!.toJson(),
+    "adDetail": adDetail!.toJson(),
+  };
 }
 
 class AdDetail {
@@ -135,16 +124,16 @@ class AdDetail {
   int? position;
 
   factory AdDetail.fromJson(Map<String, dynamic> json) => AdDetail(
-        name: json["name"],
-        layout: json["layout"],
-        position: json["position"],
-      );
+    name: json["name"],
+    layout: json["layout"],
+    position: json["position"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "layout": layout,
-        "position": position,
-      };
+    "name": name,
+    "layout": layout,
+    "position": position,
+  };
 }
 
 class SeriesAdWrapper {
@@ -158,19 +147,17 @@ class SeriesAdWrapper {
   String? seriesName;
   List<Match>? matches;
 
-  factory SeriesAdWrapper.fromJson(Map<String, dynamic> json) =>
-      SeriesAdWrapper(
-        seriesId: json["seriesId"],
-        seriesName: json["seriesName"],
-        matches:
-            List<Match>.from(json["matches"].map((x) => Match.fromJson(x))),
-      );
+  factory SeriesAdWrapper.fromJson(Map<String, dynamic> json) => SeriesAdWrapper(
+    seriesId: json["seriesId"],
+    seriesName: json["seriesName"],
+    matches: List<Match>.from(json["matches"].map((x) => Match.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "seriesId": seriesId,
-        "seriesName": seriesName,
-        "matches": List<dynamic>.from(matches!.map((x) => x.toJson())),
-      };
+    "seriesId": seriesId,
+    "seriesName": seriesName,
+    "matches": List<dynamic>.from(matches!.map((x) => x.toJson())),
+  };
 }
 
 class Match {
@@ -183,16 +170,14 @@ class Match {
   MatchScore? matchScore;
 
   factory Match.fromJson(Map<String, dynamic> json) => Match(
-        matchInfo: MatchInfo.fromJson(json["matchInfo"]),
-        matchScore: json["matchScore"] == null
-            ? null
-            : MatchScore.fromJson(json["matchScore"]),
-      );
+    matchInfo: MatchInfo.fromJson(json["matchInfo"]),
+    matchScore: MatchScore.fromJson(json["matchScore"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "matchInfo": matchInfo!.toJson(),
-        "matchScore": matchScore == null ? null : matchScore!.toJson(),
-      };
+    "matchInfo": matchInfo!.toJson(),
+    "matchScore": matchScore!.toJson(),
+  };
 }
 
 class MatchInfo {
@@ -214,6 +199,7 @@ class MatchInfo {
     this.seriesEndDt,
     this.isTimeAnnounced,
     this.stateTitle,
+    this.isFantasyEnabled,
   });
 
   int? matchId;
@@ -233,57 +219,64 @@ class MatchInfo {
   String? seriesEndDt;
   bool? isTimeAnnounced;
   String? stateTitle;
+  bool? isFantasyEnabled;
 
   factory MatchInfo.fromJson(Map<String, dynamic> json) => MatchInfo(
-        matchId: json["matchId"],
-        seriesId: json["seriesId"],
-        seriesName: json["seriesName"],
-        matchDesc: json["matchDesc"],
-        matchFormat: matchFormatValues.map[json["matchFormat"]],
-        startDate: json["startDate"],
-        endDate: json["endDate"],
-        state: stateValues.map[json["state"]],
-        status: json["status"],
-        team1: Team.fromJson(json["team1"]),
-        team2: Team.fromJson(json["team2"]),
-        venueInfo: VenueInfo.fromJson(json["venueInfo"]),
-        currBatTeamId:
-            json["currBatTeamId"] == null ? null : json["currBatTeamId"],
-        seriesStartDt: json["seriesStartDt"],
-        seriesEndDt: json["seriesEndDt"],
-        isTimeAnnounced: json["isTimeAnnounced"],
-        stateTitle: json["stateTitle"],
-      );
+    matchId: json["matchId"],
+    seriesId: json["seriesId"],
+    seriesName: json["seriesName"],
+    matchDesc: json["matchDesc"],
+    matchFormat: matchFormatValues.map[json["matchFormat"]],
+    startDate: json["startDate"],
+    endDate: json["endDate"],
+    state: stateValues.map[json["state"]],
+    status: json["status"],
+    team1: Team.fromJson(json["team1"]),
+    team2: Team.fromJson(json["team2"]),
+    venueInfo: VenueInfo.fromJson(json["venueInfo"]),
+    currBatTeamId: json["currBatTeamId"],
+    seriesStartDt: json["seriesStartDt"],
+    seriesEndDt: json["seriesEndDt"],
+    isTimeAnnounced: json["isTimeAnnounced"],
+    stateTitle: json["stateTitle"],
+    isFantasyEnabled: json["isFantasyEnabled"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "matchId": matchId,
-        "seriesId": seriesId,
-        "seriesName": seriesName,
-        "matchDesc": matchDesc,
-        "matchFormat": matchFormatValues.reverse[matchFormat],
-        "startDate": startDate,
-        "endDate": endDate,
-        "state": stateValues.reverse[state],
-        "status": status,
-        "team1": team1!.toJson(),
-        "team2": team2!.toJson(),
-        "venueInfo": venueInfo!.toJson(),
-        "currBatTeamId": currBatTeamId == null ? null : currBatTeamId,
-        "seriesStartDt": seriesStartDt,
-        "seriesEndDt": seriesEndDt,
-        "isTimeAnnounced": isTimeAnnounced,
-        "stateTitle": stateTitle,
-      };
+    "matchId": matchId,
+    "seriesId": seriesId,
+    "seriesName": seriesName,
+    "matchDesc": matchDesc,
+    "matchFormat": matchFormatValues.reverse[matchFormat],
+    "startDate": startDate,
+    "endDate": endDate,
+    "state": stateValues.reverse[state],
+    "status": status,
+    "team1": team1!.toJson(),
+    "team2": team2!.toJson(),
+    "venueInfo": venueInfo!.toJson(),
+    "currBatTeamId": currBatTeamId,
+    "seriesStartDt": seriesStartDt,
+    "seriesEndDt": seriesEndDt,
+    "isTimeAnnounced": isTimeAnnounced,
+    "stateTitle": stateTitle,
+    "isFantasyEnabled": isFantasyEnabled,
+  };
 }
 
-enum MatchFormat { T20, TEST, ODI }
+enum MatchFormat { T20, ODI, TEST }
 
-final matchFormatValues = EnumValues(
-    {"ODI": MatchFormat.ODI, "T20": MatchFormat.T20, "TEST": MatchFormat.TEST});
+final matchFormatValues = EnumValues({
+  "ODI": MatchFormat.ODI,
+  "T20": MatchFormat.T20,
+  "TEST": MatchFormat.TEST
+});
 
 enum State { COMPLETE }
 
-final stateValues = EnumValues({"Complete": State.COMPLETE});
+final stateValues = EnumValues({
+  "Complete": State.COMPLETE
+});
 
 class Team {
   Team({
@@ -299,18 +292,18 @@ class Team {
   int? imageId;
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
-        teamId: json["teamId"],
-        teamName: json["teamName"],
-        teamSName: json["teamSName"],
-        imageId: json["imageId"],
-      );
+    teamId: json["teamId"],
+    teamName: json["teamName"],
+    teamSName: json["teamSName"],
+    imageId: json["imageId"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "teamId": teamId,
-        "teamName": teamName,
-        "teamSName": teamSName,
-        "imageId": imageId,
-      };
+    "teamId": teamId,
+    "teamName": teamName,
+    "teamSName": teamSName,
+    "imageId": imageId,
+  };
 }
 
 class VenueInfo {
@@ -319,37 +312,49 @@ class VenueInfo {
     this.ground,
     this.city,
     this.timezone,
+    this.latitude,
+    this.longitude,
   });
 
   int? id;
   String? ground;
   String? city;
+
   Timezone? timezone;
+  String? latitude;
+  String? longitude;
 
   factory VenueInfo.fromJson(Map<String, dynamic> json) => VenueInfo(
-        id: json["id"],
-        ground: json["ground"],
-        city: json["city"],
-        timezone: timezoneValues.map[json["timezone"]],
-      );
+    id: json["id"],
+    ground: json["ground"],
+    city: json["city"],
+    timezone: timezoneValues.map[json["timezone"]],
+    latitude: json["latitude"],
+    longitude: json["longitude"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "ground": ground,
-        "city": city,
-        "timezone": timezoneValues.reverse[timezone],
-      };
+    "id": id,
+    "ground": ground,
+    "city": city,
+    "timezone": timezoneValues.reverse[timezone],
+    "latitude": latitude,
+    "longitude": longitude,
+  };
 }
 
-enum Timezone { THE_0100, THE_0530, THE_0400, THE_0800, THE_0300, THE_0200 }
+enum Timezone { THE_0530, THE_0200, THE_1100, THE_0800, THE_1000, THE_1030, THE_0600, THE_0400, THE_1300 }
 
 final timezoneValues = EnumValues({
-  "+01:00": Timezone.THE_0100,
   "+02:00": Timezone.THE_0200,
-  "+03:00": Timezone.THE_0300,
-  "-04:00": Timezone.THE_0400,
+  "+04:00": Timezone.THE_0400,
   "+05:30": Timezone.THE_0530,
-  "+08:00": Timezone.THE_0800
+  "+06:00": Timezone.THE_0600,
+  "+08:00": Timezone.THE_0800,
+  "+10:00": Timezone.THE_1000,
+  "+10:30": Timezone.THE_1030,
+  "+11:00": Timezone.THE_1100,
+  "+13:00": Timezone.THE_1300
 });
 
 class MatchScore {
@@ -362,16 +367,14 @@ class MatchScore {
   TeamScore? team2Score;
 
   factory MatchScore.fromJson(Map<String, dynamic> json) => MatchScore(
-        team1Score: TeamScore.fromJson(json["team1Score"]),
-        team2Score: json["team2Score"] == null
-            ? null
-            : TeamScore.fromJson(json["team2Score"]),
-      );
+    team1Score: TeamScore.fromJson(json["team1Score"]),
+    team2Score: TeamScore.fromJson(json["team2Score"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "team1Score": team1Score!.toJson(),
-        "team2Score": team2Score == null ? null : team2Score!.toJson(),
-      };
+    "team1Score": team1Score!.toJson(),
+    "team2Score": team2Score!.toJson(),
+  };
 }
 
 class TeamScore {
@@ -384,14 +387,14 @@ class TeamScore {
   Inngs? inngs2;
 
   factory TeamScore.fromJson(Map<String, dynamic> json) => TeamScore(
-        inngs1: Inngs.fromJson(json["inngs1"]),
-        inngs2: json["inngs2"] == null ? null : Inngs.fromJson(json["inngs2"]),
-      );
+    inngs1: Inngs.fromJson(json["inngs1"]),
+    inngs2: Inngs.fromJson(json["inngs2"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "inngs1": inngs1!.toJson(),
-        "inngs2": inngs2 == null ? null : inngs2!.toJson(),
-      };
+    "inngs1": inngs1!.toJson(),
+    "inngs2": inngs2!.toJson(),
+  };
 }
 
 class Inngs {
@@ -412,34 +415,32 @@ class Inngs {
   bool? isFollowOn;
 
   factory Inngs.fromJson(Map<String, dynamic> json) => Inngs(
-        inningsId: json["inningsId"],
-        runs: json["runs"],
-        wickets: json["wickets"] == null ? null : json["wickets"],
-        overs: json["overs"].toDouble(),
-        isDeclared: json["isDeclared"] == null ? null : json["isDeclared"],
-        isFollowOn: json["isFollowOn"] == null ? null : json["isFollowOn"],
-      );
+    inningsId: json["inningsId"],
+    runs: json["runs"],
+    wickets: json["wickets"],
+    overs: json["overs"].toDouble(),
+    isDeclared: json["isDeclared"],
+    isFollowOn: json["isFollowOn"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "inningsId": inningsId,
-        "runs": runs,
-        "wickets": wickets == null ? null : wickets,
-        "overs": overs,
-        "isDeclared": isDeclared == null ? null : isDeclared,
-        "isFollowOn": isFollowOn == null ? null : isFollowOn,
-      };
+    "inningsId": inningsId,
+    "runs": runs,
+    "wickets": wickets,
+    "overs": overs,
+    "isDeclared": isDeclared,
+    "isFollowOn": isFollowOn,
+  };
 }
 
 class EnumValues<T> {
   Map<String, T> map;
-  Map<T, String>? reverseMap;
+  late Map<T, String> reverseMap;
 
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap!;
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
   }
 }

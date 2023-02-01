@@ -19,11 +19,8 @@ class HomeNavPage extends StatefulWidget {
 
 class _HomeNavPageState extends State<HomeNavPage> {
   static final List<Widget> _homeWidgets = [
-    // AuthScreen(),
-    Container(),
-    Container(),
-
-    // SeriesScreen(),
+    AuthScreen(),
+    SeriesScreen(),
     HomePage(),
     // Container(),
     // Container(),

@@ -25,13 +25,16 @@ final themeMode = ValueNotifier(2);
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<HomeController>(builder: (homeController) {
-
       return homeController.recentMatchModel.typeMatches != null
           ? SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -39,6 +42,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                   InkWell(
                 onTap: (){
@@ -95,7 +99,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   );
               },
                     child: Text(
-                    'Recent Match',
+                    'Show Add',
                     style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                       fontSize: dSize(.04),
                       fontWeight: FontWeight.w500,
@@ -104,83 +108,6 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 ),
                   ),
 
-
-                    // ListView.builder(
-                    //   physics: NeverScrollableScrollPhysics(),
-                    //   itemCount: homeController.recentMatchModel.typeMatches!
-                    //       .first.seriesMatches!.length,
-                    //   shrinkWrap: true,
-                    //   itemBuilder: (context, index) {
-                    //     var dataPath = homeController.recentMatchModel.typeMatches![0]
-                    //         .seriesMatches![index].seriesAdWrapper;
-                    //     return dataPath ==
-                    //             null
-                    //         ? SizedBox()
-                    //         : SliderCardTile(
-                    //             title:
-                    //                 "${dataPath.seriesName}",
-                    //             onTap: () {
-                    //               Navigator.push(
-                    //                 context,
-                    //                 MaterialPageRoute(
-                    //                   builder: (_) => HomeDetailsScreen(
-                    //                     teamS2Name:
-                    //                         "${dataPath.matches![0].matchInfo!.team2!.teamSName}",
-                    //                     matchID:
-                    //                         "${dataPath.matches![0].matchInfo!.matchId}",
-                    //                     teamS1Name:
-                    //                         "${dataPath.matches![0].matchInfo!.team1!.teamSName}",
-                    //                     matchDesc:
-                    //                         "${dataPath.matches![0].matchInfo!.matchDesc}",
-                    //                     team1RunWicket:
-                    //                     dataPath.matches!.first.matchScore==null?"": '${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
-                    //                     winningStatus:
-                    //                         "${dataPath.matches![0].matchInfo!.status}",
-                    //                     team2RunWicket:
-                    //                         "${dataPath.matches![0].matchScore!.team2Score!.inngs1!.runs}-${dataPath.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
-                    //                     team1Over:
-                    //                         "${dataPath.matches![0].matchScore!.team1Score!.inngs1!.overs}",
-                    //                     team2Over:
-                    //                         "${dataPath.matches![0].matchScore!.team2Score!.inngs1!.overs}",
-                    //                     team1ImageID:
-                    //                         "${dataPath.matches![0].matchInfo!.team1!.imageId}",
-                    //                     team2ImageID:
-                    //                         "${dataPath.matches![0].matchInfo!.team2!.imageId}",
-                    //                     seriesID:
-                    //                         "${dataPath.seriesId}",
-                    //                   ),
-                    //                 ),
-                    //               );
-                    //             },
-                    //             onStaticTap: () {},
-                    //             //TODO runs and overs problem
-                    //             leftCountryName:
-                    //                 '${dataPath.matches!.first.matchInfo!.team1!.teamSName}',
-                    //             leftCountryOvers:
-                    //             dataPath.matches!.first.matchScore==null?"":  "${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.overs}",
-                    //             leftCountryRuns:
-                    //             dataPath.matches!.first.matchScore==null?"": '${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${dataPath.matches!.first.matchScore!.team1Score!.inngs1!.wickets}',
-                    //             leftCountryURL:
-                    //                 '${dataPath.matches!.first.matchInfo!.team1!.imageId}',
-                    //             trailingWidget: 'Upcoming',
-                    //             rightCountryName:
-                    //                 '${dataPath.matches!.first.matchInfo!.team2!.teamSName}',
-                    //             rightCountryOvers:
-                    //             dataPath.matches!.first.matchScore==null?"":  "${dataPath.matches!.first.matchScore!.team2Score!.inngs1!.overs}",
-                    //             rightCountryRuns:
-                    //             dataPath.matches!.first.matchScore==null?"":  '${dataPath.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${dataPath.matches!.first.matchScore!.team2Score!.inngs1!.wickets}',
-                    //             rightCountryURL:
-                    //                 '${dataPath.matches!.first.matchInfo!.team2!.imageId}',
-                    //             wonStatus:
-                    //                 '${dataPath.matches!.first.matchInfo!.status}',
-                    //           );
-                    //     //LiveCart(context);
-                    //   },
-                    // ),
-
-                    const SizedBox(
-                      height: 10,
-                    ),
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount:

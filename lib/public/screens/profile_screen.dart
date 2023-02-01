@@ -82,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 SizedBox(height: dSize(.05)),
-                homeController.userModel.phone!.isEmpty?SizedBox():     RichText(
+                homeController.userModel.phone ==null?SizedBox():     RichText(
                   text: TextSpan(
                     text: 'Phone:',
                     style: TextStyle(
