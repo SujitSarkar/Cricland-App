@@ -57,7 +57,7 @@ class FixturesCardTile extends StatelessWidget {
                       child: title != null
                           ? Text(
                               title!,
-                              style: CLTextStyle.nameTextStyle.copyWith(
+                              style: CLTextStyle().nameTextStyle.copyWith(
                                 fontSize: dSize(.04),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -108,7 +108,7 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamOne!,
-                                    style: CLTextStyle.nameTextStyle.copyWith(
+                                    style: CLTextStyle().nameTextStyle.copyWith(
                                         fontSize: dSize(.045),
                                         color: PublicController.pc
                                             .toggleTextColor()),
@@ -171,7 +171,7 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamTwo!,
-                                    style: CLTextStyle.nameTextStyle.copyWith(
+                                    style: CLTextStyle().nameTextStyle.copyWith(
                                         fontSize: dSize(.045),
                                         color: PublicController.pc
                                             .toggleTextColor()),
@@ -223,7 +223,7 @@ class FixturesCardTile extends StatelessWidget {
                             child: Text(
                               desc!,
                               textAlign: TextAlign.center,
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.04),
                                   color: PublicController.pc.toggleTextColor()),
                             ),
@@ -232,7 +232,7 @@ class FixturesCardTile extends StatelessWidget {
                             height: 5,
                           ),
                           Text(date!,
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   color:
                                       PublicController.pc.toggleTextColor())),

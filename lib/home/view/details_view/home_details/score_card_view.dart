@@ -65,7 +65,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                             },
                             child: Text(
                               "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                              style: CLTextStyle.optionTextStyle.copyWith(
+                              style: CLTextStyle().optionTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleCardBg(),
                               ),
@@ -89,7 +89,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                                 },
                                 child: Text(
                                   "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard![1].scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard![1].scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard![1].scoreDetails!.overs!})    ",
-                                  style: CLTextStyle.optionTextStyle.copyWith(
+                                  style: CLTextStyle().optionTextStyle.copyWith(
                                     fontSize: dSize(.03),
                                     color: PublicController.pc.toggleCardBg(),
                                   ),
@@ -107,7 +107,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                         child: Text(
                           "Fall Of Wicket",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.03),
                             color: PublicController.pc.toggleCardBg(),
                           ),

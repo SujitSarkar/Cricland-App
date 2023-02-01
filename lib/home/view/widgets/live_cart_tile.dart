@@ -59,7 +59,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget.title!,
-                      style: CLTextStyle.nameTextStyle.copyWith(
+                      style: CLTextStyle().nameTextStyle.copyWith(
                         fontSize: dSize(.04),
                         color: PublicController.pc.toggleTextColor(),
                       ))),
@@ -87,7 +87,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
                       ),
                       Text(
                         widget.leadingCountryName!,
-                        style: CLTextStyle.nameTextStyle.copyWith(
+                        style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
@@ -97,14 +97,14 @@ class _LiveCardTileState extends State<LiveCardTile> {
                           RichText(
                             text: TextSpan(
                               text: widget.leadingRuns,
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: "  ${widget.leadingOvers}",
-                                  style: CLTextStyle.paragraphTextStyle
+                                  style: CLTextStyle().paragraphTextStyle
                                       .copyWith(
                                           fontSize: dSize(.02),
                                           color: PublicController.pc
@@ -182,7 +182,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
                       ),
                       Text(
                         widget.trailingCountryName!,
-                        style: CLTextStyle.nameTextStyle.copyWith(
+                        style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
@@ -192,14 +192,14 @@ class _LiveCardTileState extends State<LiveCardTile> {
                           RichText(
                             text: TextSpan(
                               text: widget.trailingRuns,
-                              style: CLTextStyle.paragraphTextStyle.copyWith(
+                              style: CLTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: "  ${widget.trailingOvers}",
-                                  style: CLTextStyle.paragraphTextStyle
+                                  style: CLTextStyle().paragraphTextStyle
                                       .copyWith(
                                           fontSize: dSize(.02),
                                           color: PublicController.pc
@@ -229,7 +229,7 @@ class _LiveCardTileState extends State<LiveCardTile> {
                 child: Text(
                   widget.needText!,
                   textAlign: TextAlign.center,
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                       color: Colors.green,
                       fontSize: 12,
                       fontWeight: FontWeight.w700),

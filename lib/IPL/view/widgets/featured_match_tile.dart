@@ -66,7 +66,7 @@ class FeaturedMatchTile extends StatelessWidget {
                         ),
                       ),
                       Text(teamOne,
-                          style: CLTextStyle.nameTextStyle.copyWith(
+                          style: CLTextStyle().nameTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ))
@@ -81,7 +81,7 @@ class FeaturedMatchTile extends StatelessWidget {
                         width: 100,
                         child: Text(wonTeam,
                             textAlign: TextAlign.center,
-                            style: CLTextStyle.nameTextStyle.copyWith(
+                            style: CLTextStyle().nameTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             )),
@@ -94,7 +94,7 @@ class FeaturedMatchTile extends StatelessWidget {
                   Row(
                     children: [
                       Text(teamTwo,
-                          style: CLTextStyle.nameTextStyle.copyWith(
+                          style: CLTextStyle().nameTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           )),
@@ -136,7 +136,7 @@ class FeaturedMatchTile extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(state,
-                        style: CLTextStyle.nameTextStyle.copyWith(
+                        style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleCardBg(),
                         )),

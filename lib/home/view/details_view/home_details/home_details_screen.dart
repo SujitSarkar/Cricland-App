@@ -110,7 +110,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
       //   title: RichText(
       //     text: TextSpan(
       //       text: widget.teamS1Name,
-      //       style: CLTextStyle.nameTextStyle.copyWith(color: Colors.white),
+      //       style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
       //       children: <TextSpan>[
       //         const TextSpan(
       //             text: '  VS  ',
@@ -178,7 +178,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               title:innerBoxIsScrolled? const SizedBox(): RichText(
                 text: TextSpan(
                   text: widget.teamS1Name,
-                  style: CLTextStyle.nameTextStyle.copyWith(color: Colors.white),
+                  style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
                   children: <TextSpan>[
                     const TextSpan(
                         text: '  VS  ',
@@ -286,19 +286,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(widget.teamS1Name,
-                                  style: CLTextStyle.nameTextStyle.copyWith(
+                                  style: CLTextStyle().nameTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.05),
                                   )),
                               RichText(
                                 text: TextSpan(
                                   text: "${widget.team1RunWicket} ",
-                                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  style: CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03), color: Colors.white),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: " ${widget.team1Over} ",
-                                      style: CLTextStyle.paragraphTextStyle
+                                      style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                           fontSize: dSize(.025),
                                           color: Colors.white),
@@ -324,7 +324,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             children: [
                               Text(
                                 widget.teamS2Name,
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: dSize(.05),
                                 ),
@@ -332,7 +332,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               RichText(
                                 text: TextSpan(
                                   text: widget.team2Over,
-                                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                                  style: CLTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.025),
                                   ),
@@ -340,7 +340,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     TextSpan(
                                       text: " ${widget.team2RunWicket}",
                                       style:
-                                      CLTextStyle.paragraphTextStyle.copyWith(
+                                      CLTextStyle().paragraphTextStyle.copyWith(
                                         color: Colors.white,
                                         fontSize: dSize(.04),
                                       ),
@@ -381,7 +381,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                   ),
                   Text(
                     widget.winningStatus,
-                    style: CLTextStyle.paragraphHeadLineTextStyle
+                    style: CLTextStyle().paragraphHeadLineTextStyle
                         .copyWith(color: Colors.orange, fontSize: 15),
                   )
                 ],
@@ -448,7 +448,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
   //                 vertical: dSize(.01), horizontal: dSize(.02)),
   //             child: Text(
   //               item,
-  //               style: CLTextStyle.optionTextStyle,
+  //               style: CLTextStyle().optionTextStyle,
   //             ),
   //           );
   //         }).toList(),

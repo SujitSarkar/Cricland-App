@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 2),
                           child: Text("CrickLand",
-                              style: CLTextStyle.nameTextStyle.copyWith(
+                              style: CLTextStyle().nameTextStyle.copyWith(
                                 fontSize: dSize(.05),
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -130,8 +130,8 @@ class _HomePageState extends State<HomePage>
                   color: PublicController.pc.toggleTabColor(),
                 ),
                 unselectedLabelColor: Colors.grey,
-                unselectedLabelStyle: CLTextStyle.optionTextStyle,
-                labelStyle: CLTextStyle.optionTextStyle,
+                unselectedLabelStyle: CLTextStyle().optionTextStyle,
+                labelStyle: CLTextStyle().optionTextStyle,
                 indicatorSize: TabBarIndicatorSize.label,
                 physics: const BouncingScrollPhysics(),
                 tabs: [

@@ -49,7 +49,7 @@ class BatterCardTile extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       "Batter",
-                      style: CLTextStyle.paragraphHeadLineTextStyle,
+                      style: CLTextStyle().paragraphHeadLineTextStyle,
                     )),
                 Expanded(
                   flex: 1,
@@ -58,23 +58,23 @@ class BatterCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "R(B)",
-                        style: CLTextStyle.paragraphHeadLineTextStyle,
+                        style: CLTextStyle().paragraphHeadLineTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "4s",
-                          style: CLTextStyle.paragraphHeadLineTextStyle,
+                          style: CLTextStyle().paragraphHeadLineTextStyle,
                         ),
                       ),
                       Expanded(
                           child: Text(
                         "6s",
-                        style: CLTextStyle.paragraphHeadLineTextStyle,
+                        style: CLTextStyle().paragraphHeadLineTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "SR",
-                          style: CLTextStyle.paragraphHeadLineTextStyle,
+                          style: CLTextStyle().paragraphHeadLineTextStyle,
                         ),
                       ),
                     ],
@@ -92,7 +92,7 @@ class BatterCardTile extends StatelessWidget {
                   flex: 1,
                   child: Text(
                     "R Pretorius",
-                    style: CLTextStyle.nameTextStyle,
+                    style: CLTextStyle().nameTextStyle,
                   ),
                 ),
                 Expanded(
@@ -102,23 +102,23 @@ class BatterCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "20(17)",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "2",
-                          style: CLTextStyle.paragraphTextStyle,
+                          style: CLTextStyle().paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                           child: Text(
                         "1",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "117.6",
-                          style: CLTextStyle.paragraphTextStyle,
+                          style: CLTextStyle().paragraphTextStyle,
                         ),
                       ),
                     ],
@@ -136,7 +136,7 @@ class BatterCardTile extends StatelessWidget {
                   flex: 1,
                   child: Text(
                     "M Adair",
-                    style: CLTextStyle.nameTextStyle,
+                    style: CLTextStyle().nameTextStyle,
                   ),
                 ),
                 Expanded(
@@ -146,24 +146,24 @@ class BatterCardTile extends StatelessWidget {
                       Expanded(
                           child: Text(
                         "0(0)",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       )),
                       Expanded(
                         child: Text(
                           "0",
-                          style: CLTextStyle.paragraphTextStyle,
+                          style: CLTextStyle().paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "0",
-                          style: CLTextStyle.paragraphTextStyle,
+                          style: CLTextStyle().paragraphTextStyle,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "-",
-                          style: CLTextStyle.paragraphTextStyle,
+                          style: CLTextStyle().paragraphTextStyle,
                         ),
                       ),
                     ],
@@ -181,13 +181,13 @@ class BatterCardTile extends StatelessWidget {
                     flex: 1,
                     child: Text(
                       "P'ship 1(0)",
-                      style: CLTextStyle.nameTextStyle,
+                      style: CLTextStyle().nameTextStyle,
                     )),
                 Expanded(
                   flex: 1,
                   child: Text(
                     "Last wkt: J Lawlor 17(12)",
-                    style: CLTextStyle.paragraphTextStyle,
+                    style: CLTextStyle().paragraphTextStyle,
                   ),
                 ),
               ],

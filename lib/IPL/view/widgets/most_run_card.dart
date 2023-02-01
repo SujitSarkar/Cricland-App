@@ -47,7 +47,7 @@ class MostRunCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title!,
-                        style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                        style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleTextColor(),
                         )),
@@ -68,12 +68,12 @@ class MostRunCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(playerName!,
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   fontSize: dSize(.04),
                                   color: PublicController.pc.toggleTextColor(),
                                 )),
                             Text(teamName!,
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.025),
                                   color: PublicController.pc.toggleTextColor(),
                                 )),
@@ -86,12 +86,12 @@ class MostRunCard extends StatelessWidget {
                 Column(
                   children: [
                     Text(runs!,
-                        style: CLTextStyle.paragraphTextStyle.copyWith(
+                        style: CLTextStyle().paragraphTextStyle.copyWith(
                           fontSize: dSize(.05),
                           color: PublicController.pc.toggleTextColor(),
                         )),
                     Text("Runs",
-                        style: CLTextStyle.paragraphTextStyle.copyWith(
+                        style: CLTextStyle().paragraphTextStyle.copyWith(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleTextColor(),
                         )),

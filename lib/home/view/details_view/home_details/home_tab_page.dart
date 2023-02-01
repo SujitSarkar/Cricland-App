@@ -96,7 +96,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
               },
                     child: Text(
                     'Recent Match',
-                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                       fontSize: dSize(.04),
                       fontWeight: FontWeight.w500,
                       color: PublicController.pc.toggleTextColor(),
@@ -404,7 +404,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     ),
                     Text(
                       'Featured Series',
-                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                         fontSize: dSize(.04),
                         fontWeight: FontWeight.w500,
                         color: PublicController.pc.toggleTextColor(),
@@ -467,7 +467,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            CLTextStyle.nameTextStyle.copyWith(
+                                            CLTextStyle().nameTextStyle.copyWith(
                                           fontSize: dSize(.035),
                                           color: PublicController.pc
                                               .toggleTextColor(),

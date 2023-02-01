@@ -52,7 +52,7 @@ class PointTableTile extends StatelessWidget {
                     flex: 2,
                     child: Text(
                       "Team",
-                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                         fontSize: dSize(.04),
                         color: PublicController.pc.toggleTextColor(),
                       ),
@@ -65,7 +65,7 @@ class PointTableTile extends StatelessWidget {
                         child: Text(
                           "P",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -75,7 +75,7 @@ class PointTableTile extends StatelessWidget {
                         child: Text(
                           "W",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -85,7 +85,7 @@ class PointTableTile extends StatelessWidget {
                         child: Text(
                           "D",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -95,7 +95,7 @@ class PointTableTile extends StatelessWidget {
                         child: Text(
                           "NR",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -105,7 +105,7 @@ class PointTableTile extends StatelessWidget {
                         child: Text(
                           "NRR",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -118,7 +118,7 @@ class PointTableTile extends StatelessWidget {
                         child: Text(
                           "Pts",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -186,7 +186,7 @@ class PointTableTile extends StatelessWidget {
                                               .teamName!
                                               .name
                                           : "NA",
-                                      style: CLTextStyle.paragraphTextStyle
+                                      style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
                                         color: PublicController.pc
@@ -203,7 +203,7 @@ class PointTableTile extends StatelessWidget {
                                     Expanded(
                                         child: Text(
                                       "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesPlayed!}",
-                                      style: CLTextStyle.paragraphTextStyle
+                                      style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
                                         color: PublicController.pc
@@ -221,7 +221,7 @@ class PointTableTile extends StatelessWidget {
                                                 null
                                             ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
                                             : "0",
-                                        style: CLTextStyle.paragraphTextStyle
+                                        style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
                                           color: PublicController.pc
@@ -240,7 +240,7 @@ class PointTableTile extends StatelessWidget {
                                               null
                                           ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
                                           : "0",
-                                      style: CLTextStyle.paragraphTextStyle
+                                      style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
                                         color: PublicController.pc
@@ -258,7 +258,7 @@ class PointTableTile extends StatelessWidget {
                                                 null
                                             ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].noRes!}"
                                             : "0",
-                                        style: CLTextStyle.paragraphTextStyle
+                                        style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
                                           color: PublicController.pc
@@ -282,7 +282,7 @@ class PointTableTile extends StatelessWidget {
                                                 .pointsTableInfo![index]
                                                 .nrr!
                                             : "0",
-                                        style: CLTextStyle.paragraphTextStyle
+                                        style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
                                           color: PublicController.pc
@@ -304,7 +304,7 @@ class PointTableTile extends StatelessWidget {
                                                 null
                                             ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].points!}"
                                             : "0",
-                                        style: CLTextStyle.paragraphTextStyle
+                                        style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
                                           color: PublicController.pc

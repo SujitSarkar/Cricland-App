@@ -59,7 +59,7 @@ class SliderCardTile extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       title,
-                      style: CLTextStyle.nameTextStyle.copyWith(
+                      style: CLTextStyle().nameTextStyle.copyWith(
                         fontSize: dSize(.035),
                         color: PublicController.pc.toggleTextColor(),
                       ),
@@ -93,14 +93,14 @@ class SliderCardTile extends StatelessWidget {
                             children: [
                               Text(
                                 leftCountryName!,
-                                style: CLTextStyle.nameTextStyle.copyWith(
+                                style: CLTextStyle().nameTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   color: PublicController.pc.toggleTextColor(),
                                 ),
                               ),
                               Text(
                                 leftCountryRuns!,
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -108,7 +108,7 @@ class SliderCardTile extends StatelessWidget {
                               ),
                               Text(
                                 leftCountryOvers!,
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.025),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -135,14 +135,14 @@ class SliderCardTile extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(rightCountryName!,
-                                  style: CLTextStyle.nameTextStyle.copyWith(
+                                  style: CLTextStyle().nameTextStyle.copyWith(
                                     fontSize: dSize(.035),
                                     color:
                                         PublicController.pc.toggleTextColor(),
                                   )),
                               Text(
                                 rightCountryRuns!,
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -150,7 +150,7 @@ class SliderCardTile extends StatelessWidget {
                               ),
                               Text(
                                 rightCountryOvers!,
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.025),
                                   fontWeight: FontWeight.w500,
                                   color: PublicController.pc.toggleTextColor(),
@@ -188,7 +188,7 @@ class SliderCardTile extends StatelessWidget {
                 width: 300,
                 child: Text(
                   wonStatus!,
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                     fontSize: dSize(.04),
                     color: PublicController.pc.toggleTextColor(),
                   ),

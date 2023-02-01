@@ -36,7 +36,7 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                   ),
                   Text(
                     "Yesterday",
-                    style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                       fontSize: dSize(.045),
                       color: PublicController.pc.toggleTextColor(),
                     ),

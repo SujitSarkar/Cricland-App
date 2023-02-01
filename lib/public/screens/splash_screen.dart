@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen>
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                      style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                           color: const Color(0xffFF002D),
                           fontSize: dSize(.09),
                           fontWeight: FontWeight.w900

@@ -48,7 +48,7 @@ class UpcomingCardTile extends StatelessWidget {
                   Flexible(
                     child: Text(
                       title,
-                      style: CLTextStyle.nameTextStyle.copyWith(
+                      style: CLTextStyle().nameTextStyle.copyWith(
                         fontSize: dSize(.04),
                         color: PublicController.pc.toggleTextColor(),
                       ),
@@ -87,7 +87,7 @@ class UpcomingCardTile extends StatelessWidget {
                       ),
                       Text(
                         leftCountryName!,
-                        style: CLTextStyle.nameTextStyle.copyWith(
+                        style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
@@ -108,7 +108,7 @@ class UpcomingCardTile extends StatelessWidget {
                       ),
                       Text(
                         status!,
-                        style: CLTextStyle.paragraphTextStyle.copyWith(
+                        style: CLTextStyle().paragraphTextStyle.copyWith(
                           fontSize: dSize(.035),
                           fontWeight: FontWeight.w500,
                           color: PublicController.pc.toggleTextColor(),
@@ -131,14 +131,14 @@ class UpcomingCardTile extends StatelessWidget {
                             children: [
                               Text(
                                 "Start At : ",
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.green,
                                     fontSize: dSize(.035),
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(startTime!) * 1000)).toString(),
-                                style: CLTextStyle.paragraphTextStyle.copyWith(
+                                style: CLTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.green,
                                     fontSize: dSize(.03),
                                     fontWeight: FontWeight.bold),
@@ -169,7 +169,7 @@ class UpcomingCardTile extends StatelessWidget {
                         ),
                       ),
                       Text(rightCountryName!,
-                          style: CLTextStyle.nameTextStyle.copyWith(
+                          style: CLTextStyle().nameTextStyle.copyWith(
                             fontSize: dSize(.04),
                             fontWeight: FontWeight.w500,
                             color: PublicController.pc.toggleTextColor(),

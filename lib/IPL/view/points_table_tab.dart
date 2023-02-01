@@ -43,7 +43,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
               children: [
                 Text(
                   "Points Table",
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                     fontSize: dSize(.04),
                     color: PublicController.pc.toggleTextColor(),
                   ),

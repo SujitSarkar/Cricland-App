@@ -65,7 +65,7 @@ class _PointTableViewState extends State<PointTableView> {
               children: [
                 Text(
                   "Points Table",
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                     fontSize: dSize(.04),
                     color: PublicController.pc.toggleTextColor(),
                   ),

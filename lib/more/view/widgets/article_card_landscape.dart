@@ -8,13 +8,9 @@ import '../../../public/variables/config.dart';
 import '../../../news/view/read_news_page.dart';
 
 class ArticleCardLandscape extends StatelessWidget {
-  ArticleCardLandscape({Key? key, required this.model}) : super(key: key);
+  const ArticleCardLandscape({Key? key, required this.model}) : super(key: key);
   final ArticleModel model;
 
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.04),
-      fontWeight: FontWeight.bold,
-      color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +40,7 @@ class ArticleCardLandscape extends StatelessWidget {
               child: Text(
                 model.title!,
                 maxLines: 4,
-                style: CLTextStyle.paragraphTextStyle.copyWith(
+                style: CLTextStyle().paragraphTextStyle.copyWith(
                   fontSize: dSize(.04),
                   color: PublicController.pc.toggleTextColor(),
                 ),

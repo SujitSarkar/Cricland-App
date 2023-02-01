@@ -38,7 +38,7 @@ class MostWicketsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title!,
-                  style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                     fontSize: dSize(.03),
                     color: PublicController.pc.toggleTextColor(),
                   )),
@@ -59,12 +59,12 @@ class MostWicketsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(playerName!,
-                          style: CLTextStyle.nameTextStyle.copyWith(
+                          style: CLTextStyle().nameTextStyle.copyWith(
                             fontSize: dSize(.03),
                             color: PublicController.pc.toggleTextColor(),
                           )),
                       Text(teamName!,
-                          style: CLTextStyle.paragraphTextStyle.copyWith(
+                          style: CLTextStyle().paragraphTextStyle.copyWith(
                             fontSize: dSize(.025),
                             color: PublicController.pc.toggleTextColor(),
                           )),
@@ -83,7 +83,7 @@ class MostWicketsCard extends StatelessWidget {
                 height: 10,
               ),
               Text('${wickets!} Wickets',
-                  style: CLTextStyle.paragraphTextStyle.copyWith(
+                  style: CLTextStyle().paragraphTextStyle.copyWith(
                     fontSize: dSize(.03),
                     color: PublicController.pc.toggleTextColor(),
                   )),

@@ -62,7 +62,7 @@ class _OverViewTabState extends State<OverViewTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Featured Matches",
-                            style: CLTextStyle.nameTextStyle.copyWith(
+                            style: CLTextStyle().nameTextStyle.copyWith(
                               fontSize: dSize(.04),
                               color: PublicController.pc.toggleTextColor(),
                             )),
@@ -70,7 +70,7 @@ class _OverViewTabState extends State<OverViewTab> {
                           onPressed: () {},
                           child: Text(
                             "All Matches >",
-                            style: CLTextStyle.nameTextStyle.copyWith(
+                            style: CLTextStyle().nameTextStyle.copyWith(
                               fontSize: dSize(.04),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -139,7 +139,7 @@ class _OverViewTabState extends State<OverViewTab> {
                         : CircularProgressIndicator(),
                     // ListTile(
                     //     leading: Text("Key Stats",
-                    //         style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    //         style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                     //           fontSize: dSize(.04),
                     //           color: PublicController.pc.toggleTextColor(),
                     //         )),
@@ -153,7 +153,7 @@ class _OverViewTabState extends State<OverViewTab> {
                     //         );
                     //       },
                     //       child: Text("See All >",
-                    //           style: CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                    //           style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                     //             fontSize: dSize(.04),
                     //             color: PublicController.pc.toggleTextColor(),
                     //           )),
@@ -264,7 +264,7 @@ class _OverViewTabState extends State<OverViewTab> {
                     ListTile(
                       leading: Text("Team Squads",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.035),
                             color: PublicController.pc.toggleTextColor(),
                           )),
@@ -324,7 +324,7 @@ class _OverViewTabState extends State<OverViewTab> {
                                               ),
                                               Text(
                                                   "${homeController.matchSquadModel.squads![i].squadType}",
-                                                  style: CLTextStyle
+                                                  style: CLTextStyle()
                                                       .nameTextStyle
                                                       .copyWith(
                                                     fontSize: dSize(.04),
@@ -344,7 +344,7 @@ class _OverViewTabState extends State<OverViewTab> {
                     ListTile(
                       leading: Text("Series Info",
                           style:
-                              CLTextStyle.paragraphHeadLineTextStyle.copyWith(
+                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           )),

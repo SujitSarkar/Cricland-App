@@ -3,33 +3,39 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class CLTextStyle {
-  static TextStyle menuBarTextStyle = TextStyle(
-    fontFamily: "CarterOne",
-    fontSize: dSize(.027),
+  TextStyle moreTitleStyle = TextStyle(
+      fontSize: dSize(.042),
+      fontWeight: FontWeight.w500,
+      color: PublicController.pc.toggleTextColor());
+
+  TextStyle menuBarTextStyle = TextStyle(
+    fontFamily: "openSans",
+    fontSize: dSize(.03),
+    fontWeight: FontWeight.w900,
     color: PublicController.pc.toggleTextColor(),
   );
 
-  static TextStyle nameTextStyle = TextStyle(
-    fontFamily: "Shrikhand",
+  TextStyle nameTextStyle = TextStyle(
+    fontFamily: "openSans",
     fontSize: dSize(.04),
     color: PublicController.pc.toggleTextColor(),
   );
 
-  static TextStyle paragraphTextStyle = TextStyle(
+  TextStyle paragraphTextStyle = TextStyle(
     fontSize: dSize(.02),
-    fontFamily: "KdamThmorPro",
+    fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );
 
-  static TextStyle optionTextStyle = TextStyle(
+  TextStyle optionTextStyle = TextStyle(
     fontSize: dSize(.04),
-    fontFamily: "CarterOne",
-    // color: PublicController.pc.toggleTextColor(),
+    fontFamily: "openSans",
+    color: PublicController.pc.toggleTextColor(),
   );
 
-  static TextStyle paragraphHeadLineTextStyle = TextStyle(
+  TextStyle paragraphHeadLineTextStyle = TextStyle(
     fontSize: dSize(.04),
-    fontFamily: "AbrilFatface",
+    fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );
   // static TextStyle CLHeader = TextStyle(

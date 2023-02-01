@@ -57,7 +57,7 @@ class _LiveViewState extends State<LiveView> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 widget.state,
-                style: CLTextStyle.paragraphHeadLineTextStyle,
+                style: CLTextStyle().paragraphHeadLineTextStyle,
               ),
             ),
             // MoreCard(
@@ -66,11 +66,11 @@ class _LiveViewState extends State<LiveView> {
             //   children: [
             //     Text(
             //       "Day 4:Session2",
-            //       style: CLTextStyle.paragraphTextStyle,
+            //       style: CLTextStyle().paragraphTextStyle,
             //     ),
             //     Text(
             //       "Over Left Today: 36.0",
-            //       style: CLTextStyle.paragraphTextStyle,
+            //       style: CLTextStyle().paragraphTextStyle,
             //     ),
             //   ],
             // )),
@@ -84,7 +84,7 @@ class _LiveViewState extends State<LiveView> {
                         children: [
                           Text(
                             "Over : ",
-                            style: CLTextStyle.paragraphTextStyle,
+                            style: CLTextStyle().paragraphTextStyle,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(2.0),
@@ -98,7 +98,7 @@ class _LiveViewState extends State<LiveView> {
                                         null
                                     ? '${homeController.overSummeryModel.overSummaryList![i].overNum!.toInt()}'
                                     : "",
-                                style: CLTextStyle.paragraphTextStyle,
+                                style: CLTextStyle().paragraphTextStyle,
                               ),
                             ),
                           ),
@@ -114,13 +114,13 @@ class _LiveViewState extends State<LiveView> {
                                         null
                                     ? '${homeController.overSummeryModel.overSummaryList![i].oSummary}'
                                     : "",
-                                style: CLTextStyle.paragraphTextStyle,
+                                style: CLTextStyle().paragraphTextStyle,
                               ),
                             ),
                           ),
                           Text(
                             '=',
-                            style: CLTextStyle.paragraphTextStyle,
+                            style: CLTextStyle().paragraphTextStyle,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(2.0),
@@ -134,7 +134,7 @@ class _LiveViewState extends State<LiveView> {
                                         null
                                     ? '${homeController.overSummeryModel.overSummaryList![i].runs}'
                                     : "",
-                                style: CLTextStyle.paragraphTextStyle,
+                                style: CLTextStyle().paragraphTextStyle,
                               ),
                             ),
                           ),
@@ -177,11 +177,11 @@ class _LiveViewState extends State<LiveView> {
                     children: [
                       Text(
                         "SA",
-                        style: CLTextStyle.nameTextStyle,
+                        style: CLTextStyle().nameTextStyle,
                       ),
                       Text(
                         "36-1",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       ),
                     ],
                   ),
@@ -197,7 +197,7 @@ class _LiveViewState extends State<LiveView> {
                       ),
                       Text(
                         "After 5.5 overs",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       ),
                     ],
                   ),
@@ -205,11 +205,11 @@ class _LiveViewState extends State<LiveView> {
                     children: [
                       Text(
                         "IND",
-                        style: CLTextStyle.nameTextStyle,
+                        style: CLTextStyle().nameTextStyle,
                       ),
                       Text(
                         "37-0",
-                        style: CLTextStyle.paragraphTextStyle,
+                        style: CLTextStyle().paragraphTextStyle,
                       ),
                     ],
                   ),
@@ -233,7 +233,7 @@ class _LiveViewState extends State<LiveView> {
                   ),
                   Text(
                     "Share Score",
-                    style: CLTextStyle.paragraphHeadLineTextStyle,
+                    style: CLTextStyle().paragraphHeadLineTextStyle,
                   ),
                 ],
               ),
@@ -252,7 +252,7 @@ class _LiveViewState extends State<LiveView> {
               ),
               title: Text(
                 "Match Settings",
-                style: CLTextStyle.paragraphHeadLineTextStyle,
+                style: CLTextStyle().paragraphHeadLineTextStyle,
               ),
             )
           ],
