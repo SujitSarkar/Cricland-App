@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/controller/package_controller.dart';
 import 'package:cricland/more/tile/premium_tile.dart';
 import 'package:cricland/public/variables/colors.dart';
@@ -150,121 +151,129 @@ class PremiumPage extends StatelessWidget {
   void _showLoginModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (_) => Container(
-              height: dSize(.7),
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(dSize(.04)),
-              decoration: BoxDecoration(
-                  color: PublicController.pc.toggleCardBg(),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                  )),
-              child: Obx(() => Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Login/Signup',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: PublicController.pc.toggleTextColor(),
-                                  fontSize: dSize(.06),
-                                  fontWeight: FontWeight.bold)),
-                          InkWell(
-                              onTap: () => Get.back(),
-                              child: Icon(
-                                LineAwesomeIcons.times,
-                                size: dSize(.05),
-                                color: Colors.black,
-                              ))
-                        ],
-                      ),
-                      Divider(height: dSize(.09)),
-                      //SizedBox(height: dSize(.1)),
+        builder: (_) =>  GetBuilder<HomeController>(
+            init: HomeController(),
+            builder: (homeController) {
+              return Obx(() =>   Container(
+                height: dSize(.7),
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(dSize(.04)),
+                decoration: BoxDecoration(
+                    color: PublicController.pc.toggleCardBg(),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    )),
+                child: Obx(() => Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Login/Signup',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: PublicController.pc.toggleTextColor(),
+                                fontSize: dSize(.06),
+                                fontWeight: FontWeight.bold)),
+                        InkWell(
+                            onTap: () => Get.back(),
+                            child: Icon(
+                              LineAwesomeIcons.times,
+                              size: dSize(.05),
+                              color: Colors.black,
+                            ))
+                      ],
+                    ),
+                    Divider(height: dSize(.09)),
+                    //SizedBox(height: dSize(.1)),
 
-                      ///Google button
-                      ElevatedButton(
-                        onPressed: () {
-                          _googleLogin(context);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: dSize(.03)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(FontAwesomeIcons.google,
-                                  color: Colors.white, size: dSize(.06)),
-                              SizedBox(width: dSize(.03)),
-                              Text('Google',
-                                  style: _textStyle.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: dSize(.045)))
-                            ],
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: AllColor.googleColor, elevation: 0.0),
-                      ),
-                      SizedBox(height: dSize(.05)),
-
-                      ///Facebook button
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: dSize(.03)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(FontAwesomeIcons.facebook,
-                                  color: Colors.white, size: dSize(.06)),
-                              SizedBox(width: dSize(.03)),
-                              Text('Facebook',
-                                  style: _textStyle.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: dSize(.045)))
-                            ],
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            primary: AllColor.fbColor, elevation: 0.0),
-                      ),
-                      const Spacer(),
-
-                      RichText(
-                        text: TextSpan(
-                          style: _textStyle.copyWith(fontSize: dSize(.028)),
+                    ///Google button
+                    ElevatedButton(
+                      onPressed: () {
+                        _googleLogin(context,homeController);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const TextSpan(text: 'I agree with the '),
-                            TextSpan(
-                                text: 'terms of use',
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {},
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: PublicController.pc
-                                        .toggleLoadingColor())),
-                            const TextSpan(text: ' and '),
-                            TextSpan(
-                                text: 'privacy policy',
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {},
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: PublicController.pc
-                                        .toggleLoadingColor())),
+                            Icon(FontAwesomeIcons.google,
+                                color: Colors.white, size: dSize(.06)),
+                            SizedBox(width: dSize(.03)),
+                            Text('Google',
+                                style: _textStyle.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: dSize(.045)))
                           ],
                         ),
-                      )
-                    ],
-                  )),
-            ));
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          primary: AllColor.googleColor, elevation: 0.0),
+                    ),
+                    SizedBox(height: dSize(.05)),
+
+                    ///Facebook button
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FontAwesomeIcons.facebook,
+                                color: Colors.white, size: dSize(.06)),
+                            SizedBox(width: dSize(.03)),
+                            Text('Facebook',
+                                style: _textStyle.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: dSize(.045)))
+                          ],
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          primary: AllColor.fbColor, elevation: 0.0),
+                    ),
+                    const Spacer(),
+
+                    RichText(
+                      text: TextSpan(
+                        style: _textStyle.copyWith(fontSize: dSize(.028)),
+                        children: [
+                          const TextSpan(text: 'I agree with the '),
+                          TextSpan(
+                              text: 'terms of use',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {},
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: PublicController.pc
+                                      .toggleLoadingColor())),
+                          const TextSpan(text: ' and '),
+                          TextSpan(
+                              text: 'privacy policy',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {},
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: PublicController.pc
+                                      .toggleLoadingColor())),
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+              ));
+            })
+
+    );
   }
-  _googleLogin(BuildContext context)async{
+
+
+  _googleLogin(BuildContext context,HomeController homeController)async{
     final googleSignIn = GoogleSignIn();
     GoogleSignInAccount? _user;
     final googleUser = await googleSignIn.signIn();
@@ -284,7 +293,7 @@ class PremiumPage extends StatelessWidget {
 
 
         _isLoading = true;
-      registerUserWithGoogle(
+        homeController.  registerUserWithGoogle(
             _user!.displayName!,
             "",
             _user.id,
@@ -292,10 +301,8 @@ class PremiumPage extends StatelessWidget {
             "",
             _user.photoUrl!
         ).then((value) {
-
-
+          Navigator.pop(context);
             _isLoading = false;
-
         });
         _isLoading = false;
         Navigator.pop(context);
@@ -303,70 +310,5 @@ class PremiumPage extends StatelessWidget {
       // Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(),),);
     });
   }
-  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,String email,
-      String password,String imageUrl) async {
-    // final snapshot1 =
-    // await FirebaseFirestore.instance.collection('Users').doc(phone).get();
 
-    DateTime date = DateTime.now();
-    String dateData = '${date.day}-${date.month}-${date.year}';
-    Map<String, dynamic> map = {
-      'firstName': firstName,
-      'lastName': lastName,
-      'phone': "",
-      'email':email,
-      'password': password,
-      'date': dateData,
-      'id': phone,
-      'profileImage': imageUrl,
-      'totalPoint': '00',
-    };
-
-
-
-    try {
-      await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(map['id'])
-          .set(map);
-      await getUser(phone);
-      return true;
-    } catch (err) {
-      showToast('$err');
-      print(err);
-
-      return false;
-    }
-
-
-
-  }
-  Future<void> getUser(String userId) async {
-    UserModel userModel = UserModel();
-    try {
-      await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(userId)
-          .get()
-          .then((snapShot) {
-        UserModel user = UserModel(
-          firstName: snapShot['firstName'],
-          lastName: snapShot['lastName'],
-          phone: snapShot['phone'],
-          password: snapShot['password'],
-          date: snapShot['date'],
-          id: snapShot['id'],
-          profileImage: snapShot['profileImage'],
-          totalPoint: snapShot['totalPoint'],
-        );
-        userModel = user;
-      });
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('userId', userModel.id!);
-
-    } catch (error) {
-      showToast('$error');
-    }
-
-  }
 }
