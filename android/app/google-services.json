@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "788456208019-dk2q8d4dj51p0ct59rtom3gs846stqok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mth_production_pvt.circland",
+            "certificate_hash": "39b9263dd16885d343590bfe680c5ba90d6af340"
+          }
+        },
+        {
+          "client_id": "788456208019-ersivc5hn89fv5ss5m7sj1s489a50966.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mth_production_pvt.circland",
+            "certificate_hash": "62a2dda8248ea69d301f3490de4d0f0868d3d61b"
+          }
+        },
+        {
           "client_id": "788456208019-tal5gbrh9f4q48abgd4rgfe77r7ojfi4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,7 +38,7 @@
           }
         },
         {
-          "client_id": "788456208019-o15vq18kve7isiqf91qg7s94lth74bgv.apps.googleusercontent.com",
+          "client_id": "788456208019-hlovtrk0p6iccnsdiej4gp5ojsf294ap.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +51,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "788456208019-o15vq18kve7isiqf91qg7s94lth74bgv.apps.googleusercontent.com",
+              "client_id": "788456208019-hlovtrk0p6iccnsdiej4gp5ojsf294ap.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

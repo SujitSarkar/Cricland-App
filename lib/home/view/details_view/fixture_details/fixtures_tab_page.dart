@@ -175,29 +175,29 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                                       "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
                                   date: "${path.date}",
                                   onTap: () {
-                                    Get.to(
-                                      HomeDetailsScreen(
-                                        teamS2Name:
-                                            "${path.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
-                                        matchID:
-                                            "${path.matchScheduleList!.first.matchInfo!.first.matchId}",
-                                        teamS1Name:
-                                            "${path.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
-                                        matchDesc:
-                                            "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
-                                        team1RunWicket: "",
-                                        winningStatus: "",
-                                        team2RunWicket: "",
-                                        team1Over: "",
-                                        team2Over: "",
-                                        team1ImageID:
-                                            "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                        team2ImageID:
-                                            "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                        seriesID:
-                                            "${path.matchScheduleList!.first.seriesId}",
-                                      ),
-                                    );
+                                    // Get.to(
+                                    //   HomeDetailsScreen(
+                                    //     teamS2Name:
+                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
+                                    //     matchID:
+                                    //         "${path.matchScheduleList!.first.matchInfo!.first.matchId}",
+                                    //     teamS1Name:
+                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
+                                    //     matchDesc:
+                                    //         "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
+                                    //     team1RunWicket: "",
+                                    //     winningStatus: "",
+                                    //     team2RunWicket: "",
+                                    //     team1Over: "",
+                                    //     team2Over: "",
+                                    //     team1ImageID:
+                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
+                                    //     team2ImageID:
+                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
+                                    //     seriesID:
+                                    //         "${path.matchScheduleList!.first.seriesId}",
+                                    //   ),
+                                    // );
                                   },
                                 )
                               : SizedBox();

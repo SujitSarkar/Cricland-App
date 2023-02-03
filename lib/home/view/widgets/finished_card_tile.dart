@@ -1,46 +1,34 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../details_view/home_details/home_details_screen.dart';
 
 class FinishedCardTile extends StatelessWidget {
+ final RapidMatch rapidMatch;
   const FinishedCardTile({
     Key? key,
-    required this.title,
-    this.trailingWidget,
-    this.leftCountryURL,
-    this.rightCountryURL,
-    this.leftCountryName,
-    this.rightCountryName,
-    this.leftCountryRuns,
-    this.rightCountryRuns,
-    this.leftCountryOvers,
-    this.rightCountryOvers,
-    this.wonStatus,
-    required this.onTap,
-    required this.onStaticTap,
-  }) : super(key: key);
-  final String title;
-  final String? trailingWidget;
-  final String? leftCountryURL;
-  final String? rightCountryURL;
-  final String? leftCountryName;
-  final String? rightCountryName;
-  final String? leftCountryRuns;
-  final String? rightCountryRuns;
-  final String? leftCountryOvers;
-  final String? rightCountryOvers;
-  final String? wonStatus;
-  final Function() onTap;
-  final Function() onStaticTap;
+    required this.rapidMatch,
 
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: (){
+        print(rapidMatch.matchScore!.team1Score!.inngs1!.runs);
+        Get.to(
+          HomeDetailsScreen(
+            rapidMatch:rapidMatch,
+          ),
+        );
+      },
       child: Card(
         color: PublicController.pc.toggleCardBg(),
         elevation: 8,
@@ -51,7 +39,7 @@ class FinishedCardTile extends StatelessWidget {
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    title,
+                    "${rapidMatch.matchInfo!.seriesName}",
                     style: CLTextStyle().nameTextStyle.copyWith(
                       fontSize: dSize(.04),
                       color: PublicController.pc.toggleTextColor(),
@@ -74,7 +62,7 @@ class FinishedCardTile extends StatelessWidget {
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
                                 ApiEndpoints.imageMidPoint +
-                                    leftCountryURL! +
+                                    "${rapidMatch.matchInfo!.team1!.imageId}" +
                                     ApiEndpoints.imageLastPoint,
                                 headers: ApiEndpoints.headers,
                               ),
@@ -83,7 +71,7 @@ class FinishedCardTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        leftCountryName!,
+                        "${rapidMatch.matchInfo!.team1!.teamSName}",
                         style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
@@ -93,14 +81,14 @@ class FinishedCardTile extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                              text: leftCountryRuns,
+                              text:rapidMatch.matchScore != null? "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}":"0.0",
                               style: CLTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: leftCountryOvers,
+                                  text: rapidMatch.matchScore != null? "${rapidMatch.matchScore!.team1Score!.inngs1!.overs}":"0.0",
                                   style:
                                       CLTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.02),
@@ -128,10 +116,10 @@ class FinishedCardTile extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      Container(
+                      SizedBox(
                         width: dSize(.3),
                         child: Text(
-                          wonStatus!,
+                          rapidMatch.matchInfo!.status != null? rapidMatch.matchInfo!.status!:"0.0",
                           textAlign: TextAlign.center,
                           style: CLTextStyle().paragraphTextStyle.copyWith(
                             fontSize: dSize(.03),
@@ -152,7 +140,7 @@ class FinishedCardTile extends StatelessWidget {
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
                                 ApiEndpoints.imageMidPoint +
-                                    rightCountryURL! +
+                                    "${rapidMatch.matchInfo!.team2!.imageId}"+
                                     ApiEndpoints.imageLastPoint,
                                 headers: ApiEndpoints.headers,
                               ),
@@ -161,7 +149,7 @@ class FinishedCardTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        rightCountryName!,
+                        rapidMatch.matchInfo!.team1!.teamSName!,
                         style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
@@ -171,14 +159,14 @@ class FinishedCardTile extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                              text: rightCountryRuns,
+                              text: rapidMatch.matchScore != null? "${rapidMatch.matchScore!.team2Score!.inngs1!.runs}":"0.0",
                               style: CLTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: rightCountryOvers,
+                                  text: rapidMatch.matchScore != null? "${rapidMatch.matchScore!.team2Score!.inngs1!.overs}":"0.0",
                                   style:
                                       CLTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.02),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
 import 'package:cricland/home/view/widgets/slider_card_tile.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
@@ -29,6 +30,13 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getDAta();
+  }
+  List<RapidMatch>  rapidRecent=[];
+  getDAta()async{
+    HomeController homeController = HomeController();
+      rapidRecent = await homeController.getRecentMatches();
+    setState((){});
   }
 
 
@@ -46,57 +54,59 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   children: [
                   InkWell(
                 onTap: (){
-                  showDialog(
-                    barrierDismissible: true,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return StatefulBuilder(builder: (context, setState) {
-                        return AlertDialog(
-                            insetPadding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                            content: SizedBox.expand(
-                              child: Column(
-                                children: <Widget>[
-                                  SingleChildScrollView(
-                                      physics: BouncingScrollPhysics(),
-                                      child: Wrap(
-                                        children: <Widget>[
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              const Text(
-                                                "Example Add",
-                                                style: TextStyle(fontWeight: FontWeight.w700),
-                                              ),
-                                              IconButton(onPressed: (){
-                                                Navigator.pop(context);
-                                              }, icon: Icon(Icons.cancel_outlined))
-                                            ],
-                                          ),
 
-                                          SizedBox(height: 150,),
-                                          Align (
-                                            alignment: Alignment.center,
-                                            child: const Text(
-                                              "Please Press The Icon to Earn Mony",
-                                              style: TextStyle(fontWeight: FontWeight.w700),
-                                            ),
-                                          ),
-                                          SizedBox(height: 50,),
-                                          InkWell(
-                                            onTap: (){
-                                              homeController.updatePoints("50",true);
-                                            },
-                                              child: Image.asset("assets/main_logo.png")),
-                                        ],
-                                      )),
-                                ],
-                              ),
-                            ));
-                      });
-                    },
-                  );
+                  print(rapidRecent.length);
+                  // showDialog(
+                  //   barrierDismissible: true,
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return StatefulBuilder(builder: (context, setState) {
+                  //       return AlertDialog(
+                  //           insetPadding: EdgeInsets.zero,
+                  //           shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  //           content: SizedBox.expand(
+                  //             child: Column(
+                  //               children: <Widget>[
+                  //                 SingleChildScrollView(
+                  //                     physics: BouncingScrollPhysics(),
+                  //                     child: Wrap(
+                  //                       children: <Widget>[
+                  //                         Row(
+                  //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //                           children: <Widget>[
+                  //                             const Text(
+                  //                               "Example Add",
+                  //                               style: TextStyle(fontWeight: FontWeight.w700),
+                  //                             ),
+                  //                             IconButton(onPressed: (){
+                  //                               Navigator.pop(context);
+                  //                             }, icon: Icon(Icons.cancel_outlined))
+                  //                           ],
+                  //                         ),
+                  //
+                  //                         SizedBox(height: 150,),
+                  //                         Align (
+                  //                           alignment: Alignment.center,
+                  //                           child: const Text(
+                  //                             "Please Press The Icon to Earn Mony",
+                  //                             style: TextStyle(fontWeight: FontWeight.w700),
+                  //                           ),
+                  //                         ),
+                  //                         SizedBox(height: 50,),
+                  //                         InkWell(
+                  //                           onTap: (){
+                  //                             homeController.updatePoints("50",true);
+                  //                           },
+                  //                             child: Image.asset("assets/main_logo.png")),
+                  //                       ],
+                  //                     )),
+                  //               ],
+                  //             ),
+                  //           ));
+                  //     });
+                  //   },
+                  // );
               },
                     child: Text(
                     'Show Add',
@@ -107,99 +117,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     ),
                 ),
                   ),
-
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount:
-                      homeController.recentMatchModel.typeMatches!.length,
+                      itemCount: rapidRecent.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        var path = homeController
-                            .recentMatchModel
-                            .typeMatches![index]
-                            .seriesMatches!
-                            .first
-                            .seriesAdWrapper!;
-                        return homeController.recentMatchModel.typeMatches![index]
-                            .seriesMatches !=
-                            null
-                            ? FinishedCardTile(
-                          onTap: () {
-
-                            // Get.to(
-                            //   HomeDetailsScreen(
-                            //     teamS2Name:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                            //     matchID:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
-                            //     teamS1Name:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                            //     matchDesc:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
-                            //     team1RunWicket:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.wickets}",
-                            //     winningStatus:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.status}",
-                            //     team2RunWicket:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.runs}-${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.wickets}",
-                            //     team1Over:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team1Score!.inngs1!.overs}",
-                            //     team2Over:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchScore!.team2Score!.inngs1!.overs}",
-                            //     team1ImageID:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
-                            //     team2ImageID:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
-                            //     seriesID:
-                            //     "${homeController.recentMatchModel.typeMatches![0].seriesMatches![index].seriesAdWrapper!.seriesId}",
-                            //   ),
-                            // );
-                          },
-                          title: "${path.seriesName}",
-                          onStaticTap: () {},
-                          leftCountryName:
-                          '${path.matches!.first.matchInfo!.team1!.teamSName}',
-                          leftCountryOvers: path
-                              .matches!.first.matchScore !=
-                              null
-                              ? "${path.matches!.first.matchScore!.team1Score!.inngs1!.overs}"
-                              : "",
-                          leftCountryRuns: path.matches!.first.matchScore !=
-                              null
-                              ? '${path.matches!.first.matchScore!.team1Score!.inngs1!.runs}/${path.matches!.first.matchScore!.team1Score!.inngs1!.wickets}'
-                              : "",
-                          leftCountryURL: path.matches!.first.matchScore !=
-                              null
-                              ? '${path.matches!.first.matchInfo!.team1!.imageId}'
-                              : "",
-                          trailingWidget: 'Upcoming',
-                          rightCountryName: path
-                              .matches!.first.matchScore !=
-                              null
-                              ? '${path.matches!.first.matchInfo!.team2!.teamSName}'
-                              : "",
-                          rightCountryOvers: path
-                              .matches!.first.matchScore !=
-                              null
-                              ? "${path.matches!.first.matchScore!.team2Score!.inngs1!.overs}"
-                              : "",
-                          rightCountryRuns: path
-                              .matches!.first.matchScore !=
-                              null
-                              ? '${path.matches!.first.matchScore!.team2Score!.inngs1!.runs}/${path.matches!.first.matchScore!.team2Score!.inngs1!.wickets}'
-                              : "",
-                          rightCountryURL: path.matches!.first.matchScore !=
-                              null
-                              ? '${path.matches!.first.matchInfo!.team2!.imageId}'
-                              : "",
-                          wonStatus: path.matches!.first.matchScore != null
-                              ? '${path.matches!.first.matchInfo!.status}'
-                              : "",
-                        )
-                            : const SizedBox();
-                        //LiveCart(context);
+                        return FinishedCardTile(
+                          rapidMatch: rapidRecent[index],
+                        );
                       },
                     ),
+
                     const SizedBox(
                       height: 10,
                     ),
@@ -299,29 +227,29 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                             "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
                             date: "${path.date}",
                             onTap: () {
-                              Get.to(
-                                HomeDetailsScreen(
-                                  teamS2Name:
-                                  "${path.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
-                                  matchID:
-                                  "${path.matchScheduleList!.first.matchInfo!.first.matchId}",
-                                  teamS1Name:
-                                  "${path.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
-                                  matchDesc:
-                                  "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
-                                  team1RunWicket: "",
-                                  winningStatus: "",
-                                  team2RunWicket: "",
-                                  team1Over: "",
-                                  team2Over: "",
-                                  team1ImageID:
-                                  "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                  team2ImageID:
-                                  "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                  seriesID:
-                                  "${path.matchScheduleList!.first.seriesId}",
-                                ),
-                              );
+                              // Get.to(
+                              //   HomeDetailsScreen(
+                              //     teamS2Name:
+                              //     "${path.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
+                              //     matchID:
+                              //     "${path.matchScheduleList!.first.matchInfo!.first.matchId}",
+                              //     teamS1Name:
+                              //     "${path.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
+                              //     matchDesc:
+                              //     "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
+                              //     team1RunWicket: "",
+                              //     winningStatus: "",
+                              //     team2RunWicket: "",
+                              //     team1Over: "",
+                              //     team2Over: "",
+                              //     team1ImageID:
+                              //     "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
+                              //     team2ImageID:
+                              //     "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
+                              //     seriesID:
+                              //     "${path.matchScheduleList!.first.seriesId}",
+                              //   ),
+                              // );
                             },
                           )
                               : SizedBox();
