@@ -73,7 +73,6 @@ class HomeController extends GetxController {
     scoreCardModel = ScoreCardModel();
     pointTableModel = PointTableModel();
     seriesMatchListModel = SeriesMatchListModel();
-
     matchSquadModel = MatchSquadModel();
     playerInfoModel = PlayerInfoModel();
     playerSquadModel = PlayerSquadModel();
@@ -98,23 +97,23 @@ class HomeController extends GetxController {
 
     Future.delayed(const Duration(seconds: 3), () async{
       await getRecentMatches();
-     await getUpComingMatches();
+     // await getUpcomingMatches();
+      await getUpComingMatches();
 
-
-      //get Fixture
+    //   //get Fixture
     await getFixturesMatches();
-      //get Series
+     //get Series
       await getFeatureSeries();
-      await getPointTable("3718");
-      await getCommentaries("38356");
+    await getPointTable("3718");
+     await getCommentaries("38356");
        await getMatchSquad("3718");
       await getPlayerSquad("3718", "15826");
       await getPlayerInfo("6635");
       await getMatchInfo("38356");
-
-
-
-
+    //
+    //
+    //
+    //
       //Get User
       final prefs = await SharedPreferences.getInstance();
       String? uId= prefs.getString('userId');
@@ -127,179 +126,159 @@ class HomeController extends GetxController {
 
  //   getLive();
   }
-  // void printWrapped(String text) {
-  //   final pattern = RegExp('.{1,900}'); // 900 is the size of each chunk
-  //   pattern.allMatches(text).forEach((match) => print(match.group(0)));
-  // }
-  // Future<List<RapidMatch>> getRecentMatches() async {
-  //   loading(true);
-  //   List<RapidMatch> allMatches=[];
-  //   await ApiService.instance.apiCall(
-  //       execute: () async =>
-  //           await ApiService.instance.get(ApiEndpoints.recentMatchData),
-  //       onSuccess: (response) {
-  //
-  //         // print(response);
-  //
-  //        var matches = response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"];
-  //
-  //
-  //       //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
-  //     printWrapped("Recent Response: ${matches[0]["matchInfo"]["matchId"]}\n\n");
-  //         for(var match in matches){
-  //
-  //          allMatches.add(RapidMatch(
-  //            matchInfo: RapidMatchInfo(
-  //              matchId: match["matchInfo"]["matchId"],
-  //             seriesId:match["matchInfo"]["seriesId"],
-  //            seriesName: match["matchInfo"]["seriesName"],
-  //             matchDesc: match["matchInfo"]["matchDesc"],
-  //              // startDate: match["matchInfo"]["startDate"],
-  //              // endDate: match["matchInfo"]["endDate"],
-  //              state: match["matchInfo"]["state"],
-  //              status: match["matchInfo"]["status"],
-  //              // team1: RapidTeam(
-  //              //   teamId: match["matchInfo"]["team1"]["teamId"],
-  //              //   teamName: match["matchInfo"]["team1"]["teamName"],
-  //              //   teamSName: match["matchInfo"]["team1"]["teamSName"],
-  //              //   imageId: match["matchInfo"]["team1"]["imageId"],
-  //              // ),
-  //              // team2: RapidTeam(
-  //              //   teamId: match["matchInfo"]["team2"]["teamId"],
-  //              //   teamName: match["matchInfo"]["team2"]["teamName"],
-  //              //   teamSName: match["matchInfo"]["team2"]["teamSName"],
-  //              //   imageId: match["matchInfo"]["team2"]["imageId"],
-  //              // ),
-  //              // venueInfo: RapidVenueInfo(
-  //              //   id:match["matchInfo"]["venueInfo"]["id"],
-  //              //   ground:match["matchInfo"]["venueInfo"]["ground"],
-  //              //   city:match["matchInfo"]["venueInfo"]["city"],
-  //              // ),
-  //              // currBatTeamId: match["matchInfo"]["currBatTeamId"],
-  //              // seriesStartDt: match["matchInfo"]["seriesStartDt"],
-  //              // seriesEndDt: match["matchInfo"]["seriesEndDt"],
-  //              // isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
-  //              // stateTitle: match["matchInfo"]["stateTitle"],
-  //
-  //            ),
-  //            // matchScore: RapidMatchScore(
-  //            //   team1Score: RapidTeamScore(
-  //            //     inngs1: RapidInngs(
-  //            //     inningsId: match["matchScore"]["team1Score"]["inngs1"]["inningsId"],
-  //            //     runs: match["matchScore"]["team1Score"]["inngs1"]["runs"],
-  //            //     wickets: match["matchScore"]["team1Score"]["inngs1"]["wickets"],
-  //            //     overs: match["matchScore"]["team1Score"]["inngs1"]["overs"],
-  //            //     ),
-  //            //     inngs2:  RapidInngs(
-  //            //       inningsId: match["matchScore"]["team1Score"]["inngs2"]["inningsId"],
-  //            //       runs: match["matchScore"]["team1Score"]["inngs2"]["runs"],
-  //            //       wickets: match["matchScore"]["team1Score"]["inngs2"]["wickets"],
-  //            //       overs: match["matchScore"]["team1Score"]["inngs2"]["overs"],
-  //            //     ),
-  //            //   ),
-  //            // team2Score: RapidTeamScore(
-  //            //   inngs1: RapidInngs(
-  //            //     inningsId: match["matchScore"]["team2Score"]["inngs1"]["inningsId"],
-  //            //     runs: match["matchScore"]["team2Score"]["inngs1"]["runs"],
-  //            //     wickets: match["matchScore"]["team2Score"]["inngs1"]["wickets"],
-  //            //     overs: match["matchScore"]["team2Score"]["inngs1"]["overs"],
-  //            //   ),
-  //            //   inngs2:  RapidInngs(
-  //            //     inningsId: match["matchScore"]["team2Score"]["inngs2"]["inningsId"],
-  //            //     runs: match["matchScore"]["team2Score"]["inngs2"]["runs"],
-  //            //     wickets: match["matchScore"]["team2Score"]["inngs2"]["wickets"],
-  //            //     overs: match["matchScore"]["team2Score"]["inngs2"]["overs"],
-  //            //   ),
-  //            // ),
-  //            //
-  //            // ),
-  //          ),
-  //          );
-  //         }
-  //         print("Match Lenth: ${allMatches.length}");
-  //         print("Series Name: ${allMatches[0].matchInfo!.seriesName!}");
-  //         // rapidRecentMatchModel = RapidRecentMatchModel(
-  //         //     typeMatches: [
-  //         //       RapidTypeMatch(
-  //         //           matchType: response["typeMatches"][0]["matchType"],
-  //         //         seriesMatches: [RapidSeriesMatch(
-  //         //           seriesAdWrapper: RapidSeriesAdWrapper(
-  //         //             seriesId: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesId"],
-  //         //             seriesName: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"],
-  //         //             matches:  [RapidMatch(
-  //         //               matchInfo:  RapidMatchInfo(
-  //         //                 matchId: response[""],
-  //         //                 seriesId: response[""],
-  //         //                 seriesName: response[""],
-  //         //                 matchDesc: response[""],
-  //         //                 startDate: response[""],
-  //         //                 endDate: response[""],
-  //         //                 status: response[""],
-  //         //                 state: response[""],
-  //         //                 team1: RapidTeam(imageId: response[""],
-  //         //                 teamSName: response[""],
-  //         //                 teamName: response[""],
-  //         //                 ),
-  //         //                 team2: RapidTeam(imageId: response[""],
-  //         //                   teamSName: response[""],
-  //         //                   teamName: response[""],
-  //         //                 ),
-  //         //                 venueInfo: RapidVenueInfo(
-  //         //                   id:response[""],
-  //         //                   ground: response[""],
-  //         //                   city: response[""],
-  //         //
-  //         //                 ),
-  //         //                 currBatTeamId: response[""],
-  //         //                 seriesStartDt: response[""],
-  //         //                 seriesEndDt: response[""],
-  //         //                 isTimeAnnounced: response[""],
-  //         //                 stateTitle: response[""],
-  //         //               ),
-  //         //                 matchScore: RapidMatchScore(
-  //         //                  team1Score: RapidTeamScore(
-  //         //                   inngs1: RapidInngs(
-  //         //                     inningsId: response[""],
-  //         //                     runs: response[""],
-  //         //                     wickets: response[""],
-  //         //                     overs: response[""],
-  //         //
-  //         //             ),),
-  //         //                 team2Score: RapidTeamScore(
-  //         //                   inngs1: RapidInngs(
-  //         //                     inningsId: response[""],
-  //         //                     runs: response[""],
-  //         //                     wickets: response[""],
-  //         //                     overs: response[""],
-  //         //
-  //         //                   ),),
-  //         //                 )
-  //         //             )]
-  //         //           )
-  //         //         )]
-  //         //       ),]
-  //         //
-  //         // ) ;      //   print("\n\nDDDDDDDD");
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //   update();
-  //   return allMatches;
-  //
-  // }
-  //
-
-  Future<void> getRecentMatches() async {
+  void printWrapped(String text) {
+    final pattern = RegExp('.{1,900}'); // 900 is the size of each chunk
+    pattern.allMatches(text).forEach((match) => print(match.group(0)));
+  }
+  Future<List<RapidMatch>> getRecentMatches() async {
     loading(true);
-
+    List<RapidMatch> allMatches=[];
     await ApiService.instance.apiCall(
         execute: () async =>
-        await ApiService.instance.get(ApiEndpoints.recentMatchData),
+            await ApiService.instance.get(ApiEndpoints.recentMatchData),
         onSuccess: (response) {
-           recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+
+          // print(response);
+
+         var matches = response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"];
+
+
+        //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+      printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
+          for(var match in matches){
+
+           allMatches.add(RapidMatch(
+             matchInfo: RapidMatchInfo(
+               matchId: match["matchInfo"]["matchId"],
+              seriesId:match["matchInfo"]["seriesId"],
+             seriesName: match["matchInfo"]["seriesName"],
+              matchDesc: match["matchInfo"]["matchDesc"],
+               startDate: match["matchInfo"]["startDate"],
+               endDate: match["matchInfo"]["endDate"],
+               // state: match["matchInfo"]["state"],
+                status: match["matchInfo"]["status"],
+               team1: RapidTeam(
+                 teamId: match["matchInfo"]["team1"]["teamId"],
+                 teamName: match["matchInfo"]["team1"]["teamName"],
+                 teamSName: match["matchInfo"]["team1"]["teamSName"],
+                 imageId: match["matchInfo"]["team1"]["imageId"],
+               ),
+               team2: RapidTeam(
+                 teamId: match["matchInfo"]["team2"]["teamId"],
+                 teamName: match["matchInfo"]["team2"]["teamName"],
+                 teamSName: match["matchInfo"]["team2"]["teamSName"],
+                 imageId: match["matchInfo"]["team2"]["imageId"],
+               ),
+               venueInfo: RapidVenueInfo(
+                 id:match["matchInfo"]["venueInfo"]["id"],
+                 ground:match["matchInfo"]["venueInfo"]["ground"],
+                 city:match["matchInfo"]["venueInfo"]["city"],
+               ),
+               currBatTeamId: match["matchInfo"]["currBatTeamId"],
+               seriesStartDt: match["matchInfo"]["seriesStartDt"],
+               seriesEndDt: match["matchInfo"]["seriesEndDt"],
+               isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
+               stateTitle: match["matchInfo"]["stateTitle"],
+
+             ),
+             matchScore: RapidMatchScore(
+               team1Score: RapidTeamScore(
+                 inngs1: RapidInngs(
+                 inningsId: match["matchScore"]["team1Score"]["inngs1"]["inningsId"],
+                 runs: match["matchScore"]["team1Score"]["inngs1"]["runs"],
+                 wickets: match["matchScore"]["team1Score"]["inngs1"]["wickets"],
+                 overs: match["matchScore"]["team1Score"]["inngs1"]["overs"],
+                 ),
+                 // inngs2:  RapidInngs(
+                 //   inningsId: match["matchScore"]["team1Score"]["inngs2"]["inningsId"],
+                 //   runs: match["matchScore"]["team1Score"]["inngs2"]["runs"],
+                 //   wickets: match["matchScore"]["team1Score"]["inngs2"]["wickets"],
+                 //   overs: match["matchScore"]["team1Score"]["inngs2"]["overs"],
+                 // ),
+               ),
+             team2Score: RapidTeamScore(
+               inngs1: RapidInngs(
+                 inningsId: match["matchScore"]["team2Score"]["inngs1"]["inningsId"],
+                 runs: match["matchScore"]["team2Score"]["inngs1"]["runs"],
+                 wickets: match["matchScore"]["team2Score"]["inngs1"]["wickets"],
+                 overs: match["matchScore"]["team2Score"]["inngs1"]["overs"],
+               ),
+               // inngs2:  RapidInngs(
+               //   inningsId: match["matchScore"]["team2Score"]["inngs2"]["inningsId"],
+               //   runs: match["matchScore"]["team2Score"]["inngs2"]["runs"],
+               //   wickets: match["matchScore"]["team2Score"]["inngs2"]["wickets"],
+               //   overs: match["matchScore"]["team2Score"]["inngs2"]["overs"],
+               // ),
+             ),
+
+             ),
+           ),
+           );
+          }
+          print("Match Lenth: ${allMatches.length}");
+          print("Series Name: ${allMatches[0].matchInfo!.seriesName!}");
+          // rapidRecentMatchModel = RapidRecentMatchModel(
+          //     typeMatches: [
+          //       RapidTypeMatch(
+          //           matchType: response["typeMatches"][0]["matchType"],
+          //         seriesMatches: [RapidSeriesMatch(
+          //           seriesAdWrapper: RapidSeriesAdWrapper(
+          //             seriesId: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesId"],
+          //             seriesName: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"],
+          //             matches:  [RapidMatch(
+          //               matchInfo:  RapidMatchInfo(
+          //                 matchId: response[""],
+          //                 seriesId: response[""],
+          //                 seriesName: response[""],
+          //                 matchDesc: response[""],
+          //                 startDate: response[""],
+          //                 endDate: response[""],
+          //                 status: response[""],
+          //                 state: response[""],
+          //                 team1: RapidTeam(imageId: response[""],
+          //                 teamSName: response[""],
+          //                 teamName: response[""],
+          //                 ),
+          //                 team2: RapidTeam(imageId: response[""],
+          //                   teamSName: response[""],
+          //                   teamName: response[""],
+          //                 ),
+          //                 venueInfo: RapidVenueInfo(
+          //                   id:response[""],
+          //                   ground: response[""],
+          //                   city: response[""],
+          //
+          //                 ),
+          //                 currBatTeamId: response[""],
+          //                 seriesStartDt: response[""],
+          //                 seriesEndDt: response[""],
+          //                 isTimeAnnounced: response[""],
+          //                 stateTitle: response[""],
+          //               ),
+          //                 matchScore: RapidMatchScore(
+          //                  team1Score: RapidTeamScore(
+          //                   inngs1: RapidInngs(
+          //                     inningsId: response[""],
+          //                     runs: response[""],
+          //                     wickets: response[""],
+          //                     overs: response[""],
+          //
+          //             ),),
+          //                 team2Score: RapidTeamScore(
+          //                   inngs1: RapidInngs(
+          //                     inningsId: response[""],
+          //                     runs: response[""],
+          //                     wickets: response[""],
+          //                     overs: response[""],
+          //
+          //                   ),),
+          //                 )
+          //             )]
+          //           )
+          //         )]
+          //       ),]
+          //
+          // ) ;      //   print("\n\nDDDDDDDD");
           loading(false);
         },
         onError: (error) {
@@ -307,7 +286,186 @@ class HomeController extends GetxController {
           loading(false);
         });
     update();
+    return allMatches;
+
   }
+
+  Future<List<RapidMatch>> getUpcomingMatches() async {
+    loading(true);
+    List<RapidMatch> allMatches=[];
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.upComingMatchData),
+        onSuccess: (response) {
+
+          // print(response);
+
+          var matches = response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"];
+
+
+          //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+          printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
+          for(var match in matches){
+
+            allMatches.add(RapidMatch(
+              matchInfo: RapidMatchInfo(
+                matchId: match["matchInfo"]["matchId"],
+                seriesId:match["matchInfo"]["seriesId"],
+                seriesName: match["matchInfo"]["seriesName"],
+                matchDesc: match["matchInfo"]["matchDesc"],
+                startDate: match["matchInfo"]["startDate"],
+                endDate: match["matchInfo"]["endDate"],
+                // state: match["matchInfo"]["state"],
+                status: match["matchInfo"]["status"],
+                team1: RapidTeam(
+                  teamId: match["matchInfo"]["team1"]["teamId"],
+                  teamName: match["matchInfo"]["team1"]["teamName"],
+                  teamSName: match["matchInfo"]["team1"]["teamSName"],
+                  imageId: match["matchInfo"]["team1"]["imageId"],
+                ),
+                team2: RapidTeam(
+                  teamId: match["matchInfo"]["team2"]["teamId"],
+                  teamName: match["matchInfo"]["team2"]["teamName"],
+                  teamSName: match["matchInfo"]["team2"]["teamSName"],
+                  imageId: match["matchInfo"]["team2"]["imageId"],
+                ),
+                venueInfo: RapidVenueInfo(
+                  id:match["matchInfo"]["venueInfo"]["id"],
+                  ground:match["matchInfo"]["venueInfo"]["ground"],
+                  city:match["matchInfo"]["venueInfo"]["city"],
+                ),
+                currBatTeamId: match["matchInfo"]["currBatTeamId"],
+                seriesStartDt: match["matchInfo"]["seriesStartDt"],
+                seriesEndDt: match["matchInfo"]["seriesEndDt"],
+                isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
+                stateTitle: match["matchInfo"]["stateTitle"],
+
+              ),
+              matchScore: RapidMatchScore(
+                team1Score: RapidTeamScore(
+                  inngs1: RapidInngs(
+                    inningsId: match["matchScore"]["team1Score"]["inngs1"]["inningsId"],
+                    runs: match["matchScore"]["team1Score"]["inngs1"]["runs"],
+                    wickets: match["matchScore"]["team1Score"]["inngs1"]["wickets"],
+                    overs: match["matchScore"]["team1Score"]["inngs1"]["overs"],
+                  ),
+                  // inngs2:  RapidInngs(
+                  //   inningsId: match["matchScore"]["team1Score"]["inngs2"]["inningsId"],
+                  //   runs: match["matchScore"]["team1Score"]["inngs2"]["runs"],
+                  //   wickets: match["matchScore"]["team1Score"]["inngs2"]["wickets"],
+                  //   overs: match["matchScore"]["team1Score"]["inngs2"]["overs"],
+                  // ),
+                ),
+                team2Score: RapidTeamScore(
+                  inngs1: RapidInngs(
+                    inningsId: match["matchScore"]["team2Score"]["inngs1"]["inningsId"],
+                    runs: match["matchScore"]["team2Score"]["inngs1"]["runs"],
+                    wickets: match["matchScore"]["team2Score"]["inngs1"]["wickets"],
+                    overs: match["matchScore"]["team2Score"]["inngs1"]["overs"],
+                  ),
+                  // inngs2:  RapidInngs(
+                  //   inningsId: match["matchScore"]["team2Score"]["inngs2"]["inningsId"],
+                  //   runs: match["matchScore"]["team2Score"]["inngs2"]["runs"],
+                  //   wickets: match["matchScore"]["team2Score"]["inngs2"]["wickets"],
+                  //   overs: match["matchScore"]["team2Score"]["inngs2"]["overs"],
+                  // ),
+                ),
+
+              ),
+            ),
+            );
+          }
+          print("Upcomming Match Lenth: ${allMatches.length}");
+          print(" Upcomming Series Name: ${allMatches[0].matchInfo!.seriesName!}");
+          // rapidRecentMatchModel = RapidRecentMatchModel(
+          //     typeMatches: [
+          //       RapidTypeMatch(
+          //           matchType: response["typeMatches"][0]["matchType"],
+          //         seriesMatches: [RapidSeriesMatch(
+          //           seriesAdWrapper: RapidSeriesAdWrapper(
+          //             seriesId: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesId"],
+          //             seriesName: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"],
+          //             matches:  [RapidMatch(
+          //               matchInfo:  RapidMatchInfo(
+          //                 matchId: response[""],
+          //                 seriesId: response[""],
+          //                 seriesName: response[""],
+          //                 matchDesc: response[""],
+          //                 startDate: response[""],
+          //                 endDate: response[""],
+          //                 status: response[""],
+          //                 state: response[""],
+          //                 team1: RapidTeam(imageId: response[""],
+          //                 teamSName: response[""],
+          //                 teamName: response[""],
+          //                 ),
+          //                 team2: RapidTeam(imageId: response[""],
+          //                   teamSName: response[""],
+          //                   teamName: response[""],
+          //                 ),
+          //                 venueInfo: RapidVenueInfo(
+          //                   id:response[""],
+          //                   ground: response[""],
+          //                   city: response[""],
+          //
+          //                 ),
+          //                 currBatTeamId: response[""],
+          //                 seriesStartDt: response[""],
+          //                 seriesEndDt: response[""],
+          //                 isTimeAnnounced: response[""],
+          //                 stateTitle: response[""],
+          //               ),
+          //                 matchScore: RapidMatchScore(
+          //                  team1Score: RapidTeamScore(
+          //                   inngs1: RapidInngs(
+          //                     inningsId: response[""],
+          //                     runs: response[""],
+          //                     wickets: response[""],
+          //                     overs: response[""],
+          //
+          //             ),),
+          //                 team2Score: RapidTeamScore(
+          //                   inngs1: RapidInngs(
+          //                     inningsId: response[""],
+          //                     runs: response[""],
+          //                     wickets: response[""],
+          //                     overs: response[""],
+          //
+          //                   ),),
+          //                 )
+          //             )]
+          //           )
+          //         )]
+          //       ),]
+          //
+          // ) ;      //   print("\n\nDDDDDDDD");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+    return allMatches;
+
+  }
+  //
+  // Future<void> getRecentMatches() async {
+  //   loading(true);
+  //
+  //   await ApiService.instance.apiCall(
+  //       execute: () async =>
+  //       await ApiService.instance.get(ApiEndpoints.recentMatchData),
+  //       onSuccess: (response) {
+  //          recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+  //         loading(false);
+  //       },
+  //       onError: (error) {
+  //         print(error.toString());
+  //         loading(false);
+  //       });
+  //   update();
+  // }
   Future<void> getMatchInfo(String matchId) async {
     loading(true);
 

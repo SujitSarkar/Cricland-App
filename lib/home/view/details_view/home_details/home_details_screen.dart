@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/home/view/details_view/home_details/commentary_view.dart';
 import 'package:cricland/home/view/details_view/home_details/info_view.dart';
 import 'package:cricland/home/view/details_view/home_details/live_view.dart';
@@ -20,33 +21,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../public/controller/api_endpoints.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
-  final String teamS1Name;
-  final String teamS2Name;
-  final String matchDesc;
-  final String team1RunWicket;
-  final String team1Over;
-  final String team2RunWicket;
-  final String team2Over;
-  final String winningStatus;
-  final String matchID;
-  final String seriesID;
-  final String team1ImageID;
-  final String team2ImageID;
-
+  final RapidMatch rapidMatch;
   const HomeDetailsScreen({
     Key? key,
-    required this.teamS1Name,
-    required this.teamS2Name,
-    required this.matchDesc,
-    required this.matchID,
-    required this.seriesID,
-    required this.team1RunWicket,
-    required this.team2RunWicket,
-    required this.team1Over,
-    required this.team2Over,
-    required this.winningStatus,
-    required this.team1ImageID,
-    required this.team2ImageID,
+    required this.rapidMatch,
   }) : super(key: key);
 
   @override
@@ -66,7 +44,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
         vsync: this);
     fetchTabData();
 
-    print("Match ID : ${widget.matchID}");
+    print("Match ID : ${widget.rapidMatch.matchInfo!.matchId}");
 
     // fetchData();
   }
@@ -102,7 +80,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    print("Match ID From Home: ${widget.matchID}");
+    print("Match ID From Home: ${widget.rapidMatch.matchInfo!.matchId}");
 
     return Scaffold(
       // appBar: AppBar(
@@ -177,18 +155,18 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               elevation: 0,
               title:innerBoxIsScrolled? const SizedBox(): RichText(
                 text: TextSpan(
-                  text: widget.teamS1Name,
+                  text: "${widget.rapidMatch.matchInfo!.team1!.teamSName}",
                   style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
                   children: <TextSpan>[
                     const TextSpan(
                         text: '  VS  ',
                         style: TextStyle(fontWeight: FontWeight.normal)),
                     TextSpan(
-                      text: widget.teamS2Name,
+                      text: "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
-                      text: ", ${widget.matchDesc}",
+                      text: ", ${"${widget.rapidMatch.matchInfo!.matchDesc}"}",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -271,7 +249,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                     ApiEndpoints.imageMidPoint +
-                                        widget.team1ImageID +
+                                       "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
                                         ApiEndpoints.imageLastPoint,
                                     headers: ApiEndpoints.headers,
                                   ),
@@ -285,19 +263,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.teamS1Name,
+                              Text("${widget.rapidMatch.matchInfo!.team1!.teamSName}",
                                   style: CLTextStyle().nameTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.05),
                                   )),
                               RichText(
                                 text: TextSpan(
-                                  text: "${widget.team1RunWicket} ",
+                                  text: "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs} ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
                                   style: CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03), color: Colors.white),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: " ${widget.team1Over} ",
+                                      text: " ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
                                       style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                           fontSize: dSize(.025),
@@ -323,7 +301,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                widget.teamS2Name,
+                                "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
                                 style: CLTextStyle().nameTextStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: dSize(.05),
@@ -331,14 +309,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               ),
                               RichText(
                                 text: TextSpan(
-                                  text: widget.team2Over,
+                                  text: "${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
                                   style: CLTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.025),
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: " ${widget.team2RunWicket}",
+                                      text: "${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs} ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
                                       style:
                                       CLTextStyle().paragraphTextStyle.copyWith(
                                         color: Colors.white,
@@ -362,7 +340,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                     ApiEndpoints.imageMidPoint +
-                                        widget.team2ImageID +
+                                        "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
                                         ApiEndpoints.imageLastPoint,
                                     headers: ApiEndpoints.headers,
                                   ),
@@ -380,7 +358,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     height: 15,
                   ),
                   Text(
-                    widget.winningStatus,
+                      "${widget.rapidMatch.matchInfo!.status}",
                     style: CLTextStyle().paragraphHeadLineTextStyle
                         .copyWith(color: Colors.orange, fontSize: 15),
                   )
@@ -392,23 +370,23 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                 controller: _tabController,
                 children: <Widget>[
                   InfoView(
-                    matchId: widget.matchID,
+                    matchId:"${widget.rapidMatch.matchInfo!.matchId}",
                   ),
                   CommentaryView(
-                    matchId: widget.matchID,
+                    matchId:"${widget.rapidMatch.matchInfo!.matchId}",
                   ),
                   LiveView(
-                    team1ImageID: widget.team1ImageID,
-                    team2ImageID: widget.team2ImageID,
-                    matchId: widget.matchID,
+                    team1ImageID: "${widget.rapidMatch.matchInfo!.team1!.imageId}",
+                    team2ImageID: "${widget.rapidMatch.matchInfo!.team2!.imageId}",
+                    matchId: "${widget.rapidMatch.matchInfo!.matchId}",
                     state: '',
                   ),
                   ScoreCardView(
-                    matchId: widget.matchID,
+                    matchId: "${widget.rapidMatch.matchInfo!.matchId}",
                   ),
                   PointTableView(
-                    matchId: widget.matchID,
-                    seriesId: widget.seriesID,
+                    matchId: "${widget.rapidMatch.matchInfo!.matchId}",
+                    seriesId: "${widget.rapidMatch.matchInfo!.seriesId}",
                   ),
                 ],
               ),

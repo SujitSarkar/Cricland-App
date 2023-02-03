@@ -163,9 +163,9 @@ class FixturesCardTile extends StatelessWidget {
                                       filterQuality: FilterQuality.low),
                                 ),
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
