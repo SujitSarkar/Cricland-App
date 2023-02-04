@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:get/get_connect/connect.dart';
 
-
 import 'api_endpoints.dart';
 
 class ApiService {
@@ -52,6 +51,7 @@ class ApiService {
       url,
       headers: ApiEndpoints.headers,
     );
+
 
     return _processResponse(response);
   }

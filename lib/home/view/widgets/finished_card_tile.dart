@@ -149,7 +149,7 @@ class FinishedCardTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        rapidMatch.matchInfo!.team1!.teamSName!,
+                        rapidMatch.matchInfo!.team2!.teamSName!,
                         style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),

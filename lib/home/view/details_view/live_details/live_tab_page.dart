@@ -40,7 +40,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                future:  homeController.getLive(),
              builder: (context, AsyncSnapshot<List<MonkLive>> liveSnapshot ){
                  if(liveSnapshot.hasData){
-                 return  ListView.builder(
+                 return  liveSnapshot.data!.isEmpty?const Center(child: Text("There are currently no live matches")): ListView.builder(
                        physics: const BouncingScrollPhysics(),
                        itemCount: liveSnapshot.data!.length,
                        shrinkWrap: true,
@@ -158,7 +158,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                        });
                  }
                  else {
-                 return  Center(child: Text("There are currently no live matches"));
+                 return  const Center(child: CircularProgressIndicator());
                  }
              }
                ),

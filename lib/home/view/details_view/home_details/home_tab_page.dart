@@ -30,21 +30,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getDAta();
+
   }
-  List<RapidMatch>  rapidRecent=[];
-  getDAta()async{
-    HomeController homeController = HomeController();
-      rapidRecent = await homeController.getRecentMatches();
-    setState((){});
-  }
+
 
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return homeController.recentMatchModel.typeMatches != null
-          ? SingleChildScrollView(
+      return  SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -55,7 +49,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   InkWell(
                 onTap: (){
 
-                  print(rapidRecent.length);
+
+                  print(homeController.rapidUpcomingList.length);
                   // showDialog(
                   //   barrierDismissible: true,
                   //   context: context,
@@ -119,11 +114,11 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   ),
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: rapidRecent.length,
+                      itemCount: homeController.rapidRecentList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return FinishedCardTile(
-                          rapidMatch: rapidRecent[index],
+                          rapidMatch: homeController.rapidRecentList[index],
                         );
                       },
                     ),
@@ -131,62 +126,14 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    homeController.upcomingMatchModel.typeMatches ==null?const SizedBox():  ListView.builder(
+                 ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: homeController.upcomingMatchModel.typeMatches!
-                          .first.seriesMatches!.length,
+                      itemCount: homeController.rapidUpcomingList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return homeController
-                            .upcomingMatchModel
-                            .typeMatches!
-                            .first
-                            .seriesMatches![index]
-                            .seriesAdWrapper !=
-                            null
-                            ? UpcomingCardTile(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => UpcomingDetailsScreen(
-                                  selectedIndex: index,
-                                  startDate:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.startDate}",
-                                  teamS2Name:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                                  matchID:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
-                                  teamS1Name:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                                  matchDesc:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
-                                  team1ImageID:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
-                                  team2ImageID:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
-                                  seriesID:
-                                  "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesId}",
-                                ),
-                              ),
-                            );
-                          },
-                          title:
-                          "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesName}",
-                          rightCountryURL:
-                          '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
-                          leftCountryURL:
-                          '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
-                          leftCountryName:
-                          '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
-                          rightCountryName:
-                          '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
-                          startTime:
-                          '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.startDate}',
-                          status:
-                          '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.state}'.split(".")[1],
-                        )
-                            : const SizedBox();
+                        return  UpcomingCardTile(
+                          rapidMatch:  homeController.rapidUpcomingList[index],
+                        );
                         //LiveCart(context);
                       },
                     ),
@@ -340,8 +287,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   ],
                 ),
               ),
-            )
-          : Center(child: Text("You Have no match"));
+            );
     });
   }
 
