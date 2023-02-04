@@ -100,17 +100,17 @@ class HomeController extends GetxController {
       //   await getUpComingMatches();
 
         //get Fixture
-      await getFixturesMatches();
-       //get Series
-        await getFeatureSeries();
-        await getPointTable("3718");
-        await getCommentaries("38356");
-        await getMatchSquad("3718");
-        await getPlayerSquad("3718", "15826");
-        await getPlayerInfo("6635");
-        await getMatchInfo("38356");
-
-
+      // await getFixturesMatches();
+      //  //get Series
+      //   await getFeatureSeries();
+      //   await getPointTable("3718");
+      //   await getCommentaries("38356");
+      //   await getMatchSquad("3718");
+      //   await getPlayerSquad("3718", "15826");
+      //   await getPlayerInfo("6635");
+      //   await getMatchInfo("38356");
+      //
+      //
 
 
       //Get User

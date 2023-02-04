@@ -475,7 +475,9 @@ class _LoginScreenState extends State<LoginScreen> {
               _user.email,
             "",
             _user.photoUrl!
-          ).then((value) {
+          ).then((value) async{
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('userId', _user!.id);
 
             setState(() {
               _isLoading = false;
