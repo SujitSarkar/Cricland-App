@@ -1,13 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:cricland/public/variables/variable.dart';
-import 'package:flutter/gestures.dart';
+import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
 import '../model/usermodel.dart';
@@ -31,12 +28,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     firstNameController =
         TextEditingController(text: widget.userModel.firstName);
     lastNameController = TextEditingController(text: widget.userModel.lastName);
     phoneController = TextEditingController(text: widget.userModel.phone);
-
     super.initState();
   }
 
@@ -48,20 +43,23 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return Scaffold(
-        appBar: AppBar(
-          title:
-              Text("Update Profile", style: TextStyle(fontSize: dSize(.045))),
+      return Stack(alignment: Alignment.center, children: [
+        Scaffold(
+          appBar: AppBar(
+            title:
+                Text("Update Profile", style: TextStyle(fontSize: dSize(.045))),
+          ),
+          body: _bodyUIUpdate(context, homeController),
         ),
-        body: _bodyUIUpdate(context, homeController),
-      );
+        if (_isLoading) const LoadingWidget()
+      ]);
     });
   }
 
   Widget _bodyUIUpdate(BuildContext context, HomeController homeController) =>
       Obx(() => ListView(
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.all(dSize(.1)),
+            padding: EdgeInsets.all(dSize(.05)),
             children: [
               Container(
                 padding: EdgeInsets.symmetric(
@@ -96,68 +94,65 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ),
                     SizedBox(height: dSize(.3)),
                     TextFieldTile(
-                      controller: firstNameController,
-                      hintText: "First Name",
-                      labelText: "First Name",
-                    ),
+                        controller: firstNameController,
+                        hintText: "First Name",
+                        labelText: "First Name",
+                        textCapitalization: TextCapitalization.words),
                     SizedBox(height: dSize(.06)),
                     TextFieldTile(
-                      controller: lastNameController,
-                      hintText: "Last Name",
-                      labelText: "Last Name",
-                    ),
+                        controller: lastNameController,
+                        hintText: "Last Name",
+                        labelText: "Last Name",
+                        textCapitalization: TextCapitalization.words),
                     SizedBox(height: dSize(.06)),
                     TextFieldTile(
                       controller: phoneController,
                       hintText: "Phone Number",
                       labelText: "Phone Number",
+                      textInputType: TextInputType.number,
                     ),
                     SizedBox(height: dSize(.06)),
                     TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: AllColor.purpleColor,
                       ),
-                      onPressed: () {
-                        if (firstNameController.text.isNotEmpty &&
-                            lastNameController.text.isNotEmpty &&
-                            phoneController.text.isNotEmpty) {
-                          setState(() {
-                            _isLoading = true;
-                            // homeController
-                            //     .registerUser(
-                            //         firstNameController.text,
-                            //         lastNameController.text,
-                            //         phoneController.text,
-                            //         passwordController.text,
-                            //         "")
-                            //     .then((value) {
-                            //   setState(() {
-                            //     _isLoading = false;
-                            //   });
-
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => const HomeNavPage(),
-                            //     ),
-                            //   );
-                            // });
-                          });
+                      onPressed: () async {
+                        if (firstNameController.text.isNotEmpty) {
+                          try {
+                            setState(() => _isLoading = true);
+                            await FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc(widget.userModel.id)
+                                .update({
+                              'firstName': firstNameController.text,
+                              'lastName': lastNameController.text,
+                              'phone': phoneController.text,
+                            });
+                            await homeController.getUser(widget.userModel.id!);
+                            setState(() => _isLoading = false);
+                            showToast('Success');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeNavPage(),
+                                ));
+                          } catch (e) {
+                            setState(() => _isLoading = false);
+                            showToast(e.toString());
+                          }
                         } else {
                           showToast('All Field is required');
                         }
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: dSize(.2)),
-                        child: _isLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : Text(
-                                'Update',
-                                style: _textStyle.copyWith(
-                                    fontSize: dSize(.035),
-                                    fontWeight: FontWeight.bold,
-                                    color: AllColor.lightCardColor),
-                              ),
+                        child: Text(
+                          'Update',
+                          style: _textStyle.copyWith(
+                              fontSize: dSize(.035),
+                              fontWeight: FontWeight.bold,
+                              color: AllColor.lightCardColor),
+                        ),
                       ),
                     ),
                     SizedBox(height: dSize(.06)),
