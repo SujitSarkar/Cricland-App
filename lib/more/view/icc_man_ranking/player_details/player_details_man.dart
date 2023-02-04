@@ -155,7 +155,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
   PreferredSize _tabBar(LanguageController lc) => PreferredSize(
         preferredSize: Size.fromHeight(dSize(.3)),
         child: Container(
-          color: AllColor.appDarkBg,
+          color: AllColor.primaryColor,
           child: TabBar(
             onTap: (covariant) async {
               setState(() => _tabController.index = covariant);

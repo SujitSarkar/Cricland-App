@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "788456208019-3rdfagd4npfjrbu9j64qtss362p2ab7f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mth_production_pvt.circland",
+            "certificate_hash": "00e3e0907950a8d7a216febfa9213eab39623214"
+          }
+        },
+        {
           "client_id": "788456208019-dk2q8d4dj51p0ct59rtom3gs846stqok.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

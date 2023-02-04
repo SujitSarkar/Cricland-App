@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardTile extends StatelessWidget {
-  const CardTile({Key? key,required this.title,required this.onTap, this.leadingIcon, this.trailingWidget, this.showDivider}) : super(key: key);
+  const CardTile(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      this.leadingIcon,
+      this.trailingWidget,
+      this.showDivider})
+      : super(key: key);
   final IconData? leadingIcon;
   final String title;
   final Widget? trailingWidget;
@@ -18,20 +25,27 @@ class CardTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(leadingIcon,color: PublicController.pc.togglePrimaryGrey(),size: dSize(.05)),
+          Icon(leadingIcon, color: Colors.grey, size: dSize(.05)),
           SizedBox(width: dSize(.03)),
-
           Expanded(
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(title,maxLines: 1,style: TextStyle(fontSize: dSize(.04),fontWeight: FontWeight.w500,color: PublicController.pc.toggleTextColor())),
-                    trailingWidget??Icon(FontAwesomeIcons.caretRight,size: dSize(.045),color: PublicController.pc.togglePrimaryGrey()),
+                    Text(title,
+                        maxLines: 1,
+                        style: TextStyle(
+                            fontSize: dSize(.04),
+                            fontWeight: FontWeight.w500,
+                            color: PublicController.pc.toggleTextColor())),
+                    trailingWidget ??
+                        Icon(FontAwesomeIcons.angleRight,
+                            size: dSize(.045), color: Colors.grey),
                   ],
                 ),
-                if(showDivider!= null && showDivider!)Divider(height: dSize(.06), color: Colors.grey),
+                if (showDivider != null && showDivider!)
+                  Divider(height: dSize(.06), color: Colors.grey),
               ],
             ),
           ),
@@ -41,21 +55,18 @@ class CardTile extends StatelessWidget {
   }
 }
 
-
 class MoreCard extends StatelessWidget {
-  const MoreCard({Key? key,required this.child}) : super(key: key);
+  const MoreCard({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: PublicController.pc.toggleCardBg(),
-        borderRadius: const BorderRadius.all(Radius.circular(8))
-      ),
+          color: PublicController.pc.toggleCardBg(),
+          borderRadius: const BorderRadius.all(Radius.circular(8))),
       child: child,
     );
   }
 }
-
