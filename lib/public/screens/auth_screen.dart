@@ -11,7 +11,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-
   String? userId;
   @override
   void initState() {
@@ -20,19 +19,28 @@ class _AuthScreenState extends State<AuthScreen> {
     super.initState();
   }
 
-  checkedLogIn()async{
+  checkedLogIn() async {
     final prefs = await SharedPreferences.getInstance();
-    userId =  prefs.getString('userId');
-    setState(() {
-
-    });
-
+    userId = prefs.getString('userId');
+    setState(() {});
+    return userId;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: userId != null?const ProfileScreen():const LoginScreen(),
+      body: FutureBuilder(
+          future: checkedLogIn(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ProfileScreen();
+              // print("hasData");
+            } else {
+              return LoginScreen();
+              // print("object");
+            }
+            // return userId != null ? const ProfileScreen() : const LoginScreen();
+          }),
     );
   }
 }
