@@ -95,11 +95,11 @@ class HomeController extends GetxController {
 
   fetchInitData() async {
     Future.delayed(const Duration(seconds: 3), () async {
-       await getRecentMatches();
+      await getRecentMatches();
       await getUpcomingMatches();
       //   await getUpComingMatches();
 
-        //get Fixture
+      //get Fixture
       // await getFixturesMatches();
       //  //get Series
       //   await getFeatureSeries();
@@ -111,7 +111,6 @@ class HomeController extends GetxController {
       //   await getMatchInfo("38356");
       //
       //
-
 
       //Get User
       final prefs = await SharedPreferences.getInstance();
@@ -870,6 +869,25 @@ class HomeController extends GetxController {
       "totalPoint": isAdd
           ? "${int.parse(userModel.totalPoint!) + int.parse(sellPoint)}"
           : "${int.parse(userModel.totalPoint!) - int.parse(sellPoint)}",
+    });
+    await getUser(prefs.getString('userId')!);
+    return true;
+  }
+
+  Future<bool> updateProfile(
+      String firstName, String lastName, String phoneNo) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    print(firstName);
+    print(lastName);
+    print(phoneNo);
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(prefs.getString('userId'))
+        .update({
+      "firstName": firstName,
+      "lastName": lastName,
+      "phone": phoneNo,
     });
     await getUser(prefs.getString('userId')!);
     return true;
