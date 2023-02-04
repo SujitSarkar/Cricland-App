@@ -98,10 +98,10 @@ class Variables {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   static final ThemeData lightThemeData = ThemeData(
-      primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
+      primarySwatch: const MaterialColor(0xff153145, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appLightBg,
       appBarTheme: AppBarTheme(
-          backgroundColor: AllColor.appDarkBg,
+          backgroundColor: AllColor.primaryColor,
           titleTextStyle: TextStyle(
               color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
           elevation: 0.0),
@@ -134,10 +134,10 @@ class Variables {
           overline: TextStyle(fontFamily: "openSans")));
 
   static final ThemeData darkThemeData = ThemeData(
-      primarySwatch: const MaterialColor(0xff03508B, AllColor.primaryColorMap),
+      primarySwatch: const MaterialColor(0xff153145, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appDarkBg,
       appBarTheme: AppBarTheme(
-          backgroundColor: AllColor.appDarkBg,
+          backgroundColor: AllColor.primaryColor,
           titleTextStyle: TextStyle(
               color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
           elevation: 0.0),

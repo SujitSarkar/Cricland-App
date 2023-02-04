@@ -17,7 +17,7 @@ class PlayerInfoWomen extends StatelessWidget {
       fontWeight: FontWeight.w500,
       color: PublicController.pc.toggleTextColor());
 
- @override
+  @override
   Widget build(BuildContext context) {
     final PublicController publicController = Get.find();
     return GetBuilder<RankingController>(builder: (rankingController) {
@@ -158,18 +158,18 @@ class PlayerInfoWomen extends StatelessWidget {
               child: Text(
                 key,
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.03),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               )),
           Expanded(
               flex: 2,
               child: Text(
                 value,
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.03),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               )),
         ],
       );
@@ -187,9 +187,9 @@ class PlayerInfoWomen extends StatelessWidget {
               Text(
                 ' $title',
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.03),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.03),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               )
             ],
           ),
