@@ -18,28 +18,32 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../public/controller/api_endpoints.dart';
+import '../../../model/rapid_model/recent_match_model.dart';
 
 class UpcomingDetailsScreen extends StatefulWidget {
-  final String teamS1Name;
-  final String teamS2Name;
-  final String matchDesc;
-  final String startDate;
-  final String matchID;
-  final String seriesID;
-  final String team1ImageID;
-  final String team2ImageID;
+  final RapidMatch rapidMatch;
+  // final String teamS1Name;
+  // final String teamS2Name;
+  // final String matchDesc;
+  // final String startDate;
+  // final String matchID;
+  // final String seriesID;
+  // final String team1ImageID;
+  // final String team2ImageID;
   final int selectedIndex;
 
   const UpcomingDetailsScreen({
     Key? key,
-    required this.teamS1Name,
-    required this.teamS2Name,
-    required this.matchDesc,
-    required this.startDate,
-    required this.matchID,
-    required this.seriesID,
-    required this.team1ImageID,
-    required this.team2ImageID,
+
+    required this.rapidMatch,
+    // required this.teamS1Name,
+    // required this.teamS2Name,
+    // required this.matchDesc,
+    // required this.startDate,
+    // required this.matchID,
+    // required this.seriesID,
+    // required this.team1ImageID,
+    // required this.team2ImageID,
     required this.selectedIndex,
   }) : super(key: key);
 
@@ -92,18 +96,18 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
         elevation: 0,
         title: RichText(
           text: TextSpan(
-            text: widget.teamS1Name,
+            text: widget.rapidMatch.matchInfo!.team1!.teamSName,
             style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
             children: <TextSpan>[
               const TextSpan(
                   text: '  VS  ',
                   style: TextStyle(fontWeight: FontWeight.normal)),
               TextSpan(
-                text: widget.teamS2Name,
+                text: widget.rapidMatch.matchInfo!.team2!.teamSName,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               TextSpan(
-                text: ", ${widget.matchDesc}",
+                text: ", ${widget.rapidMatch.matchInfo!.matchDesc}",
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
@@ -180,7 +184,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
                                   ApiEndpoints.imageMidPoint +
-                                      widget.team1ImageID +
+                                      "${widget.rapidMatch.matchInfo!.team1!.imageId}"+
                                       ApiEndpoints.imageLastPoint,
                                   headers: ApiEndpoints.headers,
                                 ),
@@ -194,7 +198,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.teamS1Name,
+                            Text(widget.rapidMatch.matchInfo!.team1!.teamSName!,
                                 style: CLTextStyle().nameTextStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: dSize(.05),
@@ -215,7 +219,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              widget.teamS2Name,
+                              widget.rapidMatch.matchInfo!.team2!.teamSName!,
                               style: CLTextStyle().nameTextStyle.copyWith(
                                 color: Colors.white,
                                 fontSize: dSize(.05),
@@ -234,7 +238,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                             image: DecorationImage(
                                 image: CachedNetworkImageProvider(
                                   ApiEndpoints.imageMidPoint +
-                                      widget.team2ImageID +
+                                      "${widget.rapidMatch.matchInfo!.team2!.imageId}"+
                                       ApiEndpoints.imageLastPoint,
                                   headers: ApiEndpoints.headers,
                                 ),
@@ -251,7 +255,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
                 Text(
                   DateFormat('dd-MM-yyyy hh:mm a').format(
                       DateTime.fromMicrosecondsSinceEpoch(
-                          int.parse(widget.startDate) * 1000)),
+                          int.parse(    "${widget.rapidMatch.matchInfo!.startDate}") * 1000)),
                   style: CLTextStyle().paragraphHeadLineTextStyle
                       .copyWith(color: Colors.white),
                 ),
@@ -266,22 +270,22 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
               controller: _tabController,
               children: <Widget>[
                 InfoView(
-                  matchId: widget.matchID,
+                  matchId: "${widget.rapidMatch.matchInfo!.matchId}",
                 ),
                 CommentaryView(
-                  matchId: widget.matchID,
+                  matchId:"${widget.rapidMatch.matchInfo!.matchId}",
                 ),
                 UpcomingLiveView(
-                  team1ImageID: widget.team1ImageID,
-                  team2ImageID: widget.team2ImageID,
+                  team1ImageID: "${widget.rapidMatch.matchInfo!.team1!.imageId}",
+                  team2ImageID: "${widget.rapidMatch.matchInfo!.team2!.imageId}",
                   selectedIndex: widget.selectedIndex,
                 ),
                 ScoreCardView(
-                  matchId: widget.matchID,
+                  matchId: "${widget.rapidMatch.matchInfo!.matchId}",
                 ),
                 PointTableView(
-                  matchId: widget.matchID,
-                  seriesId: widget.seriesID,
+                  matchId: "${widget.rapidMatch.matchInfo!.matchId}",
+                  seriesId: "${widget.rapidMatch.matchInfo!.seriesId}",
                 ),
               ],
             ),

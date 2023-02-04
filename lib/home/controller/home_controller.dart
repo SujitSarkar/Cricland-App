@@ -37,7 +37,6 @@ class HomeController extends GetxController {
   // late MatchesModel matchesModel;
 //  late LiveMatchesModel liveMatchesModel;
 
-
   late RecentMatchModel recentMatchModel;
   late RapidRecentMatchModel rapidRecentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
@@ -60,9 +59,9 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     //Home Data Model
-   // liveMatchesModel = LiveMatchesModel();
+    // liveMatchesModel = LiveMatchesModel();
 
-    recentMatchModel = RecentMatchModel( typeMatches: []);
+    recentMatchModel = RecentMatchModel(typeMatches: []);
     rapidRecentMatchModel = RapidRecentMatchModel();
     matcheInfoModel = RecentMatchInfoModel(); //Todo Data Fetching Problem
     commentariesModel =
@@ -78,367 +77,151 @@ class HomeController extends GetxController {
     playerSquadModel = PlayerSquadModel();
     overSummeryModel = OverSummeryModel();
     userModel = UserModel();
- fetchInitData();
+    fetchInitData();
     //get Matches
 
     getSetUser();
     super.onInit();
   }
-  getSetUser()async{
+
+  getSetUser() async {
     //Get User
     final prefs = await SharedPreferences.getInstance();
-    String? uId= prefs.getString('userId');
-    if(uId != null){
+    String? uId = prefs.getString('userId');
+    if (uId != null) {
       getUser(uId);
     }
-
   }
-  fetchInitData()async{
 
-    Future.delayed(const Duration(seconds: 3), () async{
-      await getRecentMatches();
-     // await getUpcomingMatches();
-      await getUpComingMatches();
+  fetchInitData() async {
+    Future.delayed(const Duration(seconds: 3), () async {
+       await getRecentMatches();
+      await getUpcomingMatches();
+      //   await getUpComingMatches();
 
-    //   //get Fixture
-    await getFixturesMatches();
-     //get Series
-      await getFeatureSeries();
-    await getPointTable("3718");
-     await getCommentaries("38356");
-       await getMatchSquad("3718");
-      await getPlayerSquad("3718", "15826");
-      await getPlayerInfo("6635");
-      await getMatchInfo("38356");
-    //
-    //
-    //
-    //
+        //get Fixture
+      await getFixturesMatches();
+       //get Series
+        await getFeatureSeries();
+        await getPointTable("3718");
+        await getCommentaries("38356");
+        await getMatchSquad("3718");
+        await getPlayerSquad("3718", "15826");
+        await getPlayerInfo("6635");
+        await getMatchInfo("38356");
+
+
+
+
       //Get User
       final prefs = await SharedPreferences.getInstance();
-      String? uId= prefs.getString('userId');
-      if(uId != null){
+      String? uId = prefs.getString('userId');
+      if (uId != null) {
         getUser(uId);
       }
-
-
     });
 
- //   getLive();
+    getLive();
   }
+
   void printWrapped(String text) {
     final pattern = RegExp('.{1,900}'); // 900 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
-  Future<List<RapidMatch>> getRecentMatches() async {
+
+  List<RapidMatch> rapidRecentList = [];
+  Future<void> getRecentMatches() async {
     loading(true);
-    List<RapidMatch> allMatches=[];
+
     await ApiService.instance.apiCall(
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.recentMatchData),
         onSuccess: (response) {
-
           // print(response);
 
-         var matches = response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"];
-
-
-        //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
-      printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
-          for(var match in matches){
-
-           allMatches.add(RapidMatch(
-             matchInfo: RapidMatchInfo(
-               matchId: match["matchInfo"]["matchId"],
-              seriesId:match["matchInfo"]["seriesId"],
-             seriesName: match["matchInfo"]["seriesName"],
-              matchDesc: match["matchInfo"]["matchDesc"],
-               startDate: match["matchInfo"]["startDate"],
-               endDate: match["matchInfo"]["endDate"],
-               // state: match["matchInfo"]["state"],
-                status: match["matchInfo"]["status"],
-               team1: RapidTeam(
-                 teamId: match["matchInfo"]["team1"]["teamId"],
-                 teamName: match["matchInfo"]["team1"]["teamName"],
-                 teamSName: match["matchInfo"]["team1"]["teamSName"],
-                 imageId: match["matchInfo"]["team1"]["imageId"],
-               ),
-               team2: RapidTeam(
-                 teamId: match["matchInfo"]["team2"]["teamId"],
-                 teamName: match["matchInfo"]["team2"]["teamName"],
-                 teamSName: match["matchInfo"]["team2"]["teamSName"],
-                 imageId: match["matchInfo"]["team2"]["imageId"],
-               ),
-               venueInfo: RapidVenueInfo(
-                 id:match["matchInfo"]["venueInfo"]["id"],
-                 ground:match["matchInfo"]["venueInfo"]["ground"],
-                 city:match["matchInfo"]["venueInfo"]["city"],
-               ),
-               currBatTeamId: match["matchInfo"]["currBatTeamId"],
-               seriesStartDt: match["matchInfo"]["seriesStartDt"],
-               seriesEndDt: match["matchInfo"]["seriesEndDt"],
-               isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
-               stateTitle: match["matchInfo"]["stateTitle"],
-
-             ),
-             matchScore: RapidMatchScore(
-               team1Score: RapidTeamScore(
-                 inngs1: RapidInngs(
-                 inningsId: match["matchScore"]["team1Score"]["inngs1"]["inningsId"],
-                 runs: match["matchScore"]["team1Score"]["inngs1"]["runs"],
-                 wickets: match["matchScore"]["team1Score"]["inngs1"]["wickets"],
-                 overs: match["matchScore"]["team1Score"]["inngs1"]["overs"],
-                 ),
-                 // inngs2:  RapidInngs(
-                 //   inningsId: match["matchScore"]["team1Score"]["inngs2"]["inningsId"],
-                 //   runs: match["matchScore"]["team1Score"]["inngs2"]["runs"],
-                 //   wickets: match["matchScore"]["team1Score"]["inngs2"]["wickets"],
-                 //   overs: match["matchScore"]["team1Score"]["inngs2"]["overs"],
-                 // ),
-               ),
-             team2Score: RapidTeamScore(
-               inngs1: RapidInngs(
-                 inningsId: match["matchScore"]["team2Score"]["inngs1"]["inningsId"],
-                 runs: match["matchScore"]["team2Score"]["inngs1"]["runs"],
-                 wickets: match["matchScore"]["team2Score"]["inngs1"]["wickets"],
-                 overs: match["matchScore"]["team2Score"]["inngs1"]["overs"],
-               ),
-               // inngs2:  RapidInngs(
-               //   inningsId: match["matchScore"]["team2Score"]["inngs2"]["inningsId"],
-               //   runs: match["matchScore"]["team2Score"]["inngs2"]["runs"],
-               //   wickets: match["matchScore"]["team2Score"]["inngs2"]["wickets"],
-               //   overs: match["matchScore"]["team2Score"]["inngs2"]["overs"],
-               // ),
-             ),
-
-             ),
-           ),
-           );
-          }
-          print("Match Lenth: ${allMatches.length}");
-          print("Series Name: ${allMatches[0].matchInfo!.seriesName!}");
-          // rapidRecentMatchModel = RapidRecentMatchModel(
-          //     typeMatches: [
-          //       RapidTypeMatch(
-          //           matchType: response["typeMatches"][0]["matchType"],
-          //         seriesMatches: [RapidSeriesMatch(
-          //           seriesAdWrapper: RapidSeriesAdWrapper(
-          //             seriesId: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesId"],
-          //             seriesName: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"],
-          //             matches:  [RapidMatch(
-          //               matchInfo:  RapidMatchInfo(
-          //                 matchId: response[""],
-          //                 seriesId: response[""],
-          //                 seriesName: response[""],
-          //                 matchDesc: response[""],
-          //                 startDate: response[""],
-          //                 endDate: response[""],
-          //                 status: response[""],
-          //                 state: response[""],
-          //                 team1: RapidTeam(imageId: response[""],
-          //                 teamSName: response[""],
-          //                 teamName: response[""],
-          //                 ),
-          //                 team2: RapidTeam(imageId: response[""],
-          //                   teamSName: response[""],
-          //                   teamName: response[""],
-          //                 ),
-          //                 venueInfo: RapidVenueInfo(
-          //                   id:response[""],
-          //                   ground: response[""],
-          //                   city: response[""],
-          //
-          //                 ),
-          //                 currBatTeamId: response[""],
-          //                 seriesStartDt: response[""],
-          //                 seriesEndDt: response[""],
-          //                 isTimeAnnounced: response[""],
-          //                 stateTitle: response[""],
-          //               ),
-          //                 matchScore: RapidMatchScore(
-          //                  team1Score: RapidTeamScore(
-          //                   inngs1: RapidInngs(
-          //                     inningsId: response[""],
-          //                     runs: response[""],
-          //                     wickets: response[""],
-          //                     overs: response[""],
-          //
-          //             ),),
-          //                 team2Score: RapidTeamScore(
-          //                   inngs1: RapidInngs(
-          //                     inningsId: response[""],
-          //                     runs: response[""],
-          //                     wickets: response[""],
-          //                     overs: response[""],
-          //
-          //                   ),),
-          //                 )
-          //             )]
-          //           )
-          //         )]
-          //       ),]
-          //
-          // ) ;      //   print("\n\nDDDDDDDD");
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-    update();
-    return allMatches;
-
-  }
-
-  Future<List<RapidMatch>> getUpcomingMatches() async {
-    loading(true);
-    List<RapidMatch> allMatches=[];
-    await ApiService.instance.apiCall(
-        execute: () async =>
-        await ApiService.instance.get(ApiEndpoints.upComingMatchData),
-        onSuccess: (response) {
-
-          // print(response);
-
-          var matches = response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["matches"];
-
+          var matches = response["typeMatches"][0]["seriesMatches"][0]
+              ["seriesAdWrapper"]["matches"];
 
           //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
-          printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
-          for(var match in matches){
-
-            allMatches.add(RapidMatch(
-              matchInfo: RapidMatchInfo(
-                matchId: match["matchInfo"]["matchId"],
-                seriesId:match["matchInfo"]["seriesId"],
-                seriesName: match["matchInfo"]["seriesName"],
-                matchDesc: match["matchInfo"]["matchDesc"],
-                startDate: match["matchInfo"]["startDate"],
-                endDate: match["matchInfo"]["endDate"],
-                // state: match["matchInfo"]["state"],
-                status: match["matchInfo"]["status"],
-                team1: RapidTeam(
-                  teamId: match["matchInfo"]["team1"]["teamId"],
-                  teamName: match["matchInfo"]["team1"]["teamName"],
-                  teamSName: match["matchInfo"]["team1"]["teamSName"],
-                  imageId: match["matchInfo"]["team1"]["imageId"],
-                ),
-                team2: RapidTeam(
-                  teamId: match["matchInfo"]["team2"]["teamId"],
-                  teamName: match["matchInfo"]["team2"]["teamName"],
-                  teamSName: match["matchInfo"]["team2"]["teamSName"],
-                  imageId: match["matchInfo"]["team2"]["imageId"],
-                ),
-                venueInfo: RapidVenueInfo(
-                  id:match["matchInfo"]["venueInfo"]["id"],
-                  ground:match["matchInfo"]["venueInfo"]["ground"],
-                  city:match["matchInfo"]["venueInfo"]["city"],
-                ),
-                currBatTeamId: match["matchInfo"]["currBatTeamId"],
-                seriesStartDt: match["matchInfo"]["seriesStartDt"],
-                seriesEndDt: match["matchInfo"]["seriesEndDt"],
-                isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
-                stateTitle: match["matchInfo"]["stateTitle"],
-
-              ),
-              matchScore: RapidMatchScore(
-                team1Score: RapidTeamScore(
-                  inngs1: RapidInngs(
-                    inningsId: match["matchScore"]["team1Score"]["inngs1"]["inningsId"],
-                    runs: match["matchScore"]["team1Score"]["inngs1"]["runs"],
-                    wickets: match["matchScore"]["team1Score"]["inngs1"]["wickets"],
-                    overs: match["matchScore"]["team1Score"]["inngs1"]["overs"],
+          printWrapped(
+              "Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
+          for (var match in matches) {
+            rapidRecentList.add(
+              RapidMatch(
+                matchInfo: RapidMatchInfo(
+                  matchId: match["matchInfo"]["matchId"],
+                  seriesId: match["matchInfo"]["seriesId"],
+                  seriesName: match["matchInfo"]["seriesName"],
+                  matchDesc: match["matchInfo"]["matchDesc"],
+                  startDate: match["matchInfo"]["startDate"],
+                  endDate: match["matchInfo"]["endDate"],
+                  // state: match["matchInfo"]["state"],
+                  status: match["matchInfo"]["status"],
+                  team1: RapidTeam(
+                    teamId: match["matchInfo"]["team1"]["teamId"],
+                    teamName: match["matchInfo"]["team1"]["teamName"],
+                    teamSName: match["matchInfo"]["team1"]["teamSName"],
+                    imageId: match["matchInfo"]["team1"]["imageId"],
                   ),
-                  // inngs2:  RapidInngs(
-                  //   inningsId: match["matchScore"]["team1Score"]["inngs2"]["inningsId"],
-                  //   runs: match["matchScore"]["team1Score"]["inngs2"]["runs"],
-                  //   wickets: match["matchScore"]["team1Score"]["inngs2"]["wickets"],
-                  //   overs: match["matchScore"]["team1Score"]["inngs2"]["overs"],
-                  // ),
-                ),
-                team2Score: RapidTeamScore(
-                  inngs1: RapidInngs(
-                    inningsId: match["matchScore"]["team2Score"]["inngs1"]["inningsId"],
-                    runs: match["matchScore"]["team2Score"]["inngs1"]["runs"],
-                    wickets: match["matchScore"]["team2Score"]["inngs1"]["wickets"],
-                    overs: match["matchScore"]["team2Score"]["inngs1"]["overs"],
+                  team2: RapidTeam(
+                    teamId: match["matchInfo"]["team2"]["teamId"],
+                    teamName: match["matchInfo"]["team2"]["teamName"],
+                    teamSName: match["matchInfo"]["team2"]["teamSName"],
+                    imageId: match["matchInfo"]["team2"]["imageId"],
                   ),
-                  // inngs2:  RapidInngs(
-                  //   inningsId: match["matchScore"]["team2Score"]["inngs2"]["inningsId"],
-                  //   runs: match["matchScore"]["team2Score"]["inngs2"]["runs"],
-                  //   wickets: match["matchScore"]["team2Score"]["inngs2"]["wickets"],
-                  //   overs: match["matchScore"]["team2Score"]["inngs2"]["overs"],
-                  // ),
+                  venueInfo: RapidVenueInfo(
+                    id: match["matchInfo"]["venueInfo"]["id"],
+                    ground: match["matchInfo"]["venueInfo"]["ground"],
+                    city: match["matchInfo"]["venueInfo"]["city"],
+                  ),
+                  currBatTeamId: match["matchInfo"]["currBatTeamId"],
+                  seriesStartDt: match["matchInfo"]["seriesStartDt"],
+                  seriesEndDt: match["matchInfo"]["seriesEndDt"],
+                  isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
+                  stateTitle: match["matchInfo"]["stateTitle"],
                 ),
-
+                matchScore: RapidMatchScore(
+                  team1Score: RapidTeamScore(
+                    inngs1: RapidInngs(
+                      inningsId: match["matchScore"]["team1Score"]["inngs1"]
+                          ["inningsId"],
+                      runs: match["matchScore"]["team1Score"]["inngs1"]["runs"],
+                      wickets: match["matchScore"]["team1Score"]["inngs1"]
+                          ["wickets"],
+                      overs: match["matchScore"]["team1Score"]["inngs1"]
+                          ["overs"],
+                    ),
+                    // inngs2:  RapidInngs(
+                    //   inningsId: match["matchScore"]["team1Score"]["inngs2"]["inningsId"],
+                    //   runs: match["matchScore"]["team1Score"]["inngs2"]["runs"],
+                    //   wickets: match["matchScore"]["team1Score"]["inngs2"]["wickets"],
+                    //   overs: match["matchScore"]["team1Score"]["inngs2"]["overs"],
+                    // ),
+                  ),
+                  team2Score: RapidTeamScore(
+                    inngs1: RapidInngs(
+                      inningsId: match["matchScore"]["team2Score"]["inngs1"]
+                          ["inningsId"],
+                      runs: match["matchScore"]["team2Score"]["inngs1"]["runs"],
+                      wickets: match["matchScore"]["team2Score"]["inngs1"]
+                          ["wickets"],
+                      overs: match["matchScore"]["team2Score"]["inngs1"]
+                          ["overs"],
+                    ),
+                    // inngs2:  RapidInngs(
+                    //   inningsId: match["matchScore"]["team2Score"]["inngs2"]["inningsId"],
+                    //   runs: match["matchScore"]["team2Score"]["inngs2"]["runs"],
+                    //   wickets: match["matchScore"]["team2Score"]["inngs2"]["wickets"],
+                    //   overs: match["matchScore"]["team2Score"]["inngs2"]["overs"],
+                    // ),
+                  ),
+                ),
               ),
-            ),
             );
           }
-          print("Upcomming Match Lenth: ${allMatches.length}");
-          print(" Upcomming Series Name: ${allMatches[0].matchInfo!.seriesName!}");
-          // rapidRecentMatchModel = RapidRecentMatchModel(
-          //     typeMatches: [
-          //       RapidTypeMatch(
-          //           matchType: response["typeMatches"][0]["matchType"],
-          //         seriesMatches: [RapidSeriesMatch(
-          //           seriesAdWrapper: RapidSeriesAdWrapper(
-          //             seriesId: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesId"],
-          //             seriesName: response["typeMatches"][0]["seriesMatches"][0]["seriesAdWrapper"]["seriesName"],
-          //             matches:  [RapidMatch(
-          //               matchInfo:  RapidMatchInfo(
-          //                 matchId: response[""],
-          //                 seriesId: response[""],
-          //                 seriesName: response[""],
-          //                 matchDesc: response[""],
-          //                 startDate: response[""],
-          //                 endDate: response[""],
-          //                 status: response[""],
-          //                 state: response[""],
-          //                 team1: RapidTeam(imageId: response[""],
-          //                 teamSName: response[""],
-          //                 teamName: response[""],
-          //                 ),
-          //                 team2: RapidTeam(imageId: response[""],
-          //                   teamSName: response[""],
-          //                   teamName: response[""],
-          //                 ),
-          //                 venueInfo: RapidVenueInfo(
-          //                   id:response[""],
-          //                   ground: response[""],
-          //                   city: response[""],
-          //
-          //                 ),
-          //                 currBatTeamId: response[""],
-          //                 seriesStartDt: response[""],
-          //                 seriesEndDt: response[""],
-          //                 isTimeAnnounced: response[""],
-          //                 stateTitle: response[""],
-          //               ),
-          //                 matchScore: RapidMatchScore(
-          //                  team1Score: RapidTeamScore(
-          //                   inngs1: RapidInngs(
-          //                     inningsId: response[""],
-          //                     runs: response[""],
-          //                     wickets: response[""],
-          //                     overs: response[""],
-          //
-          //             ),),
-          //                 team2Score: RapidTeamScore(
-          //                   inngs1: RapidInngs(
-          //                     inningsId: response[""],
-          //                     runs: response[""],
-          //                     wickets: response[""],
-          //                     overs: response[""],
-          //
-          //                   ),),
-          //                 )
-          //             )]
-          //           )
-          //         )]
-          //       ),]
-          //
-          // ) ;      //   print("\n\nDDDDDDDD");
+          print("Match Lenth: ${rapidRecentList.length}");
+          print("Series Name: ${rapidRecentList[0].matchInfo!.seriesName!}");
+
           loading(false);
         },
         onError: (error) {
@@ -446,9 +229,75 @@ class HomeController extends GetxController {
           loading(false);
         });
     update();
-    return allMatches;
-
   }
+
+  List<RapidMatch> rapidUpcomingList = [];
+
+  Future<void> getUpcomingMatches() async {
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.upComingMatchData),
+        onSuccess: (response) {
+          print(response);
+
+          var matches = response["typeMatches"][0]["seriesMatches"][0]
+              ["seriesAdWrapper"]["matches"];
+
+          //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+          //   printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
+          for (var match in matches) {
+            rapidUpcomingList.add(
+              RapidMatch(
+                matchInfo: RapidMatchInfo(
+                  matchId: match["matchInfo"]["matchId"],
+                  seriesId: match["matchInfo"]["seriesId"],
+                  seriesName: match["matchInfo"]["seriesName"],
+                  matchDesc: match["matchInfo"]["matchDesc"],
+                  startDate: match["matchInfo"]["startDate"],
+                  endDate: match["matchInfo"]["endDate"],
+                  // state: match["matchInfo"]["state"],
+                  status: match["matchInfo"]["status"],
+                  team1: RapidTeam(
+                    teamId: match["matchInfo"]["team1"]["teamId"],
+                    teamName: match["matchInfo"]["team1"]["teamName"],
+                    teamSName: match["matchInfo"]["team1"]["teamSName"],
+                    imageId: match["matchInfo"]["team1"]["imageId"],
+                  ),
+                  team2: RapidTeam(
+                    teamId: match["matchInfo"]["team2"]["teamId"],
+                    teamName: match["matchInfo"]["team2"]["teamName"],
+                    teamSName: match["matchInfo"]["team2"]["teamSName"],
+                    imageId: match["matchInfo"]["team2"]["imageId"],
+                  ),
+                  venueInfo: RapidVenueInfo(
+                    id: match["matchInfo"]["venueInfo"]["id"],
+                    ground: match["matchInfo"]["venueInfo"]["ground"],
+                    city: match["matchInfo"]["venueInfo"]["city"],
+                  ),
+                  currBatTeamId: match["matchInfo"]["currBatTeamId"],
+                  seriesStartDt: match["matchInfo"]["seriesStartDt"],
+                  seriesEndDt: match["matchInfo"]["seriesEndDt"],
+                  isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
+                  stateTitle: match["matchInfo"]["stateTitle"],
+                ),
+              ),
+            );
+          }
+
+          print("Rapid Upcomming Match Lenth: ${rapidUpcomingList.length}");
+          print(
+              "Rapid Upcomming Series Name: ${rapidUpcomingList[0].matchInfo!.seriesName!}");
+
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
   //
   // Future<void> getRecentMatches() async {
   //   loading(true);
@@ -686,22 +535,20 @@ class HomeController extends GetxController {
 
   //Monk API Service
   Future<List<MonkLive>> getLive() async {
-    List<MonkLive>   monk_live=[];
+    List<MonkLive> monk_live = [];
     await ApiService.instance.apiCall(
         execute: () async =>
-
-        await ApiService.instance.get(ApiEndpoints.monkLiveMatches),
+            await ApiService.instance.get(ApiEndpoints.monkLiveMatches),
         onSuccess: (response) {
           print("Live Response: $response");
           var lives = response["data"];
-          for(var live in lives){
+          for (var live in lives) {
             monk_live.add(MonkLive(
-              id:live["id"],
+              id: live["id"],
               league_id: live["league_id"],
               round: live["round"],
               localteam_id: live["localteam_id"],
               visitorteam_id: live["visitorteam_id"],
-
               starting_at: live["starting_at"],
               type: live["type"],
               live: live["live"],
@@ -712,38 +559,41 @@ class HomeController extends GetxController {
               winner_team_id: live["winner_team_id"],
               draw_noresult: live["draw_noresult"],
               total_overs_played: live["total_overs_played"],
-              localteam_dl_data: Score(score:live["localteam_dl_data"]["score"],overs:live["localteam_dl_data"]["overs"],wickets_out: live["localteam_dl_data"]["wickets_out"]  ) ,
-              visitorteam_dl_data:Score(score:live["visitorteam_dl_data"]["score"],overs:live["visitorteam_dl_data"]["overs"],wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
+              localteam_dl_data: Score(
+                  score: live["localteam_dl_data"]["score"],
+                  overs: live["localteam_dl_data"]["overs"],
+                  wickets_out: live["localteam_dl_data"]["wickets_out"]),
+              visitorteam_dl_data: Score(
+                  score: live["visitorteam_dl_data"]["score"],
+                  overs: live["visitorteam_dl_data"]["overs"],
+                  wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
             ));
           }
         },
         onError: (error) {
           print(error.toString());
-
         });
 
     // print(monk_live[0].round);
     return monk_live;
   }
+
   Future<MonkLeague> getLeague(String leagueId) async {
-    MonkLeague  monk_league=MonkLeague();
+    MonkLeague monk_league = MonkLeague();
     await ApiService.instance.apiCall(
-        execute: () async =>
-        await ApiService.instance.get(ApiEndpoints.monkLeague+leagueId+ApiEndpoints.monkAPIToken),
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkLeague + leagueId + ApiEndpoints.monkAPIToken),
         onSuccess: (response) {
           print("Leauge Response: ${response}");
           var data = response["data"];
           monk_league = MonkLeague(
-              id:data["id"],
+              id: data["id"],
               name: data["name"],
               code: data["code"],
-              image_path: data["image_path"]
-          );
-
+              image_path: data["image_path"]);
         },
         onError: (error) {
           print(error.toString());
-
         });
 
     print(monk_league.name);
@@ -752,49 +602,44 @@ class HomeController extends GetxController {
   }
 
   Future<MonkVanue> getVenue(String venueId) async {
-    MonkVanue  monk_venue=MonkVanue();
+    MonkVanue monk_venue = MonkVanue();
     await ApiService.instance.apiCall(
-        execute: () async =>
-        await ApiService.instance.get(ApiEndpoints.monkVanue+venueId+ApiEndpoints.monkAPIToken),
+        execute: () async => await ApiService.instance
+            .get(ApiEndpoints.monkVanue + venueId + ApiEndpoints.monkAPIToken),
         onSuccess: (response) {
           print("venue Response: ${response}");
           var data = response["data"];
           monk_venue = MonkVanue(
-              id:data["id"],
+              id: data["id"],
               name: data["name"],
               city: data["code"],
-              image_path: data["image_path"]
-          );
-
+              image_path: data["image_path"]);
         },
         onError: (error) {
           print(error.toString());
-
         });
 
     print(monk_venue.name);
     update();
     return monk_venue;
   }
+
   Future<MonkTeam> getTeam(String teamId) async {
-    MonkTeam  monkTeam=MonkTeam();
+    MonkTeam monkTeam = MonkTeam();
     await ApiService.instance.apiCall(
-        execute: () async =>
-        await ApiService.instance.get(ApiEndpoints.monkTeams+teamId+ApiEndpoints.monkAPIToken),
+        execute: () async => await ApiService.instance
+            .get(ApiEndpoints.monkTeams + teamId + ApiEndpoints.monkAPIToken),
         onSuccess: (response) {
           print("Team Response: ${response}");
           var data = response["data"];
           monkTeam = MonkTeam(
-              id:data["id"],
+              id: data["id"],
               name: data["name"],
               code: data["code"],
-              image_path: data["image_path"]
-          );
-
+              image_path: data["image_path"]);
         },
         onError: (error) {
           print(error.toString());
-
         });
 
     print(monkTeam.name);
@@ -872,9 +717,9 @@ class HomeController extends GetxController {
   }
 
   Future<bool> registerUser(String firstName, String lastName, String phone,
-      String password,String imageUrl) async {
+      String password, String imageUrl) async {
     final snapshot1 =
-    await FirebaseFirestore.instance.collection('Users').doc(phone).get();
+        await FirebaseFirestore.instance.collection('Users').doc(phone).get();
     if (snapshot1.exists) {
       showToast('This User is Already Exist');
       return false;
@@ -892,47 +737,6 @@ class HomeController extends GetxController {
         'totalPoint': '00',
       };
 
-
-
-      try {
-        await FirebaseFirestore.instance
-            .collection("Users")
-            .doc(map['id'])
-            .set(map);
-       await getUser(phone);
-        return true;
-      } catch (err) {
-        showToast('$err');
-        print(err);
-
-        return false;
-      }
-
-    }
-
-  }
-
-  Future<bool> registerUserWithGoogle(String firstName, String lastName, String phone,String email,
-      String password,String imageUrl) async {
-    // final snapshot1 =
-    // await FirebaseFirestore.instance.collection('Users').doc(phone).get();
-
-      DateTime date = DateTime.now();
-      String dateData = '${date.day}-${date.month}-${date.year}';
-      Map<String, dynamic> map = {
-        'firstName': firstName,
-        'lastName': lastName,
-        'phone': "",
-        'email':email,
-        'password': password,
-        'date': dateData,
-        'id': phone,
-        'profileImage': imageUrl,
-        'totalPoint': '00',
-      };
-
-
-
       try {
         await FirebaseFirestore.instance
             .collection("Users")
@@ -946,10 +750,43 @@ class HomeController extends GetxController {
 
         return false;
       }
-
-
-
+    }
   }
+
+  Future<bool> registerUserWithGoogle(String firstName, String lastName,
+      String phone, String email, String password, String imageUrl) async {
+    // final snapshot1 =
+    // await FirebaseFirestore.instance.collection('Users').doc(phone).get();
+
+    DateTime date = DateTime.now();
+    String dateData = '${date.day}-${date.month}-${date.year}';
+    Map<String, dynamic> map = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'phone': "",
+      'email': email,
+      'password': password,
+      'date': dateData,
+      'id': phone,
+      'profileImage': imageUrl,
+      'totalPoint': '00',
+    };
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(map['id'])
+          .set(map);
+      await getUser(phone);
+      return true;
+    } catch (err) {
+      showToast('$err');
+      print(err);
+
+      return false;
+    }
+  }
+
   // RxBool isLogIn = false.obs;
   Future<void> getUser(String userId) async {
     try {
@@ -972,20 +809,19 @@ class HomeController extends GetxController {
       });
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('userId', userModel.id!);
-
     } catch (error) {
       showToast('$error');
     }
     update();
   }
-  Future<bool> loginData(
-      String inputPhone, String inputPassword ) async {
+
+  Future<bool> loginData(String inputPhone, String inputPassword) async {
     final snapshot1 = await FirebaseFirestore.instance
         .collection('Users')
         .doc(inputPhone)
         .get();
     if (snapshot1.exists) {
-     await getUser(inputPhone);
+      await getUser(inputPhone);
       update();
       return false;
     } else {
@@ -995,50 +831,47 @@ class HomeController extends GetxController {
     return false;
   }
 
-  Future<bool> sellPoint(String sellPoints, String transectionNumber, String password,
-      String transectionMethod) async {
+  Future<bool> sellPoint(String sellPoints, String transectionNumber,
+      String password, String transectionMethod) async {
+    DateTime date = DateTime.now();
+    String dateData = '${date.day}-${date.month}-${date.year}';
+    Map<String, dynamic> map = {
+      'sellPoints': sellPoints,
+      'transectionNumber': transectionNumber,
+      'transectionMethod': transectionMethod,
+      'password': password,
+      'date': dateData,
+      'id': "${date.microsecondsSinceEpoch}",
+    };
+    try {
+      await FirebaseFirestore.instance
+          .collection("SellPoint")
+          .doc(map['id'])
+          .set(map);
 
-      DateTime date = DateTime.now();
-      String dateData = '${date.day}-${date.month}-${date.year}';
-      Map<String, dynamic> map = {
-        'sellPoints': sellPoints,
-        'transectionNumber': transectionNumber,
-        'transectionMethod': transectionMethod,
-        'password': password,
-        'date': dateData,
-        'id': "${date.microsecondsSinceEpoch}",
-      };
-      try {
-        await FirebaseFirestore.instance
-            .collection("SellPoint")
-            .doc(map['id'])
-            .set(map);
+      await updatePoints(sellPoints, false);
 
-       await  updatePoints(sellPoints,false);
+      return true;
+    } catch (err) {
+      showToast('$err');
+      print(err);
 
-        return true;
-      } catch (err) {
-        showToast('$err');
-        print(err);
-
-        return false;
-      }
-
-
-
+      return false;
+    }
   }
-  
-  Future<bool>updatePoints(String sellPoint, bool isAdd)async{
+
+  Future<bool> updatePoints(String sellPoint, bool isAdd) async {
     final prefs = await SharedPreferences.getInstance();
 
-     await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('Users')
         .doc(prefs.getString('userId'))
         .update({
-      "totalPoint":isAdd? "${int.parse(userModel.totalPoint!) + int.parse(sellPoint)}":"${int.parse(userModel.totalPoint!) - int.parse(sellPoint)}",
+      "totalPoint": isAdd
+          ? "${int.parse(userModel.totalPoint!) + int.parse(sellPoint)}"
+          : "${int.parse(userModel.totalPoint!) - int.parse(sellPoint)}",
     });
     await getUser(prefs.getString('userId')!);
     return true;
   }
-
 }

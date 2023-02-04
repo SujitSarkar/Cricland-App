@@ -7,34 +7,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../model/rapid_model/recent_match_model.dart';
+import '../details_view/upcoming_details/upcoming_details_screen.dart';
+
 class UpcomingCardTile extends StatelessWidget {
+  final RapidMatch rapidMatch;
   const UpcomingCardTile({
     Key? key,
-    required this.title,
-    required this.leftCountryURL,
-    required this.leftCountryName,
-    required this.rightCountryURL,
-    required this.rightCountryName,
-    required this.startTime,
-    required this.status,
-    required this.onTap,
-    this.trailingWidget,
+    required this.rapidMatch,
   }) : super(key: key);
-
-  final String title;
-  final String? leftCountryURL;
-  final String? rightCountryURL;
-  final String? leftCountryName;
-  final String? rightCountryName;
-  final Widget? trailingWidget;
-  final String? startTime;
-  final String? status;
-  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => UpcomingDetailsScreen(
+              selectedIndex: 2,
+              rapidMatch: rapidMatch,
+            ),
+          ),
+        );
+      },
       child: Card(
         color: PublicController.pc.toggleCardBg(),
         elevation: 8,
@@ -47,7 +43,7 @@ class UpcomingCardTile extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      title,
+                      "${rapidMatch.matchInfo!.seriesName}",
                       style: CLTextStyle().nameTextStyle.copyWith(
                         fontSize: dSize(.04),
                         color: PublicController.pc.toggleTextColor(),
@@ -77,7 +73,7 @@ class UpcomingCardTile extends StatelessWidget {
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
                                 ApiEndpoints.imageMidPoint +
-                                    leftCountryURL! +
+                                    "${rapidMatch.matchInfo!.team1!.imageId}" +
                                     ApiEndpoints.imageLastPoint,
                                 headers: ApiEndpoints.headers,
                               ),
@@ -86,7 +82,7 @@ class UpcomingCardTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        leftCountryName!,
+                          "${rapidMatch.matchInfo!.team1!.teamSName}",
                         style: CLTextStyle().nameTextStyle.copyWith(
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
@@ -107,7 +103,7 @@ class UpcomingCardTile extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        status!,
+                        "${rapidMatch.matchInfo!.status}",
                         style: CLTextStyle().paragraphTextStyle.copyWith(
                           fontSize: dSize(.035),
                           fontWeight: FontWeight.w500,
@@ -137,7 +133,7 @@ class UpcomingCardTile extends StatelessWidget {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(startTime!) * 1000)).toString(),
+                                DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(rapidMatch.matchInfo!.startDate!) * 1000)).toString(),
                                 style: CLTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.green,
                                     fontSize: dSize(.03),
@@ -160,7 +156,7 @@ class UpcomingCardTile extends StatelessWidget {
                           image: DecorationImage(
                               image: CachedNetworkImageProvider(
                                 ApiEndpoints.imageMidPoint +
-                                    rightCountryURL! +
+                                    "${rapidMatch.matchInfo!.team2!.imageId}" +
                                     ApiEndpoints.imageLastPoint,
                                 headers: ApiEndpoints.headers,
                               ),
@@ -168,7 +164,7 @@ class UpcomingCardTile extends StatelessWidget {
                               filterQuality: FilterQuality.low),
                         ),
                       ),
-                      Text(rightCountryName!,
+                      Text(rapidMatch.matchInfo!.team2!.teamSName!,
                           style: CLTextStyle().nameTextStyle.copyWith(
                             fontSize: dSize(.04),
                             fontWeight: FontWeight.w500,
