@@ -41,276 +41,350 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isSignUp = false;
   @override
   Widget build(BuildContext context) {
-    return  GetBuilder<HomeController>(builder: (homeController)
-    {
-      return  Scaffold(
+    return GetBuilder<HomeController>(builder: (homeController) {
+      return Scaffold(
         appBar: AppBar(
-          title: Text(_isSignUp?"SignUp":'Login',
+          title: Text(_isSignUp ? "SignUp" : 'Login',
               style: TextStyle(fontSize: dSize(.045))),
         ),
-        body: _isSignUp?_bodyUISignUp(context,homeController): _bodyUI(context,homeController),
+        body: _isSignUp
+            ? _bodyUISignUp(context, homeController)
+            : _bodyUI(context, homeController),
       );
-    }
-    );
+    });
   }
 
-  Widget _bodyUI(BuildContext context,HomeController homeController)=>Obx(() => ListView(
-    physics: const BouncingScrollPhysics(),
-    padding: EdgeInsets.all(dSize(.04)),
-    children: [
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: dSize(.07),vertical: dSize(.05)),
-        decoration: BoxDecoration(
-          color: PublicController.pc.toggleCardBg(),
-          borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-        ),
-        child: Column(
-          children: [
-            SizedBox(height: dSize(.05)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/dark_logo.png',height: dSize(.2)),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+  Widget _bodyUI(BuildContext context, HomeController homeController) =>
+      Obx(() => ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.all(dSize(.04)),
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: dSize(.07), vertical: dSize(.05)),
+                decoration: BoxDecoration(
+                  color: PublicController.pc.toggleCardBg(),
+                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
+                ),
+                child: Column(
                   children: [
-                    Text('Cricland',style: _textStyle.copyWith(fontSize: dSize(.1),fontStyle:FontStyle.italic,fontWeight: FontWeight.bold)),
-                    Text('Login/Signup',textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: dSize(.05),fontWeight: FontWeight.bold,color: AllColor.goldenColor)),
+                    SizedBox(height: dSize(.05)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/dark_logo.png', height: dSize(.2)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Cricland',
+                                style: _textStyle.copyWith(
+                                    fontSize: dSize(.1),
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold)),
+                            Text('Login/Signup',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    fontSize: dSize(.05),
+                                    fontWeight: FontWeight.bold,
+                                    color: AllColor.goldenColor)),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: dSize(.05)),
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: dSize(.1)),
+                      child: Text(
+                          'SignIn to Earn by clicking Add.'
+                          ' and enjoy cricket with happiness',
+                          style: _textStyle,
+                          textAlign: TextAlign.center),
+                    ),
+                    SizedBox(height: dSize(.1)),
+                    TextFieldTile(
+                      controller: phoneController,
+                      hintText: "Phone Number",
+                      labelText: "Phone Number",
+                    ),
+                    SizedBox(height: dSize(.05)),
+                    TextFieldTile(
+                      controller: passwordController,
+                      hintText: "Password",
+                      labelText: "Password",
+                    ),
+                    SizedBox(height: dSize(.05)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: dSize(.03)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              _googleLogin(homeController);
+                            },
+                            icon: Icon(FontAwesomeIcons.google,
+                                color: Colors.deepOrangeAccent,
+                                size: dSize(.06)),
+                          ),
+                          SizedBox(width: dSize(.03)),
+                          IconButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Upcoming Feature")));
+                              // _facebookLogin();
+                            },
+                            icon: Icon(FontAwesomeIcons.facebook,
+                                color: Colors.blueAccent, size: dSize(.06)),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // TextButton(onPressed: (){
+                    //   _showLoginModal(context,homeController);
+                    // }, child: const Text("Social SignIn"),),
+                    RichText(
+                      text: TextSpan(
+                        text: 'If You Are a New User ',
+                        style: _textStyle,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '  Signup',
+                            style: _textStyle.copyWith(
+                                fontSize: dSize(.035),
+                                fontWeight: FontWeight.bold,
+                                color: AllColor.fbColor),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                setState(() {
+                                  _isSignUp = true;
+                                });
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: dSize(.05)),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: AllColor.purpleColor,
+                      ),
+                      onPressed: () async {
+                        if (phoneController.text.isNotEmpty &&
+                            passwordController.text.isNotEmpty) {
+                          await homeController
+                              .loginData(
+                                  phoneController.text, passwordController.text)
+                              .then((value) async {
+                            if (phoneController.text ==
+                                    homeController.userModel.phone &&
+                                passwordController.text ==
+                                    homeController.userModel.password) {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs
+                                  .setString(
+                                      'userId', homeController.userModel.id!)
+                                  .then((value) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomeNavPage()));
+                              }).then((value) {
+                                showToast('Successfully login');
+                                _emptyFieldCreator();
+                              });
+                            } else {
+                              showToast('Phone or Password is Invalid');
+                            }
+                          });
+                        } else {
+                          showToast('All Field is required');
+                        }
+
+                        // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: dSize(.25)),
+                        child: Text(
+                          'Submit',
+                          style: _textStyle.copyWith(
+                              fontSize: dSize(.035),
+                              fontWeight: FontWeight.bold,
+                              color: AllColor.lightCardColor),
+                        ),
+                      ),
+                    )
                   ],
-                )
-              ],
-            ),
-            SizedBox(height: dSize(.05)),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: dSize(.1)),
-              child: Text('SignIn to Earn by clicking Add.'
-                  ' and enjoy cricket with happiness',
-                  style: _textStyle,textAlign: TextAlign.center),
-            ),
-            SizedBox(height: dSize(.1)),
-            TextFieldTile(controller: phoneController,hintText: "Phone Number",labelText: "Phone Number",),
-            SizedBox(height: dSize(.05)),
-            TextFieldTile(controller: passwordController,hintText: "Password",labelText: "Password",),
-            SizedBox(height: dSize(.05)),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: dSize(.03)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(onPressed: (){
-                    _googleLogin(homeController);
-                  }, icon: Icon(FontAwesomeIcons.google,color: Colors.deepOrangeAccent,size: dSize(.06)),),
-
-
-                  SizedBox(width: dSize(.03)),
-                  IconButton(onPressed: (){
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Upcoming Feature")));
-                   // _facebookLogin();
-                  }, icon:   Icon(FontAwesomeIcons.facebook,color: Colors.blueAccent,size: dSize(.06)),)
-
-                ],
+                ),
               ),
-            ),
-
-
-
-            // TextButton(onPressed: (){
-            //   _showLoginModal(context,homeController);
-            // }, child: const Text("Social SignIn"),),
-            RichText(
-              text: TextSpan(
-                text: 'If You Are a New User ',
-                style: _textStyle,
-                children:  <TextSpan>[
-                  TextSpan(text: '  Signup',style: _textStyle.copyWith(fontSize: dSize(.035),fontWeight: FontWeight.bold,color: AllColor.fbColor),
-                    recognizer:  TapGestureRecognizer()..onTap = () {
-                    setState(() {
-                      _isSignUp = true;
-                    });
-
-                    },
-                  ),
-
-                ],
-              ),
-            ),
-
-            SizedBox(height: dSize(.05)),
-            TextButton(style: TextButton.styleFrom(
-              backgroundColor: AllColor.purpleColor,
-            ),
-              onPressed: ()async{
-
-              if(phoneController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                await homeController
-                    .loginData(phoneController.text,
-                    passwordController.text)
-                    .then((value) async {
-                  if (phoneController.text ==
-                      homeController.userModel.phone &&
-                      passwordController.text ==
-                          homeController.userModel.password) {
-                    SharedPreferences prefs =
-                    await SharedPreferences.getInstance();
-                    prefs.setString(
-                        'userId', homeController.userModel.id!)
-                        .then((value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                              const HomeNavPage()));
-                    }).then((value) {
-                      showToast('Successfully login');
-                      _emptyFieldCreator();
-                    });
-                  } else {
-                    showToast('Phone or Password is Invalid');
-                  }
-                });
-              }else {
-                showToast('All Field is required');
-              }
-
-
-               // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
-              },
-              child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: dSize(.25)),
-                child: Text('Submit',style: _textStyle.copyWith(fontSize: dSize(.035),fontWeight: FontWeight.bold,color: AllColor.lightCardColor),),
-              ),)
-
-          ],
-        ),
-      ),
-
-
-    ],
-  ));
+            ],
+          ));
   _emptyFieldCreator() {
     phoneController.clear();
     passwordController.clear();
   }
-  Widget _bodyUISignUp(BuildContext context,HomeController homeController)=>Obx(() => ListView(
-    physics: const BouncingScrollPhysics(),
-    padding: EdgeInsets.all(dSize(.04)),
-    children: [
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: dSize(.07),vertical: dSize(.05)),
-        decoration: BoxDecoration(
-          color: PublicController.pc.toggleCardBg(),
-          borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/dark_logo.png',height: dSize(.2)),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+
+  Widget _bodyUISignUp(BuildContext context, HomeController homeController) =>
+      Obx(() => ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.all(dSize(.04)),
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: dSize(.07), vertical: dSize(.05)),
+                decoration: BoxDecoration(
+                  color: PublicController.pc.toggleCardBg(),
+                  borderRadius: BorderRadius.all(Radius.circular(dSize(.02))),
+                ),
+                child: Column(
                   children: [
-                    Text('Cricland',style: _textStyle.copyWith(fontSize: dSize(.1),fontStyle:FontStyle.italic,fontWeight: FontWeight.bold)),
-                    Text('Login/Signup',textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: dSize(.05),fontWeight: FontWeight.bold,color: AllColor.goldenColor)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/dark_logo.png', height: dSize(.2)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Cricland',
+                                style: _textStyle.copyWith(
+                                    fontSize: dSize(.1),
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold)),
+                            Text('Login/Signup',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    fontSize: dSize(.05),
+                                    fontWeight: FontWeight.bold,
+                                    color: AllColor.goldenColor)),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: dSize(.05)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: dSize(.1)),
+                      child: Text(
+                          'SignIn to Earn by clicking Add.'
+                          ' and enjoy cricket with happiness',
+                          style: _textStyle,
+                          textAlign: TextAlign.center),
+                    ),
+                    SizedBox(height: dSize(.06)),
+                    TextFieldTile(
+                      controller: firstNameController,
+                      hintText: "First Name",
+                      labelText: "First Name",
+                    ),
+                    SizedBox(height: dSize(.06)),
+                    TextFieldTile(
+                      controller: lastNameController,
+                      hintText: "Last Name",
+                      labelText: "Last Name",
+                    ),
+                    SizedBox(height: dSize(.06)),
+                    TextFieldTile(
+                      controller: phoneController,
+                      hintText: "Phone Number",
+                      labelText: "Phone Number",
+                    ),
+                    SizedBox(height: dSize(.06)),
+                    TextFieldTile(
+                        controller: passwordController,
+                        hintText: "Password",
+                        labelText: "Password",
+                        obscure: true),
+                    SizedBox(height: dSize(.06)),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Already Have an account ?',
+                        style: _textStyle,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '  SignIn',
+                            style: _textStyle.copyWith(
+                                fontSize: dSize(.035),
+                                fontWeight: FontWeight.bold,
+                                color: AllColor.fbColor),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                setState(() {
+                                  _isSignUp = false;
+                                });
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: dSize(.06)),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: AllColor.purpleColor,
+                      ),
+                      onPressed: () {
+                        if (firstNameController.text.isNotEmpty &&
+                            lastNameController.text.isNotEmpty &&
+                            phoneController.text.isNotEmpty &&
+                            passwordController.text.isNotEmpty) {
+                          setState(() {
+                            _isLoading = true;
+                            homeController
+                                .registerUser(
+                                    firstNameController.text,
+                                    lastNameController.text,
+                                    phoneController.text,
+                                    passwordController.text,
+                                    "")
+                                .then((value) {
+                              setState(() {
+                                _isLoading = false;
+                              });
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeNavPage(),
+                                ),
+                              );
+
+                              _emptyFieldCreatorSignUp();
+                            });
+                          });
+                        } else {
+                          showToast('All Field is required');
+                        }
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: dSize(.25)),
+                        child: _isLoading
+                            ? const Center(child: CircularProgressIndicator())
+                            : Text(
+                                'Submit',
+                                style: _textStyle.copyWith(
+                                    fontSize: dSize(.035),
+                                    fontWeight: FontWeight.bold,
+                                    color: AllColor.lightCardColor),
+                              ),
+                      ),
+                    ),
+                    SizedBox(height: dSize(.06)),
                   ],
-                )
-              ],
-            ),
-            SizedBox(height: dSize(.05)),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: dSize(.1)),
-              child: Text('SignIn to Earn by clicking Add.'
-                  ' and enjoy cricket with happiness',
-                  style: _textStyle,textAlign: TextAlign.center),
-            ),
-            SizedBox(height: dSize(.06)),
-
-            TextFieldTile(controller: firstNameController,
-              hintText: "First Name",labelText: "First Name",),
-            SizedBox(height: dSize(.06)),
-            TextFieldTile(controller: lastNameController,hintText: "Last Name",labelText: "Last Name",),
-            SizedBox(height: dSize(.06)),
-            TextFieldTile(controller: phoneController,hintText: "Phone Number",labelText: "Phone Number",),
-            SizedBox(height: dSize(.06)),
-            TextFieldTile(controller: passwordController,hintText: "Password",labelText: "Password",obscure:true),
-            SizedBox(height: dSize(.06)),
-
-
-            RichText(
-              text: TextSpan(
-                text: 'Already Have an account ?',
-                style: _textStyle,
-                children:  <TextSpan>[
-                  TextSpan(text: '  SignIn',style: _textStyle.copyWith(fontSize: dSize(.035),fontWeight: FontWeight.bold,color: AllColor.fbColor),
-                    recognizer:  TapGestureRecognizer()..onTap = () {
-  setState(() {
-    _isSignUp = false;
-  });
-
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(height: dSize(.06)),
-            TextButton(style: TextButton.styleFrom(
-              backgroundColor: AllColor.purpleColor,
-            ),
-              onPressed: (){
+            ],
+          ));
 
-                if( firstNameController.text.isNotEmpty &&  lastNameController.text.isNotEmpty &&  phoneController.text.isNotEmpty && passwordController.text.isNotEmpty){
-                  setState(() {
-                    _isLoading = true;
-                    homeController
-                        .registerUser(
-                      firstNameController.text,
-                      lastNameController.text,
-                      phoneController.text,
-                      passwordController.text,
-                      ""
-
-                    ).then((value) {
-                      setState(() {
-                        _isLoading = false;
-                      });
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomeNavPage(),),);
-
-                      _emptyFieldCreatorSignUp();
-                    });
-                  });
-                }else {
-
-                  showToast('All Field is required');
-
-                }
-
-
-              }, child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: dSize(.25)),
-                child: _isLoading ?const Center(child: CircularProgressIndicator()): Text('Submit',style: _textStyle.copyWith(fontSize: dSize(.035),fontWeight: FontWeight.bold,color: AllColor.lightCardColor),),
-              ),),
-            SizedBox(height: dSize(.06)),
-
-          ],
-        ),
-      ),
-    ],
-  ));
   _emptyFieldCreatorSignUp() {
     firstNameController.clear();
     lastNameController.clear();
     phoneController.clear();
     passwordController.clear();
-
   }
+
   // void _showLoginModal(BuildContext context,HomeController homeController) {
   //   showModalBottomSheet(
   //       context: context,
@@ -405,8 +479,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //         )),
   //       ));
   // }
-  _facebookLogin()async{
-
+  _facebookLogin() async {
     final fb = FacebookLogin();
 
     final res = await fb.logIn(permissions: [
@@ -414,11 +487,8 @@ class _LoginScreenState extends State<LoginScreen> {
       FacebookPermission.email,
     ]);
 
-
     switch (res.status) {
-
       case FacebookLoginStatus.success:
-
         final FacebookAccessToken? accessToken = res.accessToken;
         print('Access token: ${accessToken!.token}');
 
@@ -433,65 +503,56 @@ class _LoginScreenState extends State<LoginScreen> {
         // Get email (since we request email permission)
         final email = await fb.getUserEmail();
         // But user can decline permission
-        if (email != null)
-          print('And your email is $email');
+        if (email != null) print('And your email is $email');
 
         break;
       case FacebookLoginStatus.cancel:
-      // User cancel log in
+        // User cancel log in
         break;
       case FacebookLoginStatus.error:
-      // Log in failed
+        // Log in failed
         print('Error while log in: ${res.error}');
         break;
     }
   }
 
-  _googleLogin(HomeController homeController)async{
+  _googleLogin(HomeController homeController) async {
     final googleSignIn = GoogleSignIn();
     GoogleSignInAccount? _user;
     final googleUser = await googleSignIn.signIn();
-    if(googleUser == null)return;
+    if (googleUser == null) return;
     _user = googleUser;
-
-
 
     final googleAuth = await googleUser.authentication;
 
     final credential = GoogleAuthProvider.credential(
-      accessToken:  googleAuth.accessToken,
-      idToken:  googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(credential).then((value) async{
-
-        setState(() {
-          _isLoading = true;
-          homeController
-              .registerUserWithGoogle(
-            _user!.displayName!,
-            "",
-            _user.id,
-              _user.email,
-            "",
-            _user.photoUrl!
-          ).then((value) async{
-            final prefs = await SharedPreferences.getInstance();
-            await prefs.setString('userId', _user!.id);
-
-            setState(() {
-              _isLoading = false;
-            });
+    await FirebaseAuth.instance
+        .signInWithCredential(credential)
+        .then((value) async {
+      setState(() {
+        _isLoading = true;
+        homeController
+            .registerUserWithGoogle(_user!.displayName!, "", _user.id,
+                _user.email, "", _user.photoUrl!)
+            .then((value) async {
+          setState(() {
+            _isLoading = false;
           });
         });
+      });
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeNavPage(),),);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeNavPage(),
+        ),
+      );
 
-
-     // Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(),),);
+      // Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen(),),);
     });
   }
 }
