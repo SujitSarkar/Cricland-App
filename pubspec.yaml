@@ -43,6 +43,7 @@ dependencies:
   flutter_login_facebook: ^1.7.0
   firebase_auth:
   google_sign_in: ^5.4.3
+  animated_text_kit: ^4.2.2
 
 
 
@@ -57,6 +58,7 @@ flutter:
   assets:
     - assets/
     - assets/language/
+    - assets/lottie/
 
   fonts:
     - family: openSans
