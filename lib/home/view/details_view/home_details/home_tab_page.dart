@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
-import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
-import 'package:cricland/home/view/widgets/slider_card_tile.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -13,7 +10,6 @@ import '../../../../IPL/view/series_screen.dart';
 import '../../widgets/finished_card_tile.dart';
 import '../../widgets/fixtures_card_tile.dart';
 import '../../widgets/upcoming_card_tile.dart';
-import '../upcoming_details/upcoming_details_screen.dart';
 
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({Key? key}) : super(key: key);

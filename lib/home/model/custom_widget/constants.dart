@@ -11,7 +11,7 @@ class CLTextStyle {
   TextStyle menuBarTextStyle = TextStyle(
     fontFamily: "openSans",
     fontSize: dSize(.03),
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w500,
     color: PublicController.pc.toggleTextColor(),
   );
 

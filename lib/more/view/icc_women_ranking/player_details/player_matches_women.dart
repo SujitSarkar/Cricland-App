@@ -49,16 +49,16 @@ class _PlayerMatchesWomenState extends State<PlayerMatchesWomen> {
                           borderRadius:
                               BorderRadius.all(Radius.circular(dSize(.02)))),
                       padding: EdgeInsets.symmetric(
-                          vertical: dSize(.015), horizontal: dSize(.04)),
+                          vertical: dSize(.025), horizontal: dSize(.04)),
                       child: Text(
                         item,
                         maxLines: 1,
                         style: CLTextStyle().optionTextStyle.copyWith(
-                          fontSize: dSize(.035),
-                          color: item == _gameType
-                              ? Colors.white
-                              : PublicController.pc.toggleTextColor(),
-                        ),
+                              fontSize: dSize(.035),
+                              color: item == _gameType
+                                  ? Colors.white
+                                  : PublicController.pc.toggleTextColor(),
+                            ),
                       ),
                     ),
                   )))

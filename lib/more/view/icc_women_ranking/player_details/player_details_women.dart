@@ -7,6 +7,7 @@ import 'package:cricland/more/view/icc_women_ranking/player_details/player_match
 import 'package:cricland/more/view/icc_women_ranking/player_details/player_overview_women.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
@@ -54,7 +55,6 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                       handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                           context),
                       sliver: SliverAppBar(
-                        // title: const Text('Books'),
                         floating: true,
                         pinned: true,
                         snap: false,
@@ -63,45 +63,71 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                         flexibleSpace: Stack(
                           children: [
                             Positioned.fill(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(left: dSize(.055)),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: CLTextStyle().nameTextStyle
-                                            .copyWith(color: Colors.white),
+                                child: rankingController
+                                            .playerInfoModel.value.name !=
+                                        null
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          TextSpan(
-                                              text:
-                                                  '${rankingController.playerInfoModel.value.name} \n\n'),
-                                          TextSpan(
-                                              text:
-                                                  '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: dSize(.035))),
+                                          Expanded(
+                                            child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: dSize(.055)),
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    style: CLTextStyle()
+                                                        .nameTextStyle
+                                                        .copyWith(
+                                                            color: Colors.white,
+                                                            fontSize:
+                                                                dSize(.055)),
+                                                    children: [
+                                                      TextSpan(
+                                                          text:
+                                                              '${rankingController.playerInfoModel.value.name} \n\n'),
+                                                      TextSpan(
+                                                          text:
+                                                              '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize:
+                                                                  dSize(.035))),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(80)),
+                                            child: CachedNetworkImage(
+                                                imageUrl: ApiEndpoint.imageUrl(
+                                                    rankingController
+                                                            .playerInfoModel
+                                                            .value
+                                                            .faceImageId ??
+                                                        '',
+                                                    p: 'de'),
+                                                httpHeaders: ApiEndpoint.header,
+                                                fit: BoxFit.fill,
+                                                height: 130,
+                                                width: 130,
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error,
+                                                            size: 120,
+                                                            color: Colors.grey),
+                                                placeholder: (context, url) =>
+                                                    const Icon(Icons.image,
+                                                        size: 120,
+                                                        color: Colors.grey)),
+                                          ),
                                         ],
-                                      ),
-                                    )),
-                                Container(
-                                  height: 130,
-                                  width: 130,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: CachedNetworkImageProvider(
-                                          ApiEndpoints.imageMidPoint +
-                                              "${rankingController.playerInfoModel.value.faceImageId}" +
-                                              ApiEndpoints.imageLastPoint,
-                                          headers: ApiEndpoints.headers,
-                                        ),
-                                        fit: BoxFit.fill),
-                                  ),
-                                ),
-                              ],
-                            ))
+                                      )
+                                    : const SizedBox.shrink())
                           ],
                         ),
                         bottom: _tabBar(),

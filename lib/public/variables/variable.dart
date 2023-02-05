@@ -107,13 +107,11 @@ class Variables {
           elevation: 0.0),
       canvasColor: Colors.transparent,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AllColor.primaryColor,
         elevation: 0.0,
         showUnselectedLabels: true,
         selectedItemColor: AllColor.primaryColor,
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
       bottomSheetTheme:
           const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
@@ -149,7 +147,6 @@ class Variables {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
       bottomSheetTheme:
           const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),

@@ -48,8 +48,8 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               Text(
                 homeController.playerInfoModel.bat ?? '',
                 style: CLTextStyle().nameTextStyle.copyWith(
-                  fontSize: dSize(.035),
-                ),
+                      fontSize: dSize(.035),
+                    ),
               )
             ],
           ),
@@ -73,8 +73,8 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                       child: Text(
                         '#${index + 1} Batter in ${Variables.manGameType[index]}',
                         style: CLTextStyle().paragraphTextStyle.copyWith(
-                          fontSize: dSize(.03),
-                        ),
+                              fontSize: dSize(.03),
+                            ),
                       ),
                     ),
                 separatorBuilder: (context, index) =>
@@ -182,11 +182,12 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(dSize(.02)))),
                         padding: EdgeInsets.symmetric(
-                            vertical: dSize(.015), horizontal: dSize(.04)),
+                            vertical: dSize(.025), horizontal: dSize(.04)),
                         child: Text(
                           item,
                           maxLines: 1,
-                          style: CLTextStyle().paragraphHeadLineTextStyle
+                          style: CLTextStyle()
+                              .paragraphHeadLineTextStyle
                               .copyWith(
                                   fontSize: dSize(.035),
                                   color: item == _gameType
@@ -226,9 +227,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                             item,
                             maxLines: 1,
                             style: CLTextStyle().paragraphTextStyle.copyWith(
-                              fontSize: dSize(.03),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                                  fontSize: dSize(.03),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                           ),
                         ],
                       ),
@@ -258,17 +259,17 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                             '1',
                             maxLines: 1,
                             style: CLTextStyle().paragraphTextStyle.copyWith(
-                              fontSize: dSize(.045),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                                  fontSize: dSize(.045),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                           ),
                           Text(
                             item,
                             maxLines: 1,
                             style: CLTextStyle().paragraphTextStyle.copyWith(
-                              fontSize: dSize(.03),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                                  fontSize: dSize(.03),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                           ),
                         ],
                       ),
@@ -298,17 +299,17 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                             '20',
                             maxLines: 1,
                             style: CLTextStyle().paragraphTextStyle.copyWith(
-                              fontSize: dSize(.045),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                                  fontSize: dSize(.045),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                           ),
                           Text(
                             item,
                             maxLines: 1,
                             style: CLTextStyle().paragraphTextStyle.copyWith(
-                              fontSize: dSize(.03),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                                  fontSize: dSize(.03),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
                           ),
                         ],
                       ),
@@ -324,9 +325,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               Text(
                 'Latest Updates',
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.04),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.04),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               ),
             ],
           ),
@@ -347,9 +348,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
           Text(
             'Teams played for',
             style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-              fontSize: dSize(.04),
-              color: PublicController.pc.toggleTextColor(),
-            ),
+                  fontSize: dSize(.04),
+                  color: PublicController.pc.toggleTextColor(),
+                ),
           ),
           Container(
             padding: EdgeInsets.all(dSize(.04)),
@@ -361,9 +362,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               rankingController.playerInfoModel.value.teams ?? 'N/A',
               textAlign: TextAlign.justify,
               style: CLTextStyle().paragraphTextStyle.copyWith(
-                fontSize: dSize(.038),
-                color: PublicController.pc.toggleTextColor(),
-              ),
+                    fontSize: dSize(.038),
+                    color: PublicController.pc.toggleTextColor(),
+                  ),
             ),
           ),
           SizedBox(height: dSize(.1)),
@@ -375,16 +376,16 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               Text(
                 'About ${rankingController.playerInfoModel.value.name ?? ''}',
                 style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                  fontSize: dSize(.04),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.04),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               ),
               Text(
                 'Player Info',
                 style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                  fontSize: dSize(.035),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               ),
             ],
           ),
@@ -469,18 +470,18 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               child: Text(
                 key,
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.035),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               )),
           Expanded(
               flex: 2,
               child: Text(
                 value,
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.035),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.035),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               )),
         ],
       );
@@ -498,9 +499,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               Text(
                 ' $title',
                 style: CLTextStyle().paragraphTextStyle.copyWith(
-                  fontSize: dSize(.04),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+                      fontSize: dSize(.04),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
               )
             ],
           ),

@@ -22,33 +22,28 @@ class CardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(leadingIcon, color: Colors.grey, size: dSize(.05)),
-          SizedBox(width: dSize(.03)),
-          Expanded(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(title,
-                        maxLines: 1,
-                        style: TextStyle(
-                            fontSize: dSize(.04),
-                            fontWeight: FontWeight.w500,
-                            color: PublicController.pc.toggleTextColor())),
-                    trailingWidget ??
-                        Icon(FontAwesomeIcons.angleRight,
-                            size: dSize(.045), color: Colors.grey),
-                  ],
-                ),
-                if (showDivider != null && showDivider!)
-                  Divider(height: dSize(.06), color: Colors.grey),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(leadingIcon, color: Colors.grey, size: dSize(.05)),
+              SizedBox(width: dSize(.03)),
+              Text(title,
+                  maxLines: 1,
+                  style: TextStyle(
+                      fontSize: dSize(.04),
+                      fontWeight: FontWeight.w500,
+                      color: PublicController.pc.toggleTextColor())),
+              const Spacer(),
+              trailingWidget ??
+                  Icon(FontAwesomeIcons.angleRight,
+                      size: dSize(.045), color: Colors.grey),
+            ],
           ),
+          if (showDivider != null && showDivider!)
+            Divider(height: dSize(.15), thickness: 0.2, color: Colors.grey),
         ],
       ),
     );
@@ -62,7 +57,7 @@ class MoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
       decoration: BoxDecoration(
           color: PublicController.pc.toggleCardBg(),
           borderRadius: const BorderRadius.all(Radius.circular(8))),

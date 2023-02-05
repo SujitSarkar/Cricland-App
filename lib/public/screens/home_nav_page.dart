@@ -34,44 +34,48 @@ class _HomeNavPageState extends State<HomeNavPage> {
       final LanguageController lc = Get.find();
       return Obx(() => Scaffold(
             body: _homeWidgets.elementAt(pc.selectedIndex.value),
-            bottomNavigationBar: Obx(() => BottomNavigationBar(
-                  selectedLabelStyle: CLTextStyle().menuBarTextStyle,
-                  unselectedLabelStyle: CLTextStyle().menuBarTextStyle,
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: const Icon(
-                        Icons.person,
-                        size: 30,
+            bottomNavigationBar: Obx(() => Material(
+                  color: PublicController.pc.toggleCardBg(),
+                  child: BottomNavigationBar(
+                      selectedLabelStyle: CLTextStyle().menuBarTextStyle,
+                      unselectedLabelStyle: CLTextStyle().menuBarTextStyle,
+                      items: [
+                        BottomNavigationBarItem(
+                          icon: const Icon(
+                            Icons.person,
+                            size: 30,
+                          ),
+                          label: lc.languageModel.value.profile,
+                        ),
+                        BottomNavigationBarItem(
+                          icon: const Icon(FontAwesomeIcons.trophy),
+                          label: lc.languageModel.value.ipl,
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Image.asset(
+                            'assets/match_logo.png',
+                            height: 30,
+                            width: 30,
+                            color: pc.selectedIndex.value == 2
+                                ? AllColor.blueColor
+                                : Colors.grey,
+                          ),
+                          label: lc.languageModel.value.match,
+                        ),
+                        BottomNavigationBarItem(
+                          icon: const Icon(FontAwesomeIcons.newspaper),
+                          label: lc.languageModel.value.trending,
+                        ),
+                        BottomNavigationBarItem(
+                          icon: const Icon(FontAwesomeIcons.ellipsisVertical),
+                          label: lc.languageModel.value.more,
+                        ),
+                      ],
+                      currentIndex: pc.selectedIndex.value,
+                      onTap: pc.onItemTapped,
+                      backgroundColor:
+                          Colors.red //PublicController.pc.toggleCardBg(),
                       ),
-                      label: lc.languageModel.value.profile,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(FontAwesomeIcons.trophy),
-                      label: lc.languageModel.value.ipl,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Image.asset(
-                        'assets/match_logo.png',
-                        height: 30,
-                        width: 30,
-                        color: pc.selectedIndex.value == 2
-                            ? AllColor.blueColor
-                            : Colors.grey,
-                      ),
-                      label: lc.languageModel.value.match,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(FontAwesomeIcons.newspaper),
-                      label: lc.languageModel.value.trending,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(FontAwesomeIcons.ellipsisVertical),
-                      label: lc.languageModel.value.more,
-                    ),
-                  ],
-                  currentIndex: pc.selectedIndex.value,
-                  onTap: pc.onItemTapped,
-                  backgroundColor: AllColor.primaryColor,
                 )),
           ));
     });
