@@ -94,21 +94,21 @@ class HomeController extends GetxController {
   }
 
   fetchInitData() async {
-    Future.delayed(const Duration(seconds: 3), () async {
+
       await getRecentMatches();
       await getUpcomingMatches();
-      //   await getUpComingMatches();
+
 
       //get Fixture
-      // await getFixturesMatches();
+       await getFixturesMatches();
       //  //get Series
       //   await getFeatureSeries();
-      //   await getPointTable("3718");
-      //   await getCommentaries("38356");
-      //   await getMatchSquad("3718");
-      //   await getPlayerSquad("3718", "15826");
-      //   await getPlayerInfo("6635");
-      //   await getMatchInfo("38356");
+        // await getPointTable("3718");
+        // await getCommentaries("38356");
+        // await getMatchSquad("3718");
+        // await getPlayerSquad("3718", "15826");
+        // await getPlayerInfo("6635");
+        // await getMatchInfo("38356");
       //
       //
 
@@ -118,7 +118,7 @@ class HomeController extends GetxController {
       if (uId != null) {
         getUser(uId);
       }
-    });
+
 
     getLive();
   }
@@ -136,7 +136,7 @@ class HomeController extends GetxController {
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.recentMatchData),
         onSuccess: (response) {
-          // print(response);
+           print(" Recent: $response");
 
           var matches = response["typeMatches"][0]["seriesMatches"][0]
               ["seriesAdWrapper"]["matches"];
@@ -154,7 +154,7 @@ class HomeController extends GetxController {
                   matchDesc: match["matchInfo"]["matchDesc"],
                   startDate: match["matchInfo"]["startDate"],
                   endDate: match["matchInfo"]["endDate"],
-                  // state: match["matchInfo"]["state"],
+                 state: match["matchInfo"]["state"],
                   status: match["matchInfo"]["status"],
                   team1: RapidTeam(
                     teamId: match["matchInfo"]["team1"]["teamId"],
@@ -255,7 +255,7 @@ class HomeController extends GetxController {
                   matchDesc: match["matchInfo"]["matchDesc"],
                   startDate: match["matchInfo"]["startDate"],
                   endDate: match["matchInfo"]["endDate"],
-                  // state: match["matchInfo"]["state"],
+                  state: match["matchInfo"]["state"],
                   status: match["matchInfo"]["status"],
                   team1: RapidTeam(
                     teamId: match["matchInfo"]["team1"]["teamId"],
@@ -296,7 +296,73 @@ class HomeController extends GetxController {
         });
     update();
   }
+  List<RapidMatch> rapidFixturesList = [];
+  Future<void> getFixturesMatches() async {
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.fixturesMatchDayData),
+        onSuccess: (response) {
 
+
+          var matches = response["matchScheduleMap"][0]["scheduleAdWrapper"][0]
+          ["matchScheduleList"];
+          print("Fixture: $matches");
+          //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
+          //   printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
+          for (var match in matches) {
+            rapidFixturesList.add(
+              RapidMatch(
+                matchInfo: RapidMatchInfo(
+                  matchId: match["matchInfo"]["matchId"],
+                  seriesId: match["matchInfo"]["seriesId"],
+                  seriesName: match["matchInfo"]["seriesName"],
+                  matchDesc: match["matchInfo"]["matchDesc"],
+                  startDate: match["matchInfo"]["startDate"],
+                  endDate: match["matchInfo"]["endDate"],
+                  state: match["matchInfo"]["state"],
+                  status: match["matchInfo"]["status"],
+                  team1: RapidTeam(
+                    teamId: match["matchInfo"]["team1"]["teamId"],
+                    teamName: match["matchInfo"]["team1"]["teamName"],
+                    teamSName: match["matchInfo"]["team1"]["teamSName"],
+                    imageId: match["matchInfo"]["team1"]["imageId"],
+                  ),
+                  team2: RapidTeam(
+                    teamId: match["matchInfo"]["team2"]["teamId"],
+                    teamName: match["matchInfo"]["team2"]["teamName"],
+                    teamSName: match["matchInfo"]["team2"]["teamSName"],
+                    imageId: match["matchInfo"]["team2"]["imageId"],
+                  ),
+                  venueInfo: RapidVenueInfo(
+                    id: match["matchInfo"]["venueInfo"]["id"],
+                    ground: match["matchInfo"]["venueInfo"]["ground"],
+                    city: match["matchInfo"]["venueInfo"]["city"],
+                  ),
+                  currBatTeamId: match["matchInfo"]["currBatTeamId"],
+                  seriesStartDt: match["matchInfo"]["seriesStartDt"],
+                  seriesEndDt: match["matchInfo"]["seriesEndDt"],
+                  isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
+                  stateTitle: match["matchInfo"]["stateTitle"],
+                ),
+              ),
+            );
+          }
+
+          print("Rapid Upcomming Match Lenth: ${rapidUpcomingList.length}");
+          print(
+              "Rapid Upcomming Series Name: ${rapidUpcomingList[0].matchInfo!.seriesName!}");
+
+          loading(false);
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+
+    update();
+  }
   //
   // Future<void> getRecentMatches() async {
   //   loading(true);
@@ -495,24 +561,24 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getFixturesMatches() async {
-    loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.fixturesMatchDayData),
-        onSuccess: (response) {
-          print("Fixtures Response: ${response}");
-          fixturesMatchModel = fixturesMatchModelFromJson(jsonEncode(response));
-          print("\n\nDDDDDDDD");
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-
-    update();
-  }
+  // Future<void> getFixturesMatches() async {
+  //   loading(true);
+  //   await ApiService.instance.apiCall(
+  //       execute: () async =>
+  //           await ApiService.instance.get(ApiEndpoints.fixturesMatchDayData),
+  //       onSuccess: (response) {
+  //         print("Fixtures Response: ${response}");
+  //         fixturesMatchModel = fixturesMatchModelFromJson(jsonEncode(response));
+  //         print("\n\nDDDDDDDD");
+  //         loading(false);
+  //       },
+  //       onError: (error) {
+  //         print(error.toString());
+  //         loading(false);
+  //       });
+  //
+  //   update();
+  // }
 
   Future<void> getFeatureSeries() async {
     loading(true);

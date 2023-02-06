@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../../IPL/view/series_screen.dart';
 import '../../widgets/finished_card_tile.dart';
 import '../../widgets/fixtures_card_tile.dart';
+import '../../widgets/home_card_tile.dart';
 import '../../widgets/upcoming_card_tile.dart';
 
 class HomeTabScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
   }
 
-
+  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +45,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   children: [
                   InkWell(
                 onTap: (){
+                  homeController.getFixturesMatches();
 
-
-                  print(homeController.rapidUpcomingList.length);
+                 // print(homeController.rapidUpcomingList.length);
                   // showDialog(
                   //   barrierDismissible: true,
                   //   context: context,
@@ -113,8 +114,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       itemCount: homeController.rapidRecentList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return FinishedCardTile(
-                          rapidMatch: homeController.rapidRecentList[index],
+                        return GestureDetector(
+                          onTap: (){
+                            setState((){
+                              selectedIndex = index;
+                            });
+
+                          },
+                          child: HomeCardTile(
+                            isExpanded: selectedIndex==index? true:false,
+                            rapidMatch:  homeController.rapidRecentList[index],
+                          ),
                         );
                       },
                     ),
@@ -127,8 +137,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       itemCount: homeController.rapidUpcomingList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return  UpcomingCardTile(
-                          rapidMatch:  homeController.rapidUpcomingList[index],
+                        return  GestureDetector(
+                          onTap: (){
+                            setState((){
+                              selectedIndex = index;
+                            });
+
+                          },
+                          child: HomeCardTile(
+                            isExpanded: selectedIndex==index? true:false,
+                            rapidMatch:  homeController.rapidUpcomingList[index],
+                          ),
                         );
                         //LiveCart(context);
                       },
