@@ -1,12 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import '../../home/model/custom_widget/constants.dart';
 import '../controller/public_controller.dart';
-import '../variables/config.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -32,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _initData() async {
-    Future.delayed(const Duration(seconds: 3))
+    Future.delayed(const Duration(milliseconds: 3500))
         .then((value) => Get.offAll(() => const HomeNavPage()));
   }
 
@@ -45,38 +42,24 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final LanguageController langController = Get.find();
+    final Size size = MediaQuery.of(context).size;
     langController.initializeApp(context);
     return GetBuilder<PublicController>(
         init: PublicController(),
         builder: (pc) {
           return Scaffold(
-              backgroundColor: Colors.white,
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Lottie.asset('assets/lottie/splash_lottie.json'),
-                    AnimatedTextKit(
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          'Crickland',
-                          textStyle: TextStyle(
-                              fontSize: dSize(.09),
-                              fontWeight: FontWeight.w900,
-                              color: const Color(0xffFF002D)),
-                          speed: const Duration(milliseconds: 100),
-                        ),
-                      ],
-                      totalRepeatCount: 100,
-                      pause: const Duration(milliseconds: 1000),
-                      displayFullTextOnTap: true,
-                      stopPauseOnTap: true,
-                    ),
-                  ],
-                ),
-              )
-              );
+              body: Container(
+            height: size.height,
+            width: size.width,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/splash_bg_image.jpg'),
+                    fit: BoxFit.fitHeight)),
+            child: SizedBox(
+                width: size.width * .8,
+                child: Lottie.asset('assets/lottie/splash_lottie.json')),
+          ));
         });
   }
 }

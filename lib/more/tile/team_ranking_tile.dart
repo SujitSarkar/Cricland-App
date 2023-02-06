@@ -20,7 +20,7 @@ class TeamRankingTile extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Text('${model.rank}',
-                      style: Style.titleStyle, textAlign: TextAlign.start)),
+                      style: Style().titleStyle, textAlign: TextAlign.start)),
               Expanded(
                   flex: 3,
                   child: Row(
@@ -42,7 +42,7 @@ class TeamRankingTile extends StatelessWidget {
                       SizedBox(width: dSize(.02)),
                       Expanded(
                           child: Text('${model.name}',
-                              style: Style.titleStyle,
+                              style: Style().titleStyle,
                               textAlign: TextAlign.start)),
                     ],
                   )),
@@ -55,13 +55,13 @@ class TeamRankingTile extends StatelessWidget {
             children: [
               Expanded(
                   child: Text('${model.matches}',
-                      style: Style.titleStyle, textAlign: TextAlign.center)),
+                      style: Style().titleStyle, textAlign: TextAlign.center)),
               Expanded(
                   child: Text('${model.points}',
-                      style: Style.titleStyle, textAlign: TextAlign.center)),
+                      style: Style().titleStyle, textAlign: TextAlign.center)),
               Expanded(
                 child: Text('${model.rating}',
-                    style: Style.titleStyle, textAlign: TextAlign.center),
+                    style: Style().titleStyle, textAlign: TextAlign.center),
               ),
             ],
           ),
