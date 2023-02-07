@@ -26,6 +26,7 @@ import '../../public/variables/colors.dart';
 
 class OverViewTab extends StatefulWidget {
   final String seriesId;
+
   const OverViewTab({Key? key, required this.seriesId}) : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _OverViewTabState extends State<OverViewTab> {
     //getMatches With Series ID
     //TODO change Dynamic Series ID
     await homeController.getSeriesMatches("3641");
-    await homeController.getMatchSquad("3641");
+  //  await homeController.getMatchSquad("3641");
     setState(() {});
   }
 
@@ -78,65 +79,24 @@ class _OverViewTabState extends State<OverViewTab> {
                         )
                       ],
                     ),
-                    homeController.seriesMatchListModel.matchDetails != null
-                        ? ListView.builder(
+                 ListView.builder(
                             itemCount: homeController
-                                .seriesMatchListModel.matchDetails!.length,
+                                .rapidSeriesMatchList.length,
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
-                              return homeController
-                                          .seriesMatchListModel
-                                          .matchDetails![index]
-                                          .matchDetailsMap !=
-                                      null
-                                  ? FeaturedMatchTile(
-                                      onTap: () {
-                                        print(homeController
-                                            .seriesMatchListModel
-                                            .matchDetails![index]
-                                            .matchDetailsMap!
-                                            .match!
-                                            .first
-                                            .matchInfo!
-                                            .team1!
-                                            .teamName);
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (_) => const HomeDetailsScreen(
-                                        //       teamS2Name: '',
-                                        //       teamS1Name: '',
-                                        //       matchDesc: '',
-                                        //       seriesID: '',
-                                        //       winningStatus: '',
-                                        //       team1ImageID: '',
-                                        //       team2Over: '',
-                                        //       team2ImageID: '',
-                                        //       matchID: '',
-                                        //       team1RunWicket: '',
-                                        //       team2RunWicket: '',
-                                        //       team1Over: '',
-                                        //     ),
-                                        //   ),
-                                        // );
-                                      },
-                                      leadingUrlOne:
-                                          "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.imageId}",
-                                      leadingUrlTwo:
-                                          "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.imageId}",
-                                      teamOne:
-                                          "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team1!.teamSName}",
-                                      teamTwo:
-                                          "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.team2!.teamSName}",
-                                      wonTeam:
-                                          "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.status}",
-                                      state:
-                                          "${homeController.seriesMatchListModel.matchDetails![index].matchDetailsMap!.match!.first.matchInfo!.matchFormat}",
-                                    )
-                                  : SizedBox();
-                            })
-                        : CircularProgressIndicator(),
+                              return  GestureDetector(
+                                onTap: (){
+                                  print(homeController
+                                      .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
+                                },
+                                child: FeaturedMatchTile(
+                                  seriesMatch:homeController
+                                      .rapidSeriesMatchList[index]),
+                              );
+
+                            }),
+
                     // ListTile(
                     //     leading: Text("Key Stats",
                     //         style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(

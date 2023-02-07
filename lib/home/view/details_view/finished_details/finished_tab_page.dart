@@ -6,6 +6,7 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/upcoming_card_tile.dart';
 import '../home_details/home_details_screen.dart';
 
 class FinishedTabScreen extends StatefulWidget {
@@ -34,15 +35,49 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                   SizedBox(
                     height: 12,
                   ),
-                  Text(
-                    "Yesterday",
-                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                      fontSize: dSize(.045),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12,
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: homeController.rapidRecentList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: (){
+
+
+                        },
+                        child: FinishedCardTile(
+                          rapidMatch: homeController.rapidRecentList[index],
+                          // onTap: () {
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (_) => UpcomingDetailsScreen(
+                          //         selectedIndex: index,
+                          //         startDate:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.startDate}",
+                          //         teamS2Name:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                          //         matchID:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                          //         teamS1Name:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                          //         matchDesc:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                          //         team1ImageID:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                          //         team2ImageID:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                          //         seriesID:
+                          //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesId}",
+                          //       ),
+                          //     ),
+                          //   );
+                          //
+                          // },
+
+                        ),
+                      );
+                    },
                   ),
                   // ListView.builder(
                   //   physics: const NeverScrollableScrollPhysics(),

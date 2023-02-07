@@ -6,8 +6,8 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '../home_details/home_details_screen.dart';
+
+import '../../widgets/finished_card_tile.dart';
 
 class FixturesTabScreen extends StatefulWidget {
   const FixturesTabScreen({Key? key}) : super(key: key);
@@ -140,73 +140,18 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
             const SizedBox(
               height: 5,
             ),
-            homeController.fixturesMatchModel.matchScheduleMap != null
-                ? Expanded(
+           Expanded(
                     child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: homeController
-                            .fixturesMatchModel
-                            .matchScheduleMap!
-                            .first
-                            .scheduleAdWrapper!
-                            .matchScheduleList!
-                            .length,
+                        itemCount:homeController.rapidFixturesList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          var path = homeController.fixturesMatchModel
-                              .matchScheduleMap![index].scheduleAdWrapper;
-                          return path != null
-                              ? FixturesCardTile(
-                                  title:
-                                      "${path.matchScheduleList!.first.seriesName}",
-                                  leadingUrlOne:
-                                      "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                  leadingUrlTwo:
-                                      "${path.matchScheduleList!.first.matchInfo!.first.team2!.imageId}",
-                                  teamOne:
-                                      "${path.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
-                                  teamTwo:
-                                      "${path.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
-                                  reachTitleOne: '',
-                                  reachTitleTwo: '',
-                                  reachSubTitleOne: '',
-                                  reachSubTitleTwo: '',
-                                  desc:
-                                      "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
-                                  date: "${path.date}",
-                                  onTap: () {
-                                    // Get.to(
-                                    //   HomeDetailsScreen(
-                                    //     teamS2Name:
-                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team2!.teamSName}",
-                                    //     matchID:
-                                    //         "${path.matchScheduleList!.first.matchInfo!.first.matchId}",
-                                    //     teamS1Name:
-                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team1!.teamSName}",
-                                    //     matchDesc:
-                                    //         "${path.matchScheduleList!.first.matchInfo!.first.matchDesc}",
-                                    //     team1RunWicket: "",
-                                    //     winningStatus: "",
-                                    //     team2RunWicket: "",
-                                    //     team1Over: "",
-                                    //     team2Over: "",
-                                    //     team1ImageID:
-                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                    //     team2ImageID:
-                                    //         "${path.matchScheduleList!.first.matchInfo!.first.team1!.imageId}",
-                                    //     seriesID:
-                                    //         "${path.matchScheduleList!.first.seriesId}",
-                                    //   ),
-                                    // );
-                                  },
-                                )
-                              : SizedBox();
+                          return FinishedCardTile(
+                            rapidMatch: homeController.rapidFixturesList[index],
+                          );
                         }),
                   )
-                : Padding(
-                    padding: EdgeInsets.symmetric(vertical: dSize(.5)),
-                    child: const Text("No Match Available"),
-                  ),
+
           ],
         ),
       );

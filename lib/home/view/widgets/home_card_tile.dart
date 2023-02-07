@@ -9,7 +9,7 @@ import 'package:cricland/home/model/custom_widget/constants.dart';
 class HomeCardTile extends StatefulWidget {
   final RapidMatch rapidMatch;
   final bool isExpanded;
-  const HomeCardTile({Key? key,required this.rapidMatch,required this.isExpanded}) : super(key: key);
+  const HomeCardTile({Key? key,required this.rapidMatch, this.isExpanded=true}) : super(key: key);
 
   @override
   State<HomeCardTile> createState() => _HomeCardTileState();

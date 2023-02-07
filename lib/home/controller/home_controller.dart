@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/home/model/commentaries_model.dart';
 import 'package:cricland/home/model/feature_series_model.dart';
@@ -31,6 +29,7 @@ import '../model/player_info_model.dart';
 import '../model/player_squad_model.dart';
 
 import '../model/rapid_model/recent_match_model.dart';
+import '../model/rapid_model/series_model.dart';
 import '../model/score_card_model.dart';
 
 class HomeController extends GetxController {
@@ -102,7 +101,7 @@ class HomeController extends GetxController {
       //get Fixture
        await getFixturesMatches();
       //  //get Series
-      //   await getFeatureSeries();
+        await getFeatureSeries();
         // await getPointTable("3718");
         // await getCommentaries("38356");
         // await getMatchSquad("3718");
@@ -304,56 +303,49 @@ class HomeController extends GetxController {
         await ApiService.instance.get(ApiEndpoints.fixturesMatchDayData),
         onSuccess: (response) {
 
+          var matches = response["matchScheduleMap"][0]["scheduleAdWrapper"]["matchScheduleList"];
+         print("Fixture: ${matches[0]["matchInfo"][0]["matchId"]}");
 
-          var matches = response["matchScheduleMap"][0]["scheduleAdWrapper"][0]
-          ["matchScheduleList"];
-          print("Fixture: $matches");
-          //  recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
-          //   printWrapped("Recent Response: ${matches[0]["matchScore"]["team1Score"]["inngs1"]["inningsId"]}\n\n");
           for (var match in matches) {
             rapidFixturesList.add(
               RapidMatch(
                 matchInfo: RapidMatchInfo(
-                  matchId: match["matchInfo"]["matchId"],
-                  seriesId: match["matchInfo"]["seriesId"],
-                  seriesName: match["matchInfo"]["seriesName"],
-                  matchDesc: match["matchInfo"]["matchDesc"],
-                  startDate: match["matchInfo"]["startDate"],
-                  endDate: match["matchInfo"]["endDate"],
-                  state: match["matchInfo"]["state"],
-                  status: match["matchInfo"]["status"],
+                  matchId: match["matchInfo"][0]["matchId"],
+                  seriesId: match["matchInfo"][0]["seriesId"],
+                  seriesName: match["seriesName"],
+                  matchDesc: match["matchInfo"][0]["matchDesc"],
+                  startDate: match["matchInfo"][0]["startDate"],
+                  endDate: match["matchInfo"][0]["endDate"]??"",
+                  state: match["matchInfo"][0]["state"]??"",
+                  status: match["seriesCategory"]??"",
                   team1: RapidTeam(
-                    teamId: match["matchInfo"]["team1"]["teamId"],
-                    teamName: match["matchInfo"]["team1"]["teamName"],
-                    teamSName: match["matchInfo"]["team1"]["teamSName"],
-                    imageId: match["matchInfo"]["team1"]["imageId"],
+                    teamId: match["matchInfo"][0]["team1"]["teamId"],
+                    teamName: match["matchInfo"][0]["team1"]["teamName"],
+                    teamSName: match["matchInfo"][0]["team1"]["teamSName"],
+                    imageId: match["matchInfo"][0]["team1"]["imageId"],
                   ),
                   team2: RapidTeam(
-                    teamId: match["matchInfo"]["team2"]["teamId"],
-                    teamName: match["matchInfo"]["team2"]["teamName"],
-                    teamSName: match["matchInfo"]["team2"]["teamSName"],
-                    imageId: match["matchInfo"]["team2"]["imageId"],
+                    teamId: match["matchInfo"][0]["team2"]["teamId"],
+                    teamName: match["matchInfo"][0]["team2"]["teamName"],
+                    teamSName: match["matchInfo"][0]["team2"]["teamSName"],
+                    imageId: match["matchInfo"][0]["team2"]["imageId"],
                   ),
                   venueInfo: RapidVenueInfo(
-                    id: match["matchInfo"]["venueInfo"]["id"],
-                    ground: match["matchInfo"]["venueInfo"]["ground"],
-                    city: match["matchInfo"]["venueInfo"]["city"],
+
+                    ground: match["matchInfo"][0]["venueInfo"]["ground"],
+                    city: match["matchInfo"][0]["venueInfo"]["city"],
                   ),
-                  currBatTeamId: match["matchInfo"]["currBatTeamId"],
-                  seriesStartDt: match["matchInfo"]["seriesStartDt"],
-                  seriesEndDt: match["matchInfo"]["seriesEndDt"],
-                  isTimeAnnounced: match["matchInfo"]["isTimeAnnounced"],
-                  stateTitle: match["matchInfo"]["stateTitle"],
+
+                  stateTitle: match["seriesCategory"]??"",
                 ),
               ),
             );
           }
 
-          print("Rapid Upcomming Match Lenth: ${rapidUpcomingList.length}");
+         print("Rapid Fixture Match Lenth: ${rapidFixturesList.length}");
           print(
-              "Rapid Upcomming Series Name: ${rapidUpcomingList[0].matchInfo!.seriesName!}");
+              "Rapid Fixture Series Name: ${rapidFixturesList[0].matchInfo!.seriesName!}");
 
-          loading(false);
           loading(false);
         },
         onError: (error) {
@@ -363,23 +355,113 @@ class HomeController extends GetxController {
 
     update();
   }
-  //
-  // Future<void> getRecentMatches() async {
-  //   loading(true);
-  //
-  //   await ApiService.instance.apiCall(
-  //       execute: () async =>
-  //       await ApiService.instance.get(ApiEndpoints.recentMatchData),
-  //       onSuccess: (response) {
-  //          recentMatchModel = recentMatchModelFromJson(jsonEncode(response));
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //   update();
-  // }
+  List<SeriesListModel> rapidFeatureSeriesList = [];
+  Future<void> getFeatureSeries() async {
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.featureSeriesData),
+        onSuccess: (response) {
+
+          var matches = response["seriesMapProto"];
+
+          print("Series: ${matches[0]["date"]}");
+
+          for (var match in matches) {
+            rapidFeatureSeriesList.add(
+              SeriesListModel(
+                date: match["date"],
+                seriesModel: SeriesModel(
+                  id:match["series"][0]["id"] ,
+                  name: match["series"][0]["name"] ,
+                  startDt: match["series"][0]["startDt"] ,
+                  endDt: match["series"][0]["endDt"] ,
+                )
+              ),
+            );
+          }
+          //
+         print("Rapid Series Match Lenth: ${rapidFeatureSeriesList.length}");
+          print(
+              "Rapid Series Name: ${rapidFeatureSeriesList[0].date!}");
+
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
+
+  List<RapidMatch> rapidSeriesMatchList = [];
+  Future<void> getSeriesMatches(String seriesID) async {
+    rapidSeriesMatchList=[];
+    loading(true);
+    await ApiService.instance.apiCall(
+        execute: () async =>
+        await ApiService.instance.get(ApiEndpoints.seriesMatchListData + seriesID),
+        onSuccess: (response) {
+
+
+          var matches = response["matchDetails"];
+
+          for (var i=0;i<matches.length;i++) {
+
+
+            if(i != 1 && i != 5){
+              print("S.Match ID: ${matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["matchId"]}");
+              rapidSeriesMatchList.add(
+                RapidMatch(
+                  matchInfo: RapidMatchInfo(
+                    matchId: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["matchId"],
+                    seriesId: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["seriesId"],
+                    seriesName: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["seriesName"],
+                    matchDesc: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["matchDesc"],
+                    startDate: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["startDate"],
+                    endDate: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["endDate"],
+                    state: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["state"],
+                    status: matches[i]["matchDetailsMap"]["key"],
+                    team1: RapidTeam(
+                      teamId: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team1"]["teamId"],
+                      teamName: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team1"]["teamName"],
+                      teamSName: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team1"]["teamSName"],
+                      imageId:matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team1"]["imageId"],
+                    ),
+                    team2: RapidTeam(
+                      teamId: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team2"]["teamId"],
+                      teamName: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team2"]["teamName"],
+                      teamSName: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team2"]["teamSName"],
+                      imageId: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["team2"]["imageId"],
+                    ),
+                    venueInfo: RapidVenueInfo(
+                      ground: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["venueInfo"]["ground"],
+                      city: matches[i]["matchDetailsMap"]["match"][0]["matchInfo"]["venueInfo"]["city"],
+                    ),
+
+                    //  stateTitle: match["matchDetailsMap"]["match"][0]["seriesCategory"]??"",
+                  ),
+                ),
+              );
+            }
+
+          }
+
+          print("Rapid S.Match Match Lenth: ${rapidSeriesMatchList.length}");
+          print(
+              "Rapid S.Match Series Name: ${rapidSeriesMatchList[0].matchInfo!.seriesName!}");
+
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+
+    update();
+  }
+
+
   Future<void> getMatchInfo(String matchId) async {
     loading(true);
 
@@ -484,22 +566,6 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getSeriesMatches(String seriesID) async {
-    loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance
-            .get(ApiEndpoints.seriesMatchListData + seriesID),
-        onSuccess: (response) {
-          seriesMatchListModel =
-              seriesMatchListModelFromJson(jsonEncode(response));
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-    update();
-  }
 
   Future<void> getPointTable(String seriesID) async {
     loading(true);
@@ -543,60 +609,9 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getUpComingMatches() async {
-    loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.upComingMatchData),
-        onSuccess: (response) {
-          print("Upcoming Response: ${response}");
-          upcomingMatchModel = upcomingMatchModelFromJson(jsonEncode(response));
-          print("\n\nDDDDDDDD");
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-    update();
-  }
 
-  // Future<void> getFixturesMatches() async {
-  //   loading(true);
-  //   await ApiService.instance.apiCall(
-  //       execute: () async =>
-  //           await ApiService.instance.get(ApiEndpoints.fixturesMatchDayData),
-  //       onSuccess: (response) {
-  //         print("Fixtures Response: ${response}");
-  //         fixturesMatchModel = fixturesMatchModelFromJson(jsonEncode(response));
-  //         print("\n\nDDDDDDDD");
-  //         loading(false);
-  //       },
-  //       onError: (error) {
-  //         print(error.toString());
-  //         loading(false);
-  //       });
-  //
-  //   update();
-  // }
 
-  Future<void> getFeatureSeries() async {
-    loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.featureSeriesData),
-        onSuccess: (response) {
-          print("Feature Response: ${response}");
-          featureSeriesModel = featureSeriesModelFromJson(jsonEncode(response));
-          print("\n\nDDDDDDDD");
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-    update();
-  }
+
 
   //Monk API Service
   Future<List<MonkLive>> getLive() async {
