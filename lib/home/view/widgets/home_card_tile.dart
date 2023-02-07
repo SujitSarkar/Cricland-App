@@ -25,14 +25,16 @@ class _HomeCardTileState extends State<HomeCardTile> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("${widget.rapidMatch.matchInfo!.seriesName}"),
-            IconButton(onPressed: (){
-              setState(() {
+            FittedBox(child: Text("${widget.rapidMatch.matchInfo!.seriesName}",style: const TextStyle(fontSize: 13),)),
+            FittedBox(
+              child: IconButton(onPressed: (){
+                setState(() {
 
 
-                // containerHeight==150?containerHeight=0: containerHeight==150;
-              });
-            }, icon: Icon(widget.isExpanded?Icons.keyboard_arrow_up_outlined:Icons.keyboard_arrow_down_outlined),)
+                  // containerHeight==150?containerHeight=0: containerHeight==150;
+                });
+              }, icon: Icon(widget.isExpanded?Icons.keyboard_arrow_up_outlined:Icons.keyboard_arrow_down_outlined),),
+            )
 
           ],
         ),

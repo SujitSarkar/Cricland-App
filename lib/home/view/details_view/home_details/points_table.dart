@@ -95,10 +95,7 @@ class _PointTableViewState extends State<PointTableView> {
                 // ),
               ],
             ),
-            PointTableTile(
-              onTap: () {},
-              title: '',
-            ),
+            PointTableTile(),
           ],
         ),
       ),

@@ -28,6 +28,7 @@ import '../model/monk/monk_vanue_model.dart';
 import '../model/player_info_model.dart';
 import '../model/player_squad_model.dart';
 
+import '../model/rapid_model/point_table_model.dart';
 import '../model/rapid_model/recent_match_model.dart';
 import '../model/rapid_model/series_model.dart';
 import '../model/score_card_model.dart';
@@ -42,7 +43,7 @@ class HomeController extends GetxController {
   late FixturesMatchModel fixturesMatchModel;
   late FeatureSeriesModel featureSeriesModel;
   late ScoreCardModel scoreCardModel;
-  late PointTableModel pointTableModel;
+
   late CommentariesModel commentariesModel;
   late SeriesMatchListModel seriesMatchListModel;
   late RecentMatchInfoModel matcheInfoModel;
@@ -69,7 +70,7 @@ class HomeController extends GetxController {
     fixturesMatchModel = FixturesMatchModel();
     featureSeriesModel = FeatureSeriesModel();
     scoreCardModel = ScoreCardModel();
-    pointTableModel = PointTableModel();
+
     seriesMatchListModel = SeriesMatchListModel();
     matchSquadModel = MatchSquadModel();
     playerInfoModel = PlayerInfoModel();
@@ -460,6 +461,40 @@ class HomeController extends GetxController {
 
     update();
   }
+ List<RapidPointTableModel>  rapidPointTableList = [];
+  Future<void> getPointTable(String seriesID) async {
+    loading(true);
+    rapidPointTableList = [];
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.seriesPointTableData + seriesID + "/points-table"),
+        onSuccess: (response) {
+          var points = response["pointsTable"][0]["pointsTableInfo"];
+          for (var point in points) {
+            rapidPointTableList.add(
+                RapidPointTableModel(
+                  teamId: point["teamId"],
+                  teamName:point["teamName"],
+                  matchesPlayed:point["matchesPlayed"],
+                  matchesWon: point["matchesWon"],
+                  matchesDrawn: point["matchesDrawn"]??0,
+                  matchesLost: point["matchesLost"],
+                  noRes: point["noRes"],
+                  points: point["points"],
+                  nrr: point["nrr"],
+                  teamFullName: point["teamFullName"],
+                  teamImageId: point["teamImageId"],
+            ));
+          }
+          print("S.Match ID: ${rapidPointTableList.first.teamFullName}");
+          loading(false);
+        },
+        onError: (error) {
+          print(error.toString());
+          loading(false);
+        });
+    update();
+  }
 
 
   Future<void> getMatchInfo(String matchId) async {
@@ -566,26 +601,6 @@ class HomeController extends GetxController {
     update();
   }
 
-
-  Future<void> getPointTable(String seriesID) async {
-    loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance.get(
-            ApiEndpoints.seriesPointTableData + seriesID + "/points-table"),
-        onSuccess: (response) {
-          print("Point Response: ${response}");
-
-          pointTableModel = pointTableModelFromJson(jsonEncode(response));
-
-          print("Point Table Data: ${pointTableModel.pointsTable!.length}");
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-    update();
-  }
 
   Future<void> getScoreCard(String matchID) async {
     //  print("Score Card URL ${ApiEndpoints.scoreCardData + matchID}");

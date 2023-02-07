@@ -12,31 +12,9 @@ import '../../controller/home_controller.dart';
 class PointTableTile extends StatelessWidget {
   const PointTableTile({
     Key? key,
-    required this.onTap,
-    this.leadingUrlOne,
-    this.leadingUrlTwo,
-    required this.title,
-    this.teamOne,
-    this.teamTwo,
-    this.reachTitleOne,
-    this.reachSubTitleOne,
-    this.reachTitleTwo,
-    this.reachSubTitleTwo,
-    this.wonTeam,
-    this.byWon,
+
   }) : super(key: key);
-  final String? title;
-  final String? leadingUrlOne;
-  final String? leadingUrlTwo;
-  final String? teamOne;
-  final String? teamTwo;
-  final String? reachTitleOne;
-  final String? reachSubTitleOne;
-  final String? reachTitleTwo;
-  final String? reachSubTitleTwo;
-  final String? wonTeam;
-  final String? byWon;
-  final Function() onTap;
+
 
   @override
   Widget build(BuildContext context) {
@@ -132,17 +110,15 @@ class PointTableTile extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            homeController.pointTableModel.pointsTable != null
-                ? ListView.builder(
-                    itemCount: homeController.pointTableModel.pointsTable!.first
-                        .pointsTableInfo!.length,
+     ListView.builder(
+                    itemCount: homeController.rapidPointTableList.length,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
                           Divider(),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
@@ -160,32 +136,18 @@ class PointTableTile extends StatelessWidget {
                                         image: DecorationImage(
                                             image: CachedNetworkImageProvider(
                                               ApiEndpoints.imageMidPoint +
-                                                  "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].teamImageId!}" +
+                                                  "${homeController.rapidPointTableList[index].teamImageId!}" +
                                                   ApiEndpoints.imageLastPoint,
                                               headers: ApiEndpoints.headers,
                                             ),
                                             fit: BoxFit.fill),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                      homeController
-                                                  .pointTableModel
-                                                  .pointsTable!
-                                                  .first
-                                                  .pointsTableInfo![index]
-                                                  .teamName !=
-                                              null
-                                          ? homeController
-                                              .pointTableModel
-                                              .pointsTable!
-                                              .first
-                                              .pointsTableInfo![index]
-                                              .teamName!
-                                              .name
-                                          : "NA",
+                                      homeController.rapidPointTableList[index].teamName!,
                                       style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
@@ -202,7 +164,7 @@ class PointTableTile extends StatelessWidget {
                                   children: [
                                     Expanded(
                                         child: Text(
-                                      "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesPlayed!}",
+                                      "${homeController.rapidPointTableList[index].matchesPlayed!}",
                                       style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
@@ -212,15 +174,7 @@ class PointTableTile extends StatelessWidget {
                                     )),
                                     Expanded(
                                       child: Text(
-                                        homeController
-                                                    .pointTableModel
-                                                    .pointsTable!
-                                                    .first
-                                                    .pointsTableInfo![index]
-                                                    .matchesWon !=
-                                                null
-                                            ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
-                                            : "0",
+                                        homeController.rapidPointTableList[index].matchesWon.toString(),
                                         style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
@@ -231,15 +185,7 @@ class PointTableTile extends StatelessWidget {
                                     ),
                                     Expanded(
                                         child: Text(
-                                      homeController
-                                                  .pointTableModel
-                                                  .pointsTable!
-                                                  .first
-                                                  .pointsTableInfo![index]
-                                                  .matchesDrawn !=
-                                              null
-                                          ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].matchesWon!}"
-                                          : "0",
+                                          homeController.rapidPointTableList[index].matchesDrawn.toString(),
                                       style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
@@ -249,15 +195,7 @@ class PointTableTile extends StatelessWidget {
                                     )),
                                     Expanded(
                                       child: Text(
-                                        homeController
-                                                    .pointTableModel
-                                                    .pointsTable!
-                                                    .first
-                                                    .pointsTableInfo![index]
-                                                    .noRes !=
-                                                null
-                                            ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].noRes!}"
-                                            : "0",
+                                        homeController.rapidPointTableList[index].noRes.toString(),
                                         style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
@@ -268,20 +206,7 @@ class PointTableTile extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        homeController
-                                                    .pointTableModel
-                                                    .pointsTable!
-                                                    .first
-                                                    .pointsTableInfo![index]
-                                                    .noRes !=
-                                                null
-                                            ? homeController
-                                                .pointTableModel
-                                                .pointsTable!
-                                                .first
-                                                .pointsTableInfo![index]
-                                                .nrr!
-                                            : "0",
+                                        homeController.rapidPointTableList[index].nrr.toString(),
                                         style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
@@ -295,15 +220,7 @@ class PointTableTile extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        homeController
-                                                    .pointTableModel
-                                                    .pointsTable!
-                                                    .first
-                                                    .pointsTableInfo![index]
-                                                    .points !=
-                                                null
-                                            ? "${homeController.pointTableModel.pointsTable!.first.pointsTableInfo![index].points!}"
-                                            : "0",
+                                        homeController.rapidPointTableList[index].points.toString(),
                                         style: CLTextStyle().paragraphTextStyle
                                             .copyWith(
                                           fontSize: dSize(.03),
@@ -323,7 +240,7 @@ class PointTableTile extends StatelessWidget {
                         ],
                       );
                     })
-                : const CircularProgressIndicator(),
+
           ],
         ),
       );

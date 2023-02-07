@@ -52,7 +52,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 onTap: (){
                 //  homeController.getRecentMatches();
                //   homeController.getUpcomingMatches();
-                  homeController.getFixturesMatches();
+                  homeController.getFeatureSeries();
 
                  // print(homeController.rapidUpcomingList.length);
                   // showDialog(

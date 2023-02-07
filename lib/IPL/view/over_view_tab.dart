@@ -21,13 +21,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../../home/view/widgets/point_table_tile.dart';
 import '../../more/view/icc_man_ranking/player_details/player_details_man.dart';
 import '../../public/variables/colors.dart';
 
 class OverViewTab extends StatefulWidget {
-  final String seriesId;
 
-  const OverViewTab({Key? key, required this.seriesId}) : super(key: key);
+
+  const OverViewTab({Key? key}) : super(key: key);
 
   @override
   _OverViewTabState createState() => _OverViewTabState();
@@ -37,17 +38,9 @@ class _OverViewTabState extends State<OverViewTab> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+
   }
 
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    //getMatches With Series ID
-    //TODO change Dynamic Series ID
-    await homeController.getSeriesMatches("3641");
-  //  await homeController.getMatchSquad("3641");
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +48,7 @@ class _OverViewTabState extends State<OverViewTab> {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
         child: SingleChildScrollView(
-          child: homeController.seriesMatchListModel.matchDetails != null &&
-                  homeController.matchSquadModel.squads != null
-              ? Column(
+          child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +87,17 @@ class _OverViewTabState extends State<OverViewTab> {
                               );
 
                             }),
+                    ListTile(
+                      leading: Text("Point Table",
+                          style:
+                          CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                            fontSize: dSize(.04),
+                            color: PublicController.pc.toggleTextColor(),
+                          )),
+                    ),
+                    PointTableTile(
 
+                    ),
                     // ListTile(
                     //     leading: Text("Key Stats",
                     //         style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
@@ -309,83 +310,69 @@ class _OverViewTabState extends State<OverViewTab> {
                             color: PublicController.pc.toggleTextColor(),
                           )),
                     ),
-                    homeController.seriesMatchListModel.matchDetails != null
-                        ? InfoCardTile(
+                InfoCardTile(
                             series: homeController
-                                .seriesMatchListModel
-                                .matchDetails!
-                                .first
-                                .matchDetailsMap!
-                                .match!
-                                .first
-                                .matchInfo!
-                                .seriesName!,
-                            duration: homeController.seriesMatchListModel
-                                .matchDetails!.first.matchDetailsMap!.key!,
+                                .rapidSeriesMatchList.first.matchInfo!.seriesName,
+                            duration: homeController
+                                .rapidSeriesMatchList.first.matchInfo!.status,
                             format: homeController
-                                .seriesMatchListModel
-                                .matchDetails!
-                                .first
-                                .matchDetailsMap!
-                                .match!
-                                .first
-                                .matchInfo!
-                                .matchFormat!,
+                                .rapidSeriesMatchList.first.matchInfo!.matchDesc,
                             onTap: () {},
-                          )
-                        : SizedBox(),
-                    ListTile(
-                      leading: Text(
-                        "More Seasons",
-                        style: TextStyle(
-                          fontSize: dSize(.035),
-                          fontWeight: FontWeight.w500,
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                    GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 3 / 1.5,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10),
-                        itemCount: homeController
-                            .featureSeriesModel.seriesMapProto!.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => KeyStateScreen()));
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                homeController.featureSeriesModel
-                                    .seriesMapProto![index].series!.first.name!,
-                                style: TextStyle(
-                                  fontSize: dSize(.04),
-                                  fontWeight: FontWeight.w500,
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color: PublicController.pc
-                                          .toggleTextColor())),
-                            ),
-                          );
-                        }),
+                          ),
+
+                    SizedBox(height: 300,)
+                    // ListTile(
+                    //   leading: Text(
+                    //     "More Seasons",
+                    //     style: TextStyle(
+                    //       fontSize: dSize(.035),
+                    //       fontWeight: FontWeight.w500,
+                    //       color: PublicController.pc.toggleTextColor(),
+                    //     ),
+                    //   ),
+                    // ),
+                    // GridView.builder(
+                    //     physics: NeverScrollableScrollPhysics(),
+                    //     shrinkWrap: true,
+                    //     gridDelegate:
+                    //         const SliverGridDelegateWithMaxCrossAxisExtent(
+                    //             maxCrossAxisExtent: 200,
+                    //             childAspectRatio: 3 / 1.5,
+                    //             crossAxisSpacing: 10,
+                    //             mainAxisSpacing: 10),
+                    //     itemCount: homeController
+                    //         .featureSeriesModel.seriesMapProto!.length,
+                    //     itemBuilder: (BuildContext ctx, index) {
+                    //       return GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                   builder: (_) => KeyStateScreen()));
+                    //         },
+                    //         child: Container(
+                    //           alignment: Alignment.center,
+                    //           child: Text(
+                    //             homeController.featureSeriesModel
+                    //                 .seriesMapProto![index].series!.first.name!,
+                    //             style: TextStyle(
+                    //               fontSize: dSize(.04),
+                    //               fontWeight: FontWeight.w500,
+                    //               color: PublicController.pc.toggleTextColor(),
+                    //             ),
+                    //             textAlign: TextAlign.center,
+                    //           ),
+                    //           decoration: BoxDecoration(
+                    //               borderRadius: BorderRadius.circular(15),
+                    //               border: Border.all(
+                    //                   color: PublicController.pc
+                    //                       .toggleTextColor())),
+                    //         ),
+                    //       );
+                    //     }),
                   ],
                 )
-              : const Center(child: CircularProgressIndicator()),
+
         ),
       );
     });

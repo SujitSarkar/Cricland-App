@@ -73,10 +73,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
                 // ),
               ],
             ),
-            PointTableTile(
-              onTap: () {},
-              title: '',
-            ),
+            PointTableTile(),
           ],
         ),
       ),
