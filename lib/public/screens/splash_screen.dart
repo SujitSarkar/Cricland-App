@@ -1,6 +1,7 @@
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../controller/public_controller.dart';
@@ -11,32 +12,25 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.easeIn,
-  );
-
+class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
     super.initState();
     _initData();
   }
 
-  Future<void> _initData() async {
-    Future.delayed(const Duration(milliseconds: 3500))
-        .then((value) => Get.offAll(() => const HomeNavPage()));
-  }
-
   @override
   void dispose() {
-    _controller.dispose();
+    SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.dispose();
+  }
+
+  Future<void> _initData() async {
+    Future.delayed(const Duration(milliseconds: 2500))
+        .then((value) => Get.offAll(() => const HomeNavPage()));
   }
 
   @override
@@ -55,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/splash_bg_image.jpg'),
-                    fit: BoxFit.fitHeight)),
+                    fit: BoxFit.cover)),
             child: SizedBox(
                 width: size.width * .8,
                 child: Lottie.asset('assets/lottie/splash_lottie.json')),
