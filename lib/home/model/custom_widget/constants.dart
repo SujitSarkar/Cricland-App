@@ -26,6 +26,11 @@ class CLTextStyle {
     fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );
+  TextStyle subTitleTextStyle = TextStyle(
+    fontSize: dSize(.03),
+    fontFamily: "openSans",
+    color: PublicController.pc.toggleTextColor(),
+  );
 
   TextStyle optionTextStyle = TextStyle(
     fontSize: dSize(.04),

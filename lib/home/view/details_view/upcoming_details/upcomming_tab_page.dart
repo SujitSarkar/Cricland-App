@@ -28,92 +28,59 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
             topLeft: Radius.circular(50),
           ),
         ),
-        child: homeController.upcomingMatchModel.typeMatches != null
-            ? ListView(
+        child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
+
                   const SizedBox(
                     height: 12,
                   ),
-                  Text(
-                    "Today",
-                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                      fontSize: dSize(.045),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: homeController.rapidUpcomingList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return UpcomingCardTile(
+                        rapidMatch: homeController.rapidUpcomingList[index],
+                              // onTap: () {
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (_) => UpcomingDetailsScreen(
+                              //         selectedIndex: index,
+                              //         startDate:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.startDate}",
+                              //         teamS2Name:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                              //         matchID:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                              //         teamS1Name:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                              //         matchDesc:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                              //         team1ImageID:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                              //         team2ImageID:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                              //         seriesID:
+                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesId}",
+                              //       ),
+                              //     ),
+                              //   );
+                              //
+                              // },
+
+                            );
+
+                      //LiveCart(context);
+                    },
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  // ListView.builder(
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   itemCount: homeController.upcomingMatchModel.typeMatches!
-                  //       .first.seriesMatches!.length,
-                  //   shrinkWrap: true,
-                  //   itemBuilder: (context, index) {
-                  //     return homeController
-                  //                 .upcomingMatchModel
-                  //                 .typeMatches!
-                  //                 .first
-                  //                 .seriesMatches![index]
-                  //                 .seriesAdWrapper !=
-                  //             null
-                  //         ? UpcomingCardTile(
-                  //       rapidMatch: ,
-                  //             onTap: () {
-                  //               Navigator.push(
-                  //                 context,
-                  //                 MaterialPageRoute(
-                  //                   builder: (_) => UpcomingDetailsScreen(
-                  //                     selectedIndex: index,
-                  //                     startDate:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.startDate}",
-                  //                     teamS2Name:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                  //                     matchID:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
-                  //                     teamS1Name:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                  //                     matchDesc:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
-                  //                     team1ImageID:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
-                  //                     team2ImageID:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
-                  //                     seriesID:
-                  //                         "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesId}",
-                  //                   ),
-                  //                 ),
-                  //               );
-                  //
-                  //             },
-                  //             title:
-                  //                 "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesName}",
-                  //             rightCountryURL:
-                  //                 '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.imageId}',
-                  //             leftCountryURL:
-                  //                 '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.imageId}',
-                  //             leftCountryName:
-                  //                 '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team1!.teamSName}',
-                  //             rightCountryName:
-                  //                 '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.team2!.teamSName}',
-                  //             startTime:
-                  //                 '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.startDate}',
-                  //             status:
-                  //                 '${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches!.first.matchInfo!.state}'.split(".")[1],
-                  //           )
-                  //         : const SizedBox();
-                  //     //LiveCart(context);
-                  //   },
-                  // ),
                   const SizedBox(
                     height: 12,
                   ),
                 ],
               )
-            : const Center(
-                child: Text("No Match available"),
-              ),
+
       );
     });
   }

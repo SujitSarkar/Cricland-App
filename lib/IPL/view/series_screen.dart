@@ -13,7 +13,11 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+
+import '../../home/model/rapid_model/series_model.dart';
 
 class SeriesScreen extends StatefulWidget {
   final String? seriesID;
@@ -39,7 +43,20 @@ class _SeriesScreenState extends State<SeriesScreen>
     super.initState();
     _tabController =
         TabController(length: Variables.iplTabsCategory.length, vsync: this);
+
+
   }
+  fetchData(String seriesId) async {
+    HomeController homeController = Get.put(HomeController());
+
+    //TODO change Dynamic Series ID
+    await homeController.getSeriesMatches(seriesId);
+   // await homeController.getMatchSquad(seriesId);
+    setState(() {});
+  }
+
+
+  SeriesListModel seriesListModel=SeriesListModel();
 
   @override
   Widget build(BuildContext context) {
@@ -267,205 +284,110 @@ class _SeriesScreenState extends State<SeriesScreen>
                           color: AllColor.appDarkBg,
                           child: Column(
                             children: <Widget>[
-                              // widget.seriesID != null
-                              //     ? Align(
-                              //   alignment: Alignment.centerLeft,
-                              //   child: InkWell(
-                              //     onTap: () {
-                              //       Navigator.pop(context);
-                              //     },
-                              //     child: const Icon(
-                              //       Icons.arrow_back,
-                              //       color: Colors.white,
-                              //     ),
-                              //   ),
-                              // )
-                              //     : const SizedBox(),
+
                               Container(
                                   padding: const EdgeInsets.all(5),
                                   color: AllColor.appDarkBg,
                                   child:
-                                      //             widget.seriesID != null
-                                      //                 ? Align(
-                                      // alignment: Alignment.center,
-                                      // child: homeController
-                                      //     .seriesMatchListModel.matchDetails !=
-                                      // null
-                                      // ? Column(
-                                      // crossAxisAlignment:
-                                      // CrossAxisAlignment.center,
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      // children: [
-                                      // const SizedBox(
-                                      // height: 40,
-                                      // ),
-                                      // Align(
-                                      // alignment: Alignment.center,
-                                      // child: Row(
-                                      // crossAxisAlignment:
-                                      // CrossAxisAlignment.center,
-                                      // mainAxisAlignment:
-                                      // MainAxisAlignment.spaceEvenly,
-                                      // children: [
-                                      // Flexible(
-                                      // child: Column(
-                                      // crossAxisAlignment:
-                                      // CrossAxisAlignment.start,
-                                      // mainAxisAlignment:
-                                      // MainAxisAlignment.center,
-                                      // children: [
-                                      // Text(
-                                      // homeController
-                                      //     .seriesMatchListModel
-                                      //     .matchDetails!
-                                      //     .first
-                                      //     .matchDetailsMap!
-                                      //     .match!
-                                      //     .first
-                                      //     .matchInfo!
-                                      //     .seriesName!,
-                                      // // "The Hundred 2022",
-                                      // style: const TextStyle(
-                                      // fontSize: 20,
-                                      // fontWeight:
-                                      // FontWeight.bold,
-                                      // color: Colors.white),
-                                      // ),
-                                      // Text(
-                                      // homeController
-                                      //     .seriesMatchListModel
-                                      //     .matchDetails!
-                                      //     .first
-                                      //     .matchDetailsMap!
-                                      //     .key!,
-                                      // // "032 Aug to 03 Sep 2022",
-                                      // style: const TextStyle(
-                                      // fontSize: 12,
-                                      // fontWeight:
-                                      // FontWeight.normal,
-                                      // color: Colors.grey),
-                                      // ),
-                                      // ],
-                                      // ),
-                                      // ),
-                                      // Container(
-                                      // height: 80,
-                                      // width: 80,
-                                      // decoration: const BoxDecoration(
-                                      // shape: BoxShape.rectangle,
-                                      // image: DecorationImage(
-                                      // image:
-                                      // CachedNetworkImageProvider(
-                                      // ApiEndpoints
-                                      //     .imageMidPoint +
-                                      // "189174" +
-                                      // ApiEndpoints
-                                      //     .imageLastPoint,
-                                      // headers:
-                                      // ApiEndpoints.headers,
-                                      // ),
-                                      // fit: BoxFit.fill),
-                                      // ),
-                                      // ),
-                                      // ],
-                                      // ),
-                                      // ),
-                                      // ],
-                                      // )
-                                      //     : const CircularProgressIndicator(),
-                                      // )
-                                      //                 :
+
                                       Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
                                           children: [
-                                            for (var i = 0;
-                                                i <
-                                                    homeController
-                                                        .featureSeriesModel
-                                                        .seriesMapProto![1]
-                                                        .series!
-                                                        .length;
-                                                i++)
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius
-                                                                  .circular(
-                                                                      10)),
-                                                      border: Border.all(
-                                                          color: Colors
-                                                              .green)),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets
-                                                            .all(3.0),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(10),
-                                                      child: Container(
-                                                        height: 100,
-                                                        width: 100,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape: BoxShape
-                                                              .rectangle,
-                                                          color:
-                                                              Colors.white,
-                                                          image:
-                                                              DecorationImage(
-                                                                  image:
-                                                                      CachedNetworkImageProvider(
-                                                                    ApiEndpoints.imageMidPoint +
-                                                                        "${homeController.featureSeriesModel.seriesMapProto![1].series![i].id}" +
-                                                                        ApiEndpoints.imageLastPoint,
-                                                                    headers:
-                                                                        ApiEndpoints.headers,
-                                                                  ),
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                  filterQuality:
-                                                                      FilterQuality
-                                                                          .low),
+                                            for (var series in homeController.rapidFeatureSeriesList)
+                                              GestureDetector(
+                                                onTap: (){
+                                                  setState((){
+                                                    seriesListModel = series;
+                                                  });
+                                                  fetchData("${seriesListModel.seriesModel!.id}");
+
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(
+                                                      8.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        const BorderRadius
+                                                            .all(
+                                                            Radius
+                                                                .circular(
+                                                                10)),
+                                                        border:seriesListModel == series? Border.all(
+                                                            color: Colors
+                                                                .green):null),
+                                                    child: Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .all(3.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(10),
+                                                        child: Container(
+                                                          height: 100,
+                                                          width: 100,
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            shape: BoxShape
+                                                                .rectangle,
+                                                            color:
+                                                            Colors.white,
+                                                            image:
+                                                            DecorationImage(
+                                                                image:
+                                                                CachedNetworkImageProvider(
+                                                                  ApiEndpoints.imageMidPoint +
+                                                                      "${series.seriesModel!.id}" +
+                                                                      ApiEndpoints.imageLastPoint,
+                                                                  headers:
+                                                                  ApiEndpoints.headers,
+                                                                ),
+                                                                fit: BoxFit
+                                                                    .fill,
+                                                                filterQuality:
+                                                                FilterQuality
+                                                                    .low),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
+
                                           ],
                                         ),
                                       ),
 
-                                      innerBoxIsScrolled?const SizedBox():     RichText(
-                                        text: TextSpan(
-                                          text:
-                                              '${homeController.featureSeriesModel.seriesMapProto![1].series!.first.name} ',
-                                          style: CLTextStyle()
-                                              .paragraphHeadLineTextStyle
-                                              .copyWith(
-                                            color: Colors.white70,
+                                      innerBoxIsScrolled?const SizedBox():     Padding(
+                                        padding: const EdgeInsets.only(left: 5.0),
+                                        child: RichText(
+                                          text: TextSpan(
+                                             text: '${seriesListModel.seriesModel!.name} ',
+                                            style: CLTextStyle()
+                                                .paragraphHeadLineTextStyle
+                                                .copyWith(
+                                              color: Colors.white70,
+                                            ),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text:
+                                                      '${seriesListModel.date}',
+                                                  style: CLTextStyle()
+                                                      .paragraphHeadLineTextStyle
+                                                      .copyWith(
+                                                    color: Colors.white70,
+                                                    fontSize: dSize(.02),
+                                                  )),
+                                             ],
                                           ),
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text:
-                                                    '${homeController.featureSeriesModel.seriesMapProto![1].date}',
-                                                style: CLTextStyle()
-                                                    .paragraphHeadLineTextStyle
-                                                    .copyWith(
-                                                  color: Colors.white70,
-                                                  fontSize: dSize(.02),
-                                                )),
-                                           ],
                                         ),
                                       ),
                                     ],
@@ -473,220 +395,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                             ],
                           ),
                         ),
-                  //     title:innerBoxIsScrolled? const SizedBox(): Container(
-                  //       color: AllColor.appDarkBg,
-                  //       child: Column(
-                  //         children: <Widget>[
-                  //           // widget.seriesID != null
-                  //           //     ? Align(
-                  //           //   alignment: Alignment.centerLeft,
-                  //           //   child: InkWell(
-                  //           //     onTap: () {
-                  //           //       Navigator.pop(context);
-                  //           //     },
-                  //           //     child: const Icon(
-                  //           //       Icons.arrow_back,
-                  //           //       color: Colors.white,
-                  //           //     ),
-                  //           //   ),
-                  //           // )
-                  //           //     : const SizedBox(),
-                  //           Container(
-                  //             padding: const EdgeInsets.all(5),
-                  //             color: AllColor.primaryColor,
-                  //             child:
-                  // //             widget.seriesID != null
-                  // //                 ? Align(
-                  // // alignment: Alignment.center,
-                  // // child: homeController
-                  // //     .seriesMatchListModel.matchDetails !=
-                  // // null
-                  // // ? Column(
-                  // // crossAxisAlignment:
-                  // // CrossAxisAlignment.center,
-                  // // mainAxisAlignment: MainAxisAlignment.center,
-                  // // children: [
-                  // // const SizedBox(
-                  // // height: 40,
-                  // // ),
-                  // // Align(
-                  // // alignment: Alignment.center,
-                  // // child: Row(
-                  // // crossAxisAlignment:
-                  // // CrossAxisAlignment.center,
-                  // // mainAxisAlignment:
-                  // // MainAxisAlignment.spaceEvenly,
-                  // // children: [
-                  // // Flexible(
-                  // // child: Column(
-                  // // crossAxisAlignment:
-                  // // CrossAxisAlignment.start,
-                  // // mainAxisAlignment:
-                  // // MainAxisAlignment.center,
-                  // // children: [
-                  // // Text(
-                  // // homeController
-                  // //     .seriesMatchListModel
-                  // //     .matchDetails!
-                  // //     .first
-                  // //     .matchDetailsMap!
-                  // //     .match!
-                  // //     .first
-                  // //     .matchInfo!
-                  // //     .seriesName!,
-                  // // // "The Hundred 2022",
-                  // // style: const TextStyle(
-                  // // fontSize: 20,
-                  // // fontWeight:
-                  // // FontWeight.bold,
-                  // // color: Colors.white),
-                  // // ),
-                  // // Text(
-                  // // homeController
-                  // //     .seriesMatchListModel
-                  // //     .matchDetails!
-                  // //     .first
-                  // //     .matchDetailsMap!
-                  // //     .key!,
-                  // // // "032 Aug to 03 Sep 2022",
-                  // // style: const TextStyle(
-                  // // fontSize: 12,
-                  // // fontWeight:
-                  // // FontWeight.normal,
-                  // // color: Colors.grey),
-                  // // ),
-                  // // ],
-                  // // ),
-                  // // ),
-                  // // Container(
-                  // // height: 80,
-                  // // width: 80,
-                  // // decoration: const BoxDecoration(
-                  // // shape: BoxShape.rectangle,
-                  // // image: DecorationImage(
-                  // // image:
-                  // // CachedNetworkImageProvider(
-                  // // ApiEndpoints
-                  // //     .imageMidPoint +
-                  // // "189174" +
-                  // // ApiEndpoints
-                  // //     .imageLastPoint,
-                  // // headers:
-                  // // ApiEndpoints.headers,
-                  // // ),
-                  // // fit: BoxFit.fill),
-                  // // ),
-                  // // ),
-                  // // ],
-                  // // ),
-                  // // ),
-                  // // ],
-                  // // )
-                  // //     : const CircularProgressIndicator(),
-                  // // )
-                  // //                 :
-                  //             Column(
-                  //     children: [
-                  //
-                  //   SingleChildScrollView(
-                  //     scrollDirection: Axis.horizontal,
-                  //     child: Row(
-                  //       children: [
-                  //         Row(
-                  //           children: [
-                  //             for (var i = 0;
-                  //             i <
-                  //                 homeController
-                  //                     .featureSeriesModel
-                  //                     .seriesMapProto![1]
-                  //                     .series!
-                  //                     .length;
-                  //             i++)
-                  //               Padding(
-                  //                 padding: const EdgeInsets.all(8.0),
-                  //                 child: Container(
-                  //                   decoration: BoxDecoration(
-                  //                       borderRadius:
-                  //                       const BorderRadius.all(
-                  //                           Radius.circular(10)),
-                  //                       border: Border.all(
-                  //                           color: Colors.green)),
-                  //                   child: Padding(
-                  //                     padding:
-                  //                     const EdgeInsets.all(3.0),
-                  //                     child: ClipRRect(
-                  //                       borderRadius:
-                  //                       BorderRadius.circular(10),
-                  //                       child: Container(
-                  //                         height: 100,
-                  //                         width: 100,
-                  //                         decoration: BoxDecoration(
-                  //                           shape: BoxShape.rectangle,
-                  //                           color: Colors.white,
-                  //                           image: DecorationImage(
-                  //                               image:
-                  //                               CachedNetworkImageProvider(
-                  //                                 ApiEndpoints
-                  //                                     .imageMidPoint +
-                  //                                     "${homeController.featureSeriesModel.seriesMapProto![1].series![i].id}" +
-                  //                                     ApiEndpoints
-                  //                                         .imageLastPoint,
-                  //                                 headers:
-                  //                                 ApiEndpoints
-                  //                                     .headers,
-                  //                               ),
-                  //                               fit: BoxFit.fill,
-                  //                               filterQuality:
-                  //                               FilterQuality
-                  //                                   .low),
-                  //                         ),
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //           ],
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  //
-                  //   RichText(
-                  //     text: TextSpan(
-                  //       text:
-                  //       '${homeController.featureSeriesModel.seriesMapProto![1].series![1].name} ',
-                  //       style: CLTextStyle().paragraphHeadLineTextStyle
-                  //           .copyWith(
-                  //         color: Colors.white70,
-                  //       ),
-                  //       children: <TextSpan>[
-                  //         TextSpan(
-                  //             text:
-                  //             '${homeController.featureSeriesModel.seriesMapProto![1].date}',
-                  //             style: CLTextStyle()
-                  //                 .paragraphHeadLineTextStyle
-                  //                 .copyWith(
-                  //               color: Colors.white70,
-                  //               fontSize: dSize(.02),
-                  //             )),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ],
-                  // )
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  // actions: [
-                  //   innerBoxIsScrolled? const SizedBox():    const Icon(
-                  //     Icons.search_outlined,
-                  //   ),
-                  //
-                  //   innerBoxIsScrolled? const SizedBox():    const SizedBox(
-                  //     width: 15,
-                  //   ),
-                  // ],
+
                   pinned: true,
                   floating: true,
                   forceElevated: innerBoxIsScrolled,
@@ -732,9 +441,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                       controller: _tabController,
                       children: <Widget>[
                         OverViewTab(
-                          seriesId: widget.seriesID != null
-                              ? widget.seriesID!
-                              : "${homeController.featureSeriesModel.seriesMapProto!.first.series!.first.id!}",
+                          seriesId: "${seriesListModel.seriesModel!.id}",
                         ),
                         const MatchesTab(),
                         const SquadsTab(),

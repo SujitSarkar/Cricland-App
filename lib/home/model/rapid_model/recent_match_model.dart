@@ -60,7 +60,7 @@ class  RapidMatchInfo {
   String? matchDesc;
   String? startDate;
   String? endDate;
-  State? state;
+  String? state;
   String? status;
   RapidTeam? team1;
   RapidTeam? team2;
