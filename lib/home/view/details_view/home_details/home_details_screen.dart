@@ -270,12 +270,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   )),
                               RichText(
                                 text: TextSpan(
-                                  text: "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs} ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
+                                  text: "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
                                   style: CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03), color: Colors.white),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: " ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
+                                      text: " (${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs})",
                                       style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                           fontSize: dSize(.025),
@@ -309,14 +309,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               ),
                               RichText(
                                 text: TextSpan(
-                                  text: "${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
+                                  text: "(${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}) ",
                                   style: CLTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.025),
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: "${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs} ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
+                                      text: "${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
                                       style:
                                       CLTextStyle().paragraphTextStyle.copyWith(
                                         color: Colors.white,
@@ -347,20 +347,27 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   fit: BoxFit.fill),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  Text(
-                      "${widget.rapidMatch.matchInfo!.status}",
-                    style: CLTextStyle().paragraphHeadLineTextStyle
-                        .copyWith(color: Colors.orange, fontSize: 15),
+                  Divider(color: Colors.grey,),
+                  GestureDetector(
+                    onTap: (){
+                      fetchData();
+                      print("GGG");
+                    },
+                    child: Text(
+                        "${widget.rapidMatch.matchInfo!.status}",
+                      style: CLTextStyle().paragraphHeadLineTextStyle
+                          .copyWith(color: Colors.orange, fontSize: 15),
+                    ),
                   )
                 ],
               ),
@@ -371,6 +378,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                 children: <Widget>[
                   InfoView(
                     matchId:"${widget.rapidMatch.matchInfo!.matchId}",
+                    rapidMatch: widget.rapidMatch,
                   ),
                   CommentaryView(
                     matchId:"${widget.rapidMatch.matchInfo!.matchId}",

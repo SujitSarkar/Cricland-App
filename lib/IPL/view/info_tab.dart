@@ -28,25 +28,11 @@ class _InfoTabState extends State<SeriesInfoTab> {
               children: [
                 InfoCardTile(
                   series: homeController
-                      .seriesMatchListModel
-                      .matchDetails!
-                      .first
-                      .matchDetailsMap!
-                      .match!
-                      .first
-                      .matchInfo!
-                      .seriesName,
-                  duration: homeController.seriesMatchListModel.matchDetails!
-                      .first.matchDetailsMap!.key,
+                      .rapidSeriesMatchList.first.matchInfo!.seriesName,
+                  duration: homeController
+                      .rapidSeriesMatchList.first.matchInfo!.status,
                   format: homeController
-                      .seriesMatchListModel
-                      .matchDetails!
-                      .first
-                      .matchDetailsMap!
-                      .match!
-                      .first
-                      .matchInfo!
-                      .matchFormat,
+                      .rapidSeriesMatchList.first.matchInfo!.matchDesc,
                   onTap: () {},
                 ),
               ],

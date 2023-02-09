@@ -20,8 +20,7 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return homeController.recentMatchModel.typeMatches != null
-          ? Container(
+      return Container(
               padding: EdgeInsets.all(5),
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -174,8 +173,7 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                     height: 12,
                   ),
                 ],
-              ))
-          : const Center(child: Text("No Match Available"));
+              ));
     });
   }
 }

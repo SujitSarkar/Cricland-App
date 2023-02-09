@@ -25,11 +25,7 @@ class _SquadsTabState extends State<SquadsTab> {
     // fetchData();
   }
 
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    await homeController.getMatchSquad("3641");
-    setState(() {});
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,10 +117,10 @@ class _SquadsTabState extends State<SquadsTab> {
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.only(top: 58.0),
-          child: BottomSheetScreen(
-            squadId: squadId,
-            seriesId: seriesId,
-          ),
+          // child: BottomSheetScreen(
+          //   squadId: squadId,
+          //   seriesId: seriesId,
+          // ),
         );
       },
     );

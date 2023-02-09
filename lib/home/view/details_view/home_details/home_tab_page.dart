@@ -50,8 +50,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   children: [
                   InkWell(
                 onTap: (){
-                //  homeController.getRecentMatches();
-               //   homeController.getUpcomingMatches();
+                  homeController.getRecentMatches();
+                 homeController.getUpcomingMatches();
                   homeController.getFeatureSeries();
 
                  // print(homeController.rapidUpcomingList.length);

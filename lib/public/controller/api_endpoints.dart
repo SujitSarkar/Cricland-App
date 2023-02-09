@@ -20,12 +20,13 @@ class ApiEndpoints {
   static String matchesInfo = baseURL + 'mcenter/$apiVersion/';
   static String liveMatches = baseURL + 'matches/$apiVersion/live';
   static String overSummery = baseURL + 'mcenter/$apiVersion/';
+  static String teamForm = baseURL + 'teams/$apiVersion/';
 
-  //For Image
+  //For Image  https://cricbuzz-cricket.p.rapidapi.com/teams/v1/
   static const String imageMidPoint = baseURL + "img/$apiVersion/i1/c";
   static const String imageLastPoint = "/i.jpg";
   static const Map<String, String> headers = <String, String>{
-    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+    'X-RapidAPI-Key': 'e264860a81msh606cf49ee50fe2ep14cca6jsn8ba787578626',
     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
   };
 

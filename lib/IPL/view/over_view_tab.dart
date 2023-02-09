@@ -70,34 +70,35 @@ class _OverViewTabState extends State<OverViewTab> {
                         )
                       ],
                     ),
-                 ListView.builder(
-                            itemCount: homeController
-                                .rapidSeriesMatchList.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return  GestureDetector(
-                                onTap: (){
-                                  print(homeController
-                                      .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
-                                },
-                                child: FeaturedMatchTile(
-                                  seriesMatch:homeController
-                                      .rapidSeriesMatchList[index]),
-                              );
+                    ListView.builder(
+                        itemCount: homeController
+                            .rapidSeriesMatchList.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return  GestureDetector(
+                            onTap: (){
+                              print(homeController
+                                  .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
+                            },
+                            child: FeaturedMatchTile(
+                                seriesMatch:homeController
+                                    .rapidSeriesMatchList[index]),
+                          );
 
-                            }),
-                    ListTile(
+                        }),
+
+                    homeController.rapidPointTableList.isNotEmpty?    ListTile(
                       leading: Text("Point Table",
                           style:
                           CLTextStyle().paragraphHeadLineTextStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           )),
-                    ),
-                    PointTableTile(
+                    ):SizedBox(),
+                    homeController.rapidPointTableList.isNotEmpty?    PointTableTile(
 
-                    ),
+                    ):SizedBox(),
                     // ListTile(
                     //     leading: Text("Key Stats",
                     //         style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
@@ -385,7 +386,7 @@ class _OverViewTabState extends State<OverViewTab> {
                 builder: (BuildContext context, StateSetter setState) {
               return const FractionallySizedBox(
                 heightFactor: 2.3,
-                child: BottomSheetScreen(),
+                // child: BottomSheetScreen(),
               );
             }));
   }

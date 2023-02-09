@@ -37,7 +37,7 @@ class _SeriesScreenState extends State<SeriesScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   final String _iplTabType = Variables.iplTabsCategory.first;
-
+  SeriesListModel seriesListModel=SeriesListModel();
   @override
   void initState() {
     super.initState();
@@ -46,19 +46,19 @@ class _SeriesScreenState extends State<SeriesScreen>
 
 
   }
+
   fetchData(String seriesId) async {
     HomeController homeController = Get.put(HomeController());
-
-    //TODO change Dynamic Series ID
-    // await homeController.getSeriesMatches(seriesId);
-    // await homeController.getMatchSquad(seriesId);
+    await homeController.getSeriesMatches(seriesId);
+    await homeController.getMatchSquad(seriesId);
     await homeController.getPointTable(seriesId);
-   // await homeController.getMatchSquad(seriesId);
+
+
     setState(() {});
   }
 
 
-  SeriesListModel seriesListModel=SeriesListModel();
+
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +164,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                         padding: const EdgeInsets.only(left: 5.0),
                                         child: RichText(
                                           text: TextSpan(
-                                             text: '${seriesListModel.seriesModel!.name} ',
+                                             text:seriesListModel.seriesModel != null?'${seriesListModel.seriesModel!.name} ':"",
                                             style: CLTextStyle()
                                                 .paragraphHeadLineTextStyle
                                                 .copyWith(

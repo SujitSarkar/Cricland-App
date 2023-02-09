@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/player_squad_model.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_details_man.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -8,15 +7,20 @@ import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
+import '../../home/model/match_info_model.dart';
+
 class BottomSheetScreen extends StatefulWidget {
   final String? seriesId;
   final String? squadId;
-  const BottomSheetScreen({Key? key, this.seriesId, this.squadId})
+
+  final List<PlayerRapid>  playerRapidTeam;
+
+
+  const BottomSheetScreen({Key? key, this.seriesId, this.squadId,required this.playerRapidTeam})
       : super(key: key);
 
   @override
@@ -27,11 +31,11 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   String _iplTabType = Variables.teamSquadsTabsCategory.first;
-  List<Player> allPlayerList = [];
-  List<Player> batPlayerList = [];
-  List<Player> bowlPlayerList = [];
-  List<Player> arPlayerList = [];
-  List<Player> tempPlayerList = [];
+  List<PlayerRapid> allPlayerList = [];
+  List<PlayerRapid> batPlayerList = [];
+  List<PlayerRapid> bowlPlayerList = [];
+  List<PlayerRapid> arPlayerList = [];
+  List<PlayerRapid> tempPlayerList = [];
   List<String> tabData = [];
 
   @override
@@ -46,7 +50,7 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
 
   getAllPlayerList() async {
     HomeController homeController = Get.put(HomeController());
-    for (var player in homeController.playerSquadModel.player!) {
+    for (PlayerRapid player in widget.playerRapidTeam) {
       if (player.id != null) {
         allPlayerList.add(player);
       }
@@ -198,7 +202,7 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                                                   image:
                                                       CachedNetworkImageProvider(
                                                     ApiEndpoints.imageMidPoint +
-                                                        "${tempPlayerList[index].imageId!}" +
+                                                        "${tempPlayerList[index].faceImageId!}" +
                                                         ApiEndpoints
                                                             .imageLastPoint,
                                                     headers:

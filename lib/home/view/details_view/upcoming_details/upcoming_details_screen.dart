@@ -271,6 +271,7 @@ class _UpcomingDetailsScreenState extends State<UpcomingDetailsScreen>
               children: <Widget>[
                 InfoView(
                   matchId: "${widget.rapidMatch.matchInfo!.matchId}",
+                  rapidMatch: widget.rapidMatch,
                 ),
                 CommentaryView(
                   matchId:"${widget.rapidMatch.matchInfo!.matchId}",

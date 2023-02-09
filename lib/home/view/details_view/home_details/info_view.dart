@@ -1,18 +1,27 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/series_screen.dart';
 import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
 import 'package:cricland/home/view/widgets/head_to_head_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
+import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../IPL/view/widgets/featured_match_tile.dart';
+import '../../../model/match_info_model.dart';
+import '../../../model/rapid_model/recent_match_model.dart';
+import '../../widgets/match_card_tile.dart';
 
 class InfoView extends StatefulWidget {
   final String matchId;
-  const InfoView({Key? key, required this.matchId}) : super(key: key);
+  final RapidMatch rapidMatch;
+  const InfoView({Key? key, required this.matchId,required this.rapidMatch}) : super(key: key);
 
   @override
   _InfoViewState createState() => _InfoViewState();
@@ -38,6 +47,8 @@ class _InfoViewState extends State<InfoView> {
   fetchData() async {
     HomeController homeController = Get.put(HomeController());
     await homeController.getMatchInfo(widget.matchId);
+   // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
+    await homeController.getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
     if (mounted) {
       setState(() {});
     }
@@ -61,22 +72,22 @@ class _InfoViewState extends State<InfoView> {
                 title: RichText(
                   text: TextSpan(
                     text:
-                        //  homeController.matcheInfoModel.matchInfo!.status,
-                        'NWW',
+                          widget.rapidMatch.matchInfo!.status,
+
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: dSize(.04),
                       color: PublicController.pc.toggleTextColor(),
                     ),
                     children: <TextSpan>[
-                      TextSpan(
-                        text: ' won the toss and chose to bowl',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
+                      // TextSpan(
+                      //   text: ' won the toss and chose to bowl',
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.normal,
+                      //     fontSize: dSize(.03),
+                      //     color: PublicController.pc.toggleTextColor(),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -107,7 +118,7 @@ class _InfoViewState extends State<InfoView> {
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  "1st T20",
+                  widget.rapidMatch.matchInfo!.matchDesc.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.03),
@@ -116,12 +127,14 @@ class _InfoViewState extends State<InfoView> {
                 ),
                 subtitle: Row(
                   children: [
-                    Text(
-                      'IRE Provincial T20 2022',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: dSize(.05),
-                        color: PublicController.pc.toggleTextColor(),
+                    FittedBox(
+                      child: Text(
+                        widget.rapidMatch.matchInfo!.seriesName.toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -134,7 +147,21 @@ class _InfoViewState extends State<InfoView> {
                     )
                   ],
                 ),
-                trailing: Image.asset('assets/t20.png'),
+                trailing:    Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${widget.rapidMatch.matchInfo!.seriesId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
+                        ),
+                        fit: BoxFit.fill),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -142,7 +169,7 @@ class _InfoViewState extends State<InfoView> {
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  "27 May, 04:00PM",
+                    DateFormat('MMM d,' 'hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(widget.rapidMatch.matchInfo!.startDate!) * 1000)).toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.04),
@@ -160,7 +187,7 @@ class _InfoViewState extends State<InfoView> {
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  "The Green Comber,Ireland",
+                  "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.04),
@@ -195,11 +222,12 @@ class _InfoViewState extends State<InfoView> {
               ),
               ListTile(
                 onTap: () {
-                  _showSquadsSheet(context);
+                  fetchData();
+                 _showSquadsSheet(context,homeController.recentMatchInfoModel.matchInfo!.team2!.playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  "Northern Knights",
+                  widget.rapidMatch.matchInfo!.team1!.teamName.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.03),
@@ -210,10 +238,20 @@ class _InfoViewState extends State<InfoView> {
                   Icons.arrow_forward_ios_sharp,
                   color: PublicController.pc.toggleTextColor(),
                 ),
-                leading: Image.asset(
-                  'assets/t20.png',
+                leading: Container(
                   height: 20,
                   width: 20,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
+                        ),
+                        fit: BoxFit.fill),
+                  ),
                 ),
               ),
               SizedBox(
@@ -221,11 +259,11 @@ class _InfoViewState extends State<InfoView> {
               ),
               ListTile(
                 onTap: () {
-                  _showSquadsSheet(context);
+                  _showSquadsSheet(context,homeController.recentMatchInfoModel.matchInfo!.team2!.playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  "Northern Knights",
+                  widget.rapidMatch.matchInfo!.team2!.teamName.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.03),
@@ -236,940 +274,935 @@ class _InfoViewState extends State<InfoView> {
                   Icons.arrow_forward_ios_sharp,
                   color: PublicController.pc.toggleTextColor(),
                 ),
-                leading: Image.asset(
-                  'assets/t20.png',
+                leading: Container(
                   height: 20,
                   width: 20,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Team Form',
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' (Last 5 matches)',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
                         ),
-                      ),
-                    ],
+                        fit: BoxFit.fill),
                   ),
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              Expandable(
-                backgroundColor: PublicController.pc.toggleCardBg(),
-                arrowWidget: Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-                firstChild: Container(
-                  padding: EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.width * .85,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/bd_flag.png',
-                            height: 20,
-                            width: 20,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'BD',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      for (var i = 0; i < teamSymbol.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              color: teamColors[i],
-                            ),
-                            child: Center(
-                              child: Text(
-                                teamSymbol[i],
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                secondChild: Column(
-                  children: [
-                    for (var i = 0; i < teamSymbol.length; i++)
-                      GestureDetector(
-                        onTap: () {
-                          // Get.to(HomeDetailsScreen(
-                          //   teamS2Name: '',
-                          //   teamS1Name: '',
-                          //   matchIndex: i,
-                          //   matchDesc: '',
-                          // ));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            color: PublicController.pc.toggleCardBg(),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              'assets/t20.png',
-                                              height: 20,
-                                              width: 20,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                text: 'RR',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: ' 188-6',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.04),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: ' 20.0',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.03),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              'assets/t20.png',
-                                              height: 20,
-                                              width: 20,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                text: 'RR',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: ' 188-6',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.04),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: ' 20.0',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.03),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const VerticalDivider(
-                                          width: 1,
-                                          thickness: 2,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 3.0, horizontal: 7),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(5),
-                                            ),
-                                            color: teamColors[i],
-                                          ),
-                                          child: Text(
-                                            teamSymbol[i],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text("Qualifire 1 "),
-                                            Text("IPL 2022"),
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    // ListTile(
-                    //   leading: Image.asset(
-                    //     'assets/t20.png',
-                    //     height: 20,
-                    //     width: 20,
-                    //   ),
-                    //   trailing: Row(
-                    //     children: const [
-                    //       Text("Fixtures"),
-                    //       Icon(Icons.arrow_forward_ios_sharp)
-                    //     ],
-                    //   ),
-                    //   title: Text("See more matches"),
-                    // ),
-                  ],
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: RichText(
+              //     text: TextSpan(
+              //       text: 'Team Form',
+              //       style: TextStyle(
+              //         fontWeight: FontWeight.normal,
+              //         fontSize: dSize(.04),
+              //         color: PublicController.pc.toggleTextColor(),
+              //       ),
+              //       children: <TextSpan>[
+              //         TextSpan(
+              //           text: ' (Last 5 matches)',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Expandable(
+              //   backgroundColor: PublicController.pc.toggleCardBg(),
+              //   arrowWidget: Icon(
+              //     Icons.keyboard_arrow_down_outlined,
+              //     color: PublicController.pc.toggleTextColor(),
+              //   ),
+              //   firstChild: Container(
+              //     padding: EdgeInsets.all(5),
+              //     width: MediaQuery.of(context).size.width * .85,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Row(
+              //           children: [
+              //             Image.asset(
+              //               'assets/bd_flag.png',
+              //               height: 20,
+              //               width: 20,
+              //             ),
+              //             SizedBox(
+              //               width: 10,
+              //             ),
+              //             Text(
+              //               'BD',
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.normal,
+              //                 fontSize: dSize(.04),
+              //                 color: PublicController.pc.toggleTextColor(),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //         Spacer(),
+              //         for (var i = 0; i < teamSymbol.length; i++)
+              //           Padding(
+              //             padding: const EdgeInsets.all(3.0),
+              //             child: Container(
+              //               height: 20,
+              //               width: 20,
+              //               decoration: BoxDecoration(
+              //                 borderRadius: BorderRadius.all(
+              //                   Radius.circular(5),
+              //                 ),
+              //                 color: teamColors[i],
+              //               ),
+              //               child: Center(
+              //                 child: Text(
+              //                   teamSymbol[i],
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //       ],
+              //     ),
+              //   ),
+              //   secondChild: Column(
+              //     children: [
+              //       for (var i = 0; i < teamSymbol.length; i++)
+              //         GestureDetector(
+              //           onTap: () {
+              //             // Get.to(HomeDetailsScreen(
+              //             //   teamS2Name: '',
+              //             //   teamS1Name: '',
+              //             //   matchIndex: i,
+              //             //   matchDesc: '',
+              //             // ));
+              //           },
+              //           child: Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: Card(
+              //               color: PublicController.pc.toggleCardBg(),
+              //               child: Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: IntrinsicHeight(
+              //                   child: Row(
+              //                     mainAxisAlignment:
+              //                         MainAxisAlignment.spaceBetween,
+              //                     children: [
+              //                       Column(
+              //                         children: [
+              //                           Row(
+              //                             children: [
+              //                               Image.asset(
+              //                                 'assets/t20.png',
+              //                                 height: 20,
+              //                                 width: 20,
+              //                               ),
+              //                               RichText(
+              //                                 text: TextSpan(
+              //                                   text: 'RR',
+              //                                   style: TextStyle(
+              //                                     fontWeight: FontWeight.normal,
+              //                                     fontSize: dSize(.04),
+              //                                     color: PublicController.pc
+              //                                         .toggleTextColor(),
+              //                                   ),
+              //                                   children: <TextSpan>[
+              //                                     TextSpan(
+              //                                       text: ' 188-6',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.04),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                     TextSpan(
+              //                                       text: ' 20.0',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.03),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                   ],
+              //                                 ),
+              //                               ),
+              //                             ],
+              //                           ),
+              //                           SizedBox(
+              //                             height: 10,
+              //                           ),
+              //                           Row(
+              //                             children: [
+              //                               Image.asset(
+              //                                 'assets/t20.png',
+              //                                 height: 20,
+              //                                 width: 20,
+              //                               ),
+              //                               RichText(
+              //                                 text: TextSpan(
+              //                                   text: 'RR',
+              //                                   style: TextStyle(
+              //                                     fontWeight: FontWeight.normal,
+              //                                     fontSize: dSize(.04),
+              //                                     color: PublicController.pc
+              //                                         .toggleTextColor(),
+              //                                   ),
+              //                                   children: <TextSpan>[
+              //                                     TextSpan(
+              //                                       text: ' 188-6',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.04),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                     TextSpan(
+              //                                       text: ' 20.0',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.03),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                   ],
+              //                                 ),
+              //                               ),
+              //                             ],
+              //                           ),
+              //                         ],
+              //                       ),
+              //                       Row(
+              //                         children: [
+              //                           const VerticalDivider(
+              //                             width: 1,
+              //                             thickness: 2,
+              //                           ),
+              //                           SizedBox(
+              //                             width: 20,
+              //                           ),
+              //                           Container(
+              //                             padding: const EdgeInsets.symmetric(
+              //                                 vertical: 3.0, horizontal: 7),
+              //                             decoration: BoxDecoration(
+              //                               borderRadius: BorderRadius.all(
+              //                                 Radius.circular(5),
+              //                               ),
+              //                               color: teamColors[i],
+              //                             ),
+              //                             child: Text(
+              //                               teamSymbol[i],
+              //                               style:
+              //                                   TextStyle(color: Colors.white),
+              //                             ),
+              //                           ),
+              //                           SizedBox(
+              //                             width: 10,
+              //                           ),
+              //                           Column(
+              //                             mainAxisAlignment:
+              //                                 MainAxisAlignment.center,
+              //                             children: [
+              //                               Text("Qualifire 1 "),
+              //                               Text("IPL 2022"),
+              //                             ],
+              //                           )
+              //                         ],
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       // ListTile(
+              //       //   leading: Image.asset(
+              //       //     'assets/t20.png',
+              //       //     height: 20,
+              //       //     width: 20,
+              //       //   ),
+              //       //   trailing: Row(
+              //       //     children: const [
+              //       //       Text("Fixtures"),
+              //       //       Icon(Icons.arrow_forward_ios_sharp)
+              //       //     ],
+              //       //   ),
+              //       //   title: Text("See more matches"),
+              //       // ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Expandable(
+              //   backgroundColor: PublicController.pc.toggleCardBg(),
+              //   arrowWidget: Icon(
+              //     Icons.keyboard_arrow_down_outlined,
+              //     color: PublicController.pc.toggleTextColor(),
+              //   ),
+              //   firstChild: Container(
+              //     padding: EdgeInsets.all(5),
+              //     width: MediaQuery.of(context).size.width * .85,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Row(
+              //           children: [
+              //             Image.asset(
+              //               'assets/indian_flag.png',
+              //               height: 20,
+              //               width: 20,
+              //             ),
+              //             SizedBox(
+              //               width: 10,
+              //             ),
+              //             Text(
+              //               'India',
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.normal,
+              //                 fontSize: dSize(.04),
+              //                 color: PublicController.pc.toggleTextColor(),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //         Spacer(),
+              //         for (var i = 0; i < teamSymbol.length; i++)
+              //           Padding(
+              //             padding: const EdgeInsets.all(3.0),
+              //             child: Container(
+              //               height: 20,
+              //               width: 20,
+              //               decoration: BoxDecoration(
+              //                 borderRadius: BorderRadius.all(
+              //                   Radius.circular(5),
+              //                 ),
+              //                 color: teamColors[i],
+              //               ),
+              //               child: Center(
+              //                 child: Text(
+              //                   teamSymbol[i],
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //       ],
+              //     ),
+              //   ),
+              //   secondChild: Column(
+              //     children: [
+              //       for (var i = 0; i < teamSymbol.length; i++)
+              //         GestureDetector(
+              //           onTap: () {
+              //             // Get.to(HomeDetailsScreen(
+              //             //   teamS1Name: '',
+              //             //   matchIndex: i,
+              //             //   teamS2Name: '',
+              //             //   matchDesc: '',
+              //             // ));
+              //           },
+              //           child: Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: Card(
+              //               color: PublicController.pc.toggleCardBg(),
+              //               child: Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: IntrinsicHeight(
+              //                   child: Row(
+              //                     mainAxisAlignment:
+              //                         MainAxisAlignment.spaceBetween,
+              //                     children: [
+              //                       Column(
+              //                         children: [
+              //                           Row(
+              //                             children: [
+              //                               Image.asset(
+              //                                 'assets/t20.png',
+              //                                 height: 20,
+              //                                 width: 20,
+              //                               ),
+              //                               RichText(
+              //                                 text: TextSpan(
+              //                                   text: 'RR',
+              //                                   style: TextStyle(
+              //                                     fontWeight: FontWeight.normal,
+              //                                     fontSize: dSize(.04),
+              //                                     color: PublicController.pc
+              //                                         .toggleTextColor(),
+              //                                   ),
+              //                                   children: <TextSpan>[
+              //                                     TextSpan(
+              //                                       text: ' 188-6',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.04),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                     TextSpan(
+              //                                       text: ' 20.0',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.03),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                   ],
+              //                                 ),
+              //                               ),
+              //                             ],
+              //                           ),
+              //                           SizedBox(
+              //                             height: 10,
+              //                           ),
+              //                           Row(
+              //                             children: [
+              //                               Image.asset(
+              //                                 'assets/t20.png',
+              //                                 height: 20,
+              //                                 width: 20,
+              //                               ),
+              //                               RichText(
+              //                                 text: TextSpan(
+              //                                   text: 'RR',
+              //                                   style: TextStyle(
+              //                                     fontWeight: FontWeight.normal,
+              //                                     fontSize: dSize(.04),
+              //                                     color: PublicController.pc
+              //                                         .toggleTextColor(),
+              //                                   ),
+              //                                   children: <TextSpan>[
+              //                                     TextSpan(
+              //                                       text: ' 188-6',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.04),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                     TextSpan(
+              //                                       text: ' 20.0',
+              //                                       style: TextStyle(
+              //                                         fontWeight:
+              //                                             FontWeight.normal,
+              //                                         fontSize: dSize(.03),
+              //                                         color: PublicController.pc
+              //                                             .toggleTextColor(),
+              //                                       ),
+              //                                     ),
+              //                                   ],
+              //                                 ),
+              //                               ),
+              //                             ],
+              //                           ),
+              //                         ],
+              //                       ),
+              //                       Row(
+              //                         children: [
+              //                           const VerticalDivider(
+              //                             width: 1,
+              //                             thickness: 2,
+              //                           ),
+              //                           SizedBox(
+              //                             width: 20,
+              //                           ),
+              //                           Container(
+              //                             padding: const EdgeInsets.symmetric(
+              //                                 vertical: 3.0, horizontal: 7),
+              //                             decoration: BoxDecoration(
+              //                               borderRadius: BorderRadius.all(
+              //                                 Radius.circular(5),
+              //                               ),
+              //                               color: teamColors[i],
+              //                             ),
+              //                             child: Text(
+              //                               teamSymbol[i],
+              //                               style:
+              //                                   TextStyle(color: Colors.white),
+              //                             ),
+              //                           ),
+              //                           SizedBox(
+              //                             width: 10,
+              //                           ),
+              //                           Column(
+              //                             mainAxisAlignment:
+              //                                 MainAxisAlignment.center,
+              //                             children: [
+              //                               Text("Qualifire 1 "),
+              //                               Text("IPL 2022"),
+              //                             ],
+              //                           )
+              //                         ],
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       // ListTile(
+              //       //   leading: Image.asset(
+              //       //     'assets/t20.png',
+              //       //     height: 20,
+              //       //     width: 20,
+              //       //   ),
+              //       //   trailing: Row(
+              //       //     children: const [
+              //       //       Text("Fixtures"),
+              //       //       Icon(Icons.arrow_forward_ios_sharp)
+              //       //     ],
+              //       //   ),
+              //       //   title: Text("See more matches"),
+              //       // ),
+              //     ],
+              //   ),
+              // ),
+              // ListTile(
+              //   leading: Icon(
+              //     Icons.star_border,
+              //     size: 10,
+              //     color: PublicController.pc.toggleTextColor(),
+              //   ),
+              //   title: Text(
+              //     "Upcoming Matches",
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.normal,
+              //       fontSize: dSize(.04),
+              //       color: PublicController.pc.toggleTextColor(),
+              //     ),
+              //   ),
+              // ),
+              // RichText(
+              //   text: TextSpan(
+              //     text: 'Head to Head',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.normal,
+              //       fontSize: dSize(.04),
+              //       color: PublicController.pc.toggleTextColor(),
+              //     ),
+              //     children: <TextSpan>[
+              //       TextSpan(
+              //         text: ' (Last 10 matches)',
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.normal,
+              //           fontSize: dSize(.03),
+              //           color: PublicController.pc.toggleTextColor(),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // MoreCard(
+              //   child: HeadToHeadCardTile(
+              //     leadingWidget: Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Image.asset(
+              //             'assets/bd_flag.png',
+              //             height: 50,
+              //             width: 50,
+              //           ),
+              //           SizedBox(
+              //             height: 20,
+              //           ),
+              //           Text(
+              //             "BD",
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.normal,
+              //               fontSize: dSize(.04),
+              //               color: PublicController.pc.toggleTextColor(),
+              //             ),
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //     title: RichText(
+              //       textAlign: TextAlign.center,
+              //       text: TextSpan(
+              //         text: '2',
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.normal,
+              //           fontSize: dSize(.06),
+              //           color: PublicController.pc.toggleTextColor(),
+              //         ),
+              //         children: <TextSpan>[
+              //           TextSpan(
+              //             text: ' - 0',
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.normal,
+              //               fontSize: dSize(.04),
+              //               color: PublicController.pc.toggleTextColor(),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     trailingWidget: Column(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         Image.asset(
+              //           'assets/indian_flag.png',
+              //           height: 50,
+              //           width: 50,
+              //         ),
+              //         SizedBox(
+              //           height: 20,
+              //         ),
+              //         Text(
+              //           "India",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.04),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //     onTap: () {},
+              //   ),
+              // ),
               SizedBox(
                 height: 10,
               ),
-              Expandable(
-                backgroundColor: PublicController.pc.toggleCardBg(),
-                arrowWidget: Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-                firstChild: Container(
-                  padding: EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.width * .85,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/indian_flag.png',
-                            height: 20,
-                            width: 20,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'India',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      for (var i = 0; i < teamSymbol.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Container(
-                            height: 20,
-                            width: 20,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              color: teamColors[i],
-                            ),
-                            child: Center(
-                              child: Text(
-                                teamSymbol[i],
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                secondChild: Column(
-                  children: [
-                    for (var i = 0; i < teamSymbol.length; i++)
-                      GestureDetector(
-                        onTap: () {
-                          // Get.to(HomeDetailsScreen(
-                          //   teamS1Name: '',
-                          //   matchIndex: i,
-                          //   teamS2Name: '',
-                          //   matchDesc: '',
-                          // ));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            color: PublicController.pc.toggleCardBg(),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              'assets/t20.png',
-                                              height: 20,
-                                              width: 20,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                text: 'RR',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: ' 188-6',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.04),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: ' 20.0',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.03),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Image.asset(
-                                              'assets/t20.png',
-                                              height: 20,
-                                              width: 20,
-                                            ),
-                                            RichText(
-                                              text: TextSpan(
-                                                text: 'RR',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: dSize(.04),
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: ' 188-6',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.04),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                  TextSpan(
-                                                    text: ' 20.0',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: dSize(.03),
-                                                      color: PublicController.pc
-                                                          .toggleTextColor(),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const VerticalDivider(
-                                          width: 1,
-                                          thickness: 2,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 3.0, horizontal: 7),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(5),
-                                            ),
-                                            color: teamColors[i],
-                                          ),
-                                          child: Text(
-                                            teamSymbol[i],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text("Qualifire 1 "),
-                                            Text("IPL 2022"),
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    // ListTile(
-                    //   leading: Image.asset(
-                    //     'assets/t20.png',
-                    //     height: 20,
-                    //     width: 20,
-                    //   ),
-                    //   trailing: Row(
-                    //     children: const [
-                    //       Text("Fixtures"),
-                    //       Icon(Icons.arrow_forward_ios_sharp)
-                    //     ],
-                    //   ),
-                    //   title: Text("See more matches"),
-                    // ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.star_border,
-                  size: 10,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-                title: Text(
-                  "Upcoming Matches",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  text: 'Head to Head',
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: ' (Last 10 matches)',
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: dSize(.03),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ListView.builder(
+                  itemCount: homeController
+                      .rapidSeriesMatchList.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return  GestureDetector(
+                      onTap: (){
+                        print(homeController
+                            .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
+                      },
+                      child: MatchCardTile(
+                          rapidMatch:homeController
+                              .rapidSeriesMatchList[index]),
+                    );
+
+                  }),
+         
               SizedBox(
                 height: 10,
               ),
-              MoreCard(
-                child: HeadToHeadCardTile(
-                  leadingWidget: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/bd_flag.png',
-                          height: 50,
-                          width: 50,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "BD",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  title: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: '2',
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: dSize(.06),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: ' - 0',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  trailingWidget: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/indian_flag.png',
-                        height: 50,
-                        width: 50,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "India",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      )
-                    ],
-                  ),
-                  onTap: () {},
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              MoreCard(
-                  child: Column(
-                children: [
-                  FixturesCardTile(
-                    title: 'Indian Premium League',
-                    leadingUrlOne: 'assets/indian_flag.png',
-                    leadingUrlTwo: 'assets/bd_flag.png',
-                    teamOne: 'India',
-                    teamTwo: 'Bangladesh',
-                    reachTitleOne: '140-5',
-                    reachTitleTwo: '188-6',
-                    reachSubTitleOne: '16.3',
-                    reachSubTitleTwo: '19.3',
-                    desc: "",
-                    date: "",
-                    onTap: () {},
-                  ),
-                  FixturesCardTile(
-                    title: 'Indian Premium League',
-                    leadingUrlOne: 'assets/indian_flag.png',
-                    leadingUrlTwo: 'assets/bd_flag.png',
-                    teamOne: 'India',
-                    teamTwo: 'Bangladesh',
-                    reachTitleOne: '140-5',
-                    reachTitleTwo: '188-6',
-                    reachSubTitleOne: '16.3',
-                    reachSubTitleTwo: '19.3',
-                    desc: 'BD Won',
-                    date: "by 7 wickets",
-                    onTap: () {},
-                  ),
-                ],
-              )),
-              SizedBox(
-                height: 10,
-              ),
-              MoreCard(
-                child: ListTile(
-                  trailing: Icon(
-                    Icons.arrow_forward_ios_sharp,
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
-                  leading: Text(
-                    "GT va RR",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
-                  title: Text(
-                    "More Matches",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18.0),
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Team Comparison',
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' (Last 10 matches)',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              MoreCard(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/bd_flag.png',
-                              height: 50,
-                              width: 50,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'BD',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: dSize(.04),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ),
-                                Text(
-                                  'vs all teams',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: dSize(.03),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/indian_flag.png',
-                              height: 50,
-                              width: 50,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'India',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: dSize(.04),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ),
-                                Text(
-                                  'vs all teams',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: dSize(.03),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      leading: Text(
-                        "10",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      title: Text(
-                        "Matches Played",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      trailing: Text(
-                        '10',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      leading: Text(
-                        "70%",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      title: Text(
-                        "Win",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      trailing: Text(
-                        '60%',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      leading: Text(
-                        "165",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      title: Text(
-                        "Average Score",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      trailing: Text(
-                        '170',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      leading: Text(
-                        "199",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      title: Text(
-                        "Highest Score",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      trailing: Text(
-                        '222',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      leading: Text(
-                        "137",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      title: Text(
-                        "Lowest Score",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      trailing: Text(
-                        '144',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // MoreCard(
+              //   child: ListTile(
+              //     trailing: Icon(
+              //       Icons.arrow_forward_ios_sharp,
+              //       color: PublicController.pc.toggleTextColor(),
+              //     ),
+              //     leading: Text(
+              //       "GT va RR",
+              //       style: TextStyle(
+              //         fontWeight: FontWeight.normal,
+              //         fontSize: dSize(.04),
+              //         color: PublicController.pc.toggleTextColor(),
+              //       ),
+              //     ),
+              //     title: Text(
+              //       "More Matches",
+              //       style: TextStyle(
+              //         fontWeight: FontWeight.normal,
+              //         fontSize: dSize(.04),
+              //         color: PublicController.pc.toggleTextColor(),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 18.0),
+              //   child: RichText(
+              //     text: TextSpan(
+              //       text: 'Team Comparison',
+              //       style: TextStyle(
+              //         fontWeight: FontWeight.normal,
+              //         fontSize: dSize(.04),
+              //         color: PublicController.pc.toggleTextColor(),
+              //       ),
+              //       children: <TextSpan>[
+              //         TextSpan(
+              //           text: ' (Last 10 matches)',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // MoreCard(
+              //   child: Column(
+              //     children: [
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Row(
+              //             children: [
+              //               Image.asset(
+              //                 'assets/bd_flag.png',
+              //                 height: 50,
+              //                 width: 50,
+              //               ),
+              //               SizedBox(
+              //                 width: 10,
+              //               ),
+              //               Column(
+              //                 children: [
+              //                   Text(
+              //                     'BD',
+              //                     style: TextStyle(
+              //                       fontWeight: FontWeight.normal,
+              //                       fontSize: dSize(.04),
+              //                       color:
+              //                           PublicController.pc.toggleTextColor(),
+              //                     ),
+              //                   ),
+              //                   Text(
+              //                     'vs all teams',
+              //                     style: TextStyle(
+              //                       fontWeight: FontWeight.normal,
+              //                       fontSize: dSize(.03),
+              //                       color:
+              //                           PublicController.pc.toggleTextColor(),
+              //                     ),
+              //                   ),
+              //                 ],
+              //               )
+              //             ],
+              //           ),
+              //           Row(
+              //             children: [
+              //               Image.asset(
+              //                 'assets/indian_flag.png',
+              //                 height: 50,
+              //                 width: 50,
+              //               ),
+              //               SizedBox(
+              //                 width: 10,
+              //               ),
+              //               Column(
+              //                 children: [
+              //                   Text(
+              //                     'India',
+              //                     style: TextStyle(
+              //                       fontWeight: FontWeight.normal,
+              //                       fontSize: dSize(.04),
+              //                       color:
+              //                           PublicController.pc.toggleTextColor(),
+              //                     ),
+              //                   ),
+              //                   Text(
+              //                     'vs all teams',
+              //                     style: TextStyle(
+              //                       fontWeight: FontWeight.normal,
+              //                       fontSize: dSize(.03),
+              //                       color:
+              //                           PublicController.pc.toggleTextColor(),
+              //                     ),
+              //                   ),
+              //                 ],
+              //               )
+              //             ],
+              //           )
+              //         ],
+              //       ),
+              //       SizedBox(
+              //         height: 5,
+              //       ),
+              //       Divider(
+              //         height: 1,
+              //         color: Colors.grey,
+              //       ),
+              //       ListTile(
+              //         leading: Text(
+              //           "10",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         title: Text(
+              //           "Matches Played",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         trailing: Text(
+              //           '10',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ),
+              //       Divider(
+              //         height: 1,
+              //         color: Colors.grey,
+              //       ),
+              //       ListTile(
+              //         leading: Text(
+              //           "70%",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         title: Text(
+              //           "Win",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         trailing: Text(
+              //           '60%',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ),
+              //       Divider(
+              //         height: 1,
+              //         color: Colors.grey,
+              //       ),
+              //       ListTile(
+              //         leading: Text(
+              //           "165",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         title: Text(
+              //           "Average Score",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         trailing: Text(
+              //           '170',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ),
+              //       Divider(
+              //         height: 1,
+              //         color: Colors.grey,
+              //       ),
+              //       ListTile(
+              //         leading: Text(
+              //           "199",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         title: Text(
+              //           "Highest Score",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         trailing: Text(
+              //           '222',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ),
+              //       Divider(
+              //         height: 1,
+              //         color: Colors.grey,
+              //       ),
+              //       ListTile(
+              //         leading: Text(
+              //           "137",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         title: Text(
+              //           "Lowest Score",
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //         trailing: Text(
+              //           '144',
+              //           style: TextStyle(
+              //             fontWeight: FontWeight.normal,
+              //             fontSize: dSize(.03),
+              //             color: PublicController.pc.toggleTextColor(),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               ListTile(
                 leading: Icon(
                   Icons.location_on,
                   color: PublicController.pc.toggleTextColor(),
                 ),
                 title: Text(
-                  "Narendra Modi Stadium, Ahmedabad, India",
+                  "${widget.rapidMatch.matchInfo!.venueInfo!.ground.toString()}, ${widget.rapidMatch.matchInfo!.venueInfo!.city.toString()}",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.04),
@@ -1177,10 +1210,11 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
+              Image.network("${homeController.recentMatchInfoModel.venueInfo!.imageUrl}"),
               MoreCard(
                 child: Column(
                   children: [
-                    ListTile(
+                    homeController.recentMatchInfoModel.matchInfo!.umpire1 != null?      ListTile(
                       title: Text(
                         "Umpire",
                         style: TextStyle(
@@ -1190,18 +1224,39 @@ class _InfoViewState extends State<InfoView> {
                         ),
                       ),
                       subtitle: Text(
-                        "Nitin Menon,  Virender Sharma",
+                        "${homeController.recentMatchInfoModel.matchInfo!.umpire1!.name}",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
                       ),
-                    ),
+                    ):SizedBox(),
                     Divider(
                       thickness: 1,
                     ),
-                    ListTile(
+                    homeController.recentMatchInfoModel.matchInfo!.umpire2 != null?     ListTile(
+                      title: Text(
+                        "2nd Umpire",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                      subtitle: Text(
+                        "${homeController.recentMatchInfoModel.matchInfo!.umpire2!.name}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: dSize(.04),
+                          color: PublicController.pc.toggleTextColor(),
+                        ),
+                      ),
+                    ):SizedBox(),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    homeController.recentMatchInfoModel.matchInfo!.umpire3 != null?    ListTile(
                       title: Text(
                         "Third Umpire",
                         style: TextStyle(
@@ -1211,18 +1266,18 @@ class _InfoViewState extends State<InfoView> {
                         ),
                       ),
                       subtitle: Text(
-                        "Anil Choudhary",
+                        "${homeController.recentMatchInfoModel.matchInfo!.umpire3!.name}",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
                       ),
-                    ),
+                    ):SizedBox(),
                     Divider(
                       thickness: 1,
                     ),
-                    ListTile(
+                    homeController.recentMatchInfoModel.matchInfo!.referee != null?   ListTile(
                       title: Text(
                         "Referee",
                         style: TextStyle(
@@ -1232,14 +1287,14 @@ class _InfoViewState extends State<InfoView> {
                         ),
                       ),
                       subtitle: Text(
-                        "javagal Srinath",
+                         "${homeController.recentMatchInfoModel.matchInfo!.referee!.name}",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: dSize(.04),
                           color: PublicController.pc.toggleTextColor(),
                         ),
                       ),
-                    ),
+                    ):SizedBox(),
                   ],
                 ),
               ),
@@ -1253,14 +1308,15 @@ class _InfoViewState extends State<InfoView> {
     });
   }
 
-  void _showSquadsSheet(BuildContext context) {
+  void _showSquadsSheet(BuildContext context,List<PlayerRapid>players) {
     showModalBottomSheet(
         context: context,
         builder: (_) => StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
-              return const FractionallySizedBox(
+              return  FractionallySizedBox(
                 heightFactor: 2.3,
-                child: BottomSheetScreen(),
+                child: BottomSheetScreen(playerRapidTeam: players,
+                ),
               );
             }));
   }
