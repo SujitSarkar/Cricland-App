@@ -23,15 +23,15 @@ class FinishedCardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: (){
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (_) => UpcomingDetailsScreen(
-          //       selectedIndex: 2,
-          //       rapidMatch: rapidMatch,
-          //     ),
-          //   ),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => HomeDetailsScreen(
+
+                rapidMatch: rapidMatch,
+              ),
+            ),
+          );
         },
         child: Container(
 

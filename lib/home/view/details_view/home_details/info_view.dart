@@ -19,9 +19,9 @@ import '../../../model/rapid_model/recent_match_model.dart';
 import '../../widgets/match_card_tile.dart';
 
 class InfoView extends StatefulWidget {
-  final String matchId;
+
   final RapidMatch rapidMatch;
-  const InfoView({Key? key, required this.matchId,required this.rapidMatch}) : super(key: key);
+  const InfoView({Key? key,required this.rapidMatch}) : super(key: key);
 
   @override
   _InfoViewState createState() => _InfoViewState();
@@ -46,7 +46,6 @@ class _InfoViewState extends State<InfoView> {
 
   fetchData() async {
     HomeController homeController = Get.put(HomeController());
-    await homeController.getMatchInfo(widget.matchId);
    // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
     await homeController.getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
     if (mounted) {
@@ -198,12 +197,9 @@ class _InfoViewState extends State<InfoView> {
                   Icons.location_on,
                   color: PublicController.pc.toggleTextColor(),
                 ),
-                trailing: Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Align(
@@ -217,7 +213,7 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ListTile(
@@ -1210,94 +1206,99 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
-              Image.network("${homeController.recentMatchInfoModel.venueInfo!.imageUrl}"),
-              MoreCard(
-                child: Column(
-                  children: [
-                    homeController.recentMatchInfoModel.matchInfo!.umpire1 != null?      ListTile(
-                      title: Text(
-                        "Umpire",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
+              homeController.recentMatchInfoModel.venueInfo != null?   Column(
+                children: [
+                  Image.network("${homeController.recentMatchInfoModel.venueInfo!.imageUrl}"),
+                  MoreCard(
+                    child: Column(
+                      children: [
+                        homeController.recentMatchInfoModel.matchInfo!.umpire1 != null?      ListTile(
+                          title: Text(
+                            "Umpire",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                          subtitle: Text(
+                            "${homeController.recentMatchInfoModel.matchInfo!.umpire1!.name}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ):SizedBox(),
+                        Divider(
+                          thickness: 1,
                         ),
-                      ),
-                      subtitle: Text(
-                        "${homeController.recentMatchInfoModel.matchInfo!.umpire1!.name}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
+                        homeController.recentMatchInfoModel.matchInfo!.umpire2 != null?     ListTile(
+                          title: Text(
+                            "2nd Umpire",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                          subtitle: Text(
+                            "${homeController.recentMatchInfoModel.matchInfo!.umpire2!.name}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ):SizedBox(),
+                        Divider(
+                          thickness: 1,
                         ),
-                      ),
-                    ):SizedBox(),
-                    Divider(
-                      thickness: 1,
+                        homeController.recentMatchInfoModel.matchInfo!.umpire3 != null?    ListTile(
+                          title: Text(
+                            "Third Umpire",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                          subtitle: Text(
+                            "${homeController.recentMatchInfoModel.matchInfo!.umpire3!.name}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ):SizedBox(),
+                        Divider(
+                          thickness: 1,
+                        ),
+                        homeController.recentMatchInfoModel.matchInfo!.referee != null?   ListTile(
+                          title: Text(
+                            "Referee",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                          subtitle: Text(
+                            "${homeController.recentMatchInfoModel.matchInfo!.referee!.name}",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: dSize(.04),
+                              color: PublicController.pc.toggleTextColor(),
+                            ),
+                          ),
+                        ):SizedBox(),
+                      ],
                     ),
-                    homeController.recentMatchInfoModel.matchInfo!.umpire2 != null?     ListTile(
-                      title: Text(
-                        "2nd Umpire",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      subtitle: Text(
-                        "${homeController.recentMatchInfoModel.matchInfo!.umpire2!.name}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ):SizedBox(),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    homeController.recentMatchInfoModel.matchInfo!.umpire3 != null?    ListTile(
-                      title: Text(
-                        "Third Umpire",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      subtitle: Text(
-                        "${homeController.recentMatchInfoModel.matchInfo!.umpire3!.name}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ):SizedBox(),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    homeController.recentMatchInfoModel.matchInfo!.referee != null?   ListTile(
-                      title: Text(
-                        "Referee",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                      subtitle: Text(
-                         "${homeController.recentMatchInfoModel.matchInfo!.referee!.name}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      ),
-                    ):SizedBox(),
-                  ],
-                ),
-              ),
+                  ),
+                ],
+              ):const SizedBox(),
+
               SizedBox(
                 height: 10,
               )
@@ -1309,15 +1310,22 @@ class _InfoViewState extends State<InfoView> {
   }
 
   void _showSquadsSheet(BuildContext context,List<PlayerRapid>players) {
+
+
+
+
     showModalBottomSheet(
         context: context,
-        builder: (_) => StatefulBuilder(
+        builder: (_) {
+
+          return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
               return  FractionallySizedBox(
                 heightFactor: 2.3,
                 child: BottomSheetScreen(playerRapidTeam: players,
                 ),
               );
-            }));
+            });
+        });
   }
 }

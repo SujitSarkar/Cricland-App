@@ -22,7 +22,7 @@ class CLTextStyle {
   );
 
   TextStyle paragraphTextStyle = TextStyle(
-    fontSize: dSize(.02),
+    fontSize: dSize(.03),
     fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );

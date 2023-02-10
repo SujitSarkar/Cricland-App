@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
+import '../../../../public/controller/api_endpoints.dart';
+
 class LiveView extends StatefulWidget {
   final String team1ImageID;
   final String team2ImageID;
@@ -52,6 +54,7 @@ class _LiveViewState extends State<LiveView> {
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -139,8 +142,8 @@ class _LiveViewState extends State<LiveView> {
                             ),
                           ),
                           const VerticalDivider(
-                            width: 2,
-                            thickness: 2,
+                            width: 1,
+                            thickness: 1,
                             color: Colors.grey,
                           ),
                           const SizedBox(
@@ -152,20 +155,48 @@ class _LiveViewState extends State<LiveView> {
                 ],
               ),
             ),
-            LiveWinCardTile(
-              selectedIndex: 0,
-              onTap: () {
-                _showSquadsSheet(context);
-              },
-            ),
-            BatterCardTile(
-              title: '',
-              onTap: () {},
-            ),
-            BowlerCardTile(
-              title: '',
-              onTap: () {},
-            ),
+            Text("Player of the Match"),
+            MoreCard(child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text("${homeController.recentMatchInfoModel.matchInfo!.playersOfTheMatch!.name}"),
+                    Text("${homeController.recentMatchInfoModel.matchInfo!.playersOfTheMatch!.role}"),
+                  ],
+                ),
+                Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${homeController.recentMatchInfoModel.matchInfo!.playersOfTheMatch!.faceImageId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
+                        ),
+                        fit: BoxFit.fill),
+                  ),
+                ),
+              ],
+            )),
+
+            // LiveWinCardTile(
+            //   selectedIndex: 0,
+            //   onTap: () {
+            //     _showSquadsSheet(context);
+            //   },
+            // ),
+            // BatterCardTile(
+            //   title: '',
+            //   onTap: () {},
+            // ),
+            // BowlerCardTile(
+            //   title: '',
+            //   onTap: () {},
+            // ),
             const SizedBox(
               height: 5,
             ),

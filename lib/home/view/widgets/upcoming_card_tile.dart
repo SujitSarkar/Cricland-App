@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/rapid_model/recent_match_model.dart';
+import '../details_view/home_details/home_details_screen.dart';
 import '../details_view/upcoming_details/upcoming_details_screen.dart';
 
 class UpcomingCardTile extends StatelessWidget {
@@ -21,15 +22,15 @@ class UpcomingCardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => UpcomingDetailsScreen(
-        //       selectedIndex: 2,
-        //       rapidMatch: rapidMatch,
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => HomeDetailsScreen(
+              // selectedIndex: 2,
+              rapidMatch: rapidMatch,
+            ),
+          ),
+        );
       },
       child: Container(
 

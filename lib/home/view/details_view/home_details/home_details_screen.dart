@@ -242,8 +242,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             width: 10,
                           ),
                           Container(
-                            height: 60,
-                            width: 60,
+                            height: 40,
+                            width: 40,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
@@ -268,7 +268,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     color: Colors.white,
                                     fontSize: dSize(.05),
                                   )),
-                              RichText(
+                              widget.rapidMatch.matchScore != null?     RichText(
                                 text: TextSpan(
                                   text: "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
                                   style: CLTextStyle().paragraphTextStyle.copyWith(
@@ -284,7 +284,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     // TextSpan(text: ' world!'),
                                   ],
                                 ),
-                              ),
+                              ):SizedBox(),
                             ],
                           )
                         ],
@@ -307,7 +307,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   fontSize: dSize(.05),
                                 ),
                               ),
-                              RichText(
+                              widget.rapidMatch.matchScore != null?     RichText(
                                 text: TextSpan(
                                   text: "(${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}) ",
                                   style: CLTextStyle().paragraphTextStyle.copyWith(
@@ -326,15 +326,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     // TextSpan(text: ' world!'),
                                   ],
                                 ),
-                              ),
+                              ):SizedBox(),
                             ],
                           ),
                           SizedBox(
                             width: 10,
                           ),
                           Container(
-                            height: 60,
-                            width: 60,
+                            height: 40,
+                            width: 40,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
@@ -357,18 +357,23 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                   const SizedBox(
                     height: 15,
                   ),
-                  Divider(color: Colors.grey,),
-                  GestureDetector(
-                    onTap: (){
-                      fetchData();
-                      print("GGG");
-                    },
-                    child: Text(
-                        "${widget.rapidMatch.matchInfo!.status}",
-                      style: CLTextStyle().paragraphHeadLineTextStyle
-                          .copyWith(color: Colors.orange, fontSize: 15),
-                    ),
-                  )
+                  widget.rapidMatch.matchInfo!.status != null?  Column(
+                    children: [
+                      Divider(color: Colors.grey,),
+                      GestureDetector(
+                        onTap: (){
+                          fetchData();
+                          print("GGG");
+                        },
+                        child: Text(
+                          "${widget.rapidMatch.matchInfo!.status}",
+                          style: CLTextStyle().paragraphHeadLineTextStyle
+                              .copyWith(color: Colors.orange, fontSize: 15),
+                        ),
+                      )
+                    ],
+                  ):const SizedBox(),
+
                 ],
               ),
             ),
@@ -377,7 +382,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                 controller: _tabController,
                 children: <Widget>[
                   InfoView(
-                    matchId:"${widget.rapidMatch.matchInfo!.matchId}",
+
                     rapidMatch: widget.rapidMatch,
                   ),
                   CommentaryView(

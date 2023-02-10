@@ -12,338 +12,25 @@ String scoreCardModelToJson(ScoreCardModel data) => json.encode(data.toJson());
 class ScoreCardModel {
   ScoreCardModel({
     this.scoreCard,
-    this.matchHeader,
-    this.isMatchComplete,
-    this.status,
-    this.videos,
-    this.responseLastUpdated,
+
   });
 
   List<ScoreCard>? scoreCard;
-  MatchHeader? matchHeader;
-  bool? isMatchComplete;
-  String? status;
-  List<dynamic>? videos;
-  dynamic responseLastUpdated;
+
 
   factory ScoreCardModel.fromJson(Map<String, dynamic> json) => ScoreCardModel(
         scoreCard: List<ScoreCard>.from(
             json["scoreCard"].map((x) => ScoreCard.fromJson(x))),
-        matchHeader: MatchHeader.fromJson(json["matchHeader"]),
-        isMatchComplete: json["isMatchComplete"],
-        status: json["status"],
-        videos: List<dynamic>.from(json["videos"].map((x) => x)),
-        responseLastUpdated: json["responseLastUpdated"],
+
       );
 
   Map<String, dynamic> toJson() => {
         "scoreCard": List<dynamic>.from(scoreCard!.map((x) => x.toJson())),
-        "matchHeader": matchHeader!.toJson(),
-        "isMatchComplete": isMatchComplete,
-        "status": status,
-        "videos": List<dynamic>.from(videos!.map((x) => x)),
-        "responseLastUpdated": responseLastUpdated,
+
       };
 }
 
-class MatchHeader {
-  MatchHeader({
-    this.matchId,
-    this.matchDescription,
-    this.matchFormat,
-    this.matchType,
-    this.complete,
-    this.domestic,
-    this.matchStartTimestamp,
-    this.matchCompleteTimestamp,
-    this.dayNight,
-    this.year,
-    this.state,
-    this.status,
-    this.tossResults,
-    this.result,
-    this.revisedTarget,
-    this.playersOfTheMatch,
-    this.playersOfTheSeries,
-    this.matchTeamInfo,
-    this.isMatchNotCovered,
-    this.team1,
-    this.team2,
-    this.seriesDesc,
-    this.seriesId,
-    this.seriesName,
-  });
 
-  dynamic matchId;
-  String? matchDescription;
-  String? matchFormat;
-  String? matchType;
-  bool? complete;
-  bool? domestic;
-  dynamic matchStartTimestamp;
-  dynamic matchCompleteTimestamp;
-  bool? dayNight;
-  dynamic year;
-  String? state;
-  String? status;
-  TossResults? tossResults;
-  Result? result;
-  RevisedTarget? revisedTarget;
-  List<PlayersOfThe>? playersOfTheMatch;
-  List<PlayersOfThe>? playersOfTheSeries;
-  List<MatchTeamInfo>? matchTeamInfo;
-  bool? isMatchNotCovered;
-  Team? team1;
-  Team? team2;
-  String? seriesDesc;
-  dynamic seriesId;
-  String? seriesName;
-
-  factory MatchHeader.fromJson(Map<String, dynamic> json) => MatchHeader(
-        matchId: json["matchId"],
-        matchDescription: json["matchDescription"],
-        matchFormat: json["matchFormat"],
-        matchType: json["matchType"],
-        complete: json["complete"],
-        domestic: json["domestic"],
-        matchStartTimestamp: json["matchStartTimestamp"],
-        matchCompleteTimestamp: json["matchCompleteTimestamp"],
-        dayNight: json["dayNight"],
-        year: json["year"],
-        state: json["state"],
-        status: json["status"],
-        tossResults: TossResults.fromJson(json["tossResults"]),
-        result: Result.fromJson(json["result"]),
-        revisedTarget: RevisedTarget.fromJson(json["revisedTarget"]),
-        playersOfTheMatch: List<PlayersOfThe>.from(
-            json["playersOfTheMatch"].map((x) => PlayersOfThe.fromJson(x))),
-        playersOfTheSeries: List<PlayersOfThe>.from(
-            json["playersOfTheSeries"].map((x) => PlayersOfThe.fromJson(x))),
-        matchTeamInfo: List<MatchTeamInfo>.from(
-            json["matchTeamInfo"].map((x) => MatchTeamInfo.fromJson(x))),
-        isMatchNotCovered: json["isMatchNotCovered"],
-        team1: Team.fromJson(json["team1"]),
-        team2: Team.fromJson(json["team2"]),
-        seriesDesc: json["seriesDesc"],
-        seriesId: json["seriesId"],
-        seriesName: json["seriesName"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "matchId": matchId,
-        "matchDescription": matchDescription,
-        "matchFormat": matchFormat,
-        "matchType": matchType,
-        "complete": complete,
-        "domestic": domestic,
-        "matchStartTimestamp": matchStartTimestamp,
-        "matchCompleteTimestamp": matchCompleteTimestamp,
-        "dayNight": dayNight,
-        "year": year,
-        "state": state,
-        "status": status,
-        "tossResults": tossResults!.toJson(),
-        "result": result!.toJson(),
-        "revisedTarget": revisedTarget!.toJson(),
-        "playersOfTheMatch":
-            List<dynamic>.from(playersOfTheMatch!.map((x) => x.toJson())),
-        "playersOfTheSeries":
-            List<dynamic>.from(playersOfTheSeries!.map((x) => x.toJson())),
-        "matchTeamInfo":
-            List<dynamic>.from(matchTeamInfo!.map((x) => x.toJson())),
-        "isMatchNotCovered": isMatchNotCovered,
-        "team1": team1!.toJson(),
-        "team2": team2!.toJson(),
-        "seriesDesc": seriesDesc,
-        "seriesId": seriesId,
-        "seriesName": seriesName,
-      };
-}
-
-class MatchTeamInfo {
-  MatchTeamInfo({
-    this.battingTeamId,
-    this.battingTeamShortName,
-    this.bowlingTeamId,
-    this.bowlingTeamShortName,
-  });
-
-  dynamic battingTeamId;
-  String? battingTeamShortName;
-  dynamic bowlingTeamId;
-  String? bowlingTeamShortName;
-
-  factory MatchTeamInfo.fromJson(Map<String, dynamic> json) => MatchTeamInfo(
-        battingTeamId: json["battingTeamId"],
-        battingTeamShortName: json["battingTeamShortName"],
-        bowlingTeamId: json["bowlingTeamId"],
-        bowlingTeamShortName: json["bowlingTeamShortName"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "battingTeamId": battingTeamId,
-        "battingTeamShortName": battingTeamShortName,
-        "bowlingTeamId": bowlingTeamId,
-        "bowlingTeamShortName": bowlingTeamShortName,
-      };
-}
-
-class PlayersOfThe {
-  PlayersOfThe({
-    this.id,
-    this.name,
-    this.fullName,
-    this.nickName,
-    this.captain,
-    this.keeper,
-    this.substitute,
-    this.teamName,
-    this.faceImageId,
-    this.bowlingStyle,
-  });
-
-  dynamic id;
-  String? name;
-  String? fullName;
-  String? nickName;
-  bool? captain;
-  bool? keeper;
-  bool? substitute;
-  String? teamName;
-  dynamic faceImageId;
-  String? bowlingStyle;
-
-  factory PlayersOfThe.fromJson(Map<String, dynamic> json) => PlayersOfThe(
-        id: json["id"],
-        name: json["name"],
-        fullName: json["fullName"],
-        nickName: json["nickName"],
-        captain: json["captain"],
-        keeper: json["keeper"],
-        substitute: json["substitute"],
-        teamName: json["teamName"] == null ? null : json["teamName"],
-        faceImageId: json["faceImageId"],
-        bowlingStyle:
-            json["bowlingStyle"] == null ? null : json["bowlingStyle"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "fullName": fullName,
-        "nickName": nickName,
-        "captain": captain,
-        "keeper": keeper,
-        "substitute": substitute,
-        "teamName": teamName == null ? null : teamName,
-        "faceImageId": faceImageId,
-        "bowlingStyle": bowlingStyle == null ? null : bowlingStyle,
-      };
-}
-
-class Result {
-  Result({
-    this.resultType,
-    this.winningTeam,
-    this.winningteamId,
-    this.winningMargin,
-    this.winByRuns,
-    this.winByInnings,
-  });
-
-  String? resultType;
-  String? winningTeam;
-  dynamic winningteamId;
-  dynamic winningMargin;
-  bool? winByRuns;
-  bool? winByInnings;
-
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-        resultType: json["resultType"],
-        winningTeam: json["winningTeam"],
-        winningteamId: json["winningteamId"],
-        winningMargin: json["winningMargin"],
-        winByRuns: json["winByRuns"],
-        winByInnings: json["winByInnings"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "resultType": resultType,
-        "winningTeam": winningTeam,
-        "winningteamId": winningteamId,
-        "winningMargin": winningMargin,
-        "winByRuns": winByRuns,
-        "winByInnings": winByInnings,
-      };
-}
-
-class RevisedTarget {
-  RevisedTarget({
-    this.reason,
-  });
-
-  String? reason;
-
-  factory RevisedTarget.fromJson(Map<String, dynamic> json) => RevisedTarget(
-        reason: json["reason"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "reason": reason,
-      };
-}
-
-class Team {
-  Team({
-    this.id,
-    this.name,
-    this.playerDetails,
-    this.shortName,
-  });
-
-  dynamic id;
-  String? name;
-  List<dynamic>? playerDetails;
-  String? shortName;
-
-  factory Team.fromJson(Map<String, dynamic> json) => Team(
-        id: json["id"],
-        name: json["name"],
-        playerDetails: List<dynamic>.from(json["playerDetails"].map((x) => x)),
-        shortName: json["shortName"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "playerDetails": List<dynamic>.from(playerDetails!.map((x) => x)),
-        "shortName": shortName,
-      };
-}
-
-class TossResults {
-  TossResults({
-    this.tossWinnerId,
-    this.tossWinnerName,
-    this.decision,
-  });
-
-  dynamic tossWinnerId;
-  String? tossWinnerName;
-  String? decision;
-
-  factory TossResults.fromJson(Map<String, dynamic> json) => TossResults(
-        tossWinnerId: json["tossWinnerId"],
-        tossWinnerName: json["tossWinnerName"],
-        decision: json["decision"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "tossWinnerId": tossWinnerId,
-        "tossWinnerName": tossWinnerName,
-        "decision": decision,
-      };
-}
 
 class ScoreCard {
   ScoreCard({
@@ -354,9 +41,9 @@ class ScoreCard {
     this.bowlTeamDetails,
     this.scoreDetails,
     this.extrasData,
-    this.ppData,
+
     this.wicketsData,
-    this.partnershipsData,
+
   });
 
   dynamic matchId;
@@ -366,9 +53,7 @@ class ScoreCard {
   BowlTeamDetails? bowlTeamDetails;
   ScoreDetails? scoreDetails;
   ExtrasData? extrasData;
-  PpData? ppData;
   Map<String, WicketsDatum>? wicketsData;
-  Map<String, PartnershipsDatum>? partnershipsData;
 
   factory ScoreCard.fromJson(Map<String, dynamic> json) => ScoreCard(
         matchId: json["matchId"],
@@ -378,12 +63,9 @@ class ScoreCard {
         bowlTeamDetails: BowlTeamDetails.fromJson(json["bowlTeamDetails"]),
         scoreDetails: ScoreDetails.fromJson(json["scoreDetails"]),
         extrasData: ExtrasData.fromJson(json["extrasData"]),
-        ppData: PpData.fromJson(json["ppData"]),
         wicketsData: Map.from(json["wicketsData"]).map((k, v) =>
             MapEntry<String, WicketsDatum>(k, WicketsDatum.fromJson(v))),
-        partnershipsData: Map.from(json["partnershipsData"]).map((k, v) =>
-            MapEntry<String, PartnershipsDatum>(
-                k, PartnershipsDatum.fromJson(v))),
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -394,10 +76,7 @@ class ScoreCard {
         "bowlTeamDetails": bowlTeamDetails!.toJson(),
         "scoreDetails": scoreDetails!.toJson(),
         "extrasData": extrasData!.toJson(),
-        "ppData": ppData!.toJson(),
         "wicketsData": Map.from(wicketsData!)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-        "partnershipsData": Map.from(partnershipsData!)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
       };
 }
@@ -714,171 +393,171 @@ class ExtrasData {
       };
 }
 
-class PartnershipsDatum {
-  PartnershipsDatum({
-    this.bat1Id,
-    this.bat1Name,
-    this.bat1Runs,
-    this.bat1Fours,
-    this.bat1Sixes,
-    this.bat2Id,
-    this.bat2Name,
-    this.bat2Runs,
-    this.bat2Fours,
-    this.bat2Sixes,
-    this.totalRuns,
-    this.totalBalls,
-    this.bat1Balls,
-    this.bat2Balls,
-    this.bat1Ones,
-    this.bat1Twos,
-    this.bat1Threes,
-    this.bat1Fives,
-    this.bat1Boundaries,
-    this.bat1Sixers,
-    this.bat2Ones,
-    this.bat2Twos,
-    this.bat2Threes,
-    this.bat2Fives,
-    this.bat2Boundaries,
-    this.bat2Sixers,
-  });
+// class PartnershipsDatum {
+//   PartnershipsDatum({
+//     this.bat1Id,
+//     this.bat1Name,
+//     this.bat1Runs,
+//     this.bat1Fours,
+//     this.bat1Sixes,
+//     this.bat2Id,
+//     this.bat2Name,
+//     this.bat2Runs,
+//     this.bat2Fours,
+//     this.bat2Sixes,
+//     this.totalRuns,
+//     this.totalBalls,
+//     this.bat1Balls,
+//     this.bat2Balls,
+//     this.bat1Ones,
+//     this.bat1Twos,
+//     this.bat1Threes,
+//     this.bat1Fives,
+//     this.bat1Boundaries,
+//     this.bat1Sixers,
+//     this.bat2Ones,
+//     this.bat2Twos,
+//     this.bat2Threes,
+//     this.bat2Fives,
+//     this.bat2Boundaries,
+//     this.bat2Sixers,
+//   });
+//
+//   dynamic bat1Id;
+//   String? bat1Name;
+//   dynamic bat1Runs;
+//   dynamic bat1Fours;
+//   dynamic bat1Sixes;
+//   dynamic bat2Id;
+//   String? bat2Name;
+//   dynamic bat2Runs;
+//   dynamic bat2Fours;
+//   dynamic bat2Sixes;
+//   dynamic totalRuns;
+//   dynamic totalBalls;
+//   dynamic bat1Balls;
+//   dynamic bat2Balls;
+//   dynamic bat1Ones;
+//   dynamic bat1Twos;
+//   dynamic bat1Threes;
+//   dynamic bat1Fives;
+//   dynamic bat1Boundaries;
+//   dynamic bat1Sixers;
+//   dynamic bat2Ones;
+//   dynamic bat2Twos;
+//   dynamic bat2Threes;
+//   dynamic bat2Fives;
+//   dynamic bat2Boundaries;
+//   dynamic bat2Sixers;
+//
+//   factory PartnershipsDatum.fromJson(Map<String, dynamic> json) =>
+//       PartnershipsDatum(
+//         bat1Id: json["bat1Id"],
+//         bat1Name: json["bat1Name"],
+//         bat1Runs: json["bat1Runs"],
+//         bat1Fours: json["bat1fours"],
+//         bat1Sixes: json["bat1sixes"],
+//         bat2Id: json["bat2Id"],
+//         bat2Name: json["bat2Name"],
+//         bat2Runs: json["bat2Runs"],
+//         bat2Fours: json["bat2fours"],
+//         bat2Sixes: json["bat2sixes"],
+//         totalRuns: json["totalRuns"],
+//         totalBalls: json["totalBalls"],
+//         bat1Balls: json["bat1balls"],
+//         bat2Balls: json["bat2balls"],
+//         bat1Ones: json["bat1Ones"],
+//         bat1Twos: json["bat1Twos"],
+//         bat1Threes: json["bat1Threes"],
+//         bat1Fives: json["bat1Fives"],
+//         bat1Boundaries: json["bat1Boundaries"],
+//         bat1Sixers: json["bat1Sixers"],
+//         bat2Ones: json["bat2Ones"],
+//         bat2Twos: json["bat2Twos"],
+//         bat2Threes: json["bat2Threes"],
+//         bat2Fives: json["bat2Fives"],
+//         bat2Boundaries: json["bat2Boundaries"],
+//         bat2Sixers: json["bat2Sixers"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "bat1Id": bat1Id,
+//         "bat1Name": bat1Name,
+//         "bat1Runs": bat1Runs,
+//         "bat1fours": bat1Fours,
+//         "bat1sixes": bat1Sixes,
+//         "bat2Id": bat2Id,
+//         "bat2Name": bat2Name,
+//         "bat2Runs": bat2Runs,
+//         "bat2fours": bat2Fours,
+//         "bat2sixes": bat2Sixes,
+//         "totalRuns": totalRuns,
+//         "totalBalls": totalBalls,
+//         "bat1balls": bat1Balls,
+//         "bat2balls": bat2Balls,
+//         "bat1Ones": bat1Ones,
+//         "bat1Twos": bat1Twos,
+//         "bat1Threes": bat1Threes,
+//         "bat1Fives": bat1Fives,
+//         "bat1Boundaries": bat1Boundaries,
+//         "bat1Sixers": bat1Sixers,
+//         "bat2Ones": bat2Ones,
+//         "bat2Twos": bat2Twos,
+//         "bat2Threes": bat2Threes,
+//         "bat2Fives": bat2Fives,
+//         "bat2Boundaries": bat2Boundaries,
+//         "bat2Sixers": bat2Sixers,
+//       };
+// }
 
-  dynamic bat1Id;
-  String? bat1Name;
-  dynamic bat1Runs;
-  dynamic bat1Fours;
-  dynamic bat1Sixes;
-  dynamic bat2Id;
-  String? bat2Name;
-  dynamic bat2Runs;
-  dynamic bat2Fours;
-  dynamic bat2Sixes;
-  dynamic totalRuns;
-  dynamic totalBalls;
-  dynamic bat1Balls;
-  dynamic bat2Balls;
-  dynamic bat1Ones;
-  dynamic bat1Twos;
-  dynamic bat1Threes;
-  dynamic bat1Fives;
-  dynamic bat1Boundaries;
-  dynamic bat1Sixers;
-  dynamic bat2Ones;
-  dynamic bat2Twos;
-  dynamic bat2Threes;
-  dynamic bat2Fives;
-  dynamic bat2Boundaries;
-  dynamic bat2Sixers;
+// class PpData {
+//   PpData({
+//     this.pp1,
+//   });
+//
+//   Pp1? pp1;
+//
+//   factory PpData.fromJson(Map<String, dynamic> json) => PpData(
+//         pp1: Pp1.fromJson(json["pp_1"]),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "pp_1": pp1!.toJson(),
+//       };
+// }
 
-  factory PartnershipsDatum.fromJson(Map<String, dynamic> json) =>
-      PartnershipsDatum(
-        bat1Id: json["bat1Id"],
-        bat1Name: json["bat1Name"],
-        bat1Runs: json["bat1Runs"],
-        bat1Fours: json["bat1fours"],
-        bat1Sixes: json["bat1sixes"],
-        bat2Id: json["bat2Id"],
-        bat2Name: json["bat2Name"],
-        bat2Runs: json["bat2Runs"],
-        bat2Fours: json["bat2fours"],
-        bat2Sixes: json["bat2sixes"],
-        totalRuns: json["totalRuns"],
-        totalBalls: json["totalBalls"],
-        bat1Balls: json["bat1balls"],
-        bat2Balls: json["bat2balls"],
-        bat1Ones: json["bat1Ones"],
-        bat1Twos: json["bat1Twos"],
-        bat1Threes: json["bat1Threes"],
-        bat1Fives: json["bat1Fives"],
-        bat1Boundaries: json["bat1Boundaries"],
-        bat1Sixers: json["bat1Sixers"],
-        bat2Ones: json["bat2Ones"],
-        bat2Twos: json["bat2Twos"],
-        bat2Threes: json["bat2Threes"],
-        bat2Fives: json["bat2Fives"],
-        bat2Boundaries: json["bat2Boundaries"],
-        bat2Sixers: json["bat2Sixers"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "bat1Id": bat1Id,
-        "bat1Name": bat1Name,
-        "bat1Runs": bat1Runs,
-        "bat1fours": bat1Fours,
-        "bat1sixes": bat1Sixes,
-        "bat2Id": bat2Id,
-        "bat2Name": bat2Name,
-        "bat2Runs": bat2Runs,
-        "bat2fours": bat2Fours,
-        "bat2sixes": bat2Sixes,
-        "totalRuns": totalRuns,
-        "totalBalls": totalBalls,
-        "bat1balls": bat1Balls,
-        "bat2balls": bat2Balls,
-        "bat1Ones": bat1Ones,
-        "bat1Twos": bat1Twos,
-        "bat1Threes": bat1Threes,
-        "bat1Fives": bat1Fives,
-        "bat1Boundaries": bat1Boundaries,
-        "bat1Sixers": bat1Sixers,
-        "bat2Ones": bat2Ones,
-        "bat2Twos": bat2Twos,
-        "bat2Threes": bat2Threes,
-        "bat2Fives": bat2Fives,
-        "bat2Boundaries": bat2Boundaries,
-        "bat2Sixers": bat2Sixers,
-      };
-}
-
-class PpData {
-  PpData({
-    this.pp1,
-  });
-
-  Pp1? pp1;
-
-  factory PpData.fromJson(Map<String, dynamic> json) => PpData(
-        pp1: Pp1.fromJson(json["pp_1"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "pp_1": pp1!.toJson(),
-      };
-}
-
-class Pp1 {
-  Pp1({
-    this.ppId,
-    this.ppOversFrom,
-    this.ppOversTo,
-    this.ppType,
-    this.runsScored,
-  });
-
-  dynamic ppId;
-  double? ppOversFrom;
-  //Double
-  double? ppOversTo;
-  String? ppType;
-  dynamic runsScored;
-
-  factory Pp1.fromJson(Map<String, dynamic> json) => Pp1(
-        ppId: json["ppId"],
-        ppOversFrom: json["ppOversFrom"].toDouble(),
-        ppOversTo: json["ppOversTo"],
-        ppType: json["ppType"],
-        runsScored: json["runsScored"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "ppId": ppId,
-        "ppOversFrom": ppOversFrom,
-        "ppOversTo": ppOversTo,
-        "ppType": ppType,
-        "runsScored": runsScored,
-      };
-}
+// class Pp1 {
+//   Pp1({
+//     this.ppId,
+//     this.ppOversFrom,
+//     this.ppOversTo,
+//     this.ppType,
+//     this.runsScored,
+//   });
+//
+//   dynamic ppId;
+//   double? ppOversFrom;
+//   //Double
+//   double? ppOversTo;
+//   String? ppType;
+//   dynamic runsScored;
+//
+//   factory Pp1.fromJson(Map<String, dynamic> json) => Pp1(
+//         ppId: json["ppId"],
+//         ppOversFrom: json["ppOversFrom"].toDouble(),
+//         ppOversTo: json["ppOversTo"],
+//         ppType: json["ppType"],
+//         runsScored: json["runsScored"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "ppId": ppId,
+//         "ppOversFrom": ppOversFrom,
+//         "ppOversTo": ppOversTo,
+//         "ppType": ppType,
+//         "runsScored": runsScored,
+//       };
+// }
 
 class ScoreDetails {
   ScoreDetails({

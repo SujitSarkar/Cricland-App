@@ -26,7 +26,7 @@ class MatchInfoRapid {
     this.umpire3,
     this.referee,
     this.status,
-    // this.playersOfTheMatch,
+    this.playersOfTheMatch,
     // this.playersOfTheSeries,
 
   });
@@ -45,7 +45,7 @@ class MatchInfoRapid {
   Referee? umpire3;
   Referee? referee;
   String? status;
-  // List<PlayerRapid>? playersOfTheMatch;
+  PlayerRapid? playersOfTheMatch;
   // List<PlayerRapid>? playersOfTheSeries;
 
 }

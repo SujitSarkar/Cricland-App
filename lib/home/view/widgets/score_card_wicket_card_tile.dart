@@ -68,7 +68,7 @@ class ScorecardWicketCardTile extends StatelessWidget {
                       ? homeController
                           .scoreCardModel.scoreCard!.first.wicketsData!.length
                       : homeController
-                          .scoreCardModel.scoreCard![1].wicketsData!.length,
+                          .scoreCardModel.scoreCard!.first.wicketsData!.length,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -97,7 +97,7 @@ class ScorecardWicketCardTile extends StatelessWidget {
                                             .toList()[index]
                                             .batName!
                                         : homeController.scoreCardModel
-                                            .scoreCard![1].wicketsData!.values
+                                            .scoreCard!.first.wicketsData!.values
                                             .toList()[index]
                                             .batName!,
                                     style: TextStyle(
@@ -119,7 +119,7 @@ class ScorecardWicketCardTile extends StatelessWidget {
                                       child: Text(
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktRuns!}"
-                                        : "${homeController.scoreCardModel.scoreCard![1].wicketsData!.values.toList()[index].wktRuns!}",
+                                        : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktRuns!}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: dSize(.03),
@@ -131,7 +131,7 @@ class ScorecardWicketCardTile extends StatelessWidget {
                                     child: Text(
                                       isLeft
                                           ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}"
-                                          : "${homeController.scoreCardModel.scoreCard![1].wicketsData!.values.toList()[index].wktOver!}",
+                                          : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}",
 
                                       // "10",
                                       style: TextStyle(

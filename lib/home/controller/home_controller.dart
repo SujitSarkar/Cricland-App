@@ -38,10 +38,10 @@ class HomeController extends GetxController {
 //  late LiveMatchesModel liveMatchesModel;
 
  // late RecentMatchModel recentMatchModel;
-  late RapidRecentMatchModel rapidRecentMatchModel;
+ // late RapidRecentMatchModel rapidRecentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
   // late FixturesMatchModel fixturesMatchModel;
-  late FeatureSeriesModel featureSeriesModel;
+  //late FeatureSeriesModel featureSeriesModel;
   late ScoreCardModel scoreCardModel;
 
   late CommentariesModel commentariesModel;
@@ -62,13 +62,13 @@ class HomeController extends GetxController {
     // liveMatchesModel = LiveMatchesModel();
 
    // recentMatchModel = RecentMatchModel(typeMatches: []);
-    rapidRecentMatchModel = RapidRecentMatchModel();
+   // rapidRecentMatchModel = RapidRecentMatchModel();
     matcheInfoModel = RecentMatchInfoModel(); //Todo Data Fetching Problem
     commentariesModel =
         CommentariesModel(); //Todo Some Match Comment are Fetch problem
     upcomingMatchModel = UpcomingMatchModel();
     //fixturesMatchModel = FixturesMatchModel();
-    featureSeriesModel = FeatureSeriesModel();
+   // featureSeriesModel = FeatureSeriesModel();
     scoreCardModel = ScoreCardModel();
 
     seriesMatchListModel = SeriesMatchListModel();
@@ -605,7 +605,7 @@ class HomeController extends GetxController {
 
     await ApiService.instance.apiCall(
         execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.matchesInfo + matchId),
+            await ApiService.instance.get(ApiEndpoints.matchesInfo + "41881"),
         onSuccess: (response) {
         //  print(" Match Info : $response");
 
@@ -695,7 +695,13 @@ class HomeController extends GetxController {
                 country: matcheInfo["referee"]["country"],
               ),
                 status:matcheInfo["status"],
-               // playersOfTheMatch:matcheInfo["playersOfTheMatch"],
+              playersOfTheMatch:  PlayerRapid(
+                id:matcheInfo["playersOfTheMatch"][0]["id"]??0,
+                name:matcheInfo["playersOfTheMatch"][0]["name"]??"",
+                faceImageId:matcheInfo["playersOfTheMatch"][0]["faceImageId"]??0,
+                role: matcheInfo["playersOfTheMatch"][0]["role"]??"",
+              ),
+
                // playersOfTheSeries:matcheInfo["playersOfTheSeries"],
               ),
               venueInfo: VenueInfoRapid(
@@ -785,7 +791,7 @@ class HomeController extends GetxController {
           //     ),
           //   );
           // }
-          print("Match Info Lenth: ${recentMatchInfoModel.venueInfo!.imageUrl}");
+          print("Match Info Lenth: ${recentMatchInfoModel.matchInfo!.playersOfTheMatch!.name}");
          // print("Series Name: ${rapidTeamFormList[0].matchInfo!.seriesName!}");
 
           loading(false);
@@ -796,27 +802,27 @@ class HomeController extends GetxController {
         });
     update();
   }
-
-  Future<void> getCommentaries(String matchID) async {
-    loading(true);
-    await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance
-            .get(ApiEndpoints.commentariesData + matchID + "/comm?=&="),
-        onSuccess: (response) {
-          print("Commentaries Response: ${response}");
-
-          commentariesModel = commentariesModelFromJson(jsonEncode(response));
-
-          print(
-              "Commentaries Data: ${commentariesModel.commentaryList!.length}");
-          loading(false);
-        },
-        onError: (error) {
-          print(error.toString());
-          loading(false);
-        });
-    update();
-  }
+  //
+  // Future<void> getCommentaries(String matchID) async {
+  //   loading(true);
+  //   await ApiService.instance.apiCall(
+  //       execute: () async => await ApiService.instance
+  //           .get(ApiEndpoints.commentariesData + matchID + "/comm?=&="),
+  //       onSuccess: (response) {
+  //         print("Commentaries Response: ${response}");
+  //
+  //         commentariesModel = commentariesModelFromJson(jsonEncode(response));
+  //
+  //         print(
+  //             "Commentaries Data: ${commentariesModel.commentaryList!.length}");
+  //         loading(false);
+  //       },
+  //       onError: (error) {
+  //         print(error.toString());
+  //         loading(false);
+  //       });
+  //   update();
+  // }
 
   Future<void> getPlayerInfo(String playerId) async {
     print("Player Info URL ${ApiEndpoints.playerInfoData + playerId}");
@@ -894,7 +900,7 @@ class HomeController extends GetxController {
           scoreCardModel = scoreCardModelFromJson(jsonEncode(response));
 
           print(
-              "Player Of the Match: ${scoreCardModel.matchHeader!.playersOfTheMatch!.first.name!}");
+              "Player Of the Match: ${scoreCardModel.scoreCard!.first.matchId!}");
           loading(false);
         },
         onError: (error) {

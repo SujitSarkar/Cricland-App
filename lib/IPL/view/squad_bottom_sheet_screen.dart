@@ -49,9 +49,10 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
   }
 
   getAllPlayerList() async {
-    HomeController homeController = Get.put(HomeController());
+
     for (PlayerRapid player in widget.playerRapidTeam) {
       if (player.id != null) {
+
         allPlayerList.add(player);
       }
       if (player.role == "Batsman") {
@@ -92,7 +93,7 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   "Close",
                   style: TextStyle(color: Colors.green),
                 ),
