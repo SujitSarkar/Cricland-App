@@ -20,13 +20,8 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import '../../home/model/rapid_model/series_model.dart';
 
 class SeriesScreen extends StatefulWidget {
-  final String? seriesID;
-  final String? matchId;
-
   const SeriesScreen({
     Key? key,
-    this.seriesID,
-    this.matchId,
   }) : super(key: key);
 
   @override
@@ -43,12 +38,17 @@ class _SeriesScreenState extends State<SeriesScreen>
     super.initState();
     _tabController =
         TabController(length: Variables.iplTabsCategory.length, vsync: this);
-
+    fetchData("");
 
   }
 
+
   fetchData(String seriesId) async {
     HomeController homeController = Get.put(HomeController());
+    String sID = homeController.rapidFeatureSeriesList.first.seriesModel!.id.toString();
+    if(seriesId.isEmpty){
+      seriesId = sID;
+    }
     await homeController.getSeriesMatches(seriesId);
     await homeController.getMatchSquad(seriesId);
     await homeController.getPointTable(seriesId);
@@ -164,7 +164,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                         padding: const EdgeInsets.only(left: 5.0),
                                         child: RichText(
                                           text: TextSpan(
-                                             text:seriesListModel.seriesModel != null?'${seriesListModel.seriesModel!.name} ':"",
+                                             text:'${seriesListModel.seriesModel!.name}',
                                             style: CLTextStyle()
                                                 .paragraphHeadLineTextStyle
                                                 .copyWith(

@@ -231,7 +231,7 @@ class _OverViewTabState extends State<OverViewTab> {
                             color: PublicController.pc.toggleTextColor(),
                           )),
                     ),
-                    SingleChildScrollView(
+                    homeController.matchSquadModel.squads != null?     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
@@ -302,7 +302,7 @@ class _OverViewTabState extends State<OverViewTab> {
                                 : SizedBox(),
                         ],
                       ),
-                    ),
+                    ):SizedBox(),
                     ListTile(
                       leading: Text("Series Info",
                           style:

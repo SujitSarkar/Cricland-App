@@ -57,16 +57,17 @@ class FeaturedMatchTile extends StatelessWidget {
                     ))
               ],
             ),
-            FittedBox(
-              child: Column(
-                children: [
-                  Text("${seriesMatch.matchInfo!.matchDesc}",
-                      textAlign: TextAlign.center,
-                      style: CLTextStyle().nameTextStyle.copyWith(
-                        fontSize: dSize(.03),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
-                  FittedBox(
+            Column(
+              children: [
+                Text("${seriesMatch.matchInfo!.matchDesc}",
+                    textAlign: TextAlign.center,
+                    style: CLTextStyle().nameTextStyle.copyWith(
+                      fontSize: dSize(.03),
+                      color: PublicController.pc.toggleTextColor(),
+                    )),
+                FittedBox(
+                  child: SizedBox(
+                    width: 150,
                     child: Text("${seriesMatch.matchInfo!.status}",
                         textAlign: TextAlign.center,
                         style: CLTextStyle().nameTextStyle.copyWith(
@@ -74,8 +75,8 @@ class FeaturedMatchTile extends StatelessWidget {
                           color: PublicController.pc.toggleTextColor(),
                         )),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Row(
               children: [
