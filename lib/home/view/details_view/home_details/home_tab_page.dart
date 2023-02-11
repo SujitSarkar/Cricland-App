@@ -129,7 +129,6 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
                           },
                           child: HomeCardTile(
-                            isExpanded: selectedIndex==index? true:false,
                             rapidMatch:  homeController.rapidRecentList[index],
                           ),
                         );
@@ -150,7 +149,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
                           },
                           child: HomeCardTile(
-                            isExpanded: selectedIndex==index? true:false,
+
                             rapidMatch:  homeController.rapidUpcomingList[index],
                           ),
                         );
@@ -167,13 +166,13 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
                           return  GestureDetector(
                             onTap: (){
-                              setState((){
-                                selectedIndex = index;
-                              });
+                              // setState((){
+                              //   selectedIndex = index;
+                              // });
 
                             },
                             child: HomeCardTile(
-                              isExpanded: selectedIndex==index? true:false,
+
                               rapidMatch:  homeController.rapidFixturesList[index],
                             ),
                           );

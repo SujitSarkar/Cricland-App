@@ -58,7 +58,8 @@ class _SeriesScreenState extends State<SeriesScreen>
   }
 
 
-
+  final TextStyle _textStyle = TextStyle(
+      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -164,23 +165,21 @@ class _SeriesScreenState extends State<SeriesScreen>
                                         padding: const EdgeInsets.only(left: 5.0),
                                         child: RichText(
                                           text: TextSpan(
-                                             text:'${seriesListModel.seriesModel!.name}',
-                                            style: CLTextStyle()
-                                                .paragraphHeadLineTextStyle
-                                                .copyWith(
-                                              color: Colors.white70,
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                  text:
-                                                      '${seriesListModel.date}',
-                                                  style: CLTextStyle()
-                                                      .paragraphHeadLineTextStyle
-                                                      .copyWith(
-                                                    color: Colors.white70,
-                                                    fontSize: dSize(.02),
-                                                  )),
-                                             ],
+                                             text:homeController.rapidSeriesMatchList.isEmpty?"": "${homeController.rapidSeriesMatchList.first.matchInfo!.seriesName}",
+                                             //seriesListModel.seriesModel != null?'${seriesListModel.seriesModel!.name}':"",
+                  style: CLTextStyle()
+                      .paragraphHeadLineTextStyle
+                      .copyWith(
+                  color: Colors.white70,
+                  fontSize: dSize(.035),
+                  ),
+
+                                            // children: <TextSpan>[
+                                            //   TextSpan(
+                                            //       text:
+                                            //           '${seriesListModel.date}',
+
+                                            //  ],
                                           ),
                                         ),
                                       ),

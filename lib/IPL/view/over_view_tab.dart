@@ -40,7 +40,8 @@ class _OverViewTabState extends State<OverViewTab> {
     super.initState();
 
   }
-
+  final TextStyle _textStyle = TextStyle(
+      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -54,18 +55,20 @@ class _OverViewTabState extends State<OverViewTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Featured Matches",
-                            style: CLTextStyle().nameTextStyle.copyWith(
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),),
                         TextButton(
                           onPressed: () {},
                           child: Text(
                             "All Matches >",
-                            style: CLTextStyle().nameTextStyle.copyWith(
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                            style:_textStyle.copyWith(
+                              fontSize: dSize(.035),
+                              fontWeight: FontWeight.bold,
+                              color: PublicController.pc
+                                  .toggleLoadingColor(),),
                           ),
                         )
                       ],
@@ -311,7 +314,8 @@ class _OverViewTabState extends State<OverViewTab> {
                             color: PublicController.pc.toggleTextColor(),
                           )),
                     ),
-                InfoCardTile(
+                    homeController
+                        .rapidSeriesMatchList.isEmpty?SizedBox():    InfoCardTile(
                             series: homeController
                                 .rapidSeriesMatchList.first.matchInfo!.seriesName,
                             duration: homeController
@@ -331,6 +335,7 @@ class _OverViewTabState extends State<OverViewTab> {
                     //       color: PublicController.pc.toggleTextColor(),
                     //     ),
                     //   ),
+
                     // ),
                     // GridView.builder(
                     //     physics: NeverScrollableScrollPhysics(),
@@ -386,7 +391,7 @@ class _OverViewTabState extends State<OverViewTab> {
                 builder: (BuildContext context, StateSetter setState) {
               return const FractionallySizedBox(
                 heightFactor: 2.3,
-                // child: BottomSheetScreen(),
+                // child: BottomSheetScreen(playerRapidTeam: ,),
               );
             }));
   }

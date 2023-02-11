@@ -43,7 +43,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
+        child:  SingleChildScrollView(
           child: homeController.scoreCardModel.scoreCard!.isNotEmpty
               ? Column(
             children: [
@@ -120,7 +120,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
             padding: EdgeInsets.only(top: 200.0),
             child: Text("Score Card is not Updated"),
           ),),)
-        ),
+        )
       );
     });
   }

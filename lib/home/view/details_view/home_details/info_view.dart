@@ -52,6 +52,8 @@ class _InfoViewState extends State<InfoView> {
       setState(() {});
     }
   }
+  final TextStyle _textStyle = TextStyle(
+      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +75,11 @@ class _InfoViewState extends State<InfoView> {
                     text:
                           widget.rapidMatch.matchInfo!.status,
 
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
+                    style:_textStyle.copyWith(
                       fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),
                     children: <TextSpan>[
                       // TextSpan(
                       //   text: ' won the toss and chose to bowl',
@@ -118,22 +120,26 @@ class _InfoViewState extends State<InfoView> {
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   widget.rapidMatch.matchInfo!.matchDesc.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
+
+
+                    style:_textStyle.copyWith(
                     fontSize: dSize(.03),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                fontWeight: FontWeight.bold,
+                color: PublicController.pc
+                    .toggleLoadingColor(),),
                 ),
                 subtitle: Row(
                   children: [
                     FittedBox(
                       child: Text(
                         widget.rapidMatch.matchInfo!.seriesName.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+
+
+                  style:_textStyle.copyWith(
+                  fontSize: dSize(.04),
+          fontWeight: FontWeight.bold,
+          color: PublicController.pc
+              .toggleLoadingColor(),),
                       ),
                     ),
                     SizedBox(
@@ -169,11 +175,12 @@ class _InfoViewState extends State<InfoView> {
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                     DateFormat('MMM d,' 'hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(widget.rapidMatch.matchInfo!.startDate!) * 1000)).toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
+
+                    style:_textStyle.copyWith(
                     fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                fontWeight: FontWeight.bold,
+                color: PublicController.pc
+                    .toggleLoadingColor(),),
                 ),
                 leading: Icon(
                   Icons.calendar_today_outlined,
@@ -187,11 +194,13 @@ class _InfoViewState extends State<InfoView> {
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
+
+
+                    style:_textStyle.copyWith(
                     fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                fontWeight: FontWeight.bold,
+                color: PublicController.pc
+                    .toggleLoadingColor(),),
                 ),
                 leading: Icon(
                   Icons.location_on,
@@ -206,11 +215,12 @@ class _InfoViewState extends State<InfoView> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Playing XI',
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
+
+                    style:_textStyle.copyWith(
                     fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                fontWeight: FontWeight.bold,
+                color: PublicController.pc
+                    .toggleLoadingColor(),),
                 ),
               ),
               const SizedBox(
@@ -224,11 +234,13 @@ class _InfoViewState extends State<InfoView> {
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   widget.rapidMatch.matchInfo!.team1!.teamName.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
+
+
+                    style:_textStyle.copyWith(
                     fontSize: dSize(.03),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                fontWeight: FontWeight.bold,
+                color: PublicController.pc
+                    .toggleLoadingColor(),),
                 ),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
@@ -260,11 +272,13 @@ class _InfoViewState extends State<InfoView> {
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   widget.rapidMatch.matchInfo!.team2!.teamName.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: dSize(.03),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+
+
+                    style:_textStyle.copyWith(
+                    fontSize: dSize(.035),
+                fontWeight: FontWeight.bold,
+                color: PublicController.pc
+                    .toggleLoadingColor(),),
                 ),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,

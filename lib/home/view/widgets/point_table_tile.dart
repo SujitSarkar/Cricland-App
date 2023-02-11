@@ -18,6 +18,8 @@ class PointTableTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle _textStyle = TextStyle(
+        fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
     return GetBuilder<HomeController>(builder: (homeController) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -30,10 +32,11 @@ class PointTableTile extends StatelessWidget {
                     flex: 2,
                     child: Text(
                       "Team",
-                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
+                      style:_textStyle.copyWith(
+                        fontSize: dSize(.035),
+                        fontWeight: FontWeight.bold,
+                        color: PublicController.pc
+                            .toggleLoadingColor(),),
                     )),
                 Expanded(
                   flex: 3,
@@ -42,51 +45,51 @@ class PointTableTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           "P",
-                          style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "W",
-                          style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "D",
-                          style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "NR",
-                          style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "NRR",
-                          style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
                         ),
                       ),
                       SizedBox(
@@ -95,11 +98,11 @@ class PointTableTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           "Pts",
-                          style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
+                          style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
                         ),
                       ),
                     ],
@@ -148,12 +151,11 @@ class PointTableTile extends StatelessWidget {
                                     ),
                                     Text(
                                       homeController.rapidPointTableList[index].teamName!,
-                                      style: CLTextStyle().paragraphTextStyle
-                                          .copyWith(
+                                      style:_textStyle.copyWith(
                                         fontSize: dSize(.03),
+                                        fontWeight: FontWeight.bold,
                                         color: PublicController.pc
-                                            .toggleTextColor(),
-                                      ),
+                                            .toggleLoadingColor(),),
                                     ),
                                   ],
                                 ),
@@ -165,54 +167,49 @@ class PointTableTile extends StatelessWidget {
                                     Expanded(
                                         child: Text(
                                       "${homeController.rapidPointTableList[index].matchesPlayed!}",
-                                      style: CLTextStyle().paragraphTextStyle
-                                          .copyWith(
-                                        fontSize: dSize(.03),
-                                        color: PublicController.pc
-                                            .toggleTextColor(),
-                                      ),
+                                          style:_textStyle.copyWith(
+                                            fontSize: dSize(.03),
+                                            fontWeight: FontWeight.bold,
+                                            color: PublicController.pc
+                                                .toggleLoadingColor(),),
                                     )),
                                     Expanded(
                                       child: Text(
                                         homeController.rapidPointTableList[index].matchesWon.toString(),
-                                        style: CLTextStyle().paragraphTextStyle
-                                            .copyWith(
+                                        style:_textStyle.copyWith(
                                           fontSize: dSize(.03),
+                                          fontWeight: FontWeight.bold,
                                           color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                              .toggleLoadingColor(),),
                                       ),
                                     ),
                                     Expanded(
                                         child: Text(
                                           homeController.rapidPointTableList[index].matchesDrawn.toString(),
-                                      style: CLTextStyle().paragraphTextStyle
-                                          .copyWith(
-                                        fontSize: dSize(.03),
-                                        color: PublicController.pc
-                                            .toggleTextColor(),
-                                      ),
+                                          style:_textStyle.copyWith(
+                                            fontSize: dSize(.03),
+                                            fontWeight: FontWeight.bold,
+                                            color: PublicController.pc
+                                                .toggleLoadingColor(),),
                                     )),
                                     Expanded(
                                       child: Text(
                                         homeController.rapidPointTableList[index].noRes.toString(),
-                                        style: CLTextStyle().paragraphTextStyle
-                                            .copyWith(
+                                        style:_textStyle.copyWith(
                                           fontSize: dSize(.03),
+                                          fontWeight: FontWeight.bold,
                                           color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                              .toggleLoadingColor(),),
                                       ),
                                     ),
                                     Expanded(
                                       child: Text(
                                         homeController.rapidPointTableList[index].nrr.toString(),
-                                        style: CLTextStyle().paragraphTextStyle
-                                            .copyWith(
+                                        style:_textStyle.copyWith(
                                           fontSize: dSize(.03),
+                                          fontWeight: FontWeight.bold,
                                           color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                              .toggleLoadingColor(),),
                                       ),
                                     ),
                                     SizedBox(
@@ -221,12 +218,11 @@ class PointTableTile extends StatelessWidget {
                                     Expanded(
                                       child: Text(
                                         homeController.rapidPointTableList[index].points.toString(),
-                                        style: CLTextStyle().paragraphTextStyle
-                                            .copyWith(
+                                        style:_textStyle.copyWith(
                                           fontSize: dSize(.03),
+                                          fontWeight: FontWeight.bold,
                                           color: PublicController.pc
-                                              .toggleTextColor(),
-                                        ),
+                                              .toggleLoadingColor(),),
                                       ),
                                     ),
                                   ],

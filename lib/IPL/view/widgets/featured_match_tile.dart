@@ -17,6 +17,8 @@ class FeaturedMatchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle _textStyle = TextStyle(
+        fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
       child: Container(
@@ -51,29 +53,33 @@ class FeaturedMatchTile extends StatelessWidget {
                   ),
                 ),
                 Text("${seriesMatch.matchInfo!.team1!.teamSName}",
-                    style: CLTextStyle().nameTextStyle.copyWith(
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ))
+                  style:_textStyle.copyWith(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.bold,
+                    color: PublicController.pc
+                        .toggleLoadingColor(),),)
               ],
             ),
             Column(
               children: [
                 Text("${seriesMatch.matchInfo!.matchDesc}",
                     textAlign: TextAlign.center,
-                    style: CLTextStyle().nameTextStyle.copyWith(
-                      fontSize: dSize(.03),
-                      color: PublicController.pc.toggleTextColor(),
-                    )),
+
+                    style:_textStyle.copyWith(
+                    fontSize: dSize(.03),
+                    fontWeight: FontWeight.bold,
+                    color: PublicController.pc
+                        .toggleLoadingColor(),),),
                 FittedBox(
                   child: SizedBox(
                     width: 150,
                     child: Text("${seriesMatch.matchInfo!.status}",
                         textAlign: TextAlign.center,
-                        style: CLTextStyle().nameTextStyle.copyWith(
-                          fontSize: dSize(.02),
-                          color: PublicController.pc.toggleTextColor(),
-                        )),
+                      style:_textStyle.copyWith(
+                        fontSize: dSize(.035),
+                        fontWeight: FontWeight.bold,
+                        color: PublicController.pc
+                            .toggleLoadingColor(),),),
                   ),
                 ),
               ],
@@ -81,10 +87,11 @@ class FeaturedMatchTile extends StatelessWidget {
             Row(
               children: [
                 Text("${seriesMatch.matchInfo!.team2!.teamSName}",
-                    style: CLTextStyle().nameTextStyle.copyWith(
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    )),
+                  style:_textStyle.copyWith(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.bold,
+                    color: PublicController.pc
+                        .toggleLoadingColor(),),),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(

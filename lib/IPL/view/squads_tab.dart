@@ -25,7 +25,8 @@ class _SquadsTabState extends State<SquadsTab> {
     // fetchData();
   }
 
-
+  final TextStyle _textStyle = TextStyle(
+      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class _SquadsTabState extends State<SquadsTab> {
                           children: [
                             ListTile(
                                 onTap: () {
-                                  _showModalBottomSheet("3718", "15826");
+                                //  _showModalBottomSheet("3718", "15826");
                                 },
                                 horizontalTitleGap: 2.0,
                                 leading: Container(
@@ -91,12 +92,11 @@ class _SquadsTabState extends State<SquadsTab> {
                                 title: Text(
                                   homeController.matchSquadModel.squads![index]
                                       .squadType!,
-                                  style: TextStyle(
-                                    fontSize: dSize(.04),
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
+                                    style:_textStyle.copyWith(
+                                      fontSize: dSize(.035),
+                                      fontWeight: FontWeight.bold,
+                                      color: PublicController.pc
+                                          .toggleLoadingColor(),),
                                 )),
                             Divider(),
                           ],

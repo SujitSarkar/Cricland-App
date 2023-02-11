@@ -2,11 +2,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import '../../../public/controller/api_endpoints.dart';
+import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
-import '../../model/custom_widget/constants.dart';
+
 
 class MatchCardTile extends StatelessWidget {
  final RapidMatch rapidMatch;
@@ -14,6 +13,8 @@ class MatchCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle _textStyle = TextStyle(
+        fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
     return    SizedBox(
       height: 130,
       child: Card(
@@ -25,8 +26,18 @@ class MatchCardTile extends StatelessWidget {
               FittedBox(
                 child: Row(
                   children:  [
-                    Text("${rapidMatch.matchInfo!.matchDesc} ",style: CLTextStyle().subTitleTextStyle,),
-                    Text("${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",style: CLTextStyle().subTitleTextStyle,)
+                    Text("${rapidMatch.matchInfo!.matchDesc} ",
+                      style:_textStyle.copyWith(
+                        fontSize: dSize(.035),
+                        fontWeight: FontWeight.bold,
+                        color: PublicController.pc
+                            .toggleLoadingColor(),),),
+                    Text("${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",
+                      style:_textStyle.copyWith(
+                        fontSize: dSize(.035),
+                        fontWeight: FontWeight.bold,
+                        color: PublicController.pc
+                            .toggleLoadingColor(),),)
                   ],
                 ),
               ),
@@ -69,8 +80,18 @@ class MatchCardTile extends StatelessWidget {
                               rapidMatch.matchScore != null?   Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text("${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}"),
-                                  Text(" ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",style: CLTextStyle().subTitleTextStyle,),
+                                  Text("${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
+                                    style:_textStyle.copyWith(
+                                      fontSize: dSize(.035),
+                                      fontWeight: FontWeight.bold,
+                                      color: PublicController.pc
+                                          .toggleLoadingColor(),),),
+                                  Text(" ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
+                                      style:_textStyle.copyWith(
+                                      fontSize: dSize(.03),
+                                      fontWeight: FontWeight.bold,
+                                      color: PublicController.pc
+                                          .toggleLoadingColor(),),),
                                 ],
                               ):const SizedBox()
                             ],
@@ -99,12 +120,27 @@ class MatchCardTile extends StatelessWidget {
                             SizedBox(
                               width: dSize(.02),
                             ),
-                            Text("${rapidMatch.matchInfo!.team2!.teamSName}"),
+                            Text("${rapidMatch.matchInfo!.team2!.teamSName}",
+                              style:_textStyle.copyWith(
+                                fontSize: dSize(.035),
+                                fontWeight: FontWeight.bold,
+                                color: PublicController.pc
+                                    .toggleLoadingColor(),),),
                             rapidMatch.matchScore != null?   Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}"),
-                                Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",style: CLTextStyle().subTitleTextStyle,),
+                                Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
+                                  style:_textStyle.copyWith(
+                                    fontSize: dSize(.035),
+                                    fontWeight: FontWeight.bold,
+                                    color: PublicController.pc
+                                        .toggleLoadingColor(),),),
+                                Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
+                                  style:_textStyle.copyWith(
+                                    fontSize: dSize(.03),
+                                    fontWeight: FontWeight.bold,
+                                    color: PublicController.pc
+                                        .toggleLoadingColor(),),),
                               ],
                             ):const SizedBox()
                           ],
@@ -119,12 +155,16 @@ class MatchCardTile extends StatelessWidget {
                           color: Colors.grey,
                           thickness: 1,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                          child: Column(
-                            children:  [
-                              Text(rapidMatch.matchInfo!.status != null?"${rapidMatch.matchInfo!.status}":"${rapidMatch.matchInfo!.state}"),
-                             ],
+                        SizedBox(
+                          width: 150,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                            child: Text(rapidMatch.matchInfo!.status != null?"${rapidMatch.matchInfo!.status}":"${rapidMatch.matchInfo!.state}",style:_textStyle.copyWith(
+                            fontSize: dSize(.03),
+                            fontWeight: FontWeight.bold,
+                            color: PublicController.pc
+                                .toggleLoadingColor(),),
+                            textAlign: TextAlign.center,),
                           ),
                         ),
                       ],
