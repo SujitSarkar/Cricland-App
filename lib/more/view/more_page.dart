@@ -262,11 +262,9 @@ class _MorePageState extends State<MorePage> {
                       onTap: () {}),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.lock,
+                      showDivider: true,
                       title: lc.languageModel.value.privacyPolicy!,
                       onTap: () {}),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   CardTile(
                       leadingIcon: FontAwesomeIcons.signOut,
                       title: lc.languageModel.value.logout!,

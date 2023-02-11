@@ -169,14 +169,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader!
                                 .first,
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![1],
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                   ],
@@ -189,19 +189,19 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![2],
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![3],
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader!.last,
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                   ],
@@ -238,14 +238,14 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                         child: Text(
                             lc.languageModel.value.playerRankingTableHeader!
                                 .first,
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text(
                             lc.languageModel.value.playerRankingTableHeader![1],
-                            style: Style.titleStyle
+                            style: Style().titleStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                   ],
@@ -255,7 +255,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                   flex: 1,
                   child: Text(
                       lc.languageModel.value.playerRankingTableHeader!.last,
-                      style: Style.titleStyle
+                      style: Style().titleStyle
                           .copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center)),
             ],

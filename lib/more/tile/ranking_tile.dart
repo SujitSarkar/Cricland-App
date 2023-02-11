@@ -21,7 +21,7 @@ class RankingTile extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Text('${model.rank}',
-                      style: Style.titleStyle
+                      style: Style().titleStyle
                           .copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.start)),
               Expanded(
@@ -51,10 +51,10 @@ class RankingTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('${model.name}',
-                              style: Style.titleStyle,
+                              style: Style().titleStyle,
                               textAlign: TextAlign.start),
                           Text('${model.country}',
-                              style: Style.titleStyle
+                              style: Style().titleStyle
                                   .copyWith(fontSize: dSize(.032)),
                               textAlign: TextAlign.start),
                         ],
@@ -67,7 +67,7 @@ class RankingTile extends StatelessWidget {
         Expanded(
             flex: 1,
             child: Text('${model.rating}',
-                style: Style.titleStyle.copyWith(fontWeight: FontWeight.w500),
+                style: Style().titleStyle.copyWith(fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center)),
       ],
     );
