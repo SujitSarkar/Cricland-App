@@ -7,7 +7,7 @@ import '../../../public/controller/api_endpoints.dart';
 import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
 import '../../model/rapid_model/recent_match_model.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 class HomeCardTile extends StatefulWidget {
   final RapidMatch rapidMatch;
 

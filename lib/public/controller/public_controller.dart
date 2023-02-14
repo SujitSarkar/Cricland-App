@@ -53,6 +53,8 @@ class PublicController extends GetxController {
       isLight.value ? AllColor.primaryColor : Colors.grey;
   Color toggleTextColor() =>
       isLight.value ? AllColor.lightTextColor : AllColor.darkTextColor;
+  Color togglePrimaryTextColor() =>
+      isLight.value ? AllColor.primaryColor : AllColor.darkTextColor;
   Color toggleCardBg() =>
       isLight.value ? AllColor.lightCardColor : AllColor.darkCardColor;
   Color togglePagedBg() =>

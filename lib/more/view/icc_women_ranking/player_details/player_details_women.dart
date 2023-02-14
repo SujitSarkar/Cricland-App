@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/model/player_info_model.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/view/icc_women_ranking/player_details/player_info_women.dart';
@@ -76,8 +76,8 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                                                     left: dSize(.055)),
                                                 child: RichText(
                                                   text: TextSpan(
-                                                    style: CLTextStyle()
-                                                        .nameTextStyle
+                                                    style: AppTextStyle()
+                                                        .largeTitleStyle
                                                         .copyWith(
                                                             color: Colors.white,
                                                             fontSize:

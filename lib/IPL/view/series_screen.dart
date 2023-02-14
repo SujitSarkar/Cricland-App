@@ -5,7 +5,7 @@ import 'package:cricland/IPL/view/over_view_tab.dart';
 import 'package:cricland/IPL/view/points_table_tab.dart';
 import 'package:cricland/IPL/view/squads_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
@@ -167,8 +167,8 @@ class _SeriesScreenState extends State<SeriesScreen>
                                           text: TextSpan(
                                              text:homeController.rapidSeriesMatchList.isEmpty?"": "${homeController.rapidSeriesMatchList.first.matchInfo!.seriesName}",
                                              //seriesListModel.seriesModel != null?'${seriesListModel.seriesModel!.name}':"",
-                  style: CLTextStyle()
-                      .paragraphHeadLineTextStyle
+                  style: AppTextStyle()
+                      .largeTitleStyle
                       .copyWith(
                   color: Colors.white70,
                   fontSize: dSize(.035),
@@ -217,7 +217,7 @@ class _SeriesScreenState extends State<SeriesScreen>
                                     horizontal: dSize(.02)),
                                 child: Text(
                                   item,
-                                  style: CLTextStyle().optionTextStyle,
+                                  style: AppTextStyle().largeTitleStyle,
                                 ),
                               ))
                           .toList(),

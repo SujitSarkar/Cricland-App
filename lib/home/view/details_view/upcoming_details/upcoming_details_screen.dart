@@ -1,6 +1,6 @@
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:cricland/home/controller/home_controller.dart';
-// import 'package:cricland/home/model/custom_widget/constants.dart';
+// import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 // import 'package:cricland/home/view/details_view/home_details/commentary_view.dart';
 // import 'package:cricland/home/view/details_view/home_details/info_view.dart';
 // import 'package:cricland/home/view/details_view/home_details/points_table.dart';

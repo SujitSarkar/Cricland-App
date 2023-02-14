@@ -1,5 +1,5 @@
 import 'package:cricland/IPL/view/series_screen.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/view/home_page.dart';
 import 'package:cricland/more/view/more_page.dart';
 import 'package:cricland/news/view/news_page.dart';
@@ -37,8 +37,8 @@ class _HomeNavPageState extends State<HomeNavPage> {
             bottomNavigationBar: Obx(() => Material(
                   color: PublicController.pc.toggleCardBg(),
                   child: BottomNavigationBar(
-                      selectedLabelStyle: CLTextStyle().menuBarTextStyle,
-                      unselectedLabelStyle: CLTextStyle().menuBarTextStyle,
+                      selectedLabelStyle: AppTextStyle().paragraphTextStyle,
+                      unselectedLabelStyle: AppTextStyle().paragraphTextStyle,
                       items: [
                         BottomNavigationBarItem(
                           icon: const Icon(

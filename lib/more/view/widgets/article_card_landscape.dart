@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/news/model/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,7 +40,7 @@ class ArticleCardLandscape extends StatelessWidget {
               child: Text(
                 model.title!,
                 maxLines: 4,
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                   fontSize: dSize(.04),
                   color: PublicController.pc.toggleTextColor(),
                 ),

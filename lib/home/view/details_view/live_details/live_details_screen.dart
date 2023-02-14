@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/view/details_view/home_details/commentary_view.dart';
 import 'package:cricland/home/view/details_view/home_details/info_view.dart';
 import 'package:cricland/home/view/details_view/home_details/live_view.dart';
@@ -98,7 +98,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
             title: RichText(
               text: TextSpan(
                 text: widget.teamS1Name,
-                style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
+                style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white),
                 children: <TextSpan>[
                   const TextSpan(
                       text: '  VS  ',
@@ -209,20 +209,20 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(widget.teamS1Name,
-                                              style: CLTextStyle().nameTextStyle
+                                              style: AppTextStyle().largeTitleStyle
                                                   .copyWith(
                                                       color: Colors.white)),
                                           RichText(
                                             text: TextSpan(
                                               text: widget.team1RunWicket,
-                                              style: CLTextStyle()
-                                                  .paragraphHeadLineTextStyle
+                                              style: AppTextStyle()
+                                                  .largeTitleStyle
                                                   .copyWith(
                                                       color: Colors.white),
                                               children: <TextSpan>[
                                                 TextSpan(
                                                   text: "  ${widget.team1Over}",
-                                                  style: CLTextStyle()
+                                                  style: AppTextStyle()
                                                       .paragraphTextStyle
                                                       .copyWith(
                                                           color: Colors.white),
@@ -258,7 +258,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                               right: 18.0),
                                           child: Text(
                                             "Caught Out",
-                                            style: CLTextStyle().nameTextStyle
+                                            style: AppTextStyle().largeTitleStyle
                                                 .copyWith(color: Colors.white),
                                           ),
                                         ),
@@ -307,7 +307,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                           children: [
                             Text(
                               "CRR: ${homeController.overSummeryModel.currentRunRate}",
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 color: Colors.white,
                                 fontSize: 10,
                               ),
@@ -317,7 +317,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                             ),
                             Text(
                               "RRR: ${homeController.overSummeryModel.requiredRunRate}",
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 color: Colors.white,
                                 fontSize: 10,
                               ),
@@ -326,7 +326,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                         ),
                         Text(
                           "RRW: ${homeController.overSummeryModel.remRunsToWin}",
-                          style: CLTextStyle().paragraphTextStyle.copyWith(
+                          style: AppTextStyle().paragraphTextStyle.copyWith(
                             color: Colors.white,
                             fontSize: 10,
                           ),

@@ -1,3 +1,4 @@
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/tile/ranking_tile.dart';
 import 'package:cricland/more/tile/team_ranking_tile.dart';
@@ -5,7 +6,6 @@ import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:cricland/public/variables/style.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -170,14 +170,14 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader!
                                 .first,
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![1],
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                   ],
@@ -190,19 +190,19 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![2],
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![3],
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader!.last,
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.center)),
                   ],
@@ -239,14 +239,14 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                         child: Text(
                             lc.languageModel.value.playerRankingTableHeader!
                                 .first,
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text(
                             lc.languageModel.value.playerRankingTableHeader![1],
-                            style: Style().titleStyle
+                            style: AppTextStyle().titleTextStyle
                                 .copyWith(fontWeight: FontWeight.w500),
                             textAlign: TextAlign.start)),
                   ],
@@ -256,7 +256,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                   flex: 1,
                   child: Text(
                       lc.languageModel.value.playerRankingTableHeader!.last,
-                      style: Style().titleStyle
+                      style: AppTextStyle().titleTextStyle
                           .copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center)),
             ],

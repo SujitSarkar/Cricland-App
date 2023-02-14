@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -9,11 +9,6 @@ import 'package:get/get.dart';
 
 class PlayerInfoMan extends StatelessWidget {
   PlayerInfoMan({Key? key}) : super(key: key);
-
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.03),
-      fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +51,7 @@ class PlayerInfoMan extends StatelessWidget {
                 SizedBox(height: dSize(.1)),
                 Text(
                     'About ${rankingController.playerInfoModel.value.name ?? ''}',
-                    style: _textStyle.copyWith(
-                        fontSize: dSize(.04), fontWeight: FontWeight.bold)),
+                    style: AppTextStyle().largeTitleBoldStyle),
                 SizedBox(height: dSize(.02)),
                 Container(
                   padding: EdgeInsets.all(dSize(.04)),
@@ -155,7 +149,7 @@ class PlayerInfoMan extends StatelessWidget {
               flex: 1,
               child: Text(
                 key,
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.035),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -164,7 +158,7 @@ class PlayerInfoMan extends StatelessWidget {
               flex: 2,
               child: Text(
                 value,
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.035),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -184,7 +178,7 @@ class PlayerInfoMan extends StatelessWidget {
                   color: PublicController.pc.toggleTextColor()),
               Text(
                 ' $title',
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.03),
                       color: PublicController.pc.toggleTextColor(),
                     ),

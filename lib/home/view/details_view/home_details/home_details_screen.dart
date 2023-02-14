@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/home/view/details_view/home_details/commentary_view.dart';
 import 'package:cricland/home/view/details_view/home_details/info_view.dart';
@@ -156,7 +156,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               title:innerBoxIsScrolled? const SizedBox(): RichText(
                 text: TextSpan(
                   text: "${widget.rapidMatch.matchInfo!.team1!.teamSName}",
-                  style: CLTextStyle().nameTextStyle.copyWith(color: Colors.white),
+                  style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white),
                   children: <TextSpan>[
                     const TextSpan(
                         text: '  VS  ',
@@ -264,19 +264,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("${widget.rapidMatch.matchInfo!.team1!.teamSName}",
-                                  style: CLTextStyle().nameTextStyle.copyWith(
+                                  style: AppTextStyle().largeTitleStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.05),
                                   )),
                               widget.rapidMatch.matchScore != null?     RichText(
                                 text: TextSpan(
                                   text: "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
-                                  style: CLTextStyle().paragraphTextStyle.copyWith(
+                                  style: AppTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03), color: Colors.white),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: " (${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs})",
-                                      style: CLTextStyle().paragraphTextStyle
+                                      style: AppTextStyle().paragraphTextStyle
                                           .copyWith(
                                           fontSize: dSize(.025),
                                           color: Colors.white),
@@ -302,7 +302,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                             children: [
                               Text(
                                 "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
-                                style: CLTextStyle().nameTextStyle.copyWith(
+                                style: AppTextStyle().largeTitleStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: dSize(.05),
                                 ),
@@ -310,7 +310,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                               widget.rapidMatch.matchScore != null?     RichText(
                                 text: TextSpan(
                                   text: "(${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}) ",
-                                  style: CLTextStyle().paragraphTextStyle.copyWith(
+                                  style: AppTextStyle().paragraphTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: dSize(.025),
                                   ),
@@ -318,7 +318,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                     TextSpan(
                                       text: "${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
                                       style:
-                                      CLTextStyle().paragraphTextStyle.copyWith(
+                                      AppTextStyle().paragraphTextStyle.copyWith(
                                         color: Colors.white,
                                         fontSize: dSize(.04),
                                       ),
@@ -367,7 +367,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                         },
                         child: Text(
                           "${widget.rapidMatch.matchInfo!.status}",
-                          style: CLTextStyle().paragraphHeadLineTextStyle
+                          style: AppTextStyle().largeTitleStyle
                               .copyWith(color: Colors.orange, fontSize: 15),
                         ),
                       )

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/details_view/live_progeress_bottom_sheet.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/view/widgets/batter_card.dart';
 import 'package:cricland/home/view/widgets/bowler_card_tile.dart';
 import 'package:cricland/home/view/widgets/real_time_win_card.dart';
@@ -61,7 +61,7 @@ class _LiveViewState extends State<LiveView> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 widget.state,
-                style: CLTextStyle().paragraphHeadLineTextStyle,
+                style: AppTextStyle().largeTitleStyle,
               ),
             ),
             // MoreCard(
@@ -136,7 +136,7 @@ class _LiveViewState extends State<LiveView> {
                           ),
                           Text(
                             '=',
-                            style: CLTextStyle().paragraphTextStyle,
+                            style: AppTextStyle().paragraphTextStyle,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(2.0),

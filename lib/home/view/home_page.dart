@@ -1,5 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/view/details_view/finished_details/finished_tab_page.dart';
 import 'package:cricland/home/view/details_view/fixture_details/fixtures_tab_page.dart';
 import 'package:cricland/home/view/details_view/home_details/home_tab_page.dart';
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 2),
                           child: Text("CrickLand",
-                              style: CLTextStyle().nameTextStyle.copyWith(
+                              style: AppTextStyle().largeTitleStyle.copyWith(
                                 fontSize: dSize(.05),
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -130,8 +130,8 @@ class _HomePageState extends State<HomePage>
                   color: PublicController.pc.toggleTabColor(),
                 ),
                 unselectedLabelColor: Colors.grey,
-                unselectedLabelStyle: CLTextStyle().optionTextStyle,
-                labelStyle: CLTextStyle().optionTextStyle,
+                unselectedLabelStyle: AppTextStyle().largeTitleStyle,
+                labelStyle: AppTextStyle().largeTitleStyle,
                 indicatorSize: TabBarIndicatorSize.label,
                 physics: const BouncingScrollPhysics(),
                 tabs: [

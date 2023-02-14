@@ -2,7 +2,7 @@ import 'dart:core';
 import 'dart:core';
 import 'dart:core';
 
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ class MostRunCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(title!,
-                        style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                        style: AppTextStyle().largeTitleStyle.copyWith(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleTextColor(),
                         )),
@@ -68,12 +68,12 @@ class MostRunCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(playerName!,
-                                style: CLTextStyle().nameTextStyle.copyWith(
+                                style: AppTextStyle().largeTitleStyle.copyWith(
                                   fontSize: dSize(.04),
                                   color: PublicController.pc.toggleTextColor(),
                                 )),
                             Text(teamName!,
-                                style: CLTextStyle().paragraphTextStyle.copyWith(
+                                style: AppTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.025),
                                   color: PublicController.pc.toggleTextColor(),
                                 )),
@@ -86,12 +86,12 @@ class MostRunCard extends StatelessWidget {
                 Column(
                   children: [
                     Text(runs!,
-                        style: CLTextStyle().paragraphTextStyle.copyWith(
+                        style: AppTextStyle().paragraphTextStyle.copyWith(
                           fontSize: dSize(.05),
                           color: PublicController.pc.toggleTextColor(),
                         )),
                     Text("Runs",
-                        style: CLTextStyle().paragraphTextStyle.copyWith(
+                        style: AppTextStyle().paragraphTextStyle.copyWith(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleTextColor(),
                         )),

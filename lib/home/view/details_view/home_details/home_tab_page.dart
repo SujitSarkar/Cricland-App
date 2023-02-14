@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -109,7 +109,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
               },
                     child: Text(
                     'Show Add',
-                    style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                    style: AppTextStyle().largeTitleStyle.copyWith(
                       fontSize: dSize(.04),
                       fontWeight: FontWeight.w500,
                       color: PublicController.pc.toggleTextColor(),
@@ -183,7 +183,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     ),
                     Text(
                       'Featured Series',
-                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                      style: AppTextStyle().largeTitleStyle.copyWith(
                         fontSize: dSize(.04),
                         fontWeight: FontWeight.w500,
                         color: PublicController.pc.toggleTextColor(),
@@ -242,7 +242,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style:
-                                            CLTextStyle().nameTextStyle.copyWith(
+                                            AppTextStyle().largeTitleStyle.copyWith(
                                               fontSize: dSize(.035),
                                               color: PublicController.pc
                                                   .toggleTextColor(),

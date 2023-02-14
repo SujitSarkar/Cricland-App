@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -157,7 +157,7 @@ class PlayerInfoWomen extends StatelessWidget {
               flex: 1,
               child: Text(
                 key,
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.035),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -166,7 +166,7 @@ class PlayerInfoWomen extends StatelessWidget {
               flex: 2,
               child: Text(
                 value,
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.035),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -186,7 +186,7 @@ class PlayerInfoWomen extends StatelessWidget {
                   color: PublicController.pc.toggleTextColor()),
               Text(
                 ' $title',
-                style: CLTextStyle().paragraphTextStyle.copyWith(
+                style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.03),
                       color: PublicController.pc.toggleTextColor(),
                     ),

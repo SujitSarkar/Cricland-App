@@ -1,15 +1,12 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/home/view/widgets/bowller_card_tile.dart';
 import 'package:cricland/home/view/widgets/score_card_batter_tile.dart';
 import 'package:cricland/home/view/widgets/score_card_wicket_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-
 import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/config.dart';
-import '../../../model/custom_widget/constants.dart';
 
 class ScoreCardView extends StatefulWidget {
   final String matchId;
@@ -63,7 +60,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                       },
                       child: Text(
                         "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                        style: CLTextStyle().optionTextStyle.copyWith(
+                        style: AppTextStyle().largeTitleStyle.copyWith(
                           fontSize: dSize(.03),
                           color: PublicController.pc.toggleCardBg(),
                         ),
@@ -87,7 +84,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                           },
                           child: Text(
                             "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                            style: CLTextStyle().optionTextStyle.copyWith(
+                            style: AppTextStyle().largeTitleStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleCardBg(),
                             ),
@@ -105,7 +102,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                   child: Text(
                     "Fall Of Wicket",
                     style:
-                    CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                    AppTextStyle().largeTitleStyle.copyWith(
                       fontSize: dSize(.03),
                       color: PublicController.pc.toggleCardBg(),
                     ),

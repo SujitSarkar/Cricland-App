@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class MostWicketsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title!,
-                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                  style: AppTextStyle().largeTitleStyle.copyWith(
                     fontSize: dSize(.03),
                     color: PublicController.pc.toggleTextColor(),
                   )),
@@ -59,12 +59,12 @@ class MostWicketsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(playerName!,
-                          style: CLTextStyle().nameTextStyle.copyWith(
+                          style: AppTextStyle().largeTitleStyle.copyWith(
                             fontSize: dSize(.03),
                             color: PublicController.pc.toggleTextColor(),
                           )),
                       Text(teamName!,
-                          style: CLTextStyle().paragraphTextStyle.copyWith(
+                          style: AppTextStyle().paragraphTextStyle.copyWith(
                             fontSize: dSize(.025),
                             color: PublicController.pc.toggleTextColor(),
                           )),
@@ -83,7 +83,7 @@ class MostWicketsCard extends StatelessWidget {
                 height: 10,
               ),
               Text('${wickets!} Wickets',
-                  style: CLTextStyle().paragraphTextStyle.copyWith(
+                  style: AppTextStyle().paragraphTextStyle.copyWith(
                     fontSize: dSize(.03),
                     color: PublicController.pc.toggleTextColor(),
                   )),

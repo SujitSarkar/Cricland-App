@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 import 'package:cricland/more/controller/more_controller.dart';
 import 'package:cricland/more/view/feedback_page.dart';
 import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
@@ -72,7 +72,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Premium
             Text(lc.languageModel.value.premium!,
-                style: CLTextStyle().moreTitleStyle),
+                style: AppTextStyle().tileStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
@@ -106,7 +106,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Follow Us
             Text(lc.languageModel.value.followUs!,
-                style: CLTextStyle().moreTitleStyle),
+                style: AppTextStyle().tileStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -150,7 +150,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Settings
             Text(lc.languageModel.value.settingAppearence!,
-                style: CLTextStyle().moreTitleStyle),
+                style: AppTextStyle().tileStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
@@ -215,7 +215,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Support
             Text(lc.languageModel.value.rateUs!,
-                style: CLTextStyle().moreTitleStyle),
+                style: AppTextStyle().tileStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -250,7 +250,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Terms & privacy
             Text(lc.languageModel.value.about!,
-                style: CLTextStyle().moreTitleStyle),
+                style: AppTextStyle().tileStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -283,7 +283,7 @@ class _MorePageState extends State<MorePage> {
             Text(
                 '${lc.languageModel.value.version!}: ${PublicController.pc.packageInfo.version}',
                 textAlign: TextAlign.center,
-                style: CLTextStyle().moreTitleStyle),
+                style: AppTextStyle().tileStyle),
             SizedBox(height: dSize(.02)),
           ],
         ));
