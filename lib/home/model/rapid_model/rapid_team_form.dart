@@ -1,38 +1,30 @@
 // // To parse this JSON data, do
 // //
-// //     final recentMatchModel = recentMatchModelFromJson(jsonString);
+// //     final rapidTeamFormModel = rapidTeamFormModelFromJson(jsonString);
 //
 // import 'dart:convert';
 //
-// RecentMatchModel recentMatchModelFromJson(String str) => RecentMatchModel.fromJson(json.decode(str));
+// RapidTeamFormModel rapidTeamFormModelFromJson(String str) => RapidTeamFormModel.fromJson(json.decode(str));
 //
-// String recentMatchModelToJson(RecentMatchModel data) => json.encode(data.toJson());
+// String rapidTeamFormModelToJson(RapidTeamFormModel data) => json.encode(data.toJson());
 //
-// class RecentMatchModel {
-//   RecentMatchModel({
-//     this.typeMatches,
-//     this.filters,
+// class RapidTeamFormModel {
+//   RapidTeamFormModel({
+//     this.teamMatchesData,
 //     this.appIndex,
-//     this.responseLastUpdated,
 //   });
 //
-//   List<TypeMatch>? typeMatches;
-//   Filters? filters;
+//   List<TeamMatchesDatum>? teamMatchesData;
 //   AppIndex? appIndex;
-//   String? responseLastUpdated;
 //
-//   factory RecentMatchModel.fromJson(Map<String, dynamic> json) => RecentMatchModel(
-//     typeMatches: List<TypeMatch>.from(json["typeMatches"].map((x) => TypeMatch.fromJson(x))),
-//     filters: Filters.fromJson(json["filters"]),
+//   factory RapidTeamFormModel.fromJson(Map<String, dynamic> json) => RapidTeamFormModel(
+//     teamMatchesData: List<TeamMatchesDatum>.from(json["teamMatchesData"].map((x) => TeamMatchesDatum.fromJson(x))),
 //     appIndex: AppIndex.fromJson(json["appIndex"]),
-//     responseLastUpdated: json["responseLastUpdated"],
 //   );
 //
 //   Map<String, dynamic> toJson() => {
-//     "typeMatches": List<dynamic>.from(typeMatches!.map((x) => x.toJson())),
-//     "filters": filters!.toJson(),
-//     "appIndex": appIndex!.toJson(),
-//     "responseLastUpdated": responseLastUpdated,
+//     "teamMatchesData": List<dynamic>.from(teamMatchesData.map((x) => x.toJson())),
+//     "appIndex": appIndex.toJson(),
 //   };
 // }
 //
@@ -42,8 +34,8 @@
 //     this.webUrl,
 //   });
 //
-//   String? seoTitle;
-//   String? webUrl;
+//   String seoTitle;
+//   String webUrl;
 //
 //   factory AppIndex.fromJson(Map<String, dynamic> json) => AppIndex(
 //     seoTitle: json["seoTitle"],
@@ -56,59 +48,23 @@
 //   };
 // }
 //
-// class Filters {
-//   Filters({
-//     this.matchType,
-//   });
-//
-//   List<String>? matchType;
-//
-//   factory Filters.fromJson(Map<String, dynamic> json) => Filters(
-//     matchType: List<String>.from(json["matchType"].map((x) => x)),
-//   );
-//
-//   Map<String, dynamic> toJson() => {
-//     "matchType": List<dynamic>.from(matchType!.map((x) => x)),
-//   };
-// }
-//
-// class TypeMatch {
-//   TypeMatch({
-//     this.matchType,
-//     this.seriesMatches,
-//   });
-//
-//   String? matchType;
-//   List<SeriesMatch>? seriesMatches;
-//
-//   factory TypeMatch.fromJson(Map<String, dynamic> json) => TypeMatch(
-//     matchType: json["matchType"],
-//     seriesMatches: List<SeriesMatch>.from(json["seriesMatches"].map((x) => SeriesMatch.fromJson(x))),
-//   );
-//
-//   Map<String, dynamic> toJson() => {
-//     "matchType": matchType,
-//     "seriesMatches": List<dynamic>.from(seriesMatches!.map((x) => x.toJson())),
-//   };
-// }
-//
-// class SeriesMatch {
-//   SeriesMatch({
-//     this.seriesAdWrapper,
+// class TeamMatchesDatum {
+//   TeamMatchesDatum({
+//     this.matchDetailsMap,
 //     this.adDetail,
 //   });
 //
-//   SeriesAdWrapper? seriesAdWrapper;
-//   AdDetail? adDetail;
+//   MatchDetailsMap matchDetailsMap;
+//   AdDetail adDetail;
 //
-//   factory SeriesMatch.fromJson(Map<String, dynamic> json) => SeriesMatch(
-//     seriesAdWrapper: SeriesAdWrapper.fromJson(json["seriesAdWrapper"]),
+//   factory TeamMatchesDatum.fromJson(Map<String, dynamic> json) => TeamMatchesDatum(
+//     matchDetailsMap: MatchDetailsMap.fromJson(json["matchDetailsMap"]),
 //     adDetail: AdDetail.fromJson(json["adDetail"]),
 //   );
 //
 //   Map<String, dynamic> toJson() => {
-//     "seriesAdWrapper": seriesAdWrapper!.toJson(),
-//     "adDetail": adDetail!.toJson(),
+//     "matchDetailsMap": matchDetailsMap.toJson(),
+//     "adDetail": adDetail.toJson(),
 //   };
 // }
 //
@@ -119,9 +75,9 @@
 //     this.position,
 //   });
 //
-//   String? name;
-//   String? layout;
-//   int? position;
+//   String name;
+//   String layout;
+//   int position;
 //
 //   factory AdDetail.fromJson(Map<String, dynamic> json) => AdDetail(
 //     name: json["name"],
@@ -136,29 +92,36 @@
 //   };
 // }
 //
-// class SeriesAdWrapper {
-//   SeriesAdWrapper({
+// class MatchDetailsMap {
+//   MatchDetailsMap({
+//     this.key,
+//     this.match,
 //     this.seriesId,
-//     this.seriesName,
-//     this.matches,
 //   });
 //
-//   int? seriesId;
-//   String? seriesName;
-//   List<Match>? matches;
+//   Key key;
+//   List<Match> match;
+//   int seriesId;
 //
-//   factory SeriesAdWrapper.fromJson(Map<String, dynamic> json) => SeriesAdWrapper(
+//   factory MatchDetailsMap.fromJson(Map<String, dynamic> json) => MatchDetailsMap(
+//     key: keyValues.map[json["key"]],
+//     match: List<Match>.from(json["match"].map((x) => Match.fromJson(x))),
 //     seriesId: json["seriesId"],
-//     seriesName: json["seriesName"],
-//     matches: List<Match>.from(json["matches"].map((x) => Match.fromJson(x))),
 //   );
 //
 //   Map<String, dynamic> toJson() => {
+//     "key": keyValues.reverse[key],
+//     "match": List<dynamic>.from(match.map((x) => x.toJson())),
 //     "seriesId": seriesId,
-//     "seriesName": seriesName,
-//     "matches": List<dynamic>.from(matches!.map((x) => x.toJson())),
 //   };
 // }
+//
+// enum Key { NEW_ZEALAND_TOUR_OF_INDIA_2023, SRI_LANKA_TOUR_OF_INDIA_2023 }
+//
+// final keyValues = EnumValues({
+//   "New Zealand tour of India, 2023": Key.NEW_ZEALAND_TOUR_OF_INDIA_2023,
+//   "Sri Lanka tour of India, 2023": Key.SRI_LANKA_TOUR_OF_INDIA_2023
+// });
 //
 // class Match {
 //   Match({
@@ -166,8 +129,8 @@
 //     this.matchScore,
 //   });
 //
-//   MatchInfo? matchInfo;
-//   MatchScore? matchScore;
+//   MatchInfo matchInfo;
+//   MatchScore matchScore;
 //
 //   factory Match.fromJson(Map<String, dynamic> json) => Match(
 //     matchInfo: MatchInfo.fromJson(json["matchInfo"]),
@@ -175,8 +138,8 @@
 //   );
 //
 //   Map<String, dynamic> toJson() => {
-//     "matchInfo": matchInfo!.toJson(),
-//     "matchScore": matchScore!.toJson(),
+//     "matchInfo": matchInfo.toJson(),
+//     "matchScore": matchScore.toJson(),
 //   };
 // }
 //
@@ -198,33 +161,29 @@
 //     this.seriesStartDt,
 //     this.seriesEndDt,
 //     this.isTimeAnnounced,
-//     this.stateTitle,
-//     this.isFantasyEnabled,
 //   });
 //
-//   int? matchId;
-//   int? seriesId;
-//   String? seriesName;
-//   String? matchDesc;
-//   MatchFormat? matchFormat;
-//   String? startDate;
-//   String? endDate;
-//   State? state;
-//   String? status;
-//   Team? team1;
-//   Team? team2;
-//   VenueInfo? venueInfo;
-//   int? currBatTeamId;
-//   String? seriesStartDt;
-//   String? seriesEndDt;
-//   bool? isTimeAnnounced;
-//   String? stateTitle;
-//   bool? isFantasyEnabled;
+//   int matchId;
+//   int seriesId;
+//   Key seriesName;
+//   String matchDesc;
+//   MatchFormat matchFormat;
+//   String startDate;
+//   String endDate;
+//   State state;
+//   String status;
+//   Team team1;
+//   Team team2;
+//   VenueInfo venueInfo;
+//   int currBatTeamId;
+//   String seriesStartDt;
+//   String seriesEndDt;
+//   bool isTimeAnnounced;
 //
 //   factory MatchInfo.fromJson(Map<String, dynamic> json) => MatchInfo(
 //     matchId: json["matchId"],
 //     seriesId: json["seriesId"],
-//     seriesName: json["seriesName"],
+//     seriesName: keyValues.map[json["seriesName"]],
 //     matchDesc: json["matchDesc"],
 //     matchFormat: matchFormatValues.map[json["matchFormat"]],
 //     startDate: json["startDate"],
@@ -238,38 +197,33 @@
 //     seriesStartDt: json["seriesStartDt"],
 //     seriesEndDt: json["seriesEndDt"],
 //     isTimeAnnounced: json["isTimeAnnounced"],
-//     stateTitle: json["stateTitle"],
-//     isFantasyEnabled: json["isFantasyEnabled"],
 //   );
 //
 //   Map<String, dynamic> toJson() => {
 //     "matchId": matchId,
 //     "seriesId": seriesId,
-//     "seriesName": seriesName,
+//     "seriesName": keyValues.reverse[seriesName],
 //     "matchDesc": matchDesc,
 //     "matchFormat": matchFormatValues.reverse[matchFormat],
 //     "startDate": startDate,
 //     "endDate": endDate,
 //     "state": stateValues.reverse[state],
 //     "status": status,
-//     "team1": team1!.toJson(),
-//     "team2": team2!.toJson(),
-//     "venueInfo": venueInfo!.toJson(),
+//     "team1": team1.toJson(),
+//     "team2": team2.toJson(),
+//     "venueInfo": venueInfo.toJson(),
 //     "currBatTeamId": currBatTeamId,
 //     "seriesStartDt": seriesStartDt,
 //     "seriesEndDt": seriesEndDt,
 //     "isTimeAnnounced": isTimeAnnounced,
-//     "stateTitle": stateTitle,
-//     "isFantasyEnabled": isFantasyEnabled,
 //   };
 // }
 //
-// enum MatchFormat { T20, ODI, TEST }
+// enum MatchFormat { T20, ODI }
 //
 // final matchFormatValues = EnumValues({
 //   "ODI": MatchFormat.ODI,
-//   "T20": MatchFormat.T20,
-//   "TEST": MatchFormat.TEST
+//   "T20": MatchFormat.T20
 // });
 //
 // enum State { COMPLETE }
@@ -286,25 +240,41 @@
 //     this.imageId,
 //   });
 //
-//   int? teamId;
-//   String? teamName;
-//   String? teamSName;
-//   int? imageId;
+//   int teamId;
+//   TeamName teamName;
+//   TeamSName teamSName;
+//   int imageId;
 //
 //   factory Team.fromJson(Map<String, dynamic> json) => Team(
 //     teamId: json["teamId"],
-//     teamName: json["teamName"],
-//     teamSName: json["teamSName"],
+//     teamName: teamNameValues.map[json["teamName"]],
+//     teamSName: teamSNameValues.map[json["teamSName"]],
 //     imageId: json["imageId"],
 //   );
 //
 //   Map<String, dynamic> toJson() => {
 //     "teamId": teamId,
-//     "teamName": teamName,
-//     "teamSName": teamSName,
+//     "teamName": teamNameValues.reverse[teamName],
+//     "teamSName": teamSNameValues.reverse[teamSName],
 //     "imageId": imageId,
 //   };
 // }
+//
+// enum TeamName { INDIA, NEW_ZEALAND, SRI_LANKA }
+//
+// final teamNameValues = EnumValues({
+//   "India": TeamName.INDIA,
+//   "New Zealand": TeamName.NEW_ZEALAND,
+//   "Sri Lanka": TeamName.SRI_LANKA
+// });
+//
+// enum TeamSName { IND, NZ, SL }
+//
+// final teamSNameValues = EnumValues({
+//   "IND": TeamSName.IND,
+//   "NZ": TeamSName.NZ,
+//   "SL": TeamSName.SL
+// });
 //
 // class VenueInfo {
 //   VenueInfo({
@@ -312,25 +282,18 @@
 //     this.ground,
 //     this.city,
 //     this.timezone,
-//     this.latitude,
-//     this.longitude,
 //   });
 //
-//   int? id;
-//   String? ground;
-//   String? city;
-//
-//   Timezone? timezone;
-//   String? latitude;
-//   String? longitude;
+//   int id;
+//   String ground;
+//   String city;
+//   Timezone timezone;
 //
 //   factory VenueInfo.fromJson(Map<String, dynamic> json) => VenueInfo(
 //     id: json["id"],
 //     ground: json["ground"],
 //     city: json["city"],
 //     timezone: timezoneValues.map[json["timezone"]],
-//     latitude: json["latitude"],
-//     longitude: json["longitude"],
 //   );
 //
 //   Map<String, dynamic> toJson() => {
@@ -338,23 +301,13 @@
 //     "ground": ground,
 //     "city": city,
 //     "timezone": timezoneValues.reverse[timezone],
-//     "latitude": latitude,
-//     "longitude": longitude,
 //   };
 // }
 //
-// enum Timezone { THE_0530, THE_0200, THE_1100, THE_0800, THE_1000, THE_1030, THE_0600, THE_0400, THE_1300 }
+// enum Timezone { THE_0530 }
 //
 // final timezoneValues = EnumValues({
-//   "+02:00": Timezone.THE_0200,
-//   "+04:00": Timezone.THE_0400,
-//   "+05:30": Timezone.THE_0530,
-//   "+06:00": Timezone.THE_0600,
-//   "+08:00": Timezone.THE_0800,
-//   "+10:00": Timezone.THE_1000,
-//   "+10:30": Timezone.THE_1030,
-//   "+11:00": Timezone.THE_1100,
-//   "+13:00": Timezone.THE_1300
+//   "+05:30": Timezone.THE_0530
 // });
 //
 // class MatchScore {
@@ -363,8 +316,8 @@
 //     this.team2Score,
 //   });
 //
-//   TeamScore? team1Score;
-//   TeamScore? team2Score;
+//   TeamScore team1Score;
+//   TeamScore team2Score;
 //
 //   factory MatchScore.fromJson(Map<String, dynamic> json) => MatchScore(
 //     team1Score: TeamScore.fromJson(json["team1Score"]),
@@ -372,55 +325,45 @@
 //   );
 //
 //   Map<String, dynamic> toJson() => {
-//     "team1Score": team1Score!.toJson(),
-//     "team2Score": team2Score!.toJson(),
+//     "team1Score": team1Score.toJson(),
+//     "team2Score": team2Score.toJson(),
 //   };
 // }
 //
 // class TeamScore {
 //   TeamScore({
 //     this.inngs1,
-//     this.inngs2,
 //   });
 //
-//   Inngs? inngs1;
-//   Inngs? inngs2;
+//   Inngs1 inngs1;
 //
 //   factory TeamScore.fromJson(Map<String, dynamic> json) => TeamScore(
-//     inngs1: Inngs.fromJson(json["inngs1"]),
-//     inngs2: Inngs.fromJson(json["inngs2"]),
+//     inngs1: Inngs1.fromJson(json["inngs1"]),
 //   );
 //
 //   Map<String, dynamic> toJson() => {
-//     "inngs1": inngs1!.toJson(),
-//     "inngs2": inngs2!.toJson(),
+//     "inngs1": inngs1.toJson(),
 //   };
 // }
 //
-// class Inngs {
-//   Inngs({
+// class Inngs1 {
+//   Inngs1({
 //     this.inningsId,
 //     this.runs,
 //     this.wickets,
 //     this.overs,
-//     this.isDeclared,
-//     this.isFollowOn,
 //   });
 //
-//   int? inningsId;
-//   int? runs;
-//   int? wickets;
-//   double? overs;
-//   bool? isDeclared;
-//   bool? isFollowOn;
+//   int inningsId;
+//   int runs;
+//   int wickets;
+//   double overs;
 //
-//   factory Inngs.fromJson(Map<String, dynamic> json) => Inngs(
+//   factory Inngs1.fromJson(Map<String, dynamic> json) => Inngs1(
 //     inningsId: json["inningsId"],
 //     runs: json["runs"],
 //     wickets: json["wickets"],
 //     overs: json["overs"].toDouble(),
-//     isDeclared: json["isDeclared"],
-//     isFollowOn: json["isFollowOn"],
 //   );
 //
 //   Map<String, dynamic> toJson() => {
@@ -428,8 +371,6 @@
 //     "runs": runs,
 //     "wickets": wickets,
 //     "overs": overs,
-//     "isDeclared": isDeclared,
-//     "isFollowOn": isFollowOn,
 //   };
 // }
 //

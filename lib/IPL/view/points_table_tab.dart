@@ -30,7 +30,8 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
       setState(() {});
     }
   }
-
+  final TextStyle _textStyle = TextStyle(
+      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,10 +44,11 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
               children: [
                 Text(
                   "Points Table",
-                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.035),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),
                 ),
                 // Row(
                 //   children: [
@@ -73,10 +75,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
                 // ),
               ],
             ),
-            PointTableTile(
-              onTap: () {},
-              title: '',
-            ),
+            PointTableTile(),
           ],
         ),
       ),

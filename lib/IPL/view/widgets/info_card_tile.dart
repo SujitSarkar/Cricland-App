@@ -20,6 +20,8 @@ class InfoCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle _textStyle = TextStyle(
+        fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
     return Card(
       color: PublicController.pc.toggleCardBg(),
       elevation: 8,
@@ -33,18 +35,20 @@ class InfoCardTile extends StatelessWidget {
                 Flexible(
                   flex: 2,
                   child: Text("Series",
-                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.035),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),),
                 ),
                 Flexible(
                   flex: 4,
                   child: Text(series!,
-                      style: CLTextStyle().paragraphTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.03),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),),
                 ),
               ],
             ),
@@ -55,18 +59,20 @@ class InfoCardTile extends StatelessWidget {
                 Flexible(
                   flex: 2,
                   child: Text("Duration",
-                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.035),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),),
                 ),
                 Flexible(
                   flex: 4,
                   child: Text(duration!,
-                      style: CLTextStyle().paragraphTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.03),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),),
                 ),
               ],
             ),
@@ -77,18 +83,20 @@ class InfoCardTile extends StatelessWidget {
                 Flexible(
                   flex: 2,
                   child: Text("Format",
-                      style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.035),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),),
                 ),
                 Flexible(
                   flex: 4,
                   child: Text(format!,
-                      style: CLTextStyle().paragraphTextStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor(),
-                      )),
+                    style:_textStyle.copyWith(
+                      fontSize: dSize(.03),
+                      fontWeight: FontWeight.bold,
+                      color: PublicController.pc
+                          .toggleLoadingColor(),),),
                 ),
               ],
             ),

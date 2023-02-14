@@ -3,7 +3,6 @@ import 'package:cricland/home/view/widgets/point_table_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/config.dart';
 import '../../../controller/home_controller.dart';
@@ -95,10 +94,7 @@ class _PointTableViewState extends State<PointTableView> {
                 // ),
               ],
             ),
-            PointTableTile(
-              onTap: () {},
-              title: '',
-            ),
+            PointTableTile(),
           ],
         ),
       ),

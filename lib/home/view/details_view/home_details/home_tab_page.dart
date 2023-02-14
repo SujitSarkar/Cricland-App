@@ -50,9 +50,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   children: [
                   InkWell(
                 onTap: (){
-                //  homeController.getRecentMatches();
-               //   homeController.getUpcomingMatches();
-                  homeController.getFixturesMatches();
+                  homeController.getRecentMatches();
+                 homeController.getUpcomingMatches();
+                  homeController.getFeatureSeries();
 
                  // print(homeController.rapidUpcomingList.length);
                   // showDialog(
@@ -129,7 +129,6 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
                           },
                           child: HomeCardTile(
-                            isExpanded: selectedIndex==index? true:false,
                             rapidMatch:  homeController.rapidRecentList[index],
                           ),
                         );
@@ -150,7 +149,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
                           },
                           child: HomeCardTile(
-                            isExpanded: selectedIndex==index? true:false,
+
                             rapidMatch:  homeController.rapidUpcomingList[index],
                           ),
                         );
@@ -167,13 +166,13 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
                           return  GestureDetector(
                             onTap: (){
-                              setState((){
-                                selectedIndex = index;
-                              });
+                              // setState((){
+                              //   selectedIndex = index;
+                              // });
 
                             },
                             child: HomeCardTile(
-                              isExpanded: selectedIndex==index? true:false,
+
                               rapidMatch:  homeController.rapidFixturesList[index],
                             ),
                           );
@@ -209,9 +208,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                                 onTap: () {
                                   Get.to(
                                     const SeriesScreen(
-                                      seriesID: "4492",
-                                      // matchId: "${homeController.featureSeriesModel.seriesMapProto![index].series.first.}",
-                                    ),
+                                     ),
                                   );
                                 },
                                 child: Stack(

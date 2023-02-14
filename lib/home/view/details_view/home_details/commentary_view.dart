@@ -36,7 +36,7 @@ class _CommentaryViewState extends State<CommentaryView> {
   fetchData() async {
     HomeController homeController = Get.put(HomeController());
 
-    await homeController.getCommentaries(widget.matchId);
+    // await homeController.getCommentaries(widget.matchId);
 
     if (mounted) {
       setState(() {});
@@ -46,10 +46,10 @@ class _CommentaryViewState extends State<CommentaryView> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return SingleChildScrollView(
+      return const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child:
+          padding: EdgeInsets.only(top: 200.0),
+          child: Center(child: Text("You Have no commentary Yet"),)
               // _isLive
               //     ? Column(
               //         children: [
@@ -390,102 +390,102 @@ class _CommentaryViewState extends State<CommentaryView> {
               //         ],
               //       )
               //     :
-              homeController.commentariesModel.commentaryList != null
-                  ? Column(
-                      children: [
-                        ListTile(
-                          leading: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: 'NSW ',
-                                  style: CLTextStyle().paragraphHeadLineTextStyle
-                                      .copyWith(
-                                          color: PublicController.pc
-                                              .toggleTextColor()),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: 'vs',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: PublicController.pc
-                                                .toggleTextColor())),
-                                    TextSpan(
-                                        text: ' OIW',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: PublicController.pc
-                                                .toggleTextColor())),
-                                  ],
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  if (_isReverse) {
-                                    setState(() {
-                                      _isReverse = false;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _isReverse = true;
-                                    });
-                                  }
-                                },
-                                icon: Icon(_isReverse
-                                    ? Icons.arrow_downward
-                                    : Icons.arrow_upward),
-                              ),
-                            ],
-                          ),
-                          trailing: TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "See Key Events",
-                              style: CLTextStyle().paragraphHeadLineTextStyle
-                                  .copyWith(
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        ListView.builder(
-                            reverse: _isReverse,
-                            itemCount: homeController
-                                .commentariesModel.commentaryList!.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Column(
-                                children: [
-                                  Divider(),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  ListTile(
-                                    leading: Icon(Icons.message),
-                                    title: Text(
-                                      homeController.commentariesModel
-                                          .commentaryList![index].commText!,
-                                      style: CLTextStyle().paragraphTextStyle
-                                          .copyWith(
-                                              color: PublicController.pc
-                                                  .toggleTextColor(),
-                                              fontSize: 14),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }),
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(child: CircularProgressIndicator()),
-                      ],
-                    ),
+              // homeController.commentariesModel.commentaryList != null
+              //     ? Column(
+              //         children: [
+              //           ListTile(
+              //             leading: Row(
+              //               mainAxisSize: MainAxisSize.min,
+              //               children: [
+              //                 RichText(
+              //                   text: TextSpan(
+              //                     text: 'NSW ',
+              //                     style: CLTextStyle().paragraphHeadLineTextStyle
+              //                         .copyWith(
+              //                             color: PublicController.pc
+              //                                 .toggleTextColor()),
+              //                     children: <TextSpan>[
+              //                       TextSpan(
+              //                           text: 'vs',
+              //                           style: TextStyle(
+              //                               fontWeight: FontWeight.bold,
+              //                               color: PublicController.pc
+              //                                   .toggleTextColor())),
+              //                       TextSpan(
+              //                           text: ' OIW',
+              //                           style: TextStyle(
+              //                               fontWeight: FontWeight.bold,
+              //                               color: PublicController.pc
+              //                                   .toggleTextColor())),
+              //                     ],
+              //                   ),
+              //                 ),
+              //                 IconButton(
+              //                   onPressed: () {
+              //                     if (_isReverse) {
+              //                       setState(() {
+              //                         _isReverse = false;
+              //                       });
+              //                     } else {
+              //                       setState(() {
+              //                         _isReverse = true;
+              //                       });
+              //                     }
+              //                   },
+              //                   icon: Icon(_isReverse
+              //                       ? Icons.arrow_downward
+              //                       : Icons.arrow_upward),
+              //                 ),
+              //               ],
+              //             ),
+              //             trailing: TextButton(
+              //               onPressed: () {},
+              //               child: Text(
+              //                 "See Key Events",
+              //                 style: CLTextStyle().paragraphHeadLineTextStyle
+              //                     .copyWith(
+              //                   color: PublicController.pc.toggleTextColor(),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //           ListView.builder(
+              //               reverse: _isReverse,
+              //               itemCount: homeController
+              //                   .commentariesModel.commentaryList!.length,
+              //               physics: NeverScrollableScrollPhysics(),
+              //               shrinkWrap: true,
+              //               itemBuilder: (BuildContext context, int index) {
+              //                 return Column(
+              //                   children: [
+              //                     Divider(),
+              //                     SizedBox(
+              //                       height: 5,
+              //                     ),
+              //                     ListTile(
+              //                       leading: Icon(Icons.message),
+              //                       title: Text(
+              //                         homeController.commentariesModel
+              //                             .commentaryList![index].commText!,
+              //                         style: CLTextStyle().paragraphTextStyle
+              //                             .copyWith(
+              //                                 color: PublicController.pc
+              //                                     .toggleTextColor(),
+              //                                 fontSize: 14),
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 );
+              //               }),
+              //         ],
+              //       )
+              //     : Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: [
+              //           Center(child: CircularProgressIndicator()),
+              //         ],
+              //       ),
         ),
       );
     });

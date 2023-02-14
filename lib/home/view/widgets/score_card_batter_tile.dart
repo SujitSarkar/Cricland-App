@@ -94,7 +94,7 @@ class ScorecardBatterTile extends StatelessWidget {
                   itemCount: isLeft
                       ? homeController.scoreCardModel.scoreCard!.first
                           .batTeamDetails!.batsmenData!.length
-                      : homeController.scoreCardModel.scoreCard![1]
+                      : homeController.scoreCardModel.scoreCard!.first
                           .batTeamDetails!.batsmenData!.length,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -116,7 +116,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                   Text(
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].batName}"
-                                        : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].batName}",
+                                        : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].batName}",
                                     style:
                                         CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
@@ -127,7 +127,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                   Text(
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].outDesc}"
-                                        : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].outDesc}",
+                                        : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].outDesc}",
                                     style:
                                         CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
@@ -146,7 +146,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                       child: Text(
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].runs}"
-                                        : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].runs}",
+                                        : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].runs}",
                                     style:
                                         CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
@@ -158,7 +158,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                     child: Text(
                                       isLeft
                                           ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].balls}"
-                                          : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].balls}",
+                                          : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].balls}",
 
                                       // "10",
                                       style: CLTextStyle().paragraphTextStyle
@@ -173,7 +173,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                       child: Text(
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].fours}"
-                                        : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].fours}",
+                                        : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].fours}",
                                     style:
                                         CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
@@ -185,7 +185,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                     child: Text(
                                       isLeft
                                           ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].sixes}"
-                                          : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].sixes}",
+                                          : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].sixes}",
                                       style: CLTextStyle().paragraphTextStyle
                                           .copyWith(
                                         fontSize: dSize(.03),
@@ -197,7 +197,7 @@ class ScorecardBatterTile extends StatelessWidget {
                                   Text(
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].strikeRate}"
-                                        : "${homeController.scoreCardModel.scoreCard![1].batTeamDetails!.batsmenData!.values.toList()[index].strikeRate}",
+                                        : "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batsmenData!.values.toList()[index].strikeRate}",
                                     style:
                                         CLTextStyle().paragraphTextStyle.copyWith(
                                       fontSize: dSize(.03),
@@ -222,7 +222,7 @@ class ScorecardBatterTile extends StatelessWidget {
                   Text(
                     isLeft
                         ? "Extras:  ${homeController.scoreCardModel.scoreCard!.first.extrasData!.total} (nb${homeController.scoreCardModel.scoreCard!.first.extrasData!.noBalls}, p${homeController.scoreCardModel.scoreCard!.first.extrasData!.penalty}, lb${homeController.scoreCardModel.scoreCard!.first.extrasData!.legByes}, w${homeController.scoreCardModel.scoreCard!.first.extrasData!.wides}, b${homeController.scoreCardModel.scoreCard!.first.extrasData!.byes})"
-                        : "Extras:  ${homeController.scoreCardModel.scoreCard![1].extrasData!.total} (nb${homeController.scoreCardModel.scoreCard![1].extrasData!.noBalls}, p${homeController.scoreCardModel.scoreCard![1].extrasData!.penalty}, lb${homeController.scoreCardModel.scoreCard![1].extrasData!.legByes}, w${homeController.scoreCardModel.scoreCard![1].extrasData!.wides}, b${homeController.scoreCardModel.scoreCard![1].extrasData!.byes})",
+                        : "Extras:  ${homeController.scoreCardModel.scoreCard!.first.extrasData!.total} (nb${homeController.scoreCardModel.scoreCard!.first.extrasData!.noBalls}, p${homeController.scoreCardModel.scoreCard!.first.extrasData!.penalty}, lb${homeController.scoreCardModel.scoreCard!.first.extrasData!.legByes}, w${homeController.scoreCardModel.scoreCard!.first.extrasData!.wides}, b${homeController.scoreCardModel.scoreCard!.first.extrasData!.byes})",
 
                     //"Extras: B (b0,lb3,w5,nb0,p0",
                     style: CLTextStyle().paragraphTextStyle.copyWith(

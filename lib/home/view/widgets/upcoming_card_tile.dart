@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/rapid_model/recent_match_model.dart';
+import '../details_view/home_details/home_details_screen.dart';
 import '../details_view/upcoming_details/upcoming_details_screen.dart';
 
 class UpcomingCardTile extends StatelessWidget {
@@ -19,17 +20,19 @@ class UpcomingCardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle _textStyle = TextStyle(
+        fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
     return GestureDetector(
       onTap: (){
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => UpcomingDetailsScreen(
-        //       selectedIndex: 2,
-        //       rapidMatch: rapidMatch,
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => HomeDetailsScreen(
+              // selectedIndex: 2,
+              rapidMatch: rapidMatch,
+            ),
+          ),
+        );
       },
       child: Container(
 
@@ -43,8 +46,16 @@ class UpcomingCardTile extends StatelessWidget {
                 FittedBox(
                   child: Row(
                     children:  [
-                      Text("${rapidMatch.matchInfo!.matchDesc} ",style: CLTextStyle().subTitleTextStyle,),
-                      Text("${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",style: CLTextStyle().subTitleTextStyle,)
+                      Text("${rapidMatch.matchInfo!.matchDesc} ",style:_textStyle.copyWith(
+                          fontSize: dSize(.035),
+                          fontWeight: FontWeight.bold,
+                          color: PublicController.pc
+                              .toggleLoadingColor(),),),
+                      Text("${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",style:_textStyle.copyWith(
+                        fontSize: dSize(.035),
+                        fontWeight: FontWeight.bold,
+                        color: PublicController.pc
+                            .toggleLoadingColor(),),)
                     ],
                   ),
                 ),
@@ -83,12 +94,24 @@ class UpcomingCardTile extends StatelessWidget {
                                 SizedBox(
                                   width: dSize(.02),
                                 ),
-                                Text("${rapidMatch.matchInfo!.team1!.teamSName} "),
+                                Text("${rapidMatch.matchInfo!.team1!.teamSName} ",style:_textStyle.copyWith(
+                                  fontSize: dSize(.035),
+                                  fontWeight: FontWeight.bold,
+                                  color: PublicController.pc
+                                      .toggleLoadingColor(),),),
                                 rapidMatch.matchScore != null?   Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text("${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}"),
-                                    Text(" ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",style: CLTextStyle().subTitleTextStyle,),
+                                    Text("${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",style:_textStyle.copyWith(
+                                      fontSize: dSize(.035),
+                                      fontWeight: FontWeight.bold,
+                                      color: PublicController.pc
+                                          .toggleLoadingColor(),),),
+                                    Text(" ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",style:_textStyle.copyWith(
+                                    fontSize: dSize(.03),
+        fontWeight: FontWeight.bold,
+        color: PublicController.pc
+            .toggleLoadingColor(),),),
                                   ],
                                 ):const SizedBox()
                               ],
@@ -121,8 +144,16 @@ class UpcomingCardTile extends StatelessWidget {
                              rapidMatch.matchScore != null?   Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}"),
-                                  Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",style: CLTextStyle().subTitleTextStyle,),
+                                  Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",style:_textStyle.copyWith(
+                                    fontSize: dSize(.035),
+                                    fontWeight: FontWeight.bold,
+                                    color: PublicController.pc
+                                        .toggleLoadingColor(),),),
+                                  Text(" ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",style:_textStyle.copyWith(
+                                    fontSize: dSize(.03),
+                                    fontWeight: FontWeight.bold,
+                                    color: PublicController.pc
+                                        .toggleLoadingColor(),),),
                                 ],
                               ):const SizedBox()
                             ],
@@ -135,9 +166,21 @@ class UpcomingCardTile extends StatelessWidget {
                         child: Column(
                           children:  [
                             rapidMatch.matchInfo!.state=="Live"?   Icon(Icons.do_not_disturb_on_total_silence,color: Colors.red,):SizedBox(),
-                            Text("${rapidMatch.matchInfo!.state}"),
-                            Text("Start at:",style: CLTextStyle().subTitleTextStyle,),
-                            Text(  DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(rapidMatch.matchInfo!.startDate!) * 1000)).toString(),),
+                            Text("${rapidMatch.matchInfo!.state}",style:_textStyle.copyWith(
+                              fontSize: dSize(.035),
+                              fontWeight: FontWeight.bold,
+                              color: PublicController.pc
+                                  .toggleLoadingColor(),),),
+                            Text("Start at:",style:_textStyle.copyWith(
+                              fontSize: dSize(.03),
+                              fontWeight: FontWeight.bold,
+                              color: PublicController.pc
+                                  .toggleLoadingColor(),),),
+                            Text(  DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(rapidMatch.matchInfo!.startDate!) * 1000)).toString(),style:_textStyle.copyWith(
+                            fontSize: dSize(.035),
+                  fontWeight: FontWeight.bold,
+                  color: PublicController.pc
+                      .toggleLoadingColor(),),),
                           ],
                         ),
                       )

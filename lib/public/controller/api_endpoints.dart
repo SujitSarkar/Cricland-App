@@ -20,8 +20,9 @@ class ApiEndpoints {
   static String matchesInfo = baseURL + 'mcenter/$apiVersion/';
   static String liveMatches = baseURL + 'matches/$apiVersion/live';
   static String overSummery = baseURL + 'mcenter/$apiVersion/';
+  static String teamForm = baseURL + 'teams/$apiVersion/';
 
-  //For Image
+  //For Image  https://cricbuzz-cricket.p.rapidapi.com/teams/v1/
   static const String imageMidPoint = baseURL + "img/$apiVersion/i1/c";
   static const String imageLastPoint = "/i.jpg";
   static const Map<String, String> headers = <String, String>{

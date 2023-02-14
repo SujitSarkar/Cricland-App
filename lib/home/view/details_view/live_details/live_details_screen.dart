@@ -340,9 +340,10 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                 child: TabBarView(
                   controller: _tabController,
                   children: <Widget>[
-                    InfoView(
-                      matchId: widget.matchID,
-                    ),
+                    // InfoView(
+                    //   matchId: widget.matchID,
+                    //   rapidMatch: widget.ra,
+                    // ),
                     CommentaryView(
                       matchId: widget.matchID,
                     ),
