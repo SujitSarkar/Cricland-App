@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/widgets/point_table_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

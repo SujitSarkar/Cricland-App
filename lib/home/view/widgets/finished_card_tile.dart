@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';

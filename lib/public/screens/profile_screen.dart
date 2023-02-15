@@ -1,5 +1,7 @@
 import 'package:cricland/public/screens/profile_update_screen.dart';
 import 'package:cricland/public/screens/sell_points_screen.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../home/controller/home_controller.dart';
@@ -17,16 +19,12 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.04),
-      //fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
           leading: Center(
               child: Padding(
             padding: const EdgeInsets.only(left: 3.0),
@@ -78,9 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               TextSpan(
                                 text:
                                     '  ${homeController.userModel.firstName} ${homeController.userModel.lastName}',
-                                style: _textStyle.copyWith(
+                                style: AppTextStyle().boldBodyTextStyle.copyWith(
                                     fontSize: dSize(.05),
-                                    fontWeight: FontWeight.bold,
                                     color: AllColor.fbColor),
                               ),
                             ],
@@ -100,9 +97,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     TextSpan(
                                       text:
                                           '  ${homeController.userModel.phone}',
-                                      style: _textStyle.copyWith(
+                                      style: AppTextStyle().boldBodyTextStyle.copyWith(
                                           fontSize: dSize(.05),
-                                          fontWeight: FontWeight.bold,
                                           color: AllColor.fbColor),
                                     ),
                                   ],
@@ -119,9 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               TextSpan(
                                 text:
                                     '  ${homeController.userModel.totalPoint} Pts',
-                                style: _textStyle.copyWith(
+                                style: AppTextStyle().boldBodyTextStyle.copyWith(
                                     fontSize: dSize(.05),
-                                    fontWeight: FontWeight.bold,
                                     color: AllColor.fbColor),
                               ),
                             ],
@@ -147,9 +142,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 EdgeInsets.symmetric(horizontal: dSize(.2)),
                             child: Text(
                               'Profile Update',
-                              style: _textStyle.copyWith(
+                              style: AppTextStyle().boldBodyTextStyle.copyWith(
                                   fontSize: dSize(.035),
-                                  fontWeight: FontWeight.bold,
                                   color: AllColor.lightCardColor),
                             ),
                           ),
@@ -170,9 +164,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 EdgeInsets.symmetric(horizontal: dSize(.25)),
                             child: Text(
                               'Sell Point',
-                              style: _textStyle.copyWith(
+                              style: AppTextStyle().boldBodyTextStyle.copyWith(
                                   fontSize: dSize(.035),
-                                  fontWeight: FontWeight.bold,
                                   color: AllColor.lightCardColor),
                             ),
                           ),

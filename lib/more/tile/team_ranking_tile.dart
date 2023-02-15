@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/model/team_ranking_model.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/config.dart';
@@ -27,6 +27,7 @@ class TeamRankingTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      if(model.imageId!=null)
                       CachedNetworkImage(
                           imageUrl: ApiEndpoint.imageUrl(model.imageId!),
                           httpHeaders: ApiEndpoint.header,

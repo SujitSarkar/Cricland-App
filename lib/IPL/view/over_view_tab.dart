@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/widgets/featured_match_tile.dart';
 import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';

@@ -2,7 +2,7 @@ import 'dart:core';
 import 'dart:core';
 import 'dart:core';
 
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';

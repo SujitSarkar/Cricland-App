@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/controller/more_controller.dart';
 import 'package:cricland/more/view/feedback_page.dart';
 import 'package:cricland/more/view/icc_man_ranking/icc_man_ranking_page.dart';
@@ -10,6 +10,7 @@ import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,7 @@ class _MorePageState extends State<MorePage> {
     return GetBuilder<MoreController>(builder: (moreController) {
       return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container( decoration: StDecoration().sliverAppbarGradient),
           title: Text(lc.languageModel.value.more!,
               style: TextStyle(fontSize: dSize(.045))),
         ),

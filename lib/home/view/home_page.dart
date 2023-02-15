@@ -1,5 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/details_view/finished_details/finished_tab_page.dart';
 import 'package:cricland/home/view/details_view/fixture_details/fixtures_tab_page.dart';
 import 'package:cricland/home/view/details_view/home_details/home_tab_page.dart';
@@ -8,6 +8,7 @@ import 'package:cricland/home/view/details_view/upcoming_details/upcomming_tab_p
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage>
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                     SliverAppBar(
+                      flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
                       elevation: 0,
                     title:innerBoxIsScrolled? const SizedBox():  Row(
                       children: [
@@ -85,7 +87,6 @@ class _HomePageState extends State<HomePage>
                     floating: true,
                     forceElevated: innerBoxIsScrolled,
                     bottom: _tabBar(homeController),
-
                   ),
                 ];
 

@@ -38,6 +38,12 @@ class AppTextStyle {
     color: PublicController.pc.toggleTextColor(),
   );
 
+  TextStyle boldBodyTextStyle = TextStyle(
+    fontSize: dSize(.032),
+    fontFamily: "openSans",
+    color: PublicController.pc.toggleTextColor(),
+  );
+
   TextStyle paragraphTextStyle = TextStyle(
     fontSize: dSize(.03),
     fontFamily: "openSans",

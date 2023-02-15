@@ -1,4 +1,5 @@
 import 'package:cricland/news/controller/news_controller.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../more/view/widgets/article_card_portrait.dart';
 import '../../public/controller/public_controller.dart';
 import '../../public/variables/config.dart';
-import '../../public/variables/variable.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -30,6 +30,7 @@ class _NewsPageState extends State<NewsPage>
           return Obx(() => Scaffold(
                 backgroundColor: PublicController.pc.togglePagedBg(),
                 appBar: AppBar(
+                  flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
                   title: Text('News', style: TextStyle(fontSize: dSize(.045))),
                   bottom: _tabBar(nc),
                 ),

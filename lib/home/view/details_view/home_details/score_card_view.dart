@@ -1,5 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/widgets/bowller_card_tile.dart';
 import 'package:cricland/home/view/widgets/score_card_batter_tile.dart';
 import 'package:cricland/home/view/widgets/score_card_wicket_card_tile.dart';

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/model/player_info_model.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_info_man.dart';
@@ -11,6 +11,7 @@ import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,73 +61,76 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                       snap: false,
                       forceElevated: innerBoxIsScrolled,
                       expandedHeight: dSize(.52),
-                      flexibleSpace: Stack(
-                        children: [
-                          Positioned.fill(
-                              child: rankingController
-                                          .playerInfoModel.value.name !=
-                                      null
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: dSize(.055)),
-                                              child: RichText(
-                                                text: TextSpan(
-                                                  style: AppTextStyle()
-                                                      .largeTitleStyle
-                                                      .copyWith(
-                                                          color: Colors.white,
-                                                          fontSize:
-                                                              dSize(.055)),
-                                                  children: [
-                                                    TextSpan(
-                                                        text:
-                                                            '${rankingController.playerInfoModel.value.name} \n'),
-                                                    TextSpan(
-                                                        text:
-                                                            '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w400,
+                      flexibleSpace: Container(
+                        decoration: StDecoration().sliverAppbarGradient,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                                child: rankingController
+                                            .playerInfoModel.value.name !=
+                                        null
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: dSize(.055)),
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    style: AppTextStyle()
+                                                        .largeTitleStyle
+                                                        .copyWith(
+                                                            color: Colors.white,
                                                             fontSize:
-                                                                dSize(.035))),
-                                                  ],
-                                                ),
-                                              )),
-                                        ),
-                                        ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(80)),
-                                          child: CachedNetworkImage(
-                                              imageUrl: ApiEndpoint.imageUrl(
-                                                  rankingController
-                                                          .playerInfoModel
-                                                          .value
-                                                          .faceImageId ??
-                                                      '',
-                                                  p: 'de'),
-                                              httpHeaders: ApiEndpoint.header,
-                                              fit: BoxFit.fill,
-                                              height: 130,
-                                              width: 130,
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      const Icon(Icons.error,
-                                                          size: 120,
-                                                          color: Colors.grey),
-                                              placeholder: (context, url) =>
-                                                  const Icon(Icons.image,
-                                                      size: 120,
-                                                      color: Colors.grey)),
-                                        )
-                                      ],
-                                    )
-                                  : const SizedBox.shrink())
-                        ],
+                                                                dSize(.055)),
+                                                    children: [
+                                                      TextSpan(
+                                                          text:
+                                                              '${rankingController.playerInfoModel.value.name} \n'),
+                                                      TextSpan(
+                                                          text:
+                                                              '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight.w400,
+                                                              fontSize:
+                                                                  dSize(.035))),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(80)),
+                                            child: CachedNetworkImage(
+                                                imageUrl: ApiEndpoint.imageUrl(
+                                                    rankingController
+                                                            .playerInfoModel
+                                                            .value
+                                                            .faceImageId ??
+                                                        '',
+                                                    p: 'de'),
+                                                httpHeaders: ApiEndpoint.header,
+                                                fit: BoxFit.fill,
+                                                height: 130,
+                                                width: 130,
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error,
+                                                            size: 120,
+                                                            color: Colors.grey),
+                                                placeholder: (context, url) =>
+                                                    const Icon(Icons.image,
+                                                        size: 120,
+                                                        color: Colors.grey)),
+                                          )
+                                        ],
+                                      )
+                                    : const SizedBox.shrink())
+                          ],
+                        ),
                       ),
                       bottom: _tabBar(lc),
                     ),
@@ -154,35 +158,32 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
 
   PreferredSize _tabBar(LanguageController lc) => PreferredSize(
         preferredSize: Size.fromHeight(dSize(.3)),
-        child: Container(
-          color: AllColor.primaryColor,
-          child: TabBar(
-            onTap: (covariant) async {
-              setState(() => _tabController.index = covariant);
-            },
-            isScrollable: true,
-            controller: _tabController,
-            labelColor: PublicController.pc.toggleLoadingColor(),
-            indicator: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(dSize(.02)),
-                    topRight: Radius.circular(dSize(.02))),
-                color: PublicController.pc.toggleTabColor()),
-            unselectedLabelColor: Colors.grey.shade400,
-            unselectedLabelStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
-            labelStyle:
-                TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
-            indicatorSize: TabBarIndicatorSize.label,
-            physics: const BouncingScrollPhysics(),
-            tabs: lc.languageModel.value.playerDetails!
-                .map<Widget>((String item) => Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: dSize(.01), horizontal: dSize(.02)),
-                      child: Text(item),
-                    ))
-                .toList(),
-          ),
+        child: TabBar(
+          onTap: (covariant) async {
+            setState(() => _tabController.index = covariant);
+          },
+          isScrollable: true,
+          controller: _tabController,
+          labelColor: PublicController.pc.toggleLoadingColor(),
+          indicator: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(dSize(.02)),
+                  topRight: Radius.circular(dSize(.02))),
+              color: PublicController.pc.toggleTabColor()),
+          unselectedLabelColor: Colors.grey.shade400,
+          unselectedLabelStyle:
+              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+          labelStyle:
+              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+          indicatorSize: TabBarIndicatorSize.label,
+          physics: const BouncingScrollPhysics(),
+          tabs: lc.languageModel.value.playerDetails!
+              .map<Widget>((String item) => Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: dSize(.01), horizontal: dSize(.02)),
+                    child: Text(item),
+                  ))
+              .toList(),
         ),
       );
 }

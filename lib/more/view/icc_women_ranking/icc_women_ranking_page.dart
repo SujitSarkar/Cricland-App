@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/app_text_style.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/tile/ranking_tile.dart';
 import 'package:cricland/more/tile/team_ranking_tile.dart';
@@ -7,6 +7,7 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,6 +60,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                               NestedScrollView.sliverOverlapAbsorberHandleFor(
                                   context),
                           sliver: SliverAppBar(
+                            flexibleSpace: Container(decoration:StDecoration().sliverAppbarGradient),
                             title: Text(lc.languageModel.value.iccWomenRanking!,
                                 style: TextStyle(fontSize: dSize(.045))),
                             titleSpacing: -8.0,
