@@ -17,6 +17,7 @@ class FixturesTabScreen extends StatefulWidget {
 
 class _FixturesTabScreenState extends State<FixturesTabScreen> {
   String? selectedValue = 'Day';
+
   // List of items in our dropdown menu
   var items = [
     'Day',
@@ -33,11 +34,12 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
     'League',
     'Women',
   ];
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(50),
@@ -46,15 +48,14 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
         ),
         child: Column(
           children: [
+            const SizedBox(height: 10),
             Row(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: PublicController.pc.toggleTextColor(),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                      color: PublicController.pc.toggleCardBg(),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2(
                       style: AppTextStyle().largeTitleStyle,
@@ -97,38 +98,35 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(width: 10),
+
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     height: 40,
-                    child: ListView.builder(
+                    child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemCount: typeList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              padding: const EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(5),
-                                  ),
-                                  border: Border.all(
-                                    width: 1,
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  )),
-                              child: Center(
-                                child: Text(
-                                  typeList[index],
-                                  style: AppTextStyle().largeTitleStyle.copyWith(
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 10),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                                color: PublicController.pc.toggleCardBg()),
+                            child: Text(
+                              typeList[index],
+                              textAlign: TextAlign.center,
+                              style: AppTextStyle().largeTitleStyle.copyWith(
                                     fontSize: dSize(.04),
                                     fontWeight: FontWeight.w500,
                                     color:
                                         PublicController.pc.toggleTextColor(),
                                   ),
-                                ),
-                              ),
                             ),
                           );
                         }),
@@ -136,21 +134,18 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 5,
-            ),
-           Expanded(
-                    child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount:homeController.rapidFixturesList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return FinishedCardTile(
-                            rapidMatch: homeController.rapidFixturesList[index],
-                          );
-                        }),
-                  )
-
+            Expanded(
+              child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: homeController.rapidFixturesList.length,
+                  separatorBuilder: (context, index)=> const SizedBox(height: 8),
+                  itemBuilder: (BuildContext context, int index) {
+                    return FinishedCardTile(
+                      rapidMatch: homeController.rapidFixturesList[index],
+                    );
+                  }),
+            )
           ],
         ),
       );

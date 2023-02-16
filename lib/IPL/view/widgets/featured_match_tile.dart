@@ -47,7 +47,7 @@ class FeaturedMatchTile extends StatelessWidget {
                 ),
               ),
               Text("${seriesMatch.matchInfo!.team1!.teamSName}",
-                style: AppTextStyle().titleTextBoldStyle)
+                style: AppTextStyle().bodyTextStyle)
             ],
           ),
           
@@ -60,7 +60,7 @@ class FeaturedMatchTile extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style:AppTextStyle().titleTextBoldStyle.copyWith(
+                    style:AppTextStyle().boldBodyTextStyle.copyWith(
                         color: PublicController.pc
                             .togglePrimaryTextColor())),
                   Text("${seriesMatch.matchInfo!.matchDesc}",
@@ -74,7 +74,7 @@ class FeaturedMatchTile extends StatelessWidget {
           Row(
             children: [
               Text("${seriesMatch.matchInfo!.team2!.teamSName}",
-                style:AppTextStyle().titleTextBoldStyle),
+                style:AppTextStyle().bodyTextStyle),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(

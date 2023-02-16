@@ -25,7 +25,7 @@ class FeedbackPage extends StatelessWidget {
                     ),
                     body: _bodyUI(context, controller, lc),
                   ),
-                  if (controller.isLoading.value) const LoadingWidget()
+                  if (controller.isLoading.value) const LoadingPage()
                 ],
               ));
         });

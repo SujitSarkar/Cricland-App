@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
-class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key, this.color}) : super(key: key);
+class LoadingPage extends StatelessWidget {
+  const LoadingPage({Key? key, this.color}) : super(key: key);
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    final PublicController pc = Get.find();
     return Container(
         color: Colors.black38,
         height: double.infinity,
@@ -17,7 +16,7 @@ class LoadingWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Obx(
           () => SpinKitFadingCircle(
-            color: pc.isLight.value
+            color: PublicController.pc.isLight.value
                 ? Theme.of(context).primaryColor
                 : Colors.white,
             size: MediaQuery.of(context).size.width * .15,
@@ -25,3 +24,20 @@ class LoadingWidget extends StatelessWidget {
         ));
   }
 }
+
+class LoadingWidget extends StatelessWidget {
+  const LoadingWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Obx(
+          () => SpinKitFadingCircle(
+        color: PublicController.pc.isLight.value
+            ? Theme.of(context).primaryColor
+            : Colors.white,
+        size: MediaQuery.of(context).size.width * .15,
+      ),
+    ));
+  }
+}
+

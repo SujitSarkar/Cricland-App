@@ -222,57 +222,53 @@ class _OverViewTabState extends State<OverViewTab> {
                                     onTap: () {
                                       _showSquadsSheet(context);
                                     },
-                                    child: Padding(
+                                    child: Container(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: PublicController.pc
-                                              .toggleCardBg(),
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
+                                      decoration: BoxDecoration(
+                                        color: PublicController.pc
+                                            .toggleCardBg(),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(28.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                height: 80,
-                                                width: 80,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image:
-                                                          CachedNetworkImageProvider(
-                                                        ApiEndpoints
-                                                                .imageMidPoint +
-                                                            "${homeController.matchSquadModel.squads![i].imageId}" +
-                                                            ApiEndpoints
-                                                                .imageLastPoint,
-                                                        headers: ApiEndpoints
-                                                            .headers,
-                                                      ),
-                                                      fit: BoxFit.cover),
-                                                ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      ApiEndpoints
+                                                              .imageMidPoint +
+                                                          "${homeController.matchSquadModel.squads![i].imageId}" +
+                                                          ApiEndpoints
+                                                              .imageLastPoint,
+                                                      headers: ApiEndpoints
+                                                          .headers,
+                                                    ),
+                                                    fit: BoxFit.cover),
                                               ),
-                                              const SizedBox(
-                                                height: 10
-                                              ),
-                                              Text(
-                                                  "${homeController.matchSquadModel.squads![i].squadType}",
-                                                  style: AppTextStyle()
-                                                      .largeTitleStyle
-                                                      .copyWith(
-                                                    fontSize: dSize(.04),
-                                                    color: PublicController.pc
-                                                        .toggleTextColor(),
-                                                  )),
-                                            ],
-                                          ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                                "${homeController.matchSquadModel.squads![i].squadType}",
+                                                style: AppTextStyle()
+                                                    .largeTitleStyle
+                                                    .copyWith(
+                                                  fontSize: dSize(.04),
+                                                  color: PublicController.pc
+                                                      .toggleTextColor(),
+                                                )),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -290,7 +286,7 @@ class _OverViewTabState extends State<OverViewTab> {
                           )),
                     ),
                     homeController
-                        .rapidSeriesMatchList.isEmpty?const SizedBox():    InfoCardTile(
+                        .rapidSeriesMatchList.isEmpty?const SizedBox():InfoCardTile(
                             series: homeController
                                 .rapidSeriesMatchList.first.matchInfo!.seriesName,
                             duration: homeController
@@ -300,7 +296,7 @@ class _OverViewTabState extends State<OverViewTab> {
                             onTap: () {},
                           ),
 
-                    const SizedBox(height: 300,)
+                    const SizedBox(height: 300)
                     // ListTile(
                     //   leading: Text(
                     //     "More Seasons",

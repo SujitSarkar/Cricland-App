@@ -51,7 +51,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           ),
           body: _bodyUIUpdate(context, homeController),
         ),
-        if (_isLoading) const LoadingWidget()
+        if (_isLoading) const LoadingPage()
       ]);
     });
   }

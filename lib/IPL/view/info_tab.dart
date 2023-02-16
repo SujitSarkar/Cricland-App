@@ -1,9 +1,7 @@
 import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-
 import '../../home/controller/home_controller.dart';
 
 class SeriesInfoTab extends StatefulWidget {

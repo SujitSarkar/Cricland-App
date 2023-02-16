@@ -2,26 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/series_screen.dart';
 import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
-import 'package:cricland/home/view/widgets/head_to_head_tile.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:expandable_widgets/expandable_widgets.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
-import '../../../../IPL/view/widgets/featured_match_tile.dart';
 import '../../../model/match_info_model.dart';
 import '../../../model/rapid_model/recent_match_model.dart';
 import '../../widgets/match_card_tile.dart';
 
 class InfoView extends StatefulWidget {
-
   final RapidMatch rapidMatch;
-  const InfoView({Key? key,required this.rapidMatch}) : super(key: key);
+
+  const InfoView({Key? key, required this.rapidMatch}) : super(key: key);
 
   @override
   _InfoViewState createState() => _InfoViewState();
@@ -37,6 +33,7 @@ class _InfoViewState extends State<InfoView> {
     Colors.redAccent,
     Colors.green
   ];
+
   @override
   void initState() {
     super.initState();
@@ -46,15 +43,13 @@ class _InfoViewState extends State<InfoView> {
 
   fetchData() async {
     HomeController homeController = Get.put(HomeController());
-   // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
-    await homeController.getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
+    // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
+    await homeController
+        .getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
     if (mounted) {
       setState(() {});
     }
   }
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
@@ -72,14 +67,8 @@ class _InfoViewState extends State<InfoView> {
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: RichText(
                   text: TextSpan(
-                    text:
-                          widget.rapidMatch.matchInfo!.status,
-
-                    style:_textStyle.copyWith(
-                      fontSize: dSize(.04),
-                      fontWeight: FontWeight.bold,
-                      color: PublicController.pc
-                          .toggleLoadingColor(),),
+                    text: widget.rapidMatch.matchInfo!.status,
+                    style: AppTextStyle().titleTextBoldStyle,
                     children: <TextSpan>[
                       // TextSpan(
                       //   text: ' won the toss and chose to bowl',
@@ -108,43 +97,25 @@ class _InfoViewState extends State<InfoView> {
                 //   ),
                 // ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               ListTile(
                 onTap: () {
-                  Get.to(
-                    SeriesScreen(),
-                  );
+                  Get.to(const SeriesScreen());
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   widget.rapidMatch.matchInfo!.matchDesc.toString(),
-
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.03),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),
+                  style: AppTextStyle().paragraphTextStyle,
                 ),
                 subtitle: Row(
                   children: [
                     FittedBox(
                       child: Text(
                         widget.rapidMatch.matchInfo!.seriesName.toString(),
-
-
-                  style:_textStyle.copyWith(
-                  fontSize: dSize(.04),
-          fontWeight: FontWeight.bold,
-          color: PublicController.pc
-              .toggleLoadingColor(),),
+                        style: AppTextStyle().titleTextBoldStyle,
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Icon(
                       Icons.arrow_forward_ios_sharp,
                       color: PublicController.pc.toggleTextColor(),
@@ -152,7 +123,7 @@ class _InfoViewState extends State<InfoView> {
                     )
                   ],
                 ),
-                trailing:    Container(
+                trailing: Container(
                   height: 30,
                   width: 30,
                   decoration: BoxDecoration(
@@ -168,79 +139,55 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                    DateFormat('MMM d,' 'hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(widget.rapidMatch.matchInfo!.startDate!) * 1000)).toString(),
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.04),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),
+                  DateFormat('MMM d,' 'hh:mm a')
+                      .format(DateTime.fromMillisecondsSinceEpoch(
+                          int.parse(widget.rapidMatch.matchInfo!.startDate!) *
+                              1000))
+                      .toString(),
+                  style: AppTextStyle().titleTextBoldStyle
                 ),
                 leading: Icon(
                   Icons.calendar_today_outlined,
                   color: PublicController.pc.toggleTextColor(),
                 ),
               ),
-              SizedBox(
-                height: 3,
-              ),
+              const SizedBox(height: 3),
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
-
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.04),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),
+                  style: AppTextStyle().titleTextBoldStyle
                 ),
                 leading: Icon(
                   Icons.location_on,
                   color: PublicController.pc.toggleTextColor(),
                 ),
-
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Playing XI',
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.04),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),
+                  style: AppTextStyle().titleTextBoldStyle
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               ListTile(
                 onTap: () {
                   fetchData();
-                 _showSquadsSheet(context,homeController.recentMatchInfoModel.matchInfo!.team2!.playerDetails!);
+                  _showSquadsSheet(
+                      context,
+                      homeController.recentMatchInfoModel.matchInfo!.team2!
+                          .playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   widget.rapidMatch.matchInfo!.team1!.teamName.toString(),
-
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.03),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),
+                  style: AppTextStyle().paragraphTextStyle
                 ),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
@@ -262,23 +209,18 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 2,
-              ),
+              const SizedBox(height: 2),
               ListTile(
                 onTap: () {
-                  _showSquadsSheet(context,homeController.recentMatchInfoModel.matchInfo!.team2!.playerDetails!);
+                  _showSquadsSheet(
+                      context,
+                      homeController.recentMatchInfoModel.matchInfo!.team2!
+                          .playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
                   widget.rapidMatch.matchInfo!.team2!.teamName.toString(),
-
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.035),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),
+                  style: AppTextStyle().bodyTextStyle
                 ),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
@@ -300,9 +242,7 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               // Align(
               //   alignment: Alignment.centerLeft,
               //   child: RichText(
@@ -903,30 +843,24 @@ class _InfoViewState extends State<InfoView> {
               //     onTap: () {},
               //   ),
               // ),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               ListView.builder(
-                  itemCount: homeController
-                      .rapidSeriesMatchList.length,
+                  itemCount: homeController.rapidSeriesMatchList.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
-                    return  GestureDetector(
-                      onTap: (){
-                        print(homeController
-                            .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
+                    return GestureDetector(
+                      onTap: () {
+                        print(homeController.rapidSeriesMatchList[index]
+                            .matchInfo!.team1!.imageId!);
                       },
                       child: MatchCardTile(
-                          rapidMatch:homeController
-                              .rapidSeriesMatchList[index]),
+                          rapidMatch:
+                              homeController.rapidSeriesMatchList[index]),
                     );
-
                   }),
-         
-              SizedBox(
-                height: 10,
-              ),
+
+              const SizedBox(height: 10),
               // MoreCard(
               //   child: ListTile(
               //     trailing: Icon(
@@ -1220,102 +1154,121 @@ class _InfoViewState extends State<InfoView> {
                   ),
                 ),
               ),
-              homeController.recentMatchInfoModel.venueInfo != null?   Column(
-                children: [
-                  Image.network("${homeController.recentMatchInfoModel.venueInfo!.imageUrl}"),
-                  MoreCard(
-                    child: Column(
+              homeController.recentMatchInfoModel.venueInfo != null
+                  ? Column(
                       children: [
-                        homeController.recentMatchInfoModel.matchInfo!.umpire1 != null?      ListTile(
-                          title: Text(
-                            "Umpire",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
+                        Image.network(
+                            "${homeController.recentMatchInfoModel.venueInfo!.imageUrl}"),
+                        MoreCard(
+                          child: Column(
+                            children: [
+                              homeController.recentMatchInfoModel.matchInfo!
+                                          .umpire1 !=
+                                      null
+                                  ? ListTile(
+                                      title: Text(
+                                        "Umpire",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "${homeController.recentMatchInfoModel.matchInfo!.umpire1!.name}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              const Divider(thickness: 1),
+                              homeController.recentMatchInfoModel.matchInfo!
+                                          .umpire2 !=
+                                      null
+                                  ? ListTile(
+                                      title: Text(
+                                        "2nd Umpire",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "${homeController.recentMatchInfoModel.matchInfo!.umpire2!.name}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              const Divider(thickness: 1),
+                              homeController.recentMatchInfoModel.matchInfo!
+                                          .umpire3 !=
+                                      null
+                                  ? ListTile(
+                                      title: Text(
+                                        "Third Umpire",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "${homeController.recentMatchInfoModel.matchInfo!.umpire3!.name}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                              const Divider(thickness: 1),
+                              homeController.recentMatchInfoModel.matchInfo!
+                                          .referee !=
+                                      null
+                                  ? ListTile(
+                                      title: Text(
+                                        "Referee",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "${homeController.recentMatchInfoModel.matchInfo!.referee!.name}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: dSize(.04),
+                                          color: PublicController.pc
+                                              .toggleTextColor(),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                            ],
                           ),
-                          subtitle: Text(
-                            "${homeController.recentMatchInfoModel.matchInfo!.umpire1!.name}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ):SizedBox(),
-                        Divider(
-                          thickness: 1,
                         ),
-                        homeController.recentMatchInfoModel.matchInfo!.umpire2 != null?     ListTile(
-                          title: Text(
-                            "2nd Umpire",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                          subtitle: Text(
-                            "${homeController.recentMatchInfoModel.matchInfo!.umpire2!.name}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ):SizedBox(),
-                        Divider(
-                          thickness: 1,
-                        ),
-                        homeController.recentMatchInfoModel.matchInfo!.umpire3 != null?    ListTile(
-                          title: Text(
-                            "Third Umpire",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                          subtitle: Text(
-                            "${homeController.recentMatchInfoModel.matchInfo!.umpire3!.name}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ):SizedBox(),
-                        Divider(
-                          thickness: 1,
-                        ),
-                        homeController.recentMatchInfoModel.matchInfo!.referee != null?   ListTile(
-                          title: Text(
-                            "Referee",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                          subtitle: Text(
-                            "${homeController.recentMatchInfoModel.matchInfo!.referee!.name}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            ),
-                          ),
-                        ):SizedBox(),
                       ],
-                    ),
-                  ),
-                ],
-              ):const SizedBox(),
+                    )
+                  : const SizedBox(),
 
-              SizedBox(
-                height: 10,
-              )
+              const SizedBox(height: 10)
             ],
           ),
         ),
@@ -1323,23 +1276,19 @@ class _InfoViewState extends State<InfoView> {
     });
   }
 
-  void _showSquadsSheet(BuildContext context,List<PlayerRapid>players) {
-
-
-
-
+  void _showSquadsSheet(BuildContext context, List<PlayerRapid> players) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-
           return StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-              return  FractionallySizedBox(
-                heightFactor: 2.3,
-                child: BottomSheetScreen(playerRapidTeam: players,
-                ),
-              );
-            });
+              builder: (BuildContext context, StateSetter setState) {
+            return FractionallySizedBox(
+              heightFactor: 2.3,
+              child: BottomSheetScreen(
+                playerRapidTeam: players,
+              ),
+            );
+          });
         });
   }
 }

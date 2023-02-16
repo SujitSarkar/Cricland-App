@@ -17,9 +17,7 @@ class _MatchesTabState extends State<MatchesTab> {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Column(
         children: [
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
                 itemCount: homeController

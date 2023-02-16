@@ -33,7 +33,7 @@ class PremiumPage extends StatelessWidget {
                     ),
                     body: _bodyUI(context, controller),
                   ),
-                  if (controller.loading.value) const LoadingWidget()
+                  if (controller.loading.value) const LoadingPage()
                 ],
               ));
         });

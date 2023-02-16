@@ -141,7 +141,7 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                 body: _bodyUI(),
               ),
             ),
-            if (rankingController.bodyLoading.value) const LoadingWidget()
+            if (rankingController.bodyLoading.value) const LoadingPage()
           ],
         ));
   }

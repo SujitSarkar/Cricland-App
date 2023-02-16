@@ -140,7 +140,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
               body: _bodyUI(),
             ),
           ),
-          if (rankingController.bodyLoading.value) const LoadingWidget()
+          if (rankingController.bodyLoading.value) const LoadingPage()
         ],
       );
     });

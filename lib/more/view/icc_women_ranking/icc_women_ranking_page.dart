@@ -75,7 +75,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                     },
                     body: _bodyUI(rankingController, lc),
                   )),
-                  if (rankingController.bodyLoading.value) const LoadingWidget()
+                  if (rankingController.bodyLoading.value) const LoadingPage()
                 ],
               ));
         });

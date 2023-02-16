@@ -35,7 +35,7 @@ class _NewsPageState extends State<NewsPage>
                   bottom: _tabBar(nc),
                 ),
                 body: nc.loading.value
-                    ? const LoadingWidget()
+                    ? const LoadingPage()
                     : SafeArea(
                         child: SmartRefresher(
                           enablePullDown: true,
@@ -47,7 +47,7 @@ class _NewsPageState extends State<NewsPage>
                               if (mode == LoadStatus.idle) {
                                 body = const Text("Pull up load");
                               } else if (mode == LoadStatus.loading) {
-                                body = const LoadingWidget();
+                                body = const LoadingPage();
                               } else if (mode == LoadStatus.failed) {
                                 body = const Text("Load Failed! Click retry!");
                               } else if (mode == LoadStatus.canLoading) {

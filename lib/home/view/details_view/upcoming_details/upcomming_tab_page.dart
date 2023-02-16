@@ -21,67 +21,54 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Container(
-        padding: const EdgeInsets.all(5),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(50),
-            topLeft: Radius.circular(50),
-          ),
-        ),
-        child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(50), topLeft: Radius.circular(50))),
+          child: ListView(physics: const BouncingScrollPhysics(), children: [
+            const SizedBox(height: 12),
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: homeController.rapidUpcomingList.length,
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                return UpcomingCardTile(
+                  rapidMatch: homeController.rapidUpcomingList[index],
+                  // onTap: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (_) => UpcomingDetailsScreen(
+                  //         selectedIndex: index,
+                  //         startDate:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.startDate}",
+                  //         teamS2Name:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
+                  //         matchID:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
+                  //         teamS1Name:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
+                  //         matchDesc:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
+                  //         team1ImageID:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
+                  //         team2ImageID:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
+                  //         seriesID:
+                  //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesId}",
+                  //       ),
+                  //     ),
+                  //   );
+                  //
+                  // },
+                );
 
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: homeController.rapidUpcomingList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return UpcomingCardTile(
-                        rapidMatch: homeController.rapidUpcomingList[index],
-                              // onTap: () {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (_) => UpcomingDetailsScreen(
-                              //         selectedIndex: index,
-                              //         startDate:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.startDate}",
-                              //         teamS2Name:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                              //         matchID:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchId}",
-                              //         teamS1Name:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                              //         matchDesc:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.matchDesc}",
-                              //         team1ImageID:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team1!.imageId}",
-                              //         team2ImageID:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.matches![0].matchInfo!.team2!.imageId}",
-                              //         seriesID:
-                              //             "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![index].seriesAdWrapper!.seriesId}",
-                              //       ),
-                              //     ),
-                              //   );
-                              //
-                              // },
-
-                            );
-
-                      //LiveCart(context);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                ],
-              )
-
-      );
+                //LiveCart(context);
+              },
+            ),
+            const SizedBox(height: 12)
+          ]));
     });
   }
 }

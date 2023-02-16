@@ -41,6 +41,7 @@ class AppTextStyle {
   TextStyle boldBodyTextStyle = TextStyle(
     fontSize: dSize(.032),
     fontFamily: "openSans",
+    fontWeight: FontWeight.bold,
     color: PublicController.pc.toggleTextColor(),
   );
 
