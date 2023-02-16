@@ -113,7 +113,8 @@ class Variables {
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
-      textSelectionTheme: const TextSelectionThemeData(cursorColor: AllColor.primaryColor),
+      textSelectionTheme:
+          const TextSelectionThemeData(cursorColor: AllColor.primaryColor),
       bottomSheetTheme:
           const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',
@@ -135,21 +136,23 @@ class Variables {
   static final ThemeData darkThemeData = ThemeData(
       primarySwatch: const MaterialColor(0xff153145, AllColor.primaryColorMap),
       scaffoldBackgroundColor: AllColor.appDarkBg,
+      unselectedWidgetColor: Colors.grey,
       appBarTheme: AppBarTheme(
-          backgroundColor: AllColor.primaryColor,
+          backgroundColor: AllColor.darkCardColor,
           titleTextStyle: TextStyle(
               color: AllColor.darkTextColor, fontWeight: FontWeight.bold),
           elevation: 0.0),
       canvasColor: Colors.transparent,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AllColor.appDarkBg,
+        backgroundColor: AllColor.darkCardColor,
         showUnselectedLabels: true,
         elevation: 0.0,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
-      textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white),
+      textSelectionTheme:
+          const TextSelectionThemeData(cursorColor: Colors.white),
       bottomSheetTheme:
           const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',

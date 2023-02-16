@@ -72,10 +72,7 @@ class _HomeNavPageState extends State<HomeNavPage> {
                         ),
                       ],
                       currentIndex: pc.selectedIndex.value,
-                      onTap: pc.onItemTapped,
-                      backgroundColor:
-                          Colors.red //PublicController.pc.toggleCardBg(),
-                      ),
+                      onTap: pc.onItemTapped),
                 )),
           ));
     });

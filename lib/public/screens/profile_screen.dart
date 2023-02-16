@@ -24,14 +24,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-          leading: Center(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 3.0),
-            child: FittedBox(
-                child:
-                    Text('Profile', style: TextStyle(fontSize: dSize(.045)))),
-          )),
+          flexibleSpace:
+              Container(decoration: StDecoration().sliverAppbarGradient),
+          title: Text('Profile',
+              style: AppTextStyle()
+                  .largeTitleBoldStyle
+                  .copyWith(color: AllColor.darkTextColor)),
         ),
         body: _bodyUI(context, homeController),
       );
@@ -69,37 +67,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         RichText(
                           text: TextSpan(
                             text: 'Name:',
-                            style: TextStyle(
-                                fontSize: dSize(.05),
-                                color: PublicController.pc.toggleTextColor()),
+                            style: AppTextStyle().largeTitleBoldStyle,
                             children: <TextSpan>[
                               TextSpan(
                                 text:
                                     '  ${homeController.userModel.firstName} ${homeController.userModel.lastName}',
-                                style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                    fontSize: dSize(.05),
-                                    color: AllColor.fbColor),
+                                style: AppTextStyle()
+                                    .largeTitleBoldStyle
+                                    .copyWith(color: AllColor.fbColor),
                               ),
                             ],
                           ),
                         ),
                         SizedBox(height: dSize(.05)),
                         homeController.userModel.phone == null
-                            ? SizedBox()
+                            ? const SizedBox()
                             : RichText(
                                 text: TextSpan(
                                   text: 'Phone:',
-                                  style: TextStyle(
-                                      fontSize: dSize(.05),
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
+                                  style: AppTextStyle().largeTitleBoldStyle,
                                   children: <TextSpan>[
                                     TextSpan(
                                       text:
                                           '  ${homeController.userModel.phone}',
-                                      style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                          fontSize: dSize(.05),
-                                          color: AllColor.fbColor),
+                                      style: AppTextStyle()
+                                          .boldBodyTextStyle
+                                          .copyWith(
+                                              fontSize: dSize(.05),
+                                              color: AllColor.fbColor),
                                     ),
                                   ],
                                 ),
@@ -108,16 +103,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         RichText(
                           text: TextSpan(
                             text: 'A.Points:',
-                            style: TextStyle(
-                                fontSize: dSize(.05),
-                                color: PublicController.pc.toggleTextColor()),
+                            style: AppTextStyle().largeTitleStyle,
                             children: <TextSpan>[
                               TextSpan(
                                 text:
                                     '  ${homeController.userModel.totalPoint} Pts',
-                                style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                    fontSize: dSize(.05),
-                                    color: AllColor.fbColor),
+                                style: AppTextStyle()
+                                    .largeTitleBoldStyle
+                                    .copyWith(color: AllColor.fbColor),
                               ),
                             ],
                           ),
@@ -125,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(height: dSize(.5)),
                         TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: AllColor.purpleColor,
+                            backgroundColor: AllColor.primaryColor,
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -142,17 +135,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 EdgeInsets.symmetric(horizontal: dSize(.2)),
                             child: Text(
                               'Profile Update',
-                              style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                  fontSize: dSize(.035),
-                                  color: AllColor.lightCardColor),
+                              style: AppTextStyle()
+                                  .titleTextBoldStyle
+                                  .copyWith(color: AllColor.lightCardColor),
                             ),
                           ),
                         ),
                         SizedBox(height: dSize(.01)),
                         TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: AllColor.purpleColor,
-                          ),
+                              backgroundColor: AllColor.primaryColor),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -164,9 +156,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 EdgeInsets.symmetric(horizontal: dSize(.25)),
                             child: Text(
                               'Sell Point',
-                              style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                  fontSize: dSize(.035),
-                                  color: AllColor.lightCardColor),
+                              style: AppTextStyle()
+                                  .titleTextBoldStyle
+                                  .copyWith(color: AllColor.lightCardColor),
                             ),
                           ),
                         )

@@ -35,9 +35,12 @@ class _MorePageState extends State<MorePage> {
     return GetBuilder<MoreController>(builder: (moreController) {
       return Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container( decoration: StDecoration().sliverAppbarGradient),
+          flexibleSpace:
+              Container(decoration: StDecoration().sliverAppbarGradient),
           title: Text(lc.languageModel.value.more!,
-              style: TextStyle(fontSize: dSize(.045))),
+              style: AppTextStyle()
+                  .largeTitleBoldStyle
+                  .copyWith(color: AllColor.darkTextColor)),
         ),
         body: _bodyUI(context, moreController, lc),
       );

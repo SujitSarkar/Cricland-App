@@ -1,3 +1,4 @@
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../controller/public_controller.dart';
@@ -50,13 +51,10 @@ class _TextFieldTileState extends State<TextFieldTile> {
       textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
       maxLines: widget.maxLine ?? 1,
       minLines: widget.minLine ?? 1,
-      style: TextStyle(
-        color: PublicController.pc.isLight.value
-            ? AllColor.lightTextColor
-            : AllColor.darkTextColor,
-        fontSize: dSize(.04),
-        fontWeight: FontWeight.w500,
-      ),
+      style: AppTextStyle().titleTextStyle.copyWith(
+          color: PublicController.pc.isLight.value
+              ? AllColor.lightTextColor
+              : AllColor.darkTextColor),
       decoration: InputDecoration(
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blueGrey, width: .5),

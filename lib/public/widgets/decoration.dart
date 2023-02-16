@@ -29,8 +29,8 @@ class StDecoration{
         begin: Alignment.bottomLeft,
         end: Alignment.topRight,
         colors: [
-          AllColor.appDarkBg,
-          AllColor.appDarkBg,
+          AllColor.darkCardColor,
+          AllColor.darkCardColor,
           // Color(0xff233A2A),
         ],
       ));

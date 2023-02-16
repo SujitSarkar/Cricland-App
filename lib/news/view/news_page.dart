@@ -1,4 +1,5 @@
 import 'package:cricland/news/controller/news_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
@@ -31,8 +32,12 @@ class _TrendingPageState extends State<TrendingPage>
           return Obx(() => Scaffold(
                 backgroundColor: PublicController.pc.togglePagedBg(),
                 appBar: AppBar(
-                  flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-                  title: Text('News', style: TextStyle(fontSize: dSize(.045))),
+                  flexibleSpace: Container(
+                      decoration: StDecoration().sliverAppbarGradient),
+                  title: Text('News',
+                      style: AppTextStyle()
+                          .largeTitleBoldStyle
+                          .copyWith(color: AllColor.darkTextColor)),
                   bottom: _tabBar(nc),
                 ),
                 body: nc.loading.value
@@ -100,8 +105,8 @@ class _TrendingPageState extends State<TrendingPage>
                         topRight: Radius.circular(dSize(.02))),
                     color: PublicController.pc.toggleTabColor()),
                 unselectedLabelColor: Colors.grey.shade400,
-          unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
-          labelStyle:AppTextStyle().largeTitleBoldStyle,
+                unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+                labelStyle: AppTextStyle().largeTitleBoldStyle,
                 indicatorSize: TabBarIndicatorSize.label,
                 physics: const BouncingScrollPhysics(),
                 tabs: nc.categoryList

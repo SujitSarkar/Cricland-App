@@ -1,11 +1,9 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/screens/home_nav_page.dart';
-import 'package:cricland/public/screens/signup_screen.dart';
-
+import 'package:cricland/public/widgets/app_text_style.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';
 import '../variables/config.dart';
@@ -27,16 +25,17 @@ class _SellPointScreenState extends State<SellPointScreen> {
   bool _valueDeposit = false;
   String _radioVal = 'bkash';
   bool _isLoading = false;
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032),
-      //fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Sell Point', style: TextStyle(fontSize: dSize(.045))),
+          flexibleSpace:
+              Container(decoration: StDecoration().sliverAppbarGradient),
+          title: Text('Sell Point',
+              style: AppTextStyle()
+                  .largeTitleBoldStyle
+                  .copyWith(color: AllColor.darkTextColor)),
         ),
         body: _bodyUI(context, homeController),
       );
@@ -65,16 +64,16 @@ class _SellPointScreenState extends State<SellPointScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('Cricland',
-                                style: _textStyle.copyWith(
-                                    fontSize: dSize(.1),
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold)),
+                                style: AppTextStyle()
+                                    .largeTitleBoldStyle
+                                    .copyWith(fontSize: dSize(.1))),
                             Text('Points',
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
-                                    fontSize: dSize(.05),
-                                    fontWeight: FontWeight.bold,
-                                    color: AllColor.goldenColor)),
+                                style: AppTextStyle()
+                                    .largeTitleBoldStyle
+                                    .copyWith(
+                                        fontSize: dSize(.05),
+                                        color: AllColor.goldenColor)),
                           ],
                         )
                       ],
@@ -85,20 +84,20 @@ class _SellPointScreenState extends State<SellPointScreen> {
                       child: Text(
                           'SignIn to Earn by clicking Add.'
                           ' and enjoy cricket with happiness',
-                          style: _textStyle,
+                          style: AppTextStyle().bodyTextStyle,
                           textAlign: TextAlign.center),
                     ),
                     SizedBox(height: dSize(.06)),
                     Text(
                       "Available Point: ${homeController.userModel.totalPoint}",
-                      style: const TextStyle(fontSize: 25),
+                      style: AppTextStyle().largeTitleBoldStyle,
                     ),
                     SizedBox(height: dSize(.06)),
                     Row(
                       children: [
                         Checkbox(
                           checkColor: Colors.white,
-                          activeColor: Colors.red,
+                          activeColor: AllColor.primaryColor,
                           value: _valueDeposit,
                           onChanged: (value) {
                             setState(() {
@@ -106,10 +105,8 @@ class _SellPointScreenState extends State<SellPointScreen> {
                             });
                           },
                         ),
-                        Text(
-                          'Sells System',
-                          style: TextStyle(fontSize: dSize(.04)),
-                        ),
+                        Text('Sells System',
+                            style: AppTextStyle().titleTextStyle),
                       ],
                     ),
                     Visibility(
@@ -118,26 +115,23 @@ class _SellPointScreenState extends State<SellPointScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Step 1: Minimum Available points must be 500',
-                            style: TextStyle(fontSize: dSize(.04)),
-                          ),
+                          Text('Step 1: Minimum Available points must be 500',
+                              style: AppTextStyle().titleTextStyle),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: dSize(.02)),
                             child: Text(
-                              'Step 2: Fill the below instruction & Send Request ',
-                              style: TextStyle(fontSize: dSize(.04)),
-                            ),
+                                'Step 2: Fill the below instruction & Send Request ',
+                                style: AppTextStyle().titleTextStyle),
                           ),
                           Text(
                             'Step 3: Then wait to approval ',
-                            style: TextStyle(fontSize: dSize(.04)),
+                            style: AppTextStyle().titleTextStyle,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: dSize(.02)),
                             child: Text(
                               'Step 4: within 24 hours to get your balance',
-                              style: TextStyle(fontSize: dSize(.04)),
+                              style: AppTextStyle().titleTextStyle,
                             ),
                           ),
                         ],
@@ -224,8 +218,7 @@ class _SellPointScreenState extends State<SellPointScreen> {
                     SizedBox(height: dSize(.06)),
                     TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: AllColor.purpleColor,
-                      ),
+                          backgroundColor: AllColor.primaryColor),
                       onPressed: () {
                         if (sellPointController.text.isNotEmpty &&
                             transectionMediaController.text.isNotEmpty &&
@@ -261,11 +254,10 @@ class _SellPointScreenState extends State<SellPointScreen> {
                         } else {
                           showToast('All Field is required');
                         }
-
                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
                       },
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: dSize(.25)),
+                        padding: EdgeInsets.symmetric(horizontal: dSize(.2)),
                         child: _isLoading
                             ? const Center(
                                 child: CircularProgressIndicator(
@@ -274,10 +266,9 @@ class _SellPointScreenState extends State<SellPointScreen> {
                               )
                             : Text(
                                 'Send Request',
-                                style: _textStyle.copyWith(
-                                    fontSize: dSize(.035),
-                                    fontWeight: FontWeight.bold,
-                                    color: AllColor.lightCardColor),
+                                style: AppTextStyle()
+                                    .titleTextBoldStyle
+                                    .copyWith(color: AllColor.lightCardColor),
                               ),
                       ),
                     ),
