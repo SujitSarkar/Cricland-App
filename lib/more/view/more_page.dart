@@ -74,12 +74,12 @@ class _MorePageState extends State<MorePage> {
 
             ///Premium
             Text(lc.languageModel.value.premium!,
-                style: AppTextStyle().tileStyle),
+                style: AppTextStyle().titleTextStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
                   onTap: () {
-                    Get.to(() => PremiumPage());
+                    Get.to(() => const PremiumPage());
                   },
                   leadingIcon: FontAwesomeIcons.crown,
                   title: lc.languageModel.value.cricland!,
@@ -108,7 +108,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Follow Us
             Text(lc.languageModel.value.followUs!,
-                style: AppTextStyle().tileStyle),
+                style: AppTextStyle().titleTextStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -152,7 +152,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Settings
             Text(lc.languageModel.value.settingAppearence!,
-                style: AppTextStyle().tileStyle),
+                style: AppTextStyle().titleTextStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: CardTile(
@@ -217,7 +217,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Support
             Text(lc.languageModel.value.rateUs!,
-                style: AppTextStyle().tileStyle),
+                style: AppTextStyle().titleTextStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -252,7 +252,7 @@ class _MorePageState extends State<MorePage> {
 
             ///Terms & privacy
             Text(lc.languageModel.value.about!,
-                style: AppTextStyle().tileStyle),
+                style: AppTextStyle().titleTextStyle),
             SizedBox(height: dSize(.02)),
             MoreCard(
               child: Column(
@@ -285,7 +285,7 @@ class _MorePageState extends State<MorePage> {
             Text(
                 '${lc.languageModel.value.version!}: ${PublicController.pc.packageInfo.version}',
                 textAlign: TextAlign.center,
-                style: AppTextStyle().tileStyle),
+                style: AppTextStyle().titleTextStyle),
             SizedBox(height: dSize(.02)),
           ],
         ));

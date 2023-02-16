@@ -12,14 +12,14 @@ import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MatchPage extends StatefulWidget {
+  const MatchPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MatchPage> createState() => _MatchPageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _MatchPageState extends State<MatchPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

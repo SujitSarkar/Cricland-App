@@ -1,13 +1,14 @@
 import 'package:cricland/news/model/article_model.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class ReadNewsPage extends StatefulWidget {
-  ReadNewsPage({Key? key, required this.model}) : super(key: key);
+  const ReadNewsPage({Key? key, required this.model}) : super(key: key);
   final ArticleModel model;
 
   @override
@@ -15,10 +16,6 @@ class ReadNewsPage extends StatefulWidget {
 }
 
 class _ReadNewsPageState extends State<ReadNewsPage> {
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.03),
-      fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
   late YoutubePlayerController youtubePlayerController;
 
   @override
@@ -69,7 +66,7 @@ class _ReadNewsPageState extends State<ReadNewsPage> {
                           DateTime.fromMillisecondsSinceEpoch(
                               widget.model.timeStamp!)),
                       textAlign: TextAlign.start,
-                      style: _textStyle),
+                      style: AppTextStyle().paragraphTextStyle),
                   decoration: BoxDecoration(
                       color: PublicController.pc.toggleCardBg(),
                       borderRadius:
@@ -77,11 +74,10 @@ class _ReadNewsPageState extends State<ReadNewsPage> {
                 ),
                 SizedBox(height: dSize(.06)),
                 Text(widget.model.title!,
-                    style: _textStyle.copyWith(
-                        fontSize: dSize(.055), fontWeight: FontWeight.bold)),
+                    style: AppTextStyle().titleTextBoldStyle),
                 SizedBox(height: dSize(.06)),
                 Text(widget.model.article!,
-                    style: _textStyle.copyWith(fontSize: dSize(.04))),
+                    style: AppTextStyle().bodyTextStyle),
               ],
             ),
           )

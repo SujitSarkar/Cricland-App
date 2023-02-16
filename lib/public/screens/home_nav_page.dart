@@ -18,13 +18,13 @@ class HomeNavPage extends StatefulWidget {
 }
 
 class _HomeNavPageState extends State<HomeNavPage> {
-  static final List<Widget> _homeWidgets = [
+  static const List<Widget> _homeWidgets = [
     AuthScreen(),
-    SeriesScreen(),
-    HomePage(),
+    IPLPage(),
+    MatchPage(),
     // Container(),
     // Container(),
-    NewsPage(),
+    TrendingPage(),
     MorePage()
   ];
 

@@ -8,49 +8,56 @@ import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
 import '../../model/rapid_model/recent_match_model.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
+
 class HomeCardTile extends StatefulWidget {
   final RapidMatch rapidMatch;
 
-  const HomeCardTile({Key? key,required this.rapidMatch}) : super(key: key);
+  const HomeCardTile({Key? key, required this.rapidMatch}) : super(key: key);
 
   @override
   State<HomeCardTile> createState() => _HomeCardTileState();
 }
 
 class _HomeCardTileState extends State<HomeCardTile> {
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
+  bool isExpanded = false;
 
-  double containerHeight=160;
-  bool isExpanded=false;
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FittedBox(child: Text("${widget.rapidMatch.matchInfo!.seriesName}",style: _textStyle.copyWith(
-                fontSize: dSize(.035),
-                fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor()))),
             FittedBox(
-              child: IconButton(onPressed: (){
-                setState(() {
+                child: Text("${widget.rapidMatch.matchInfo!.seriesName}",
+                    style: AppTextStyle().boldBodyTextStyle)),
+            FittedBox(
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
                     isExpanded = !isExpanded;
-                });
-              }, icon: Icon(isExpanded?Icons.keyboard_arrow_up_outlined:Icons.keyboard_arrow_down_outlined),),
+                  });
+                },
+                icon: Icon(isExpanded
+                    ? Icons.keyboard_arrow_up_outlined
+                    : Icons.keyboard_arrow_down_outlined,color: PublicController.pc.toggleLoadingColor()),
+              ),
             )
-
           ],
         ),
         AnimatedContainer(
           duration: const Duration(microseconds: 100),
-          height: isExpanded?150:0,
+          height: isExpanded ? 150 : 0,
           child: GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (_)=>HomeDetailsScreen(rapidMatch: widget.rapidMatch,),),);
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => HomeDetailsScreen(
+                    rapidMatch: widget.rapidMatch,
+                  ),
+                ),
+              );
             },
             child: Card(
               child: Padding(
@@ -60,17 +67,14 @@ class _HomeCardTileState extends State<HomeCardTile> {
                   children: [
                     FittedBox(
                       child: Row(
-                        children:  [
-                          Text("${widget.rapidMatch.matchInfo!.matchDesc} ",style: _textStyle.copyWith(
-                              fontSize: dSize(.03),
-                              fontWeight: FontWeight.bold,
-                              color: PublicController.pc
-                                  .toggleLoadingColor())),
-                          Text("${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",style: _textStyle.copyWith(
-                              fontSize: dSize(.03),
-                              fontWeight: FontWeight.bold,
-                              color: PublicController.pc
-                                  .toggleLoadingColor()))
+                        children: [
+                          Text("${widget.rapidMatch.matchInfo!.matchDesc} ",
+                              style: AppTextStyle().paragraphTextStyle),
+                          Text(
+                              "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
+                                  color:
+                                      PublicController.pc.toggleLoadingColor()))
                         ],
                       ),
                     ),
@@ -88,10 +92,10 @@ class _HomeCardTileState extends State<HomeCardTile> {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Row(
-                                  children:  [
+                                  children: [
                                     Container(
                                       height: dSize(.05),
-                                      width:dSize(.05),
+                                      width: dSize(.05),
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Colors.white,
@@ -106,38 +110,46 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                             filterQuality: FilterQuality.low),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: dSize(.02),
-                                    ),
-                                    Text("${widget.rapidMatch.matchInfo!.team1!.teamSName} ",style:_textStyle.copyWith(
-                                        fontSize: dSize(.035),
-                                        fontWeight: FontWeight.bold,
-                                        color: PublicController.pc
-                                            .toggleLoadingColor())),
-                                    widget.rapidMatch.matchScore != null?   Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",style:_textStyle.copyWith(
-                                            fontSize: dSize(.035),
-                                            fontWeight: FontWeight.bold,
-                                            color: PublicController.pc
-                                                .toggleLoadingColor())),
-                                        Text(" ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs}",style:_textStyle.copyWith(
-                                            fontSize: dSize(.03),
-                                            fontWeight: FontWeight.bold,
-                                            color: PublicController.pc
-                                                .toggleLoadingColor())),
-                                      ],
-                                    ):const SizedBox()
+                                    SizedBox(width: dSize(.02)),
+                                    Text(
+                                        "${widget.rapidMatch.matchInfo!.team1!.teamSName} ",
+                                        style: AppTextStyle()
+                                            .bodyTextStyle
+                                            .copyWith(
+                                                color: PublicController.pc
+                                                    .toggleLoadingColor())),
+                                    widget.rapidMatch.matchScore != null
+                                        ? Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                  "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
+                                                  style: AppTextStyle()
+                                                      .bodyTextStyle
+                                                      .copyWith(
+                                                          color: PublicController
+                                                              .pc
+                                                              .toggleLoadingColor())),
+                                              Text(
+                                                  " ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
+                                                  style: AppTextStyle()
+                                                      .paragraphTextStyle
+                                                      .copyWith(
+                                                          color: PublicController
+                                                              .pc
+                                                              .toggleLoadingColor())),
+                                            ],
+                                          )
+                                        : const SizedBox()
                                   ],
                                 ),
                               ),
-
-                                Row(
-                                children:  [
+                              Row(
+                                children: [
                                   Container(
                                     height: dSize(.05),
-                                    width:dSize(.05),
+                                    width: dSize(.05),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white,
@@ -152,34 +164,42 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                           filterQuality: FilterQuality.low),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: dSize(.02),
-                                  ),
-                                  Text("${widget.rapidMatch.matchInfo!.team2!.teamSName}",style:_textStyle.copyWith(
-                                      fontSize: dSize(.035),
-                                      fontWeight: FontWeight.bold,
-                                      color: PublicController.pc
-                                          .toggleLoadingColor())),
-                               widget.rapidMatch.matchScore != null?   Row(
-                                 crossAxisAlignment: CrossAxisAlignment.end,
-                                 children: [
-                                   Text(" ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",style:_textStyle.copyWith(
-                                       fontSize: dSize(.035),
-                                       fontWeight: FontWeight.bold,
-                                       color: PublicController.pc
-                                           .toggleLoadingColor())),
-                                   Text(" ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}",style:_textStyle.copyWith(
-                                       fontSize: dSize(.03),
-                                       fontWeight: FontWeight.bold,
-                                       color: PublicController.pc
-                                           .toggleLoadingColor())),
-                                 ],
-                               ):const SizedBox()
+                                  SizedBox(width: dSize(.02)),
+                                  Text(
+                                      "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
+                                      style: AppTextStyle()
+                                          .bodyTextStyle
+                                          .copyWith(
+                                              color: PublicController.pc
+                                                  .toggleLoadingColor())),
+                                  widget.rapidMatch.matchScore != null
+                                      ? Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                                " ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
+                                                style: AppTextStyle()
+                                                    .bodyTextStyle
+                                                    .copyWith(
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleLoadingColor())),
+                                            Text(
+                                                " ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
+                                                style: AppTextStyle()
+                                                    .paragraphTextStyle
+                                                    .copyWith(
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleLoadingColor())),
+                                          ],
+                                        )
+                                      : const SizedBox()
                                 ],
-                                ),
+                              ),
                             ],
                           ),
-
                           Row(
                             children: [
                               const VerticalDivider(
@@ -188,25 +208,45 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                 thickness: 2,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 14.0),
                                 child: Column(
-                                  children:  [
-                                    widget.rapidMatch.matchInfo!.state=="Live"?   Icon(Icons.do_not_disturb_on_total_silence,color: Colors.red,):SizedBox(),
-                                    Text("${widget.rapidMatch.matchInfo!.state}",style:_textStyle.copyWith(
-                                        fontSize: dSize(.035),
-                                        fontWeight: FontWeight.bold,
-                                        color: PublicController.pc
-                                            .toggleLoadingColor())),
-                                     Text("Start at:",style:_textStyle.copyWith(
-                                         fontSize: dSize(.03),
-                                         fontWeight: FontWeight.bold,
-                                         color: PublicController.pc
-                                             .toggleLoadingColor())),
-                                    Text(  DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(int.parse(widget.rapidMatch.matchInfo!.startDate!) * 1000)).toString(),style:_textStyle.copyWith(
-                                        fontSize: dSize(.035),
-                                        fontWeight: FontWeight.bold,
-                                        color: PublicController.pc
-                                            .toggleLoadingColor())),
+                                  children: [
+                                    widget.rapidMatch.matchInfo!.state == "Live"
+                                        ? const Icon(
+                                            Icons
+                                                .do_not_disturb_on_total_silence,
+                                            color: Colors.red,
+                                          )
+                                        : const SizedBox(),
+                                    Text(
+                                        "${widget.rapidMatch.matchInfo!.state}",
+                                        style: AppTextStyle()
+                                            .bodyTextStyle
+                                            .copyWith(
+                                                color: PublicController.pc
+                                                    .toggleLoadingColor())),
+                                    Text("Start at:",
+                                        style: AppTextStyle()
+                                            .paragraphTextStyle
+                                            .copyWith(
+                                                color: PublicController.pc
+                                                    .toggleLoadingColor())),
+                                    Text(
+                                        DateFormat('hh:mm a')
+                                            .format(DateTime
+                                                .fromMillisecondsSinceEpoch(
+                                                    int.parse(widget
+                                                            .rapidMatch
+                                                            .matchInfo!
+                                                            .startDate!) *
+                                                        1000))
+                                            .toString(),
+                                        style: AppTextStyle()
+                                            .bodyTextStyle
+                                            .copyWith(
+                                                color: PublicController.pc
+                                                    .toggleLoadingColor())),
                                   ],
                                 ),
                               ),
@@ -218,13 +258,13 @@ class _HomeCardTileState extends State<HomeCardTile> {
                     SizedBox(
                       height: dSize(.03),
                     ),
-                    Text("${widget.rapidMatch.matchInfo!.stateTitle}",style:_textStyle.copyWith(
-                        fontSize: dSize(.035),
-                        fontWeight: FontWeight.bold,
-                        color: PublicController.pc
-                            .toggleLoadingColor())),
-                  ],),
-              ),),
+                    Text("${widget.rapidMatch.matchInfo!.stateTitle}",
+                        style: AppTextStyle().bodyTextStyle.copyWith(
+                            color: PublicController.pc.toggleLoadingColor())),
+                  ],
+                ),
+              ),
+            ),
           ),
         )
       ],

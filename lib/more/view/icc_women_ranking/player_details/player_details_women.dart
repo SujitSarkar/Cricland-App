@@ -7,7 +7,6 @@ import 'package:cricland/more/view/icc_women_ranking/player_details/player_match
 import 'package:cricland/more/view/icc_women_ranking/player_details/player_overview_women.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
@@ -91,12 +90,8 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                                                         TextSpan(
                                                             text:
                                                                 '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                fontSize:
-                                                                    dSize(.035))),
+                                                            style: AppTextStyle().bodyTextStyle.copyWith(
+                                                                color: Colors.white)),
                                                       ],
                                                     ),
                                                   )),
@@ -149,8 +144,8 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
   Widget _bodyUI() => TabBarView(
         controller: _tabController,
         children: [
-          PlayerOverviewWomen(),
-          PlayerMatchesWomen(),
+          const PlayerOverviewWomen(),
+          const PlayerMatchesWomen(),
           // NewsPage(),
           PlayerInfoWomen(),
         ],
@@ -171,12 +166,8 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                   topRight: Radius.circular(dSize(.02))),
               color: PublicController.pc.toggleTabColor()),
           unselectedLabelColor: Colors.grey.shade400,
-          unselectedLabelStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: dSize(.045),
-              color: Colors.white),
-          labelStyle:
-              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+          unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+          labelStyle:AppTextStyle().largeTitleBoldStyle,
           indicatorSize: TabBarIndicatorSize.label,
           physics: const BouncingScrollPhysics(),
           tabs: Variables.playerDetails

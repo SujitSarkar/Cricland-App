@@ -15,16 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../home/model/rapid_model/series_model.dart';
 
-class SeriesScreen extends StatefulWidget {
-  const SeriesScreen({
+class IPLPage extends StatefulWidget {
+  const IPLPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  _SeriesScreenState createState() => _SeriesScreenState();
+  _IPLPageState createState() => _IPLPageState();
 }
 
-class _SeriesScreenState extends State<SeriesScreen>
+class _IPLPageState extends State<IPLPage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   final String _iplTabType = Variables.iplTabsCategory.first;
@@ -179,6 +179,8 @@ class _SeriesScreenState extends State<SeriesScreen>
                                           color: PublicController.pc
                                               .toggleTabColor()),
                                       unselectedLabelColor: Colors.grey,
+                                      unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+                                      labelStyle:AppTextStyle().largeTitleBoldStyle,
                                       indicatorSize: TabBarIndicatorSize.label,
                                       physics: const BouncingScrollPhysics(),
                                       tabs: Variables.iplTabsCategory

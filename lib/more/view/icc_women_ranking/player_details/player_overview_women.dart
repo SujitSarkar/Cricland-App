@@ -67,9 +67,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                           )),
                       child: Text(
                         '#${index + 1} Batter in ${Variables.manGameType[index]}',
-                        style: AppTextStyle().paragraphTextStyle.copyWith(
-                              fontSize: dSize(.03),
-                            ),
+                        style: AppTextStyle().paragraphTextStyle
                       ),
                     ),
                 separatorBuilder: (context, index) =>
@@ -80,15 +78,11 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
           ///Recent Form
           RichText(
             text: TextSpan(
-              style: AppTextStyle().largeTitleStyle.copyWith(
-                  fontSize: dSize(.03),
-                  color: PublicController.pc.toggleTextColor()),
+              style: AppTextStyle().paragraphTextStyle,
               children: [
                 TextSpan(
                   text: 'Recent Form',
-                  style: AppTextStyle().largeTitleStyle.copyWith(
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor()),
+                  style: AppTextStyle().largeTitleStyle
                 ),
                 const TextSpan(text: ' (last played on 21 march)'),
               ],
@@ -115,15 +109,10 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                         children: [
                           Text(
                             '0-2',
-                            style: AppTextStyle().paragraphTextStyle.copyWith(
-                                fontSize: dSize(.03),
-                                color: PublicController.pc.toggleTextColor()),
+                            style: AppTextStyle().paragraphTextStyle,
                           ),
                           Text('vs AUS TEST',
-                              style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.03),
-                                  color:
-                                      PublicController.pc.toggleTextColor())),
+                              style: AppTextStyle().paragraphTextStyle),
                         ],
                       ),
                     ),
@@ -135,15 +124,11 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
           ///Bowling Career
           RichText(
             text: TextSpan(
-              style: AppTextStyle().largeTitleStyle.copyWith(
-                  fontSize: dSize(.03),
-                  color: PublicController.pc.toggleTextColor()),
+              style: AppTextStyle().largeTitleStyle,
               children: [
                 TextSpan(
                     text: 'Bowling Career',
-                    style: AppTextStyle().largeTitleStyle.copyWith(
-                        fontSize: dSize(.04),
-                        color: PublicController.pc.toggleTextColor())),
+                    style: AppTextStyle().largeTitleStyle),
                 TextSpan(
                     text: rankingController.playerInfoModel.value.bowl != null
                         ? ' (${rankingController.playerInfoModel.value.bowl})'
@@ -182,9 +167,8 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                           item,
                           maxLines: 1,
                           style: AppTextStyle()
-                              .largeTitleStyle
+                              .bodyTextStyle
                               .copyWith(
-                                  fontSize: dSize(.035),
                                   color: item == _gameType
                                       ? Colors.white
                                       : PublicController.pc.toggleTextColor()),
@@ -214,17 +198,11 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                         children: [
                           Text('40',
                               maxLines: 1,
-                              style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.045),
-                                  color:
-                                      PublicController.pc.toggleTextColor())),
+                              style: AppTextStyle().largeTitleStyle),
                           Text(
                             item,
                             maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.03),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                            style: AppTextStyle().paragraphTextStyle
                           ),
                         ],
                       ),
@@ -253,18 +231,12 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                           Text(
                             '1',
                             maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.045),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                            style: AppTextStyle().largeTitleStyle
                           ),
                           Text(
                             item,
                             maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.03),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                            style: AppTextStyle().paragraphTextStyle
                           ),
                         ],
                       ),
@@ -293,18 +265,12 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                           Text(
                             '20',
                             maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.045),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                            style: AppTextStyle().largeTitleStyle
                           ),
                           Text(
                             item,
                             maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  fontSize: dSize(.03),
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
+                            style: AppTextStyle().paragraphTextStyle
                           ),
                         ],
                       ),
@@ -319,10 +285,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
             children: [
               Text(
                 'Latest Updates',
-                style: AppTextStyle().paragraphTextStyle.copyWith(
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().largeTitleStyle
               )
             ],
           ),
@@ -342,10 +305,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
 
           Text(
             'Teams played for',
-            style: AppTextStyle().largeTitleStyle.copyWith(
-                  fontSize: dSize(.04),
-                  color: PublicController.pc.toggleTextColor(),
-                ),
+            style: AppTextStyle().largeTitleStyle
           ),
           Container(
             padding: EdgeInsets.all(dSize(.04)),
@@ -355,10 +315,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
             child: Text(
               rankingController.playerInfoModel.value.teams ?? '',
-              style: AppTextStyle().paragraphTextStyle.copyWith(
-                    fontSize: dSize(.038),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+              style: AppTextStyle().titleTextStyle
             ),
           ),
           SizedBox(height: dSize(.1)),
@@ -369,17 +326,11 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
             children: [
               Text(
                 'About ${rankingController.playerInfoModel.value.name ?? ''}',
-                style: AppTextStyle().largeTitleStyle.copyWith(
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().largeTitleStyle
               ),
               Text(
                 'Player Info',
-                style: AppTextStyle().largeTitleStyle.copyWith(
-                      fontSize: dSize(.035),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().bodyTextStyle
               ),
             ],
           ),
@@ -463,19 +414,13 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
               flex: 1,
               child: Text(
                 key,
-                style: AppTextStyle().paragraphTextStyle.copyWith(
-                      fontSize: dSize(.035),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().bodyTextStyle
               )),
           Expanded(
               flex: 2,
               child: Text(
                 value,
-                style: AppTextStyle().paragraphTextStyle.copyWith(
-                      fontSize: dSize(.035),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().bodyTextStyle
               )),
         ],
       );
@@ -487,10 +432,7 @@ class _PlayerOverviewWomenState extends State<PlayerOverviewWomen> {
                 size: dSize(.05), color: PublicController.pc.toggleTextColor()),
             Text(
               ' $title',
-              style: AppTextStyle().paragraphTextStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+              style: AppTextStyle().largeTitleStyle
             )
           ],
         ),

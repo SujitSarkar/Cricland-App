@@ -42,10 +42,10 @@ class UpcomingCardTile extends StatelessWidget {
                   child: Row(
                     children: [
                       Text("${rapidMatch.matchInfo!.matchDesc} ",
-                          style: AppTextStyle().boldBodyTextStyle),
+                          style: AppTextStyle().bodyTextStyle),
                       Text(
                           "${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",
-                          style: AppTextStyle().boldBodyTextStyle)
+                          style: AppTextStyle().bodyTextStyle)
                     ],
                   ),
                 ),
@@ -82,7 +82,7 @@ class UpcomingCardTile extends StatelessWidget {
                                 SizedBox(width: dSize(.02)),
                                 Text(
                                     "${rapidMatch.matchInfo!.team1!.teamSName} ",
-                                    style: AppTextStyle().boldBodyTextStyle),
+                                    style: AppTextStyle().bodyTextStyle),
                                 rapidMatch.matchScore != null
                                     ? Row(
                                         crossAxisAlignment:
@@ -91,7 +91,7 @@ class UpcomingCardTile extends StatelessWidget {
                                           Text(
                                               "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
                                               style: AppTextStyle()
-                                                  .boldBodyTextStyle),
+                                                  .bodyTextStyle),
                                           Text(
                                               " ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
                                               style: AppTextStyle()
@@ -124,7 +124,7 @@ class UpcomingCardTile extends StatelessWidget {
                               SizedBox(
                                 width: dSize(.02),
                               ),
-                              Text("${rapidMatch.matchInfo!.team2!.teamSName}"),
+                              Text("${rapidMatch.matchInfo!.team2!.teamSName}",style: AppTextStyle().bodyTextStyle),
                               rapidMatch.matchScore != null
                                   ? Row(
                                       crossAxisAlignment:
@@ -133,7 +133,7 @@ class UpcomingCardTile extends StatelessWidget {
                                         Text(
                                             " ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
                                             style: AppTextStyle()
-                                                .boldBodyTextStyle),
+                                                .bodyTextStyle),
                                         Text(
                                             " ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
                                             style: AppTextStyle()
@@ -155,9 +155,9 @@ class UpcomingCardTile extends StatelessWidget {
                                     color: Colors.red)
                                 : const SizedBox(),
                             Text("${rapidMatch.matchInfo!.state}",
-                                style: AppTextStyle().boldBodyTextStyle),
+                                style: AppTextStyle().bodyTextStyle),
                             Text("Start at:",
-                                style: AppTextStyle().paragraphTextStyle),
+                                style: AppTextStyle().bodyTextStyle),
                             Text(
                                 DateFormat('hh:mm a')
                                     .format(DateTime.fromMillisecondsSinceEpoch(
@@ -165,7 +165,7 @@ class UpcomingCardTile extends StatelessWidget {
                                                 .matchInfo!.startDate!) *
                                             1000))
                                     .toString(),
-                                style: AppTextStyle().boldBodyTextStyle),
+                                style: AppTextStyle().bodyTextStyle),
                           ],
                         ),
                       )

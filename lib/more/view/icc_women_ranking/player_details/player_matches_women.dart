@@ -53,8 +53,7 @@ class _PlayerMatchesWomenState extends State<PlayerMatchesWomen> {
                       child: Text(
                         item,
                         maxLines: 1,
-                        style: AppTextStyle().largeTitleStyle.copyWith(
-                              fontSize: dSize(.035),
+                        style: AppTextStyle().bodyTextStyle.copyWith(
                               color: item == _gameType
                                   ? Colors.white
                                   : PublicController.pc.toggleTextColor(),
@@ -64,13 +63,12 @@ class _PlayerMatchesWomenState extends State<PlayerMatchesWomen> {
                   )))
               .toList(),
         ),
-        //SizedBox(height: dSize(.1)),
 
         ListView.separated(
           itemCount: 20,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => ExpandableTile(),
+          itemBuilder: (context, index) => const ExpandableTile(),
           separatorBuilder: (context, index) => SizedBox(height: dSize(.04)),
         )
       ],

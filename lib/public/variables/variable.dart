@@ -113,6 +113,7 @@ class Variables {
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
+      textSelectionTheme: const TextSelectionThemeData(cursorColor: AllColor.primaryColor),
       bottomSheetTheme:
           const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',
@@ -148,6 +149,7 @@ class Variables {
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
       ),
+      textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.white),
       bottomSheetTheme:
           const BottomSheetThemeData(modalBackgroundColor: Colors.transparent),
       fontFamily: 'openSans',

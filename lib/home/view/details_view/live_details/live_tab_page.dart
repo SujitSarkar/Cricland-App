@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +37,12 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                       (context, AsyncSnapshot<List<MonkLive>> liveSnapshot) {
                     if (liveSnapshot.hasData) {
                       return liveSnapshot.data!.isEmpty
-                          ? const Center(
-                              child:
-                                  Text("There are currently no live matches"))
+                          ? Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Center(
+                                child:
+                                    Text("There are currently no live matches",style: AppTextStyle().bodyTextStyle,)),
+                          )
                           : ListView.builder(
                               physics: const BouncingScrollPhysics(),
                               itemCount: liveSnapshot.data!.length,
@@ -142,9 +146,10 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                                             30,
                                                                       ),
                                                                       Text(
-                                                                          "${LTsnapshot.data!.code} 102-6 15.1"),
+                                                                          "${LTsnapshot.data!.code} 102-6 15.1",style: AppTextStyle().bodyTextStyle),
                                                                       Text(
-                                                                          "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}")
+                                                                          "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
+                                                                      style: AppTextStyle().bodyTextStyle)
                                                                     ],
                                                                   );
                                                                 } else {
@@ -177,9 +182,10 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                                             30,
                                                                       ),
                                                                       Text(
-                                                                          "${VTsnapshot.data!.code} 102-6 15.1"),
+                                                                          "${VTsnapshot.data!.code} 102-6 15.1",style: AppTextStyle().bodyTextStyle),
                                                                       Text(
-                                                                          "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}")
+                                                                          "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
+                                                                      style: AppTextStyle().bodyTextStyle)
                                                                     ],
                                                                   );
                                                                 } else {
@@ -197,13 +203,13 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                             const EdgeInsets
                                                                 .all(18.0),
                                                         child: Column(
-                                                          children: const [
-                                                            Icon(
+                                                          children: [
+                                                            const Icon(
                                                               Icons
                                                                   .do_not_disturb_on_total_silence,
                                                               color: Colors.red,
                                                             ),
-                                                            Text("Live"),
+                                                            Text("Live",style: AppTextStyle().bodyTextStyle),
                                                           ],
                                                         ),
                                                       )

@@ -11,7 +11,6 @@ class ArticleCardLandscape extends StatelessWidget {
   const ArticleCardLandscape({Key? key, required this.model}) : super(key: key);
   final ArticleModel model;
 
-
   @override
   Widget build(BuildContext context) {
     return InkWell(

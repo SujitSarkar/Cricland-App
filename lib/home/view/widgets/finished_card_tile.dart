@@ -42,11 +42,11 @@ class FinishedCardTile extends StatelessWidget {
                     children: [
                       Text(
                         "${rapidMatch.matchInfo!.matchDesc} ",
-                        style: AppTextStyle().boldBodyTextStyle,
+                        style: AppTextStyle().bodyTextStyle,
                       ),
                       Text(
                         "${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",
-                        style: AppTextStyle().boldBodyTextStyle,
+                        style: AppTextStyle().bodyTextStyle,
                       )
                     ],
                   ),
@@ -84,7 +84,7 @@ class FinishedCardTile extends StatelessWidget {
                                 SizedBox(width: dSize(.02)),
                                 Text(
                                   "${rapidMatch.matchInfo!.team1!.teamSName} ",
-                                  style: AppTextStyle().boldBodyTextStyle,
+                                  style: AppTextStyle().bodyTextStyle,
                                 ),
                                 rapidMatch.matchScore != null
                                     ? Row(
@@ -94,7 +94,7 @@ class FinishedCardTile extends StatelessWidget {
                                           Text(
                                             "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
                                             style: AppTextStyle()
-                                                .boldBodyTextStyle,
+                                                .bodyTextStyle,
                                           ),
                                           Text(
                                               " ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
@@ -128,7 +128,7 @@ class FinishedCardTile extends StatelessWidget {
                               SizedBox(width: dSize(.02)),
                               Text(
                                 "${rapidMatch.matchInfo!.team2!.teamSName}",
-                                style: AppTextStyle().boldBodyTextStyle,
+                                style: AppTextStyle().bodyTextStyle,
                               ),
                               rapidMatch.matchScore != null
                                   ? Row(
@@ -138,12 +138,12 @@ class FinishedCardTile extends StatelessWidget {
                                         Text(
                                           " ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
                                           style:
-                                              AppTextStyle().boldBodyTextStyle,
+                                              AppTextStyle().bodyTextStyle,
                                         ),
                                         Text(
                                           " ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
                                           style:
-                                              AppTextStyle().boldBodyTextStyle,
+                                              AppTextStyle().bodyTextStyle,
                                         ),
                                       ],
                                     )
@@ -157,7 +157,7 @@ class FinishedCardTile extends StatelessWidget {
                         child: SizedBox(
                           width: 150,
                           child: Text("${rapidMatch.matchInfo!.status}",
-                              style: AppTextStyle().boldBodyTextStyle,
+                              style: AppTextStyle().bodyTextStyle,
                               textAlign: TextAlign.center),
                         ),
                       )

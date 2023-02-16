@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class PlayerInfoMan extends StatelessWidget {
-  PlayerInfoMan({Key? key}) : super(key: key);
+  const PlayerInfoMan({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -149,19 +149,13 @@ class PlayerInfoMan extends StatelessWidget {
               flex: 1,
               child: Text(
                 key,
-                style: AppTextStyle().paragraphTextStyle.copyWith(
-                      fontSize: dSize(.035),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().bodyTextStyle,
               )),
           Expanded(
               flex: 2,
               child: Text(
                 value,
-                style: AppTextStyle().paragraphTextStyle.copyWith(
-                      fontSize: dSize(.035),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().bodyTextStyle
               )),
         ],
       );
@@ -178,10 +172,7 @@ class PlayerInfoMan extends StatelessWidget {
                   color: PublicController.pc.toggleTextColor()),
               Text(
                 ' $title',
-                style: AppTextStyle().paragraphTextStyle.copyWith(
-                      fontSize: dSize(.03),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
+                style: AppTextStyle().paragraphTextStyle
               )
             ],
           ),

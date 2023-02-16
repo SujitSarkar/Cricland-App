@@ -92,11 +92,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                                                       TextSpan(
                                                           text:
                                                               '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight.w400,
-                                                              fontSize:
-                                                                  dSize(.035))),
+                                                          style: AppTextStyle().bodyTextStyle.copyWith(color: Colors.white)),
                                                     ],
                                                   ),
                                                 )),
@@ -148,7 +144,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
 
   Widget _bodyUI() => TabBarView(
         controller: _tabController,
-        children: [
+        children: const [
           PlayerOverviewMan(),
           PlayerMatchesMan(),
           // NewsPage(),
@@ -171,10 +167,8 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                   topRight: Radius.circular(dSize(.02))),
               color: PublicController.pc.toggleTabColor()),
           unselectedLabelColor: Colors.grey.shade400,
-          unselectedLabelStyle:
-              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
-          labelStyle:
-              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+          unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+          labelStyle:AppTextStyle().largeTitleBoldStyle,
           indicatorSize: TabBarIndicatorSize.label,
           physics: const BouncingScrollPhysics(),
           tabs: lc.languageModel.value.playerDetails!

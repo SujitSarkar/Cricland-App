@@ -9,11 +9,7 @@ import '../../../public/variables/variable.dart';
 import 'dart:math' as math;
 
 class ExpandableTile extends StatelessWidget {
-  ExpandableTile({Key? key}) : super(key: key);
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.028),
-      // fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
+  const ExpandableTile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

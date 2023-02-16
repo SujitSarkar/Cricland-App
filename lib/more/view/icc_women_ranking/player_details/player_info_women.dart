@@ -12,11 +12,6 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 class PlayerInfoWomen extends StatelessWidget {
   PlayerInfoWomen({Key? key}) : super(key: key);
 
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.03),
-      fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
-
   @override
   Widget build(BuildContext context) {
     final PublicController publicController = Get.find();
@@ -58,8 +53,7 @@ class PlayerInfoWomen extends StatelessWidget {
                 SizedBox(height: dSize(.1)),
                 Text(
                     'About ${rankingController.playerInfoModel.value.name ?? ''}',
-                    style: _textStyle.copyWith(
-                        fontSize: dSize(.04), fontWeight: FontWeight.bold)),
+                    style: AppTextStyle().titleTextBoldStyle),
                 SizedBox(height: dSize(.02)),
                 Container(
                   padding: EdgeInsets.all(dSize(.04)),

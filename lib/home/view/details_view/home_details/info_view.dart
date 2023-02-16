@@ -100,7 +100,7 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 10),
               ListTile(
                 onTap: () {
-                  Get.to(const SeriesScreen());
+                  Get.to(const IPLPage());
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(

@@ -3,19 +3,12 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
-  TextStyle tileStyle = TextStyle(
+  TextStyle largeTitleStyle = TextStyle(
       fontSize: dSize(.042),
-      fontWeight: FontWeight.w500,
       color: PublicController.pc.toggleTextColor());
 
-  TextStyle largeTitleStyle = TextStyle(
-    fontSize: dSize(.04),
-    fontFamily: "openSans",
-    color: PublicController.pc.toggleTextColor(),
-  );
-
   TextStyle largeTitleBoldStyle = TextStyle(
-    fontSize: dSize(.04),
+    fontSize: dSize(.042),
     fontFamily: "openSans",
     fontWeight: FontWeight.bold,
     color: PublicController.pc.toggleTextColor(),
