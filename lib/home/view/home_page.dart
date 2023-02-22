@@ -11,6 +11,7 @@ import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 class MatchPage extends StatefulWidget {
   const MatchPage({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _MatchPageState extends State<MatchPage>
       initialIndex: 1,
     );
   }
-
+  final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -41,19 +42,90 @@ class _MatchPageState extends State<MatchPage>
         autoRemove: true,
         builder: (homeController) {
           return Scaffold(
+            // appBar: ScrollAppBar(
+            //   flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
+            //   controller: controller, // Note the controller here
+            //   title:  Row(
+            //     children: [
+            //       Image.asset(
+            //         'assets/main_logo.png',
+            //
+            //         width: 40,
+            //         height: 40,
+            //       ),
+            //       const SizedBox(
+            //         width: 10,
+            //       ),
+            //       Padding(
+            //         padding: const EdgeInsets.symmetric(
+            //             horizontal: 8.0, vertical: 2),
+            //         child: Text("CrickLand",
+            //             style: AppTextStyle().largeTitleStyle.copyWith(
+            //               fontSize: dSize(.05),
+            //               fontWeight: FontWeight.w500,
+            //               color: Colors.white,
+            //             )),
+            //       ),
+            //       const SizedBox(
+            //         width: 10,
+            //       ),
+            //
+            //     ],
+            //   ),
+            //          actions: const [
+            //        Icon(
+            //             Icons.search_outlined,
+            //           ), SizedBox(
+            //             width: 15,
+            //           ),
+            //         ],
+            //   bottom: _tabBar(homeController),
+            //   // backgroundGradient: const LinearGradient(
+            //   //   begin: Alignment.centerLeft,
+            //   //   end: Alignment.centerRight,
+            //   //   colors: [
+            //   //     Colors.red,
+            //   //     Colors.green,
+            //   //     Colors.blue,
+            //   //   ],
+            //   // ),
+            // ),
+            //  body:
+            //
+            //
+            //
+            //  ListView(
+            //    controller: controller,
+            //   children: [
+            //
+            //     SizedBox(
+            //       height: MediaQuery.of(context).size.height*2,
+            //       child: TabBarView(
+            //         controller: _tabController,
+            //         children: const [
+            //           LiveTabScreen(),
+            //           HomeTabScreen(),
+            //           UpComingTabScreen(),
+            //           FinishedTabScreen(),
+            //           FixturesTabScreen(),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
             body: NestedScrollView(
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                     SliverAppBar(
                       flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
                       elevation: 0,
-                    title:innerBoxIsScrolled? const SizedBox():  Row(
+                    title:innerBoxIsScrolled?SizedBox(): Row(
                       children: [
                         Image.asset(
                           'assets/main_logo.png',
 
-                          width: 40,
-                          height: 40,
+                          width: 30,
+                          height: 30,
                         ),
                         const SizedBox(
                           width: 10,
@@ -74,24 +146,26 @@ class _MatchPageState extends State<MatchPage>
 
                       ],
                     ),
-                    actions: [
-                      innerBoxIsScrolled? const SizedBox():    const Icon(
+                      pinned: true,
+                      floating: true,
+                    actions: const [
+                       Icon(
                         Icons.search_outlined,
                       ),
 
-                      innerBoxIsScrolled? const SizedBox():    const SizedBox(
+                       SizedBox(
                         width: 15,
                       ),
                     ],
-                    pinned: true,
-                    floating: true,
+
                     forceElevated: innerBoxIsScrolled,
                     bottom: _tabBar(homeController),
                   ),
                 ];
 
               },
-              body:TabBarView(
+
+              body: TabBarView(
                 controller: _tabController,
                 children: const [
                   LiveTabScreen(),

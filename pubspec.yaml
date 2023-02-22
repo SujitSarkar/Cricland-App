@@ -22,6 +22,7 @@ dependencies:
   connectivity_plus: ^2.0.2
   package_info_plus: ^1.4.2
   expandable: ^5.0.1
+  scroll_app_bar:
 #  carousel_slider: ^4.1.1
   launch_review: ^3.0.1
   share_plus: ^4.0.4
