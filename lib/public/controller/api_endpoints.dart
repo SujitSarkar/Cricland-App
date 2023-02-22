@@ -26,7 +26,7 @@ class ApiEndpoints {
   static const String imageMidPoint = baseURL + "img/$apiVersion/i1/c";
   static const String imageLastPoint = "/i.jpg";
   static const Map<String, String> headers = <String, String>{
-    'X-RapidAPI-Key': '536bde874cmsh538ffe828f4e822p1aec59jsn3e00016f7daf',
+    'X-RapidAPI-Key': 'e264860a81msh606cf49ee50fe2ep14cca6jsn8ba787578626',
     'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com',
   };
 
@@ -34,8 +34,7 @@ class ApiEndpoints {
   static const String monkAPIToken =
       '?api_token=1io0abIjdpjZw9qyojgXAQMloJQDtqWoCmO6J9584A9TgEooptxkOkuiulK3';
   static const String monkApiVersion = "api/v2.0/";
-  static const String monkBaseURL =
-      'https://cricket.sportmonks.com/' + monkApiVersion;
+  static const String monkBaseURL = 'https://cricket.sportmonks.com/' + monkApiVersion;
   static String monkLiveMatches =monkBaseURL+ 'livescores'+ monkAPIToken;
   static String monkLeague = monkBaseURL+'leagues/';
   static String monkVanue = 'venues/';
