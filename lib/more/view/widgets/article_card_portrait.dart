@@ -1,4 +1,5 @@
 import 'package:cricland/news/model/article_model.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +9,7 @@ import '../../../public/variables/config.dart';
 import '../../../news/view/read_news_page.dart';
 
 class ArticleCardPortrait extends StatefulWidget {
-  ArticleCardPortrait({Key? key, required this.model}) : super(key: key);
+  const ArticleCardPortrait({Key? key, required this.model}) : super(key: key);
   final ArticleModel model;
 
   @override
@@ -16,10 +17,6 @@ class ArticleCardPortrait extends StatefulWidget {
 }
 
 class _ArticleCardPortraitState extends State<ArticleCardPortrait> {
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.04),
-      fontWeight: FontWeight.bold,
-      color: PublicController.pc.toggleTextColor());
   late YoutubePlayerController youtubePlayerController;
 
   @override
@@ -67,9 +64,9 @@ class _ArticleCardPortraitState extends State<ArticleCardPortrait> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.model.title!,style: _textStyle),
+                  Text(widget.model.title!,style: AppTextStyle().titleTextStyle),
                   SizedBox(height: dSize(.02)),
-                  Text(DateFormat('dd MMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(widget.model.timeStamp!)),style: _textStyle.copyWith(fontSize: dSize(.03),fontWeight: FontWeight.w400)),
+                  Text(DateFormat('dd MMM yyyy').format(DateTime.fromMillisecondsSinceEpoch(widget.model.timeStamp!)),style: AppTextStyle().paragraphTextStyle),
                 ],
               ),
             ),

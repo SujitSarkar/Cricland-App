@@ -2,6 +2,7 @@ import 'package:cricland/more/model/package_model.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -11,8 +12,6 @@ class PremiumTile extends StatelessWidget {
 
   double price = 0.0;
   double discountPercent = 0.0;
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +49,8 @@ class PremiumTile extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(dSize(.05))),
                   ),
                   child: Text('You save ${discountPercent.round()}%',
-                      style: _textStyle.copyWith(
-                          color: Color(int.parse(model.colorCode!)),
-                          fontSize: dSize(.03))),
+                      style: AppTextStyle().paragraphTextStyle.copyWith(
+                          color: Color(int.parse(model.colorCode!)))),
                 ),
               const Spacer(),
               Container(
@@ -63,8 +61,8 @@ class PremiumTile extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(dSize(.01))),
                 ),
                 child: Text('${model.packageName}',
-                    style: _textStyle.copyWith(
-                        color: AllColor.darkTextColor, fontSize: dSize(.03))),
+                    style: AppTextStyle().paragraphTextStyle.copyWith(
+                        color: AllColor.darkTextColor)),
               ),
             ],
           ),

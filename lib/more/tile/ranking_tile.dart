@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/model/ranking_model.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:cricland/public/variables/style.dart';
 import 'package:flutter/material.dart';
 
 class RankingTile extends StatelessWidget {
@@ -21,7 +21,7 @@ class RankingTile extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Text('${model.rank}',
-                      style: Style().titleStyle
+                      style: AppTextStyle().titleTextStyle
                           .copyWith(fontWeight: FontWeight.w500),
                       textAlign: TextAlign.start)),
               Expanded(
@@ -51,11 +51,10 @@ class RankingTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('${model.name}',
-                              style: Style().titleStyle,
+                              style: AppTextStyle().titleTextStyle,
                               textAlign: TextAlign.start),
                           Text('${model.country}',
-                              style: Style().titleStyle
-                                  .copyWith(fontSize: dSize(.032)),
+                              style: AppTextStyle().bodyTextStyle,
                               textAlign: TextAlign.start),
                         ],
                       ),
@@ -67,7 +66,7 @@ class RankingTile extends StatelessWidget {
         Expanded(
             flex: 1,
             child: Text('${model.rating}',
-                style: Style().titleStyle.copyWith(fontWeight: FontWeight.w500),
+                style: AppTextStyle().titleTextStyle.copyWith(fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center)),
       ],
     );

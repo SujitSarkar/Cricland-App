@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -17,103 +17,85 @@ class FeaturedMatchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle _textStyle = TextStyle(
-        fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.purple),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 25.0,horizontal: 20),
+      decoration: BoxDecoration(
+        color: PublicController.pc.toggleCardBg(),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${seriesMatch.matchInfo!.team1!.imageId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
+                        ),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+              Text("${seriesMatch.matchInfo!.team1!.teamSName}",
+                style: AppTextStyle().bodyTextStyle)
+            ],
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            ApiEndpoints.imageMidPoint +
-                                "${seriesMatch.matchInfo!.team1!.imageId}" +
-                                ApiEndpoints.imageLastPoint,
-                            headers: ApiEndpoints.headers,
-                          ),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
-                Text("${seriesMatch.matchInfo!.team1!.teamSName}",
-                  style:_textStyle.copyWith(
-                    fontSize: dSize(.035),
-                    fontWeight: FontWeight.bold,
-                    color: PublicController.pc
-                        .toggleLoadingColor(),),)
-              ],
-            ),
-            Column(
-              children: [
-                Text("${seriesMatch.matchInfo!.matchDesc}",
+          
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                children: [
+                  Text("${seriesMatch.matchInfo!.status}",
                     textAlign: TextAlign.center,
-
-                    style:_textStyle.copyWith(
-                    fontSize: dSize(.03),
-                    fontWeight: FontWeight.bold,
-                    color: PublicController.pc
-                        .toggleLoadingColor(),),),
-                FittedBox(
-                  child: SizedBox(
-                    width: 150,
-                    child: Text("${seriesMatch.matchInfo!.status}",
-                        textAlign: TextAlign.center,
-                      style:_textStyle.copyWith(
-                        fontSize: dSize(.035),
-                        fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style:AppTextStyle().boldBodyTextStyle.copyWith(
                         color: PublicController.pc
-                            .toggleLoadingColor(),),),
+                            .togglePrimaryTextColor())),
+                  Text("${seriesMatch.matchInfo!.matchDesc}",
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle().paragraphTextStyle),
+                ],
+              ),
+            ),
+          ),
+          
+          Row(
+            children: [
+              Text("${seriesMatch.matchInfo!.team2!.teamSName}",
+                style:AppTextStyle().bodyTextStyle),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${seriesMatch.matchInfo!.team2!.imageId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
+                        ),
+                        fit: BoxFit.cover),
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                Text("${seriesMatch.matchInfo!.team2!.teamSName}",
-                  style:_textStyle.copyWith(
-                    fontSize: dSize(.035),
-                    fontWeight: FontWeight.bold,
-                    color: PublicController.pc
-                        .toggleLoadingColor(),),),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            ApiEndpoints.imageMidPoint +
-                                "${seriesMatch.matchInfo!.team2!.imageId}" +
-                                ApiEndpoints.imageLastPoint,
-                            headers: ApiEndpoints.headers,
-                          ),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

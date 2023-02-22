@@ -1,16 +1,13 @@
 import 'package:cricland/public/screens/home_nav_page.dart';
-import 'package:cricland/public/screens/profile_screen.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
@@ -33,10 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController lastNameController = TextEditingController();
 
   bool _isLoading = false;
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032),
-      //fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
+  // final TextStyle _textStyle = TextStyle(
+  //     fontSize: dSize(.032),
+  //     color: PublicController.pc.toggleTextColor());
 
   bool _isSignUp = false;
   @override
@@ -44,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
           title: Text(_isSignUp ? "SignUp" : 'Login',
               style: TextStyle(fontSize: dSize(.045))),
         ),
@@ -77,10 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('Cricland',
-                                style: _textStyle.copyWith(
+                                style: AppTextStyle().boldBodyTextStyle.copyWith(
                                     fontSize: dSize(.1),
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold)),
+                                    fontStyle: FontStyle.italic)),
                             Text('Login/Signup',
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
@@ -98,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                           'SignIn to Earn by clicking Add.'
                           ' and enjoy cricket with happiness',
-                          style: _textStyle,
+                          style:  AppTextStyle().bodyTextStyle,
                           textAlign: TextAlign.center),
                     ),
                     SizedBox(height: dSize(.1)),
@@ -148,13 +144,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'If You Are a New User ',
-                        style: _textStyle,
+                        style:  AppTextStyle().bodyTextStyle,
                         children: <TextSpan>[
                           TextSpan(
                             text: '  Signup',
-                            style: _textStyle.copyWith(
-                                fontSize: dSize(.035),
-                                fontWeight: FontWeight.bold,
+                            style:  AppTextStyle().boldBodyTextStyle.copyWith(
                                 color: AllColor.fbColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -212,8 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.symmetric(horizontal: dSize(.25)),
                         child: Text(
                           'Submit',
-                          style: _textStyle.copyWith(
-                              fontSize: dSize(.035),
+                          style:  AppTextStyle().boldBodyTextStyle.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AllColor.lightCardColor),
                         ),
@@ -251,15 +244,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('Cricland',
-                                style: _textStyle.copyWith(
+                                style: AppTextStyle().boldBodyTextStyle.copyWith(
                                     fontSize: dSize(.1),
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold)),
+                                    fontStyle: FontStyle.italic)),
                             Text('Login/Signup',
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
+                                style:  AppTextStyle().boldBodyTextStyle.copyWith(
                                     fontSize: dSize(.05),
-                                    fontWeight: FontWeight.bold,
                                     color: AllColor.goldenColor)),
                           ],
                         )
@@ -271,7 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                           'SignIn to Earn by clicking Add.'
                           ' and enjoy cricket with happiness',
-                          style: _textStyle,
+                          style: AppTextStyle().bodyTextStyle,
                           textAlign: TextAlign.center),
                     ),
                     SizedBox(height: dSize(.06)),
@@ -302,13 +293,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'Already Have an account ?',
-                        style: _textStyle,
+                        style:  AppTextStyle().bodyTextStyle,
                         children: <TextSpan>[
                           TextSpan(
                             text: '  SignIn',
-                            style: _textStyle.copyWith(
-                                fontSize: dSize(.035),
-                                fontWeight: FontWeight.bold,
+                            style:  AppTextStyle().bodyTextStyle.copyWith(
                                 color: AllColor.fbColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
@@ -364,9 +353,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? const Center(child: CircularProgressIndicator())
                             : Text(
                                 'Submit',
-                                style: _textStyle.copyWith(
-                                    fontSize: dSize(.035),
-                                    fontWeight: FontWeight.bold,
+                                style:  AppTextStyle().largeTitleBoldStyle.copyWith(
                                     color: AllColor.lightCardColor),
                               ),
                       ),

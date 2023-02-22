@@ -1,5 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/details_view/finished_details/finished_tab_page.dart';
 import 'package:cricland/home/view/details_view/fixture_details/fixtures_tab_page.dart';
 import 'package:cricland/home/view/details_view/home_details/home_tab_page.dart';
@@ -8,17 +8,18 @@ import 'package:cricland/home/view/details_view/upcoming_details/upcomming_tab_p
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MatchPage extends StatefulWidget {
+  const MatchPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MatchPage> createState() => _MatchPageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _MatchPageState extends State<MatchPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage>
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                     SliverAppBar(
+                      flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
                       elevation: 0,
                     title:innerBoxIsScrolled? const SizedBox():  Row(
                       children: [
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 2),
                           child: Text("CrickLand",
-                              style: CLTextStyle().nameTextStyle.copyWith(
+                              style: AppTextStyle().largeTitleStyle.copyWith(
                                 fontSize: dSize(.05),
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -85,7 +87,6 @@ class _HomePageState extends State<HomePage>
                     floating: true,
                     forceElevated: innerBoxIsScrolled,
                     bottom: _tabBar(homeController),
-
                   ),
                 ];
 
@@ -130,8 +131,8 @@ class _HomePageState extends State<HomePage>
                   color: PublicController.pc.toggleTabColor(),
                 ),
                 unselectedLabelColor: Colors.grey,
-                unselectedLabelStyle: CLTextStyle().optionTextStyle,
-                labelStyle: CLTextStyle().optionTextStyle,
+                unselectedLabelStyle: AppTextStyle().largeTitleStyle,
+                labelStyle: AppTextStyle().largeTitleStyle,
                 indicatorSize: TabBarIndicatorSize.label,
                 physics: const BouncingScrollPhysics(),
                 tabs: [

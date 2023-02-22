@@ -1,4 +1,4 @@
-// import 'package:cricland/home/model/custom_widget/constants.dart';
+// import 'package:cricland/home/model/custom_widget/app_text_style.dart';
 // import 'package:cricland/public/variables/colors.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';

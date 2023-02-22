@@ -1,3 +1,4 @@
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/tile/ranking_tile.dart';
 import 'package:cricland/more/tile/team_ranking_tile.dart';
@@ -5,8 +6,8 @@ import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:cricland/public/variables/style.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,29 +52,28 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                 children: [
                   Scaffold(
                       body: NestedScrollView(
-                    headerSliverBuilder:
-                        (BuildContext context, bool innerBoxIsScrolled) {
+                    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                       return [
                         SliverOverlapAbsorber(
                           handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                  context),
+                              NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                           sliver: SliverAppBar(
                             title: Text(lc.languageModel.value.iccMenRanking!,
-                                style: TextStyle(fontSize: dSize(.045))),
+                                style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white)),
+                            flexibleSpace: Container( decoration: StDecoration().sliverAppbarGradient,),
                             titleSpacing: -8.0,
                             floating: true,
                             pinned: true,
                             snap: false,
                             forceElevated: innerBoxIsScrolled,
-                            bottom: _tabBar(rankingController, lc),
+                            bottom: _tabBar(rankingController, lc)
                           ),
                         ),
                       ];
                     },
                     body: _bodyUI(rankingController, lc),
                   )),
-                  if (rankingController.bodyLoading.value) const LoadingWidget()
+                  if (rankingController.bodyLoading.value) const LoadingPage()
                 ],
               ));
         });
@@ -124,9 +124,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                           child: Text(
                             item,
                             maxLines: 1,
-                            style: TextStyle(
-                                fontSize: dSize(.035),
-                                fontWeight: FontWeight.w500,
+                            style: AppTextStyle().bodyTextStyle.copyWith(
                                 color: item ==
                                         rankingController
                                             .selectedManGameType.value
@@ -169,15 +167,13 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader!
                                 .first,
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![1],
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.start)),
                   ],
                 ),
@@ -189,20 +185,17 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![2],
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader![3],
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.center)),
                     Expanded(
                         child: Text(
                             lc.languageModel.value.teamRankingTableHeader!.last,
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.center)),
                   ],
                 ),
@@ -238,15 +231,13 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                         child: Text(
                             lc.languageModel.value.playerRankingTableHeader!
                                 .first,
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.start)),
                     Expanded(
                         flex: 3,
                         child: Text(
                             lc.languageModel.value.playerRankingTableHeader![1],
-                            style: Style().titleStyle
-                                .copyWith(fontWeight: FontWeight.w500),
+                            style: AppTextStyle().titleTextStyle,
                             textAlign: TextAlign.start)),
                   ],
                 ),
@@ -255,8 +246,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                   flex: 1,
                   child: Text(
                       lc.languageModel.value.playerRankingTableHeader!.last,
-                      style: Style().titleStyle
-                          .copyWith(fontWeight: FontWeight.w500),
+                      style: AppTextStyle().titleTextStyle,
                       textAlign: TextAlign.center)),
             ],
           ),
@@ -295,10 +285,8 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                   topRight: Radius.circular(dSize(.02))),
               color: PublicController.pc.toggleTabColor()),
           unselectedLabelColor: Colors.grey.shade400,
-          unselectedLabelStyle:
-              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
-          labelStyle:
-              TextStyle(fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+          unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+          labelStyle:AppTextStyle().largeTitleBoldStyle,
           indicatorSize: TabBarIndicatorSize.label,
           physics: const BouncingScrollPhysics(),
           tabs: lc.languageModel.value.manCategoryList!

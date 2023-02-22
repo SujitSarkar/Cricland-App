@@ -1,4 +1,7 @@
 import 'package:cricland/news/controller/news_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,15 +9,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../more/view/widgets/article_card_portrait.dart';
 import '../../public/controller/public_controller.dart';
 import '../../public/variables/config.dart';
-import '../../public/variables/variable.dart';
 
-class NewsPage extends StatefulWidget {
-  const NewsPage({Key? key}) : super(key: key);
+class TrendingPage extends StatefulWidget {
+  const TrendingPage({Key? key}) : super(key: key);
   @override
-  State<NewsPage> createState() => _NewsPageState();
+  State<TrendingPage> createState() => _TrendingPageState();
 }
 
-class _NewsPageState extends State<NewsPage>
+class _TrendingPageState extends State<TrendingPage>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
@@ -30,11 +32,16 @@ class _NewsPageState extends State<NewsPage>
           return Obx(() => Scaffold(
                 backgroundColor: PublicController.pc.togglePagedBg(),
                 appBar: AppBar(
-                  title: Text('News', style: TextStyle(fontSize: dSize(.045))),
+                  flexibleSpace: Container(
+                      decoration: StDecoration().sliverAppbarGradient),
+                  title: Text('News',
+                      style: AppTextStyle()
+                          .largeTitleBoldStyle
+                          .copyWith(color: AllColor.darkTextColor)),
                   bottom: _tabBar(nc),
                 ),
                 body: nc.loading.value
-                    ? const LoadingWidget()
+                    ? const LoadingPage()
                     : SafeArea(
                         child: SmartRefresher(
                           enablePullDown: true,
@@ -46,7 +53,7 @@ class _NewsPageState extends State<NewsPage>
                               if (mode == LoadStatus.idle) {
                                 body = const Text("Pull up load");
                               } else if (mode == LoadStatus.loading) {
-                                body = const LoadingWidget();
+                                body = const LoadingPage();
                               } else if (mode == LoadStatus.failed) {
                                 body = const Text("Load Failed! Click retry!");
                               } else if (mode == LoadStatus.canLoading) {
@@ -98,10 +105,8 @@ class _NewsPageState extends State<NewsPage>
                         topRight: Radius.circular(dSize(.02))),
                     color: PublicController.pc.toggleTabColor()),
                 unselectedLabelColor: Colors.grey.shade400,
-                unselectedLabelStyle: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: dSize(.045)),
-                labelStyle: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: dSize(.045)),
+                unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+                labelStyle: AppTextStyle().largeTitleBoldStyle,
                 indicatorSize: TabBarIndicatorSize.label,
                 physics: const BouncingScrollPhysics(),
                 tabs: nc.categoryList

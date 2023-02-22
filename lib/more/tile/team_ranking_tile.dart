@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/model/team_ranking_model.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:cricland/public/variables/style.dart';
 import 'package:flutter/material.dart';
 
 class TeamRankingTile extends StatelessWidget {
@@ -20,13 +20,14 @@ class TeamRankingTile extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Text('${model.rank}',
-                      style: Style().titleStyle, textAlign: TextAlign.start)),
+                      style: AppTextStyle().titleTextStyle, textAlign: TextAlign.start)),
               Expanded(
                   flex: 3,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      if(model.imageId!=null)
                       CachedNetworkImage(
                           imageUrl: ApiEndpoint.imageUrl(model.imageId!),
                           httpHeaders: ApiEndpoint.header,
@@ -42,7 +43,7 @@ class TeamRankingTile extends StatelessWidget {
                       SizedBox(width: dSize(.02)),
                       Expanded(
                           child: Text('${model.name}',
-                              style: Style().titleStyle,
+                              style: AppTextStyle().titleTextStyle,
                               textAlign: TextAlign.start)),
                     ],
                   )),
@@ -55,13 +56,13 @@ class TeamRankingTile extends StatelessWidget {
             children: [
               Expanded(
                   child: Text('${model.matches}',
-                      style: Style().titleStyle, textAlign: TextAlign.center)),
+                      style: AppTextStyle().titleTextStyle, textAlign: TextAlign.center)),
               Expanded(
                   child: Text('${model.points}',
-                      style: Style().titleStyle, textAlign: TextAlign.center)),
+                      style: AppTextStyle().titleTextStyle, textAlign: TextAlign.center)),
               Expanded(
                 child: Text('${model.rating}',
-                    style: Style().titleStyle, textAlign: TextAlign.center),
+                    style: AppTextStyle().titleTextStyle, textAlign: TextAlign.center),
               ),
             ],
           ),

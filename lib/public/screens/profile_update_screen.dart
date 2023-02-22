@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -36,22 +38,23 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   bool _isLoading = false;
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032),
-      //fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Stack(alignment: Alignment.center, children: [
         Scaffold(
           appBar: AppBar(
-            title:
-                Text("Update Profile", style: TextStyle(fontSize: dSize(.045))),
+            flexibleSpace:
+                Container(decoration: StDecoration().sliverAppbarGradient),
+            title: Text("Update Profile",
+                style: AppTextStyle()
+                    .largeTitleBoldStyle
+                    .copyWith(color: AllColor.darkTextColor)),
           ),
           body: _bodyUIUpdate(context, homeController),
         ),
-        if (_isLoading) const LoadingWidget()
+        if (_isLoading) const LoadingPage()
       ]);
     });
   }
@@ -78,16 +81,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('Cricland',
-                                style: _textStyle.copyWith(
-                                    fontSize: dSize(.1),
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold)),
+                                style: AppTextStyle()
+                                    .largeTitleBoldStyle
+                                    .copyWith(
+                                        fontSize: dSize(.1),
+                                        fontStyle: FontStyle.italic)),
                             Text('Profile Update',
                                 textAlign: TextAlign.end,
-                                style: TextStyle(
-                                    fontSize: dSize(.05),
-                                    fontWeight: FontWeight.bold,
-                                    color: AllColor.goldenColor)),
+                                style: AppTextStyle()
+                                    .largeTitleBoldStyle
+                                    .copyWith(color: AllColor.goldenColor)),
                           ],
                         )
                       ],
@@ -114,7 +117,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     SizedBox(height: dSize(.06)),
                     TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: AllColor.purpleColor,
+                        backgroundColor: AllColor.primaryColor,
                       ),
                       onPressed: () async {
                         if (firstNameController.text.isNotEmpty) {
@@ -148,10 +151,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         padding: EdgeInsets.symmetric(horizontal: dSize(.2)),
                         child: Text(
                           'Update',
-                          style: _textStyle.copyWith(
-                              fontSize: dSize(.035),
-                              fontWeight: FontWeight.bold,
-                              color: AllColor.lightCardColor),
+                          style: AppTextStyle()
+                              .titleTextBoldStyle
+                              .copyWith(color: Colors.white),
                         ),
                       ),
                     ),

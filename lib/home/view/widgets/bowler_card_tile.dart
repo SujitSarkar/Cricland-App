@@ -3,7 +3,7 @@
 // import 'package:cricland/public/variables/config.dart';
 // import 'package:flutter/cupertino.dart';
 //
-// import '../../model/custom_widget/constants.dart';
+// import '../../model/custom_widget/app_text_style.dart';
 //
 // class BowlerCardTile extends StatelessWidget {
 //   const BowlerCardTile({

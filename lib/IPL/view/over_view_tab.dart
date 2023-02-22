@@ -1,33 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/IPL/view/details_view/key_state_screen.dart';
-import 'package:cricland/IPL/view/matches_tab.dart';
-import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/IPL/view/widgets/featured_match_tile.dart';
-import 'package:cricland/IPL/view/widgets/highest_score_&_six_card.dart';
 import 'package:cricland/IPL/view/widgets/info_card_tile.dart';
-import 'package:cricland/IPL/view/widgets/most_run_card.dart';
-import 'package:cricland/IPL/view/widgets/most_wickets_card.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
-import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
-import 'package:cricland/more/view/icc_man_ranking/player_details/player_info_man.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:cricland/public/variables/variable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-
 import '../../home/view/widgets/point_table_tile.dart';
-import '../../more/view/icc_man_ranking/player_details/player_details_man.dart';
-import '../../public/variables/colors.dart';
 
 class OverViewTab extends StatefulWidget {
-
-
   const OverViewTab({Key? key}) : super(key: key);
 
   @override
@@ -35,18 +20,12 @@ class OverViewTab extends StatefulWidget {
 }
 
 class _OverViewTabState extends State<OverViewTab> {
-  @override
-  void initState() {
-    super.initState();
-
-  }
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return Padding(
+      return Container(
+        color: PublicController.pc.togglePagedBg(),
         padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8),
         child: SingleChildScrollView(
           child: Column(
@@ -55,34 +34,30 @@ class _OverViewTabState extends State<OverViewTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Featured Matches",
-                          style:_textStyle.copyWith(
-                            fontSize: dSize(.035),
-                            fontWeight: FontWeight.bold,
-                            color: PublicController.pc
-                                .toggleLoadingColor(),),),
+                          style:AppTextStyle().titleTextStyle),
                         TextButton(
                           onPressed: () {},
                           child: Text(
-                            "All Matches >",
-                            style:_textStyle.copyWith(
-                              fontSize: dSize(.035),
-                              fontWeight: FontWeight.bold,
-                              color: PublicController.pc
-                                  .toggleLoadingColor(),),
+                            "All Matches",
+                            style:AppTextStyle().titleTextStyle.copyWith(color: PublicController.pc.togglePrimaryGrey()),
                           ),
                         )
                       ],
                     ),
-                    ListView.builder(
+
+                    ListView.separated(
                         itemCount: homeController
                             .rapidSeriesMatchList.length,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
+                        separatorBuilder: (context, index)=>SizedBox(height: dSize(.02)),
                         itemBuilder: (BuildContext context, int index) {
                           return  GestureDetector(
                             onTap: (){
-                              print(homeController
+                              if (kDebugMode) {
+                                print(homeController
                                   .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
+                              }
                             },
                             child: FeaturedMatchTile(
                                 seriesMatch:homeController
@@ -94,14 +69,14 @@ class _OverViewTabState extends State<OverViewTab> {
                     homeController.rapidPointTableList.isNotEmpty?    ListTile(
                       leading: Text("Point Table",
                           style:
-                          CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                          AppTextStyle().largeTitleStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           )),
-                    ):SizedBox(),
-                    homeController.rapidPointTableList.isNotEmpty?    PointTableTile(
+                    ):const SizedBox(),
+                    homeController.rapidPointTableList.isNotEmpty?    const PointTableTile(
 
-                    ):SizedBox(),
+                    ):const SizedBox(),
                     // ListTile(
                     //     leading: Text("Key Stats",
                     //         style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
@@ -229,7 +204,7 @@ class _OverViewTabState extends State<OverViewTab> {
                     ListTile(
                       leading: Text("Team Squads",
                           style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                              AppTextStyle().largeTitleStyle.copyWith(
                             fontSize: dSize(.035),
                             color: PublicController.pc.toggleTextColor(),
                           )),
@@ -247,75 +222,71 @@ class _OverViewTabState extends State<OverViewTab> {
                                     onTap: () {
                                       _showSquadsSheet(context);
                                     },
-                                    child: Padding(
+                                    child: Container(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: PublicController.pc
-                                              .toggleCardBg(),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
+                                      decoration: BoxDecoration(
+                                        color: PublicController.pc
+                                            .toggleCardBg(),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(28.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                height: 80,
-                                                width: 80,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image:
-                                                          CachedNetworkImageProvider(
-                                                        ApiEndpoints
-                                                                .imageMidPoint +
-                                                            "${homeController.matchSquadModel.squads![i].imageId}" +
-                                                            ApiEndpoints
-                                                                .imageLastPoint,
-                                                        headers: ApiEndpoints
-                                                            .headers,
-                                                      ),
-                                                      fit: BoxFit.cover),
-                                                ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      ApiEndpoints
+                                                              .imageMidPoint +
+                                                          "${homeController.matchSquadModel.squads![i].imageId}" +
+                                                          ApiEndpoints
+                                                              .imageLastPoint,
+                                                      headers: ApiEndpoints
+                                                          .headers,
+                                                    ),
+                                                    fit: BoxFit.cover),
                                               ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                  "${homeController.matchSquadModel.squads![i].squadType}",
-                                                  style: CLTextStyle()
-                                                      .nameTextStyle
-                                                      .copyWith(
-                                                    fontSize: dSize(.04),
-                                                    color: PublicController.pc
-                                                        .toggleTextColor(),
-                                                  )),
-                                            ],
-                                          ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                                "${homeController.matchSquadModel.squads![i].squadType}",
+                                                style: AppTextStyle()
+                                                    .largeTitleStyle
+                                                    .copyWith(
+                                                  fontSize: dSize(.04),
+                                                  color: PublicController.pc
+                                                      .toggleTextColor(),
+                                                )),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                         ],
                       ),
-                    ):SizedBox(),
+                    ):const SizedBox(),
                     ListTile(
                       leading: Text("Series Info",
                           style:
-                              CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                              AppTextStyle().largeTitleStyle.copyWith(
                             fontSize: dSize(.04),
                             color: PublicController.pc.toggleTextColor(),
                           )),
                     ),
                     homeController
-                        .rapidSeriesMatchList.isEmpty?SizedBox():    InfoCardTile(
+                        .rapidSeriesMatchList.isEmpty?const SizedBox():InfoCardTile(
                             series: homeController
                                 .rapidSeriesMatchList.first.matchInfo!.seriesName,
                             duration: homeController
@@ -325,7 +296,7 @@ class _OverViewTabState extends State<OverViewTab> {
                             onTap: () {},
                           ),
 
-                    SizedBox(height: 300,)
+                    const SizedBox(height: 300)
                     // ListTile(
                     //   leading: Text(
                     //     "More Seasons",

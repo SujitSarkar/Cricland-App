@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/view/widgets/expandable_tile.dart';
 import 'package:flutter/material.dart';
 import '../../../../public/controller/public_controller.dart';
@@ -53,8 +53,7 @@ class _PlayerMatchesManState extends State<PlayerMatchesMan> {
                       child: Text(
                         item,
                         maxLines: 1,
-                        style: CLTextStyle().optionTextStyle.copyWith(
-                              fontSize: dSize(.035),
+                        style: AppTextStyle().bodyTextStyle.copyWith(
                               color: item == _gameType
                                   ? Colors.white
                                   : PublicController.pc.toggleTextColor(),
@@ -70,7 +69,7 @@ class _PlayerMatchesManState extends State<PlayerMatchesMan> {
           itemCount: 20,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => ExpandableTile(),
+          itemBuilder: (context, index) => const ExpandableTile(),
           separatorBuilder: (context, index) => SizedBox(height: dSize(.04)),
         )
       ],

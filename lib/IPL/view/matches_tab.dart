@@ -1,7 +1,4 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/view/widgets/finished_card_tile.dart';
-import 'package:cricland/home/view/widgets/fixtures_card_tile.dart';
-import 'package:cricland/home/view/widgets/upcoming_card_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
@@ -20,14 +17,12 @@ class _MatchesTabState extends State<MatchesTab> {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Column(
         children: [
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
                 itemCount: homeController
                     .rapidSeriesMatchList.length,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return  GestureDetector(

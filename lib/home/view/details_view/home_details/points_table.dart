@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/widgets/point_table_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,7 +64,7 @@ class _PointTableViewState extends State<PointTableView> {
               children: [
                 Text(
                   "Points Table",
-                  style: CLTextStyle().paragraphHeadLineTextStyle.copyWith(
+                  style: AppTextStyle().largeTitleStyle.copyWith(
                     fontSize: dSize(.04),
                     color: PublicController.pc.toggleTextColor(),
                   ),

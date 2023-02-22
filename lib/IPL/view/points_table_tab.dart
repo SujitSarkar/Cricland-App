@@ -3,10 +3,7 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../home/controller/home_controller.dart';
-import '../../home/model/custom_widget/constants.dart';
 
 class SeriesPointsTableTab extends StatefulWidget {
   const SeriesPointsTableTab({Key? key}) : super(key: key);

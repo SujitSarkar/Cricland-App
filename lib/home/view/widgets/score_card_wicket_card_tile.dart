@@ -1,8 +1,7 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ScorecardWicketCardTile extends StatelessWidget {
@@ -24,60 +23,38 @@ class ScorecardWicketCardTile extends StatelessWidget {
                 children: [
                   Expanded(
                       flex: 3,
-                      child: Text(
-                        "Batsman Name",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.04),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
-                      )),
-                  Spacer(),
+                      child: Text("Batsman Name",
+                          style: AppTextStyle().titleTextStyle)),
+                  const Spacer(),
                   Expanded(
                     flex: 3,
                     child: Row(
                       children: [
                         Expanded(
-                            child: Text(
-                          "Score",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
-                        )),
+                            child: Text("Score",
+                                style: AppTextStyle().titleTextStyle)),
                         Expanded(
-                            child: Text(
-                          "Over",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: dSize(.04),
-                            color: PublicController.pc.toggleTextColor(),
-                          ),
-                        )),
+                            child: Text("Over",
+                                style: AppTextStyle().titleTextStyle)),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               ListView.builder(
                   itemCount: isLeft
                       ? homeController
                           .scoreCardModel.scoreCard!.first.wicketsData!.length
                       : homeController
                           .scoreCardModel.scoreCard!.first.wicketsData!.length,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
-                        Divider(),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        const Divider(),
+                        const SizedBox(height: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -87,30 +64,28 @@ class ScorecardWicketCardTile extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    isLeft
-                                        ? homeController
-                                            .scoreCardModel
-                                            .scoreCard!
-                                            .first
-                                            .wicketsData!
-                                            .values
-                                            .toList()[index]
-                                            .batName!
-                                        : homeController.scoreCardModel
-                                            .scoreCard!.first.wicketsData!.values
-                                            .toList()[index]
-                                            .batName!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: dSize(.03),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
-                                  ),
+                                      isLeft
+                                          ? homeController
+                                              .scoreCardModel
+                                              .scoreCard!
+                                              .first
+                                              .wicketsData!
+                                              .values
+                                              .toList()[index]
+                                              .batName!
+                                          : homeController
+                                              .scoreCardModel
+                                              .scoreCard!
+                                              .first
+                                              .wicketsData!
+                                              .values
+                                              .toList()[index]
+                                              .batName!,
+                                      style: AppTextStyle().paragraphTextStyle),
                                 ],
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Expanded(
                               flex: 3,
                               child: Row(
@@ -120,36 +95,24 @@ class ScorecardWicketCardTile extends StatelessWidget {
                                     isLeft
                                         ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktRuns!}"
                                         : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktRuns!}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: dSize(.03),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
+                                    style: AppTextStyle().paragraphTextStyle,
                                   )),
                                   Expanded(
                                     child: Text(
-                                      isLeft
-                                          ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}"
-                                          : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}",
+                                        isLeft
+                                            ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}"
+                                            : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}",
 
-                                      // "10",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: dSize(.03),
-                                        color: PublicController.pc
-                                            .toggleTextColor(),
-                                      ),
-                                    ),
+                                        // "10",
+                                        style:
+                                            AppTextStyle().paragraphTextStyle),
                                   ),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        const SizedBox(height: 5),
                       ],
                     );
                   }),

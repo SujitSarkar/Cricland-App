@@ -1,4 +1,4 @@
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,11 +9,7 @@ import '../../../public/variables/variable.dart';
 import 'dart:math' as math;
 
 class ExpandableTile extends StatelessWidget {
-  ExpandableTile({Key? key}) : super(key: key);
-  final TextStyle _textStyle = TextStyle(
-      fontSize: dSize(.028),
-      // fontWeight: FontWeight.w500,
-      color: PublicController.pc.toggleTextColor());
+  const ExpandableTile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class ExpandableTile extends StatelessWidget {
                 children: [
                   Text(
                     'BAN vs SRI 2022',
-                    style: CLTextStyle().nameTextStyle.copyWith(
+                    style: AppTextStyle().largeTitleStyle.copyWith(
                       fontSize: dSize(.035),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -49,7 +45,7 @@ class ExpandableTile extends StatelessWidget {
                   Text(
                     '${DateFormat('dd MMM').format(DateTime.now())} '
                     '- ${DateFormat('dd MMM').format(DateTime.now().add(const Duration(days: 2)))} * Played for Ban',
-                    style: CLTextStyle().paragraphTextStyle.copyWith(
+                    style: AppTextStyle().paragraphTextStyle.copyWith(
                       fontSize: dSize(.03),
                       color: PublicController.pc.toggleTextColor(),
                     ),
@@ -107,8 +103,8 @@ class ExpandableTile extends StatelessWidget {
                                         Text(
                                           '40',
                                           maxLines: 1,
-                                          style: CLTextStyle()
-                                              .paragraphHeadLineTextStyle
+                                          style: AppTextStyle()
+                                              .largeTitleStyle
                                               .copyWith(
                                             fontSize: dSize(.04),
                                             color: PublicController.pc
@@ -118,7 +114,7 @@ class ExpandableTile extends StatelessWidget {
                                         Text(
                                           item,
                                           maxLines: 1,
-                                          style: CLTextStyle().paragraphTextStyle
+                                          style: AppTextStyle().paragraphTextStyle
                                               .copyWith(
                                             fontSize: dSize(.03),
                                             color: PublicController.pc
@@ -147,7 +143,7 @@ class ExpandableTile extends StatelessWidget {
                                 child: Text(
                                   "TEST",
                                   style:
-                                      CLTextStyle().paragraphTextStyle.copyWith(
+                                      AppTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.03),
                                     color:
                                         PublicController.pc.toggleTextColor(),
@@ -168,7 +164,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             Variables.scoreDateMatch.first,
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -177,7 +173,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             Variables.scoreDateMatch[1],
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -187,7 +183,7 @@ class ExpandableTile extends StatelessWidget {
                         child: Text(
                           Variables.scoreDateMatch.last,
                           textAlign: TextAlign.end,
-                          style: CLTextStyle().paragraphTextStyle.copyWith(
+                          style: AppTextStyle().paragraphTextStyle.copyWith(
                             fontSize: dSize(.03),
                             color: PublicController.pc.toggleTextColor(),
                           ),
@@ -206,7 +202,7 @@ class ExpandableTile extends StatelessWidget {
                             flex: 2,
                             child: Text(
                               '105(117)',
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -215,7 +211,7 @@ class ExpandableTile extends StatelessWidget {
                             flex: 2,
                             child: Text(
                               '02 Apr',
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -225,7 +221,7 @@ class ExpandableTile extends StatelessWidget {
                             child: Text(
                               '3dr TEST vs SRI',
                               textAlign: TextAlign.end,
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -275,8 +271,8 @@ class ExpandableTile extends StatelessWidget {
                                         Text(
                                           '40',
                                           maxLines: 1,
-                                          style: CLTextStyle()
-                                              .paragraphHeadLineTextStyle
+                                          style: AppTextStyle()
+                                              .largeTitleStyle
                                               .copyWith(
                                             fontSize: dSize(.04),
                                             color: PublicController.pc
@@ -286,7 +282,7 @@ class ExpandableTile extends StatelessWidget {
                                         Text(
                                           item,
                                           maxLines: 1,
-                                          style: CLTextStyle().paragraphTextStyle
+                                          style: AppTextStyle().paragraphTextStyle
                                               .copyWith(
                                             fontSize: dSize(.03),
                                             color: PublicController.pc
@@ -315,7 +311,7 @@ class ExpandableTile extends StatelessWidget {
                                 child: Text(
                                   "ODI",
                                   style:
-                                      CLTextStyle().paragraphTextStyle.copyWith(
+                                      AppTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.03),
                                     color:
                                         PublicController.pc.toggleTextColor(),
@@ -336,7 +332,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             Variables.scoreDateMatch.first,
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -345,7 +341,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             Variables.scoreDateMatch[1],
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -355,7 +351,7 @@ class ExpandableTile extends StatelessWidget {
                           child: Text(
                             Variables.scoreDateMatch.last,
                             textAlign: TextAlign.end,
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -373,7 +369,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             '105(117)',
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -383,7 +379,7 @@ class ExpandableTile extends StatelessWidget {
                             flex: 2,
                             child: Text(
                               '02 Apr',
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -393,7 +389,7 @@ class ExpandableTile extends StatelessWidget {
                             child: Text(
                               '3dr TEST vs SRI',
                               textAlign: TextAlign.end,
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -443,8 +439,8 @@ class ExpandableTile extends StatelessWidget {
                                         Text(
                                           '40',
                                           maxLines: 1,
-                                          style: CLTextStyle()
-                                              .paragraphHeadLineTextStyle
+                                          style: AppTextStyle()
+                                              .largeTitleStyle
                                               .copyWith(
                                             fontSize: dSize(.04),
                                             color: PublicController.pc
@@ -454,7 +450,7 @@ class ExpandableTile extends StatelessWidget {
                                         Text(
                                           item,
                                           maxLines: 1,
-                                          style: CLTextStyle().paragraphTextStyle
+                                          style: AppTextStyle().paragraphTextStyle
                                               .copyWith(
                                             fontSize: dSize(.03),
                                             color: PublicController.pc
@@ -483,7 +479,7 @@ class ExpandableTile extends StatelessWidget {
                                 child: Text(
                                   "T20",
                                   style:
-                                      CLTextStyle().paragraphTextStyle.copyWith(
+                                      AppTextStyle().paragraphTextStyle.copyWith(
                                     fontSize: dSize(.03),
                                     color:
                                         PublicController.pc.toggleTextColor(),
@@ -504,7 +500,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             Variables.scoreDateMatch.first,
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -513,7 +509,7 @@ class ExpandableTile extends StatelessWidget {
                           flex: 2,
                           child: Text(
                             Variables.scoreDateMatch[1],
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -523,7 +519,7 @@ class ExpandableTile extends StatelessWidget {
                           child: Text(
                             Variables.scoreDateMatch.last,
                             textAlign: TextAlign.end,
-                            style: CLTextStyle().paragraphTextStyle.copyWith(
+                            style: AppTextStyle().paragraphTextStyle.copyWith(
                               fontSize: dSize(.03),
                               color: PublicController.pc.toggleTextColor(),
                             ),
@@ -541,7 +537,7 @@ class ExpandableTile extends StatelessWidget {
                             flex: 2,
                             child: Text(
                               '105(117)',
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -550,7 +546,7 @@ class ExpandableTile extends StatelessWidget {
                             flex: 2,
                             child: Text(
                               '02 Apr',
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -560,7 +556,7 @@ class ExpandableTile extends StatelessWidget {
                             child: Text(
                               '3dr TEST vs SRI',
                               textAlign: TextAlign.end,
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                 fontSize: dSize(.03),
                                 color: PublicController.pc.toggleTextColor(),
                               ),

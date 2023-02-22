@@ -1,12 +1,9 @@
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import '../../controller/home_controller.dart';
-import '../../model/custom_widget/constants.dart';
 
 class LiveWinCardTile extends StatelessWidget {
   final int selectedIndex;
@@ -35,11 +32,11 @@ class LiveWinCardTile extends StatelessWidget {
                   children: [
                     Text(
                       "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![selectedIndex].seriesAdWrapper!.matches![0].matchInfo!.team1!.teamSName}",
-                      style: CLTextStyle().nameTextStyle,
+                      style: AppTextStyle().largeTitleStyle,
                     ),
                     Text(
                       "43%",
-                      style: CLTextStyle().paragraphTextStyle,
+                      style: AppTextStyle().paragraphTextStyle,
                     ),
                   ],
                 ),
@@ -47,7 +44,7 @@ class LiveWinCardTile extends StatelessWidget {
                   children: [
                     Text(
                       "Realtime Win %",
-                      style: CLTextStyle().paragraphHeadLineTextStyle,
+                      style: AppTextStyle().largeTitleStyle,
                     ),
                     Padding(
                       padding:
@@ -59,7 +56,7 @@ class LiveWinCardTile extends StatelessWidget {
                         animation: true,
                         center: Text(
                           "50.0%",
-                          style: CLTextStyle().paragraphTextStyle
+                          style: AppTextStyle().paragraphTextStyle
                               .copyWith(fontSize: 10),
                         ),
                         linearStrokeCap: LinearStrokeCap.roundAll,
@@ -73,11 +70,11 @@ class LiveWinCardTile extends StatelessWidget {
                   children: [
                     Text(
                       "${homeController.upcomingMatchModel.typeMatches!.first.seriesMatches![selectedIndex].seriesAdWrapper!.matches![0].matchInfo!.team2!.teamSName}",
-                      style: CLTextStyle().nameTextStyle,
+                      style: AppTextStyle().largeTitleStyle,
                     ),
                     Text(
                       "57%",
-                      style: CLTextStyle().paragraphTextStyle,
+                      style: AppTextStyle().paragraphTextStyle,
                     ),
                   ],
                 ),

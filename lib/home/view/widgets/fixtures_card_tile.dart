@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/model/custom_widget/constants.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -57,7 +57,7 @@ class FixturesCardTile extends StatelessWidget {
                       child: title != null
                           ? Text(
                               title!,
-                              style: CLTextStyle().nameTextStyle.copyWith(
+                              style: AppTextStyle().largeTitleStyle.copyWith(
                                 fontSize: dSize(.04),
                                 color: PublicController.pc.toggleTextColor(),
                               ),
@@ -108,7 +108,7 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamOne!,
-                                    style: CLTextStyle().nameTextStyle.copyWith(
+                                    style: AppTextStyle().largeTitleStyle.copyWith(
                                         fontSize: dSize(.045),
                                         color: PublicController.pc
                                             .toggleTextColor()),
@@ -171,7 +171,7 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamTwo!,
-                                    style: CLTextStyle().nameTextStyle.copyWith(
+                                    style: AppTextStyle().largeTitleStyle.copyWith(
                                         fontSize: dSize(.045),
                                         color: PublicController.pc
                                             .toggleTextColor()),
@@ -223,7 +223,7 @@ class FixturesCardTile extends StatelessWidget {
                             child: Text(
                               desc!,
                               textAlign: TextAlign.center,
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.04),
                                   color: PublicController.pc.toggleTextColor()),
                             ),
@@ -232,7 +232,7 @@ class FixturesCardTile extends StatelessWidget {
                             height: 5,
                           ),
                           Text(date!,
-                              style: CLTextStyle().paragraphTextStyle.copyWith(
+                              style: AppTextStyle().paragraphTextStyle.copyWith(
                                   fontSize: dSize(.035),
                                   color:
                                       PublicController.pc.toggleTextColor())),
