@@ -38,16 +38,15 @@ class UpcomingCardTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Text("${rapidMatch.matchInfo!.matchDesc} ",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FittedBox(
+                      child: Text("${rapidMatch.matchInfo!.matchDesc} ${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city} ",
                           style: AppTextStyle().bodyTextStyle),
-                      Text(
-                          "${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city}",
-                          style: AppTextStyle().bodyTextStyle)
-                    ],
-                  ),
+                    ),
+                    Icon(Icons.notifications,color: Colors.grey,)
+                  ],
                 ),
                 SizedBox(height: dSize(.03)),
                 IntrinsicHeight(
@@ -154,9 +153,8 @@ class UpcomingCardTile extends StatelessWidget {
                                     Icons.do_not_disturb_on_total_silence,
                                     color: Colors.red)
                                 : const SizedBox(),
-                            Text("${rapidMatch.matchInfo!.state}",
-                                style: AppTextStyle().bodyTextStyle),
-                            Text("Start at:",
+
+                            Text("Starting in:",
                                 style: AppTextStyle().bodyTextStyle),
                             Text(
                                 DateFormat('hh:mm a')
@@ -165,7 +163,7 @@ class UpcomingCardTile extends StatelessWidget {
                                                 .matchInfo!.startDate!) *
                                             1000))
                                     .toString(),
-                                style: AppTextStyle().bodyTextStyle),
+                                style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.orange)),
                           ],
                         ),
                       )

@@ -56,13 +56,60 @@ class FinishedCardTile extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Row(
+                      Flexible(
+                        flex: 2,
+
+                       child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: dSize(.05),
+                                    width: dSize(.05),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                      image: DecorationImage(
+                                          image: CachedNetworkImageProvider(
+                                            ApiEndpoints.imageMidPoint +
+                                                "${rapidMatch.matchInfo!.team1!.imageId}" +
+                                                ApiEndpoints.imageLastPoint,
+                                            headers: ApiEndpoints.headers,
+                                          ),
+                                          fit: BoxFit.fill,
+                                          filterQuality: FilterQuality.low),
+                                    ),
+                                  ),
+                                  SizedBox(width: dSize(.02)),
+                                  Text(
+                                    "${rapidMatch.matchInfo!.team1!.teamSName} ",
+                                    style: AppTextStyle().bodyTextStyle,
+                                  ),
+                                  rapidMatch.matchScore != null
+                                      ? Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
+                                              style: AppTextStyle()
+                                                  .bodyTextStyle,
+                                            ),
+                                            Text(
+                                                " ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
+                                                style: AppTextStyle()
+                                                    .paragraphTextStyle),
+                                          ],
+                                        )
+                                      : const SizedBox()
+                                ],
+                              ),
+                            ),
+                            Row(
                               children: [
                                 Container(
                                   height: dSize(.05),
@@ -73,7 +120,7 @@ class FinishedCardTile extends StatelessWidget {
                                     image: DecorationImage(
                                         image: CachedNetworkImageProvider(
                                           ApiEndpoints.imageMidPoint +
-                                              "${rapidMatch.matchInfo!.team1!.imageId}" +
+                                              "${rapidMatch.matchInfo!.team2!.imageId}" +
                                               ApiEndpoints.imageLastPoint,
                                           headers: ApiEndpoints.headers,
                                         ),
@@ -83,7 +130,7 @@ class FinishedCardTile extends StatelessWidget {
                                 ),
                                 SizedBox(width: dSize(.02)),
                                 Text(
-                                  "${rapidMatch.matchInfo!.team1!.teamSName} ",
+                                  "${rapidMatch.matchInfo!.team2!.teamSName}",
                                   style: AppTextStyle().bodyTextStyle,
                                 ),
                                 rapidMatch.matchScore != null
@@ -92,73 +139,38 @@ class FinishedCardTile extends StatelessWidget {
                                             CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
-                                            style: AppTextStyle()
-                                                .bodyTextStyle,
+                                            " ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
+                                            style:
+                                                AppTextStyle().bodyTextStyle,
                                           ),
                                           Text(
-                                              " ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
-                                              style: AppTextStyle()
-                                                  .paragraphTextStyle),
+                                            " ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
+                                            style:
+                                                AppTextStyle().bodyTextStyle,
+                                          ),
                                         ],
                                       )
                                     : const SizedBox()
                               ],
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                height: dSize(.05),
-                                width: dSize(.05),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                        ApiEndpoints.imageMidPoint +
-                                            "${rapidMatch.matchInfo!.team2!.imageId}" +
-                                            ApiEndpoints.imageLastPoint,
-                                        headers: ApiEndpoints.headers,
-                                      ),
-                                      fit: BoxFit.fill,
-                                      filterQuality: FilterQuality.low),
-                                ),
-                              ),
-                              SizedBox(width: dSize(.02)),
-                              Text(
-                                "${rapidMatch.matchInfo!.team2!.teamSName}",
-                                style: AppTextStyle().bodyTextStyle,
-                              ),
-                              rapidMatch.matchScore != null
-                                  ? Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          " ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
-                                          style:
-                                              AppTextStyle().bodyTextStyle,
-                                        ),
-                                        Text(
-                                          " ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
-                                          style:
-                                              AppTextStyle().bodyTextStyle,
-                                        ),
-                                      ],
-                                    )
-                                  : const SizedBox()
-                            ],
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                        child: SizedBox(
-                          width: 150,
-                          child: Text("${rapidMatch.matchInfo!.status}",
-                              style: AppTextStyle().bodyTextStyle,
-                              textAlign: TextAlign.center),
+                      const VerticalDivider(
+                        width: 2,
+                          color: Colors.grey,
+                      ),
+                      Flexible(
+
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                          child: SizedBox(
+                            width: 150,
+                            child: Text("${rapidMatch.matchInfo!.status}",
+                                style: AppTextStyle().bodyTextStyle,
+                                textAlign: TextAlign.center),
+                          ),
                         ),
                       )
                     ],

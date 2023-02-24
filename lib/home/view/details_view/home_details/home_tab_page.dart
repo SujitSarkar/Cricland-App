@@ -27,6 +27,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   void initState() {
     super.initState();
+    fetchData();
+  }
+
+  fetchData() async {
+    HomeController homeController = Get.put(HomeController());
+  await  homeController.getRecentMatches();
+    await homeController.getUpcomingMatches();
+    await homeController.getFeatureSeries();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   List<RapidMatch> allMatch = [];
@@ -35,23 +46,25 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return SingleChildScrollView(
+      return  SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child:
+
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              InkWell(
-                onTap: () {
-                  homeController.getRecentMatches();
-                  homeController.getUpcomingMatches();
-                  homeController.getFeatureSeries();
-                },
-                child: Text('Show Add', style: AppTextStyle().largeTitleStyle),
-              ),
-              ListView.builder(
+              // InkWell(
+              //   onTap: () {
+              //     homeController.getRecentMatches();
+              //     homeController.getUpcomingMatches();
+              //     homeController.getFeatureSeries();
+              //   },
+              //   child: Text('Show Add', style: AppTextStyle().largeTitleStyle),
+              // ),
+              homeController.rapidRecentList.isEmpty?SizedBox():  ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: homeController.rapidRecentList.length,
                 shrinkWrap: true,
@@ -68,7 +81,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   );
                 },
               ),
-              ListView.builder(
+              homeController.rapidUpcomingList.isEmpty?SizedBox():  ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: homeController.rapidUpcomingList.length,
                 shrinkWrap: true,
@@ -86,7 +99,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   //LiveCart(context);
                 },
               ),
-              ListView.builder(
+              homeController.rapidFixturesList.isEmpty?SizedBox():   ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: homeController.rapidFixturesList.length,

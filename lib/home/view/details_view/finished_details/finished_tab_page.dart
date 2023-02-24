@@ -20,44 +20,33 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return Container(
-              padding: EdgeInsets.all(5),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(50),
-                  topLeft: Radius.circular(50),
-                ),
+      return SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Today,24 February", style: AppTextStyle().titleTextStyle),
+
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: homeController.rapidRecentList.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return FinishedCardTile(
+                    rapidMatch: homeController.rapidRecentList[index],
+                  );
+                },
               ),
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                children: [
-                  SizedBox(
-                    height: 12,
-                  ),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: homeController.rapidRecentList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: (){
 
-
-                        },
-                        child: FinishedCardTile(
-                          rapidMatch: homeController.rapidRecentList[index],
-
-
-                        ),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 12,
-                  ),
-                ],
-              ));
+              const SizedBox(
+                height: 12,
+              ),
+            ],
+          ),
+        ),
+      );
     });
   }
 }

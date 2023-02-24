@@ -113,7 +113,8 @@ class _MatchPageState extends State<MatchPage>
             //     ),
             //   ],
             // ),
-            body: NestedScrollView(
+            body:
+            NestedScrollView(
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                     SliverAppBar(
@@ -204,7 +205,7 @@ class _MatchPageState extends State<MatchPage>
                   ),
                   color: PublicController.pc.toggleTabColor(),
                 ),
-                unselectedLabelColor: Colors.grey,
+                unselectedLabelColor: Colors.white,
                 unselectedLabelStyle: AppTextStyle().largeTitleStyle,
                 labelStyle: AppTextStyle().largeTitleStyle,
                 indicatorSize: TabBarIndicatorSize.label,

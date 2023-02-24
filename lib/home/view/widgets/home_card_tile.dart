@@ -28,9 +28,31 @@ class _HomeCardTileState extends State<HomeCardTile> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FittedBox(
-                child: Text("${widget.rapidMatch.matchInfo!.seriesName}",
-                    style: AppTextStyle().boldBodyTextStyle)),
+            Row(
+              children: [
+                Container(
+                  height: dSize(.05),
+                  width: dSize(.05),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          ApiEndpoints.imageMidPoint +
+                              "${widget.rapidMatch.matchInfo!.seriesId}" +
+                              ApiEndpoints.imageLastPoint,
+                          headers: ApiEndpoints.headers,
+                        ),
+                        fit: BoxFit.fill,
+                        filterQuality: FilterQuality.low),
+                  ),
+                ),
+                SizedBox(width: 10,),
+                FittedBox(
+                    child: Text("${widget.rapidMatch.matchInfo!.seriesName}",
+                        style: AppTextStyle().boldBodyTextStyle)),
+              ],
+            ),
             FittedBox(
               child: IconButton(
                 onPressed: () {
@@ -65,18 +87,20 @@ class _HomeCardTileState extends State<HomeCardTile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      child: Row(
-                        children: [
-                          Text("${widget.rapidMatch.matchInfo!.matchDesc} ",
-                              style: AppTextStyle().paragraphTextStyle),
-                          Text(
-                              "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FittedBox(
+                          child: Text("${widget.rapidMatch.matchInfo!.matchDesc} ${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city} ",
                               style: AppTextStyle().paragraphTextStyle.copyWith(
                                   color:
-                                      PublicController.pc.toggleLoadingColor()))
-                        ],
-                      ),
+                                  PublicController.pc.toggleLoadingColor())),
+                        ),const RotationTransition(
+                            turns: AlwaysStoppedAnimation(45/360),
+                            child: Icon(Icons.push_pin,color: Colors.grey,))
+
+                      ],
                     ),
                     SizedBox(
                       height: dSize(.03),
@@ -220,7 +244,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                           )
                                         : const SizedBox(),
                                     Text(
-                                        "${widget.rapidMatch.matchInfo!.state}",
+                                        "${widget.rapidMatch.matchInfo!.status}",
                                         style: AppTextStyle()
                                             .bodyTextStyle
                                             .copyWith(
@@ -266,7 +290,8 @@ class _HomeCardTileState extends State<HomeCardTile> {
               ),
             ),
           ),
-        )
+        ),
+        Divider()
       ],
     );
   }

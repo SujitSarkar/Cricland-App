@@ -134,6 +134,21 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text("Today,24 February", style: AppTextStyle().titleTextStyle),
+              TextButton.icon(     // <-- TextButton
+                onPressed: () {},
+                icon: Icon(
+                  Icons.calendar_month,
+                  color: Colors.orange,
+                  size: 24.0,
+                ),
+                label: Text('Calendar',style:TextStyle(color: Colors.orange),),
+              ),
+
+            ],),
             Expanded(
               child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
