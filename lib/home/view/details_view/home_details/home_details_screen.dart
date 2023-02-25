@@ -123,7 +123,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               floating: true,
               forceElevated: innerBoxIsScrolled,
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(dSize(.48)),
+                preferredSize: Size.fromHeight(dSize(.47)),
                 child: Column(
                   children: [
                     TabBar(
