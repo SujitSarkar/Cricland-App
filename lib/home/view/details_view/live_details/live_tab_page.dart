@@ -31,6 +31,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
               FutureBuilder(
                   future: homeController.getLive(),
                   builder:
@@ -48,6 +49,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                               itemCount: liveSnapshot.data!.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
+                                print( "ID : ${liveSnapshot.data![index].id}");
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -120,42 +122,42 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                     children: [
                                                       Column(
                                                         children: [
-                                                          FutureBuilder(
-                                                              future: homeController
-                                                                  .getTeam(liveSnapshot
-                                                                      .data![
-                                                                          index]
-                                                                      .localteam_id
-                                                                      .toString()),
-                                                              builder: (context,
-                                                                  AsyncSnapshot<
-                                                                          MonkTeam>
-                                                                      LTsnapshot) {
-                                                                if (LTsnapshot
-                                                                    .hasData) {
-                                                                  return Row(
-                                                                    children: [
-                                                                      Image
-                                                                          .network(
-                                                                        LTsnapshot
-                                                                            .data!
-                                                                            .name!,
-                                                                        height:
-                                                                            30,
-                                                                        width:
-                                                                            30,
-                                                                      ),
-                                                                      Text(
-                                                                          "${LTsnapshot.data!.code} 102-6 15.1",style: AppTextStyle().bodyTextStyle),
-                                                                      Text(
-                                                                          "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
-                                                                      style: AppTextStyle().bodyTextStyle)
-                                                                    ],
-                                                                  );
-                                                                } else {
-                                                                  return const LoadingWidget();
-                                                                }
-                                                              }),
+                                                          // FutureBuilder(
+                                                          //     future: homeController
+                                                          //         .getTeam(liveSnapshot
+                                                          //             .data![
+                                                          //                 index]
+                                                          //             .localteam_id
+                                                          //             .toString()),
+                                                          //     builder: (context,
+                                                          //         AsyncSnapshot<
+                                                          //                 MonkTeam>
+                                                          //             LTsnapshot) {
+                                                          //       if (LTsnapshot
+                                                          //           .hasData) {
+                                                          //         return Row(
+                                                          //           children: [
+                                                          //             Image
+                                                          //                 .network(
+                                                          //               LTsnapshot
+                                                          //                   .data!
+                                                          //                   .name!,
+                                                          //               height:
+                                                          //                   30,
+                                                          //               width:
+                                                          //                   30,
+                                                          //             ),
+                                                          //             Text(
+                                                          //                 "${LTsnapshot.data!.code} 102-6 15.1",style: AppTextStyle().bodyTextStyle),
+                                                          //             Text(
+                                                          //                 "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
+                                                          //             style: AppTextStyle().bodyTextStyle)
+                                                          //           ],
+                                                          //         );
+                                                          //       } else {
+                                                          //         return const LoadingWidget();
+                                                          //       }
+                                                          //     }),
                                                           FutureBuilder(
                                                               future: homeController
                                                                   .getTeam(liveSnapshot

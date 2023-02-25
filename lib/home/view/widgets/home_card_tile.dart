@@ -3,6 +3,7 @@ import 'package:cricland/home/view/details_view/home_details/home_details_screen
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../IPL/view/series_screen.dart';
 import '../../../public/controller/api_endpoints.dart';
 import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
@@ -28,30 +29,35 @@ class _HomeCardTileState extends State<HomeCardTile> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: dSize(.05),
-                  width: dSize(.05),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          ApiEndpoints.imageMidPoint +
-                              "${widget.rapidMatch.matchInfo!.seriesId}" +
-                              ApiEndpoints.imageLastPoint,
-                          headers: ApiEndpoints.headers,
-                        ),
-                        fit: BoxFit.fill,
-                        filterQuality: FilterQuality.low),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const IPLPage()));
+              },
+              child: Row(
+                children: [
+                  Container(
+                    height: dSize(.05),
+                    width: dSize(.05),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            ApiEndpoints.imageMidPoint +
+                                "${widget.rapidMatch.matchInfo!.seriesId}" +
+                                ApiEndpoints.imageLastPoint,
+                            headers: ApiEndpoints.headers,
+                          ),
+                          fit: BoxFit.fill,
+                          filterQuality: FilterQuality.low),
+                    ),
                   ),
-                ),
-                SizedBox(width: 10,),
-                FittedBox(
-                    child: Text("${widget.rapidMatch.matchInfo!.seriesName}",
-                        style: AppTextStyle().boldBodyTextStyle)),
-              ],
+                  SizedBox(width: 10,),
+                  FittedBox(
+                      child: Text("${widget.rapidMatch.matchInfo!.seriesName}",
+                          style: AppTextStyle().boldBodyTextStyle)),
+                ],
+              ),
             ),
             FittedBox(
               child: IconButton(

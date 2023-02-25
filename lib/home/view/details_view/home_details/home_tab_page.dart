@@ -40,8 +40,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     }
   }
 
-  List<RapidMatch> allMatch = [];
-  int? selectedIndex;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,28 +56,14 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // InkWell(
-              //   onTap: () {
-              //     homeController.getRecentMatches();
-              //     homeController.getUpcomingMatches();
-              //     homeController.getFeatureSeries();
-              //   },
-              //   child: Text('Show Add', style: AppTextStyle().largeTitleStyle),
-              // ),
+
               homeController.rapidRecentList.isEmpty?SizedBox():  ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: homeController.rapidRecentList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: HomeCardTile(
-                      rapidMatch: homeController.rapidRecentList[index],
-                    ),
+                  return HomeCardTile(
+                    rapidMatch: homeController.rapidRecentList[index],
                   );
                 },
               ),
@@ -86,15 +72,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 itemCount: homeController.rapidUpcomingList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: HomeCardTile(
-                      rapidMatch: homeController.rapidUpcomingList[index],
-                    ),
+                  return HomeCardTile(
+                    rapidMatch: homeController.rapidUpcomingList[index],
                   );
                   //LiveCart(context);
                 },
@@ -104,15 +83,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   shrinkWrap: true,
                   itemCount: homeController.rapidFixturesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // setState((){
-                        //   selectedIndex = index;
-                        // });
-                      },
-                      child: HomeCardTile(
-                        rapidMatch: homeController.rapidFixturesList[index],
-                      ),
+                    return HomeCardTile(
+                      rapidMatch: homeController.rapidFixturesList[index],
                     );
                   }),
               const SizedBox(height: 20),

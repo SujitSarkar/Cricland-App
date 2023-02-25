@@ -60,15 +60,14 @@ class _IPLPageState extends State<IPLPage>
               child: NestedScrollView(
                   headerSliverBuilder:
                       (BuildContext context, bool innerBoxIsScrolled) {
-                    return [
-                      SliverAppBar(
-                          elevation: 0,
-                          flexibleSpace: Container(
-                              decoration: StDecoration().sliverAppbarGradient,
-                              child: innerBoxIsScrolled
-                                  ? const SizedBox()
-                                  : Column(children: [
-                                      Container(
+                        return [
+                          SliverAppBar(
+                              elevation: 0,
+                              flexibleSpace: Container(
+                                  decoration: StDecoration().sliverAppbarGradient,
+                                  child: innerBoxIsScrolled
+                                      ? const SizedBox()
+                                      : Container(
                                           padding: const EdgeInsets.all(5),
                                           decoration: StDecoration()
                                               .sliverAppbarGradient,
@@ -117,15 +116,14 @@ class _IPLPageState extends State<IPLPage>
                                                                                           headers: ApiEndpoints.headers,
                                                                                         ),
                                                                                         fit: BoxFit.fill,
-                                                                                        filterQuality: FilterQuality.low))))))))
+                                                                                        filterQuality: FilterQuality.low),),),),),),),)
                                                     ])),
                                                 innerBoxIsScrolled
                                                     ? const SizedBox()
                                                     : Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
-                                                                left: 5.0),
+                                                                    .only(left: 5.0),
                                                         child: RichText(
                                                             text: TextSpan(
                                                           text: homeController
@@ -141,7 +139,7 @@ class _IPLPageState extends State<IPLPage>
                                                                       .white70,
                                                                   fontSize:
                                                                       dSize(
-                                                                          .035)),
+                                                                          .035),),
 
                                                           // children: <TextSpan>[
                                                           //   TextSpan(
@@ -149,67 +147,84 @@ class _IPLPageState extends State<IPLPage>
                                                           //           '${seriesListModel.date}',
 
                                                           //  ],
-                                                        )))
-                                              ]))
-                                    ])),
-                          pinned: true,
-                          floating: true,
-                          forceElevated: innerBoxIsScrolled,
-                          bottom: PreferredSize(
-                              preferredSize: Size.fromHeight(
-                                  innerBoxIsScrolled ? dSize(.1) : dSize(.31)),
-                              child: Container(
-                                  decoration:
-                                      StDecoration().sliverAppbarGradient,
-                                  child: TabBar(
-                                      onTap: (covariant) async {
-                                        setState(() =>
-                                            _tabController.index = covariant);
-                                      },
-                                      isScrollable: true,
-                                      controller: _tabController,
-                                      labelColor: PublicController.pc
-                                          .toggleLoadingColor(),
-                                      indicator: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft:
-                                                  Radius.circular(dSize(.02)),
-                                              topRight:
-                                                  Radius.circular(dSize(.02))),
-                                          color: PublicController.pc
-                                              .toggleTabColor()),
-                                      unselectedLabelColor: Colors.grey,
-                                      unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
-                                      labelStyle:AppTextStyle().largeTitleBoldStyle,
-                                      indicatorSize: TabBarIndicatorSize.label,
-                                      physics: const BouncingScrollPhysics(),
-                                      tabs: Variables.iplTabsCategory
-                                          .map<Widget>((String item) => Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: dSize(.01),
-                                                    horizontal: dSize(.02)),
-                                                child: Text(
-                                                  item,
-                                                  style: AppTextStyle()
-                                                      .largeTitleStyle,
-                                                ),
-                                              ))
-                                          .toList()))))
-                    ];
+                                                        ),),)
+                                              ],
+                                          ),
+                                      ),
+                              ),
+                              pinned: true,
+                              floating: true,
+                              forceElevated: innerBoxIsScrolled,
+                              bottom: PreferredSize(
+                                  preferredSize: Size.fromHeight(
+                                      innerBoxIsScrolled ? dSize(.1) : dSize(.31)),
+                                  child: Container(
+                                      decoration:
+                                          StDecoration().sliverAppbarGradient,
+                                      child: TabBar(
+                                          onTap: (covariant) async {
+                                            setState(() =>
+                                                _tabController.index = covariant);
+                                          },
+                                          isScrollable: true,
+                                          controller: _tabController,
+                                          labelColor: PublicController.pc
+                                              .toggleLoadingColor(),
+                                          indicator: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(dSize(.02),),
+                                                  topRight:
+                                                      Radius.circular(dSize(.02),),
+                                              ),
+                                              color: PublicController.pc
+                                                  .toggleTabColor(),
+                                          ),
+                                          unselectedLabelColor: Colors.white,
+                                          unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
+                                          labelStyle:AppTextStyle().largeTitleBoldStyle,
+                                          indicatorSize: TabBarIndicatorSize.label,
+                                          physics: const BouncingScrollPhysics(),
+                                          tabs: Variables.iplTabsCategory
+                                              .map<Widget>((String item) => Padding(
+                                                    padding: EdgeInsets.symmetric(
+                                                        vertical: dSize(.01),
+                                                        horizontal: dSize(.02),
+                                                    ),
+                                                    child: Text(
+                                                      item,
+                                                      style: AppTextStyle()
+                                                          .largeTitleStyle,
+                                                    ),
+                                                  ),
+                                          ).toList(),
+                                      ),
+                                  ),
+                              ),
+                          ),
+                        ];
                   },
                   body: SafeArea(
-                      child: Column(children: [
-                    Expanded(
-                        child: TabBarView(
-                            controller: _tabController,
-                            children: const <Widget>[
-                          OverViewTab(),
-                          MatchesTab(),
-                          SquadsTab(),
-                          SeriesPointsTableTab(),
-                          SeriesInfoTab()
-                        ]))
-                  ])))));
+                      child: Column(
+                        children: [
+                            Expanded(
+                                child: TabBarView(
+                                    controller: _tabController,
+                                    children: const <Widget>[
+                                  OverViewTab(),
+                                  MatchesTab(),
+                                  SquadsTab(),
+                                  SeriesPointsTableTab(),
+                                  SeriesInfoTab()
+                                  ],
+                                ),
+                            ),
+                        ],
+                      ),
+                  ),
+              ),
+          ),
+      );
     });
   }
 }
