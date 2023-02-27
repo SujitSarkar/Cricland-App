@@ -1,6 +1,7 @@
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
+import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
@@ -216,10 +217,8 @@ class _SellPointScreenState extends State<SellPointScreen> {
                     ),
                     SizedBox(height: dSize(.06)),
                     SizedBox(height: dSize(.06)),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          backgroundColor: AllColor.primaryColor),
-                      onPressed: () {
+                    GradientButton(
+                      onTap: () {
                         if (sellPointController.text.isNotEmpty &&
                             transectionMediaController.text.isNotEmpty &&
                             passwordController.text.isNotEmpty &&
@@ -256,21 +255,14 @@ class _SellPointScreenState extends State<SellPointScreen> {
                         }
                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
                       },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: dSize(.2)),
-                        child: _isLoading
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              )
-                            : Text(
-                                'Send Request',
-                                style: AppTextStyle()
-                                    .titleTextBoldStyle
-                                    .copyWith(color: AllColor.lightCardColor),
+                      child: _isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
                               ),
-                      ),
+                            )
+                          : Text('Send Request',
+                              style: AppTextStyle().buttonTextStyle),
                     ),
                     SizedBox(height: dSize(.06)),
                   ],

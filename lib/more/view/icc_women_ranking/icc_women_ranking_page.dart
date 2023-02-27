@@ -4,7 +4,6 @@ import 'package:cricland/more/tile/ranking_tile.dart';
 import 'package:cricland/more/tile/team_ranking_tile.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
@@ -109,16 +108,20 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                                   color: item ==
                                           rankingController
                                               .selectedWomenGameType.value
-                                      ? AllColor.primaryColor
+                                      ? Colors.transparent
                                       : PublicController.pc.isLight.value
                                           ? Colors.grey
                                           : PublicController.pc.toggleCardBg(),
                                   width: 0.5),
-                              color: item ==
-                                      rankingController
+                                  gradient: item == rankingController
                                           .selectedWomenGameType.value
-                                  ? AllColor.primaryColor
-                                  : PublicController.pc.toggleCardBg(),
+                                ? StDecoration().tabBarGradient
+                                : null,
+                            color: item == rankingController
+                                          .selectedWomenGameType.value
+                                ? null
+                                : PublicController.pc.toggleCardBg(),
+                              
                               borderRadius: BorderRadius.all(
                                   Radius.circular(dSize(.02)))),
                           padding: EdgeInsets.symmetric(

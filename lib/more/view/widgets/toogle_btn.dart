@@ -1,24 +1,25 @@
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import '../../../public/variables/config.dart';
 
 class AnimatedToggleButton extends StatefulWidget {
   final List<String> values;
-  late  bool toggleValue;
+  late bool toggleValue;
   final double? height;
   final double? fontSize;
   final double width;
   final ValueChanged onToggleCallback;
-  AnimatedToggleButton({
-    Key? key,
-    required this.values,
-    required this.onToggleCallback,
-    required this.toggleValue,
-    this.height,
-    this.fontSize,
-    required this.width
-  }) : super(key: key);
+  AnimatedToggleButton(
+      {Key? key,
+      required this.values,
+      required this.onToggleCallback,
+      required this.toggleValue,
+      this.height,
+      this.fontSize,
+      required this.width})
+      : super(key: key);
 
   @override
   _AnimatedToggleButtonState createState() => _AnimatedToggleButtonState();
@@ -35,15 +36,15 @@ class _AnimatedToggleButtonState extends State<AnimatedToggleButton> {
             onTap: () {
               widget.onToggleCallback(1);
               setState(() {
-                widget.toggleValue=! widget.toggleValue;
-                if(widget.values[0]=='English') {
+                widget.toggleValue = !widget.toggleValue;
+                if (widget.values[0] == 'English') {
                   PublicController.pc.changeTheme(widget.toggleValue);
                 }
               });
             },
             child: Container(
               width: widget.width,
-              height: widget.height?? dSize(.12),
+              height: widget.height ?? dSize(.12),
               decoration: ShapeDecoration(
                   color: Colors.grey,
                   shape: RoundedRectangleBorder(
@@ -53,12 +54,12 @@ class _AnimatedToggleButtonState extends State<AnimatedToggleButton> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: List.generate(
                   widget.values.length,
-                      (index) => Padding(
+                  (index) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: dSize(.02)),
                     child: Text(
                       widget.values[index],
                       style: TextStyle(
-                          fontSize: widget.fontSize?? dSize(.02),
+                          fontSize: widget.fontSize ?? dSize(.02),
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
@@ -68,26 +69,26 @@ class _AnimatedToggleButtonState extends State<AnimatedToggleButton> {
             ),
           ),
           AnimatedAlign(
-            alignment:  widget.toggleValue
+            alignment: widget.toggleValue
                 ? Alignment.centerLeft
                 : Alignment.centerRight,
             duration: const Duration(milliseconds: 350),
             curve: Curves.ease,
             child: Container(
               alignment: Alignment.center,
-              width: (widget.width)/2,
-              height: widget.height?? dSize(.12),
+              width: (widget.width) / 2,
+              height: widget.height ?? dSize(.12),
               decoration: ShapeDecoration(
-                  color: AllColor.primaryColor,
-                  //shadows: themeProvider.themeMode().shadow,
+                  // color: AllColor.primaryColor,
+                  gradient: StDecoration().tabBarGradient,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(dSize(.1)))),
               child: Text(
-                widget.toggleValue
-                    ? widget.values[0]
-                    : widget.values[1],
+                widget.toggleValue ? widget.values[0] : widget.values[1],
                 style: TextStyle(
-                    fontSize: widget.fontSize?? dSize(.04), fontWeight: FontWeight.bold,color: Colors.white),
+                    fontSize: widget.fontSize ?? dSize(.04),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
           )

@@ -11,7 +11,6 @@ import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 class MatchPage extends StatefulWidget {
   const MatchPage({Key? key}) : super(key: key);
@@ -34,6 +33,7 @@ class _MatchPageState extends State<MatchPage>
       initialIndex: 1,
     );
   }
+
   final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -113,59 +113,57 @@ class _MatchPageState extends State<MatchPage>
             //     ),
             //   ],
             // ),
-            body:
-            NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            body: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
-                    SliverAppBar(
-                      flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-                      elevation: 0,
-                    title:innerBoxIsScrolled?SizedBox(): Row(
-                      children: [
-                        Image.asset(
-                          'assets/main_logo.png',
-
-                          width: 30,
-                          height: 30,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 2),
-                          child: Text("CrickLand",
-                              style: AppTextStyle().largeTitleStyle.copyWith(
-                                fontSize: dSize(.05),
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              )),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-
-                      ],
-                    ),
-                      pinned: true,
-                      floating: true,
+                  SliverAppBar(
+                    flexibleSpace: Container(
+                        decoration: StDecoration().sliverAppbarGradient),
+                    elevation: 0,
+                    title: innerBoxIsScrolled
+                        ? SizedBox()
+                        : Row(
+                            children: [
+                              Image.asset(
+                                'assets/main_logo.png',
+                                width: 30,
+                                height: 30,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 2),
+                                child: Text("CrickLand",
+                                    style:
+                                        AppTextStyle().largeTitleStyle.copyWith(
+                                              fontSize: dSize(.05),
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                            )),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                    pinned: true,
+                    floating: true,
                     actions: const [
-                       Icon(
+                      Icon(
                         Icons.search_outlined,
                       ),
-
-                       SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                     ],
-
                     forceElevated: innerBoxIsScrolled,
                     bottom: _tabBar(homeController),
                   ),
                 ];
               },
-              body: TabBarView(
-
               body: TabBarView(
                 controller: _tabController,
                 children: const [

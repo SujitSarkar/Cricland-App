@@ -1,6 +1,7 @@
 import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
+import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,17 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController lastNameController = TextEditingController();
 
   bool _isLoading = false;
-  // final TextStyle _textStyle = TextStyle(
-  //     fontSize: dSize(.032),
-  //     color: PublicController.pc.toggleTextColor());
-
   bool _isSignUp = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
+          flexibleSpace:
+              Container(decoration: StDecoration().sliverAppbarGradient),
           title: Text(_isSignUp ? "SignUp" : 'Login',
               style: TextStyle(fontSize: dSize(.045))),
         ),
@@ -74,9 +72,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('Cricland',
-                                style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                    fontSize: dSize(.1),
-                                    fontStyle: FontStyle.italic)),
+                                style: AppTextStyle()
+                                    .boldBodyTextStyle
+                                    .copyWith(
+                                        fontSize: dSize(.1),
+                                        fontStyle: FontStyle.italic)),
                             Text('Login/Signup',
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                           'SignIn to Earn by clicking Add.'
                           ' and enjoy cricket with happiness',
-                          style:  AppTextStyle().bodyTextStyle,
+                          style: AppTextStyle().bodyTextStyle,
                           textAlign: TextAlign.center),
                     ),
                     SizedBox(height: dSize(.1)),
@@ -144,12 +144,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'If You Are a New User ',
-                        style:  AppTextStyle().bodyTextStyle,
+                        style: AppTextStyle().bodyTextStyle,
                         children: <TextSpan>[
                           TextSpan(
                             text: '  Signup',
-                            style:  AppTextStyle().boldBodyTextStyle.copyWith(
-                                color: AllColor.fbColor),
+                            style: AppTextStyle()
+                                .boldBodyTextStyle
+                                .copyWith(color: AllColor.fbColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 setState(() {
@@ -162,11 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
 
                     SizedBox(height: dSize(.05)),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: AllColor.purpleColor,
-                      ),
-                      onPressed: () async {
+                    GradientButton(
+                      onTap: () async {
                         if (phoneController.text.isNotEmpty &&
                             passwordController.text.isNotEmpty) {
                           await homeController
@@ -202,14 +200,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>SignUpScreen()));
                       },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: dSize(.25)),
-                        child: Text(
-                          'Submit',
-                          style:  AppTextStyle().boldBodyTextStyle.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AllColor.lightCardColor),
-                        ),
+                      child: Text(
+                        'Submit',
+                        style: AppTextStyle().buttonTextStyle,
                       ),
                     )
                   ],
@@ -244,14 +237,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text('Cricland',
-                                style: AppTextStyle().boldBodyTextStyle.copyWith(
-                                    fontSize: dSize(.1),
-                                    fontStyle: FontStyle.italic)),
+                                style: AppTextStyle()
+                                    .boldBodyTextStyle
+                                    .copyWith(
+                                        fontSize: dSize(.1),
+                                        fontStyle: FontStyle.italic)),
                             Text('Login/Signup',
                                 textAlign: TextAlign.end,
-                                style:  AppTextStyle().boldBodyTextStyle.copyWith(
-                                    fontSize: dSize(.05),
-                                    color: AllColor.goldenColor)),
+                                style: AppTextStyle()
+                                    .boldBodyTextStyle
+                                    .copyWith(
+                                        fontSize: dSize(.05),
+                                        color: AllColor.goldenColor)),
                           ],
                         )
                       ],
@@ -293,12 +290,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'Already Have an account ?',
-                        style:  AppTextStyle().bodyTextStyle,
+                        style: AppTextStyle().bodyTextStyle,
                         children: <TextSpan>[
                           TextSpan(
                             text: '  SignIn',
-                            style:  AppTextStyle().bodyTextStyle.copyWith(
-                                color: AllColor.fbColor),
+                            style: AppTextStyle()
+                                .bodyTextStyle
+                                .copyWith(color: AllColor.fbColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 setState(() {
@@ -310,11 +308,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(height: dSize(.06)),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: AllColor.purpleColor,
-                      ),
-                      onPressed: () {
+                    GradientButton(
+                      onTap: () {
                         if (firstNameController.text.isNotEmpty &&
                             lastNameController.text.isNotEmpty &&
                             phoneController.text.isNotEmpty &&
@@ -347,16 +342,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           showToast('All Field is required');
                         }
                       },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: dSize(.25)),
-                        child: _isLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : Text(
-                                'Submit',
-                                style:  AppTextStyle().largeTitleBoldStyle.copyWith(
-                                    color: AllColor.lightCardColor),
-                              ),
-                      ),
+                      child: _isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : Text(
+                              'Submit',
+                              style: AppTextStyle().buttonTextStyle,
+                            ),
                     ),
                     SizedBox(height: dSize(.06)),
                   ],

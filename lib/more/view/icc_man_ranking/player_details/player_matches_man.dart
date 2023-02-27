@@ -1,8 +1,8 @@
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/view/widgets/expandable_tile.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import '../../../../public/controller/public_controller.dart';
-import '../../../../public/variables/colors.dart';
 import '../../../../public/variables/config.dart';
 import '../../../../public/variables/variable.dart';
 
@@ -38,13 +38,16 @@ class _PlayerMatchesManState extends State<PlayerMatchesMan> {
                       decoration: BoxDecoration(
                           border: Border.all(
                               color: item == _gameType
-                                  ? AllColor.primaryColor
+                                  ? Colors.transparent
                                   : PublicController.pc.isLight.value
                                       ? Colors.grey
                                       : PublicController.pc.toggleCardBg(),
                               width: 0.5),
+                          gradient: item == _gameType
+                              ? StDecoration().tabBarGradient
+                              : null,
                           color: item == _gameType
-                              ? AllColor.primaryColor
+                              ? null
                               : PublicController.pc.toggleCardBg(),
                           borderRadius:
                               BorderRadius.all(Radius.circular(dSize(.02)))),

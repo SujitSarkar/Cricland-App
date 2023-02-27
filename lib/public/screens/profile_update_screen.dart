@@ -3,6 +3,7 @@ import 'package:cricland/public/screens/home_nav_page.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
+import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -115,11 +116,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       textInputType: TextInputType.number,
                     ),
                     SizedBox(height: dSize(.06)),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: AllColor.primaryColor,
-                      ),
-                      onPressed: () async {
+                    GradientButton(
+                      onTap: () async {
                         if (firstNameController.text.isNotEmpty) {
                           try {
                             setState(() => _isLoading = true);
@@ -147,15 +145,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           showToast('All Field is required');
                         }
                       },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: dSize(.2)),
-                        child: Text(
-                          'Update',
-                          style: AppTextStyle()
-                              .titleTextBoldStyle
-                              .copyWith(color: Colors.white),
-                        ),
-                      ),
+                      child:
+                          Text('Update', style: AppTextStyle().buttonTextStyle),
                     ),
                     SizedBox(height: dSize(.06)),
                   ],

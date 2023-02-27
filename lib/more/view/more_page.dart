@@ -11,6 +11,7 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/decoration.dart';
+import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -377,9 +378,17 @@ class _MorePageState extends State<MorePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
+                              Row(children: [
+                                Expanded(
+                                  child: Text(
+                                    lc.languageModel.value.appLanguage!,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: PublicController.pc
+                                            .toggleTextColor()),
+                                  ),
+                                ),
+                                TextButton(
                                   onPressed: () => Get.back(),
                                   child: Text(
                                     lc.languageModel.value.close!,
@@ -387,19 +396,8 @@ class _MorePageState extends State<MorePage> {
                                         color: PublicController.pc
                                             .toggleTextColor()),
                                   ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  lc.languageModel.value.appLanguage!,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: PublicController.pc
-                                          .toggleTextColor()),
-                                ),
-                              ),
-                              const Spacer(),
+                                )
+                              ]),
                               Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -514,18 +512,10 @@ class _MorePageState extends State<MorePage> {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: ElevatedButton(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 18.0),
-                                        child: Text(lc.languageModel.value
-                                            .languageModelContinue!),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        onPrimary: Colors.white,
-                                        primary: Colors.indigo,
-                                      ),
-                                      onPressed: () {
+                                    child: GradientButton(
+                                      child: Text(lc.languageModel.value
+                                          .languageModelContinue!),
+                                      onTap: () {
                                         if (_isEnglishSelected) {
                                           LanguageController.lc
                                               .changeLanguage('english');
@@ -539,6 +529,7 @@ class _MorePageState extends State<MorePage> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 10)
                             ],
                           ),
                         ),

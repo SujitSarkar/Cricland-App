@@ -1,7 +1,11 @@
 import 'package:cricland/more/controller/feedback_controller.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
+import 'package:cricland/public/widgets/decoration.dart';
+import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:cricland/public/widgets/text_field_tile.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +24,12 @@ class FeedbackPage extends StatelessWidget {
                 children: [
                   Scaffold(
                     appBar: AppBar(
-                      title: Text('Feedback',
-                          style: TextStyle(fontSize: dSize(.045))),
+                      flexibleSpace: Container(
+                          decoration: StDecoration().sliverAppbarGradient),
+                      title: Text(lc.languageModel.value.feedback!,
+                          style: AppTextStyle()
+                              .largeTitleBoldStyle
+                              .copyWith(color: AllColor.darkTextColor)),
                     ),
                     body: _bodyUI(context, controller, lc),
                   ),
@@ -49,7 +57,7 @@ class FeedbackPage extends StatelessWidget {
             child: Column(children: [
               SizedBox(height: dSize(.02)),
               TextFieldTile(
-                controller: controller.name, 
+                controller: controller.name,
                 textCapitalization: TextCapitalization.words,
                 hintText: lc.languageModel.value.name,
                 labelText: lc.languageModel.value.name,
@@ -71,15 +79,10 @@ class FeedbackPage extends StatelessWidget {
                 minLine: 5,
               ),
               SizedBox(height: dSize(.06)),
-              ElevatedButton(
-                child: Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(lc.languageModel.value.submit!)),
-                onPressed: () async {
-                  await controller.submitButtonOnTap();
-                },
-              )
+              GradientButton(
+                  onTap: () {},
+                  child: Text(lc.languageModel.value.submit!,
+                      style: AppTextStyle().buttonTextStyle)),
             ]),
           ),
         ],

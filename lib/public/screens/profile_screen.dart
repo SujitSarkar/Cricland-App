@@ -2,6 +2,7 @@ import 'package:cricland/public/screens/profile_update_screen.dart';
 import 'package:cricland/public/screens/sell_points_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
+import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../home/controller/home_controller.dart';
@@ -116,11 +117,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         SizedBox(height: dSize(.5)),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: AllColor.primaryColor,
-                          ),
-                          onPressed: () {
+                        GradientButton(
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -130,36 +128,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             );
                           },
-                          child: Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: dSize(.2)),
-                            child: Text(
-                              'Profile Update',
-                              style: AppTextStyle()
-                                  .titleTextBoldStyle
-                                  .copyWith(color: AllColor.lightCardColor),
-                            ),
-                          ),
+                          child: Text('Profile Update',
+                              style: AppTextStyle().buttonTextStyle),
                         ),
-                        SizedBox(height: dSize(.01)),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                              backgroundColor: AllColor.primaryColor),
-                          onPressed: () {
+                        SizedBox(height: dSize(.04)),
+                        GradientButton(
+                          onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (_) => const SellPointScreen()));
                           },
-                          child: Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: dSize(.25)),
-                            child: Text(
-                              'Sell Point',
-                              style: AppTextStyle()
-                                  .titleTextBoldStyle
-                                  .copyWith(color: AllColor.lightCardColor),
-                            ),
+                          child: Text(
+                            'Sell Point',
+                            style: AppTextStyle().buttonTextStyle,
                           ),
                         )
                       ],

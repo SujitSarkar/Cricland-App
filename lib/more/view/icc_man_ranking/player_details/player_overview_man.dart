@@ -3,9 +3,9 @@ import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/more/controller/ranking_controller.dart';
 import 'package:cricland/more/view/widgets/article_card_landscape.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,10 +40,8 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                 size: dSize(.05),
               ),
               const SizedBox(width: 10),
-              Text(
-                homeController.playerInfoModel.bat ?? '',
-                style: AppTextStyle().bodyTextStyle
-              )
+              Text(homeController.playerInfoModel.bat ?? '',
+                  style: AppTextStyle().bodyTextStyle)
             ],
           ),
           SizedBox(height: dSize(.04)),
@@ -64,9 +62,8 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                             color: Colors.grey,
                           )),
                       child: Text(
-                        '#${index + 1} Batter in ${Variables.manGameType[index]}',
-                        style: AppTextStyle().paragraphTextStyle
-                      ),
+                          '#${index + 1} Batter in ${Variables.manGameType[index]}',
+                          style: AppTextStyle().paragraphTextStyle),
                     ),
                 separatorBuilder: (context, index) =>
                     SizedBox(width: dSize(.04))),
@@ -79,9 +76,7 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               style: AppTextStyle().paragraphTextStyle,
               children: [
                 TextSpan(
-                  text: 'Recent Form',
-                  style: AppTextStyle().largeTitleStyle
-                ),
+                    text: 'Recent Form', style: AppTextStyle().largeTitleStyle),
                 const TextSpan(text: ' (last played on 21 march)'),
               ],
             ),
@@ -105,10 +100,7 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            '0-2',
-                            style: AppTextStyle().paragraphTextStyle
-                          ),
+                          Text('0-2', style: AppTextStyle().paragraphTextStyle),
                           Text('vs AUS TEST',
                               style: AppTextStyle().paragraphTextStyle)
                         ],
@@ -149,13 +141,16 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                         decoration: BoxDecoration(
                             border: Border.all(
                                 color: item == _gameType
-                                    ? AllColor.primaryColor
+                                    ? Colors.transparent
                                     : PublicController.pc.isLight.value
                                         ? Colors.grey
                                         : PublicController.pc.toggleCardBg(),
                                 width: 0.5),
+                            gradient: item == _gameType
+                                ? StDecoration().tabBarGradient
+                                : null,
                             color: item == _gameType
-                                ? AllColor.primaryColor
+                                ? null
                                 : PublicController.pc.toggleCardBg(),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(dSize(.02)))),
@@ -164,12 +159,10 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                         child: Text(
                           item,
                           maxLines: 1,
-                          style: AppTextStyle()
-                              .bodyTextStyle
-                              .copyWith(
-                                  color: item == _gameType
-                                      ? Colors.white
-                                      : PublicController.pc.toggleTextColor()),
+                          style: AppTextStyle().bodyTextStyle.copyWith(
+                              color: item == _gameType
+                                  ? Colors.white
+                                  : PublicController.pc.toggleTextColor()),
                         ),
                       ),
                     )))
@@ -197,11 +190,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                           Text('40',
                               maxLines: 1,
                               style: AppTextStyle().largeTitleStyle),
-                          Text(
-                            item,
-                            maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle
-                          ),
+                          Text(item,
+                              maxLines: 1,
+                              style: AppTextStyle().paragraphTextStyle),
                         ],
                       ),
                     )))
@@ -226,16 +217,12 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            '1',
-                            maxLines: 1,
-                            style: AppTextStyle().largeTitleStyle
-                          ),
-                          Text(
-                            item,
-                            maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle
-                          ),
+                          Text('1',
+                              maxLines: 1,
+                              style: AppTextStyle().largeTitleStyle),
+                          Text(item,
+                              maxLines: 1,
+                              style: AppTextStyle().paragraphTextStyle),
                         ],
                       ),
                     )))
@@ -260,16 +247,12 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            '20',
-                            maxLines: 1,
-                            style: AppTextStyle().largeTitleStyle
-                          ),
-                          Text(
-                            item,
-                            maxLines: 1,
-                            style: AppTextStyle().paragraphTextStyle
-                          ),
+                          Text('20',
+                              maxLines: 1,
+                              style: AppTextStyle().largeTitleStyle),
+                          Text(item,
+                              maxLines: 1,
+                              style: AppTextStyle().paragraphTextStyle),
                         ],
                       ),
                     )))
@@ -281,10 +264,7 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Latest Updates',
-                style: AppTextStyle().titleTextStyle
-              ),
+              Text('Latest Updates', style: AppTextStyle().titleTextStyle),
             ],
           ),
           SizedBox(height: dSize(.04)),
@@ -301,21 +281,16 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
           ),
           SizedBox(height: dSize(.1)),
 
-          Text(
-            'Teams played for',
-            style: AppTextStyle().titleTextStyle
-          ),
+          Text('Teams played for', style: AppTextStyle().titleTextStyle),
           Container(
             padding: EdgeInsets.all(dSize(.04)),
             margin: EdgeInsets.only(top: dSize(.04)),
             decoration: BoxDecoration(
                 color: PublicController.pc.toggleCardBg(),
                 borderRadius: BorderRadius.all(Radius.circular(dSize(.02)))),
-            child: Text(
-              rankingController.playerInfoModel.value.teams ?? 'N/A',
-              textAlign: TextAlign.justify,
-              style: AppTextStyle().titleTextStyle
-            ),
+            child: Text(rankingController.playerInfoModel.value.teams ?? 'N/A',
+                textAlign: TextAlign.justify,
+                style: AppTextStyle().titleTextStyle),
           ),
           SizedBox(height: dSize(.1)),
 
@@ -324,13 +299,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'About ${rankingController.playerInfoModel.value.name ?? ''}',
-                style: AppTextStyle().largeTitleStyle
-              ),
-              Text(
-                'Player Info',
-                style: AppTextStyle().bodyTextStyle
-              ),
+                  'About ${rankingController.playerInfoModel.value.name ?? ''}',
+                  style: AppTextStyle().largeTitleStyle),
+              Text('Player Info', style: AppTextStyle().bodyTextStyle),
             ],
           ),
           SizedBox(height: dSize(.04)),
@@ -410,17 +381,9 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-              flex: 1,
-              child: Text(
-                key,
-                style: AppTextStyle().bodyTextStyle
-              )),
+              flex: 1, child: Text(key, style: AppTextStyle().bodyTextStyle)),
           Expanded(
-              flex: 2,
-              child: Text(
-                value,
-                style: AppTextStyle().bodyTextStyle
-              )),
+              flex: 2, child: Text(value, style: AppTextStyle().bodyTextStyle)),
         ],
       );
 
@@ -434,10 +397,7 @@ class _PlayerOverviewManState extends State<PlayerOverviewMan> {
               Icon(icon,
                   size: dSize(.05),
                   color: PublicController.pc.toggleTextColor()),
-              Text(
-                ' $title',
-                style: AppTextStyle().titleTextStyle
-              )
+              Text(' $title', style: AppTextStyle().titleTextStyle)
             ],
           ),
         ),

@@ -4,7 +4,6 @@ import 'package:cricland/more/tile/ranking_tile.dart';
 import 'package:cricland/more/tile/team_ranking_tile.dart';
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
@@ -52,22 +51,27 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                 children: [
                   Scaffold(
                       body: NestedScrollView(
-                    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
                       return [
                         SliverOverlapAbsorber(
                           handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                              NestedScrollView.sliverOverlapAbsorberHandleFor(
+                                  context),
                           sliver: SliverAppBar(
-                            title: Text(lc.languageModel.value.iccMenRanking!,
-                                style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white)),
-                            flexibleSpace: Container( decoration: StDecoration().sliverAppbarGradient,),
-                            titleSpacing: -8.0,
-                            floating: true,
-                            pinned: true,
-                            snap: false,
-                            forceElevated: innerBoxIsScrolled,
-                            bottom: _tabBar(rankingController, lc)
-                          ),
+                              title: Text(lc.languageModel.value.iccMenRanking!,
+                                  style: AppTextStyle()
+                                      .largeTitleStyle
+                                      .copyWith(color: Colors.white)),
+                              flexibleSpace: Container(
+                                decoration: StDecoration().sliverAppbarGradient,
+                              ),
+                              titleSpacing: -8.0,
+                              floating: true,
+                              pinned: true,
+                              snap: false,
+                              forceElevated: innerBoxIsScrolled,
+                              bottom: _tabBar(rankingController, lc)),
                         ),
                       ];
                     },
@@ -107,15 +111,20 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                                   color: item ==
                                           rankingController
                                               .selectedManGameType.value
-                                      ? AllColor.primaryColor
+                                      ? Colors.transparent
                                       : PublicController.pc.isLight.value
                                           ? Colors.grey
                                           : PublicController.pc.toggleCardBg(),
                                   width: 0.5),
+                              gradient: item ==
+                                      rankingController
+                                          .selectedManGameType.value
+                                  ? StDecoration().tabBarGradient
+                                  : null,
                               color: item ==
                                       rankingController
                                           .selectedManGameType.value
-                                  ? AllColor.primaryColor
+                                  ? null
                                   : PublicController.pc.toggleCardBg(),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(dSize(.02)))),
@@ -286,7 +295,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
               color: PublicController.pc.toggleTabColor()),
           unselectedLabelColor: Colors.grey.shade400,
           unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
-          labelStyle:AppTextStyle().largeTitleBoldStyle,
+          labelStyle: AppTextStyle().largeTitleBoldStyle,
           indicatorSize: TabBarIndicatorSize.label,
           physics: const BouncingScrollPhysics(),
           tabs: lc.languageModel.value.manCategoryList!

@@ -3,6 +3,10 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
+  TextStyle buttonTextStyle = TextStyle(
+      fontSize: dSize(.042),
+      color: Colors.white);
+
   TextStyle largeTitleStyle = TextStyle(
       fontSize: dSize(.04),
       color: PublicController.pc.toggleTextColor());
