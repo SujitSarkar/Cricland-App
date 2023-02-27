@@ -35,6 +35,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   await  homeController.getRecentMatches();
     await homeController.getUpcomingMatches();
     await homeController.getFeatureSeries();
+    await  homeController.getRecentMatches();
     if (mounted) {
       setState(() {});
     }

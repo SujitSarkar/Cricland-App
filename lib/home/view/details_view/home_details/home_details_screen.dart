@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/model/series_match_list_model.dart';
+import 'package:cricland/home/view/details_view/home_details/team_info/team_info_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/home/view/details_view/home_details/commentary_view.dart';
@@ -110,11 +112,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                 ),
               ),
               actions: [
-                innerBoxIsScrolled? const SizedBox(): Icon(
+                innerBoxIsScrolled? const SizedBox(): const Icon(
                   Icons.push_pin_outlined,
                   color: Colors.white,
                 ),
-                innerBoxIsScrolled? const SizedBox():   Icon(
+                innerBoxIsScrolled? const SizedBox():   const Icon(
                   Icons.settings,
                   color: Colors.white,
                 ),
@@ -123,7 +125,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               floating: true,
               forceElevated: innerBoxIsScrolled,
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(dSize(.47)),
+                preferredSize: Size.fromHeight(dSize(.47 )),
                 child: Column(
                   children: [
                     TabBar(
@@ -171,19 +173,24 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                            ApiEndpoints.imageMidPoint +
-                                                "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
-                                                ApiEndpoints.imageLastPoint,
-                                            headers: ApiEndpoints.headers,
-                                          ),
-                                          fit: BoxFit.fill),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>TeamInfoScreen(team: widget.rapidMatch.matchInfo!.team1!),),);
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                              ApiEndpoints.imageMidPoint +
+                                                  "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
+                                                  ApiEndpoints.imageLastPoint,
+                                              headers: ApiEndpoints.headers,
+                                            ),
+                                            fit: BoxFit.fill),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -262,19 +269,24 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                            ApiEndpoints.imageMidPoint +
-                                                "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
-                                                ApiEndpoints.imageLastPoint,
-                                            headers: ApiEndpoints.headers,
-                                          ),
-                                          fit: BoxFit.fill),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (_)=>TeamInfoScreen(team: widget.rapidMatch.matchInfo!.team2!),),);
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                              ApiEndpoints.imageMidPoint +
+                                                  "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
+                                                  ApiEndpoints.imageLastPoint,
+                                              headers: ApiEndpoints.headers,
+                                            ),
+                                            fit: BoxFit.fill),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(

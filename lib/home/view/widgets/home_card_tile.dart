@@ -115,13 +115,69 @@ class _HomeCardTileState extends State<HomeCardTile> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Row(
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: dSize(.05),
+                                        width: dSize(.05),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                          image: DecorationImage(
+                                              image: CachedNetworkImageProvider(
+                                                ApiEndpoints.imageMidPoint +
+                                                    "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
+                                                    ApiEndpoints.imageLastPoint,
+                                                headers: ApiEndpoints.headers,
+                                              ),
+                                              fit: BoxFit.fill,
+                                              filterQuality: FilterQuality.low),
+                                        ),
+                                      ),
+                                      SizedBox(width: dSize(.02)),
+                                      Text(
+                                          "${widget.rapidMatch.matchInfo!.team1!.teamSName} ",
+                                          style: AppTextStyle()
+                                              .bodyTextStyle
+                                              .copyWith(
+                                                  color: PublicController.pc
+                                                      .toggleLoadingColor())),
+                                      widget.rapidMatch.matchScore != null
+                                          ? Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                    "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
+                                                    style: AppTextStyle()
+                                                        .bodyTextStyle
+                                                        .copyWith(
+                                                            color: PublicController
+                                                                .pc
+                                                                .toggleLoadingColor())),
+                                                Text(
+                                                    " ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
+                                                    style: AppTextStyle()
+                                                        .paragraphTextStyle
+                                                        .copyWith(
+                                                            color: PublicController
+                                                                .pc
+                                                                .toggleLoadingColor())),
+                                              ],
+                                            )
+                                          : const SizedBox()
+                                    ],
+                                  ),
+                                ),
+                                Row(
                                   children: [
                                     Container(
                                       height: dSize(.05),
@@ -132,7 +188,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                         image: DecorationImage(
                                             image: CachedNetworkImageProvider(
                                               ApiEndpoints.imageMidPoint +
-                                                  "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
+                                                  "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
                                                   ApiEndpoints.imageLastPoint,
                                               headers: ApiEndpoints.headers,
                                             ),
@@ -142,7 +198,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                     ),
                                     SizedBox(width: dSize(.02)),
                                     Text(
-                                        "${widget.rapidMatch.matchInfo!.team1!.teamSName} ",
+                                        "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
                                         style: AppTextStyle()
                                             .bodyTextStyle
                                             .copyWith(
@@ -154,7 +210,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                                 CrossAxisAlignment.end,
                                             children: [
                                               Text(
-                                                  "${widget.rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
+                                                  " ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
                                                   style: AppTextStyle()
                                                       .bodyTextStyle
                                                       .copyWith(
@@ -162,7 +218,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                                               .pc
                                                               .toggleLoadingColor())),
                                               Text(
-                                                  " ${widget.rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
+                                                  " ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
                                                   style: AppTextStyle()
                                                       .paragraphTextStyle
                                                       .copyWith(
@@ -174,113 +230,76 @@ class _HomeCardTileState extends State<HomeCardTile> {
                                         : const SizedBox()
                                   ],
                                 ),
-                              ),
-                              Row(
+                              ],
+                            ),
+                          ),
+                          const VerticalDivider(
+                            width: 1,
+                            color: Colors.grey,
+                            thickness: 1,
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: FittedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    height: dSize(.05),
-                                    width: dSize(.05),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
-                                      image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                            ApiEndpoints.imageMidPoint +
-                                                "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
-                                                ApiEndpoints.imageLastPoint,
-                                            headers: ApiEndpoints.headers,
-                                          ),
-                                          fit: BoxFit.fill,
-                                          filterQuality: FilterQuality.low),
-                                    ),
-                                  ),
-                                  SizedBox(width: dSize(.02)),
-                                  Text(
-                                      "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
-                                      style: AppTextStyle()
-                                          .bodyTextStyle
-                                          .copyWith(
-                                              color: PublicController.pc
-                                                  .toggleLoadingColor())),
-                                  widget.rapidMatch.matchScore != null
-                                      ? Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 14.0),
+                                    child: Column(
+                                      children: [
+                                        widget.rapidMatch.matchInfo!.state == "Live"
+                                            ? const Icon(
+                                                Icons
+                                                    .do_not_disturb_on_total_silence,
+                                                color: Colors.red,
+                                              )
+                                            :
+
+                                        widget.rapidMatch.matchInfo!.state == "Upcoming"
+                                            ?   Column(
                                           children: [
-                                            Text(
-                                                " ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${widget.rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
-                                                style: AppTextStyle()
-                                                    .bodyTextStyle
-                                                    .copyWith(
-                                                        color: PublicController
-                                                            .pc
-                                                            .toggleLoadingColor())),
-                                            Text(
-                                                " ${widget.rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
+                                            Text("Starting at:",
                                                 style: AppTextStyle()
                                                     .paragraphTextStyle
                                                     .copyWith(
-                                                        color: PublicController
-                                                            .pc
+                                                        color: PublicController.pc
                                                             .toggleLoadingColor())),
+                                            Text(
+                                                DateFormat('hh:mm a')
+                                                    .format(DateTime
+                                                    .fromMillisecondsSinceEpoch(
+                                                    int.parse(widget
+                                                        .rapidMatch
+                                                        .matchInfo!
+                                                        .startDate!) *
+                                                        1000))
+                                                    .toString(),
+                                                style: AppTextStyle()
+                                                    .bodyTextStyle
+                                                    .copyWith(
+                                                    color: PublicController.pc
+                                                        .toggleLoadingColor())),
                                           ],
-                                        )
-                                      : const SizedBox()
+                                        ):Container(
+                                          width:dSize(.4),
+                                          child: Text(
+                                              "${widget.rapidMatch.matchInfo!.status}",
+                                              style: AppTextStyle()
+                                                  .bodyTextStyle
+                                                  .copyWith(
+                                                  color: PublicController.pc
+                                                      .toggleLoadingColor())),
+                                        ),
+
+                                      ]
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const VerticalDivider(
-                                width: 5,
-                                color: Colors.grey,
-                                thickness: 2,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 14.0),
-                                child: Column(
-                                  children: [
-                                    widget.rapidMatch.matchInfo!.state == "Live"
-                                        ? const Icon(
-                                            Icons
-                                                .do_not_disturb_on_total_silence,
-                                            color: Colors.red,
-                                          )
-                                        : const SizedBox(),
-                                    Text(
-                                        "${widget.rapidMatch.matchInfo!.status}",
-                                        style: AppTextStyle()
-                                            .bodyTextStyle
-                                            .copyWith(
-                                                color: PublicController.pc
-                                                    .toggleLoadingColor())),
-                                    Text("Start at:",
-                                        style: AppTextStyle()
-                                            .paragraphTextStyle
-                                            .copyWith(
-                                                color: PublicController.pc
-                                                    .toggleLoadingColor())),
-                                    Text(
-                                        DateFormat('hh:mm a')
-                                            .format(DateTime
-                                                .fromMillisecondsSinceEpoch(
-                                                    int.parse(widget
-                                                            .rapidMatch
-                                                            .matchInfo!
-                                                            .startDate!) *
-                                                        1000))
-                                            .toString(),
-                                        style: AppTextStyle()
-                                            .bodyTextStyle
-                                            .copyWith(
-                                                color: PublicController.pc
-                                                    .toggleLoadingColor())),
-                                  ],
-                                ),
-                              ),
-                            ],
+                            ),
                           )
                         ],
                       ),
