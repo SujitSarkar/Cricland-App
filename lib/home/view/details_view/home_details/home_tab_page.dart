@@ -9,10 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../IPL/view/series_screen.dart';
 import '../../../../public/variables/colors.dart';
-import '../../widgets/finished_card_tile.dart';
-import '../../widgets/fixtures_card_tile.dart';
 import '../../widgets/home_card_tile.dart';
-import '../../widgets/upcoming_card_tile.dart';
 
 class HomeTabScreen extends StatefulWidget {
   const HomeTabScreen({Key? key}) : super(key: key);

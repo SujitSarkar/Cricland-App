@@ -42,46 +42,48 @@ class _MatchPageState extends State<MatchPage>
         builder: (homeController) {
           return Scaffold(
             body: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
-                    SliverAppBar(
-                      flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-                      elevation: 0,
-                    title:innerBoxIsScrolled? const SizedBox():  Row(
-                      children: [
-                        Image.asset(
-                          'assets/main_logo.png',
-
-                          width: 40,
-                          height: 40,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 2),
-                          child: Text("CrickLand",
-                              style: AppTextStyle().largeTitleStyle.copyWith(
-                                fontSize: dSize(.05),
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              )),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-
-                      ],
-                    ),
+                  SliverAppBar(
+                    flexibleSpace: Container(
+                        decoration: StDecoration().sliverAppbarGradient),
+                    elevation: 0,
+                    title: innerBoxIsScrolled
+                        ? const SizedBox()
+                        : Row(
+                            children: [
+                              Image.asset(
+                                'assets/main_logo.png',
+                                width: 40,
+                                height: 40,
+                              ),
+                              const SizedBox(width: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 2),
+                                child: Text("CrickLand",
+                                    style:
+                                        AppTextStyle().largeTitleStyle.copyWith(
+                                              fontSize: dSize(.05),
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                            )),
+                              ),
+                              const SizedBox(width: 10),
+                            ],
+                          ),
                     actions: [
-                      innerBoxIsScrolled? const SizedBox():    const Icon(
-                        Icons.search_outlined,
-                      ),
-
-                      innerBoxIsScrolled? const SizedBox():    const SizedBox(
-                        width: 15,
-                      ),
+                      innerBoxIsScrolled
+                          ? const SizedBox()
+                          : const Icon(
+                              Icons.search_outlined,
+                            ),
+                      innerBoxIsScrolled
+                          ? const SizedBox()
+                          : const SizedBox(
+                              width: 15,
+                            ),
                     ],
                     pinned: true,
                     floating: true,
@@ -89,9 +91,8 @@ class _MatchPageState extends State<MatchPage>
                     bottom: _tabBar(homeController),
                   ),
                 ];
-
               },
-              body:TabBarView(
+              body: TabBarView(
                 controller: _tabController,
                 children: const [
                   LiveTabScreen(),
@@ -109,9 +110,7 @@ class _MatchPageState extends State<MatchPage>
   PreferredSize _tabBar(HomeController homeController) => PreferredSize(
         preferredSize: Size.fromHeight(dSize(.09)),
         child: Column(
-
           children: [
-
             TabBar(
                 onTap: (covariant) async {
                   setState(() => _tabController.index = covariant);
@@ -121,12 +120,8 @@ class _MatchPageState extends State<MatchPage>
                 labelColor: PublicController.pc.toggleLoadingColor(),
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(
-                      dSize(.02),
-                    ),
-                    topRight: Radius.circular(
-                      dSize(.02),
-                    ),
+                    topLeft: Radius.circular(dSize(.02)),
+                    topRight: Radius.circular(dSize(.02)),
                   ),
                   color: PublicController.pc.toggleTabColor(),
                 ),
