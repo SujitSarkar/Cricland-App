@@ -93,7 +93,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder<PublicController>(builder: (pc) {
+
       return GetMaterialApp(
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
@@ -101,6 +103,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
           theme: pc.toggleTheme(),
+
           home: const SplashScreen());
     });
   }

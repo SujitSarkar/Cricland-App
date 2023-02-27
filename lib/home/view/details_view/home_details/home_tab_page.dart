@@ -24,79 +24,65 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
-  List<RapidMatch> allMatch = [];
-  int? selectedIndex;
+  fetchData() async {
+    HomeController homeController = Get.put(HomeController());
+  await  homeController.getRecentMatches();
+    await homeController.getUpcomingMatches();
+    await homeController.getFeatureSeries();
+    await  homeController.getRecentMatches();
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
-      return SingleChildScrollView(
+      return  SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child:
+
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              InkWell(
-                onTap: () {
-                  homeController.getRecentMatches();
-                  homeController.getUpcomingMatches();
-                  homeController.getFeatureSeries();
-                },
-                child: Text('Show Add', style: AppTextStyle().largeTitleStyle),
-              ),
-              ListView.builder(
+
+              homeController.rapidRecentList.isEmpty?SizedBox():  ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: homeController.rapidRecentList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: HomeCardTile(
-                      rapidMatch: homeController.rapidRecentList[index],
-                    ),
+                  return HomeCardTile(
+                    rapidMatch: homeController.rapidRecentList[index],
                   );
                 },
               ),
-              ListView.builder(
+              homeController.rapidUpcomingList.isEmpty?SizedBox():  ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: homeController.rapidUpcomingList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: HomeCardTile(
-                      rapidMatch: homeController.rapidUpcomingList[index],
-                    ),
+                  return HomeCardTile(
+                    rapidMatch: homeController.rapidUpcomingList[index],
                   );
                   //LiveCart(context);
                 },
               ),
-              ListView.builder(
+              homeController.rapidFixturesList.isEmpty?SizedBox():   ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: homeController.rapidFixturesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // setState((){
-                        //   selectedIndex = index;
-                        // });
-                      },
-                      child: HomeCardTile(
-                        rapidMatch: homeController.rapidFixturesList[index],
-                      ),
+                    return HomeCardTile(
+                      rapidMatch: homeController.rapidFixturesList[index],
                     );
                   }),
               const SizedBox(height: 20),

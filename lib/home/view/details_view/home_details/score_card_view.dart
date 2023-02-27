@@ -67,7 +67,7 @@ class _ScoreCardViewState extends State<ScoreCardView> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Expanded(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class AppTextStyle {
   TextStyle largeTitleStyle = TextStyle(
-      fontSize: dSize(.042),
+      fontSize: dSize(.04),
       color: PublicController.pc.toggleTextColor());
 
   TextStyle largeTitleBoldStyle = TextStyle(
