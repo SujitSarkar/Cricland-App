@@ -92,25 +92,29 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
             SliverAppBar(
               flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
               elevation: 0,
-              title:innerBoxIsScrolled? const SizedBox(): RichText(
-                text: TextSpan(
-                  text: "${widget.rapidMatch.matchInfo!.team1!.teamSName}",
-                  style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white),
-                  children: <TextSpan>[
-                    const TextSpan(
-                        text: '  VS  ',
-                        style: TextStyle(fontWeight: FontWeight.normal)),
-                    TextSpan(
-                      text: "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(
-                      text: ", ${"${widget.rapidMatch.matchInfo!.matchDesc}"}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
+              title: Text("${widget.rapidMatch.matchInfo!.team1!.teamSName} VS ${widget.rapidMatch.matchInfo!.team2!.teamSName} "),
+
+
+
+              // innerBoxIsScrolled? const SizedBox(): RichText(
+              //   text: TextSpan(
+              //     text: "${widget.rapidMatch.matchInfo!.team1!.teamSName}",
+              //     style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white),
+              //     children: <TextSpan>[
+              //       const TextSpan(
+              //           text: '  VS  ',
+              //           style: TextStyle(fontWeight: FontWeight.normal)),
+              //       TextSpan(
+              //         text: "${widget.rapidMatch.matchInfo!.team2!.teamSName}",
+              //         style: const TextStyle(fontWeight: FontWeight.bold),
+              //       ),
+              //       TextSpan(
+              //         text: ", ${"${widget.rapidMatch.matchInfo!.matchDesc}"}",
+              //         style: const TextStyle(fontWeight: FontWeight.bold),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               actions: [
                 innerBoxIsScrolled? const SizedBox(): const Icon(
                   Icons.push_pin_outlined,
@@ -125,7 +129,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
               floating: true,
               forceElevated: innerBoxIsScrolled,
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(dSize(.47 )),
+                preferredSize: Size.fromHeight(dSize(.50 )),
                 child: Column(
                   children: [
                     TabBar(
@@ -159,7 +163,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen>
                     ),
                     Container(
                       padding: EdgeInsets.all(5),
-                      decoration: StDecoration().sliverAppbarGradient,
+
                       height: 150,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

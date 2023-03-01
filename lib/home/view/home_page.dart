@@ -120,7 +120,7 @@ class _MatchPageState extends State<MatchPage>
                 print(innerBoxIsScrolled);
                 return <Widget>[
                   SliverAppBar(
-                    collapsedHeight: 60,
+                   // collapsedHeight: 60,
                     toolbarHeight: 50,
                     flexibleSpace: Container(
                         decoration: StDecoration().sliverAppbarGradient),
@@ -133,7 +133,7 @@ class _MatchPageState extends State<MatchPage>
                       ),
                     ),
                     leadingWidth: 35,
-                    title:innerBoxIsScrolled?SizedBox(): Text("CrickLand",
+                    title:innerBoxIsScrolled?const SizedBox(): const Text("CrickLand",
                             style: TextStyle(
                               fontSize:20,
                                fontWeight: FontWeight.w500,
