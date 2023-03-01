@@ -114,53 +114,105 @@ class _MatchPageState extends State<MatchPage>
             //   ],
             // ),
             body: NestedScrollView(
+              floatHeaderSlivers: true,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
+                print(innerBoxIsScrolled);
                 return <Widget>[
                   SliverAppBar(
+                    collapsedHeight: 60,
+                    toolbarHeight: 50,
                     flexibleSpace: Container(
                         decoration: StDecoration().sliverAppbarGradient),
+
                     elevation: 0,
-                    title: innerBoxIsScrolled
-                        ? SizedBox()
-                        : Row(
-                            children: [
-                              Image.asset(
-                                'assets/main_logo.png',
-                                width: 30,
-                                height: 30,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 2),
-                                child: Text("CrickLand",
-                                    style:
-                                        AppTextStyle().largeTitleStyle.copyWith(
-                                              fontSize: dSize(.05),
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                            )),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          ),
+                    leading: innerBoxIsScrolled?SizedBox(): Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Image.asset(
+                        'assets/main_logo.png',
+                      ),
+                    ),
+                    leadingWidth: 35,
+                    title:innerBoxIsScrolled?SizedBox(): Text("CrickLand",
+                            style: TextStyle(
+                              fontSize:20,
+                               fontWeight: FontWeight.w500,
+                             // color: Colors.white,
+                            ),),
+                    // Row(
+                    //   children: [
+                    //
+                    //     Text("CrickLand",
+                    //         style: TextStyle(
+                    //           fontSize:20,
+                    //            fontWeight: FontWeight.w500,
+                    //          // color: Colors.white,
+                    //         )
+                    //       // AppTextStyle().largeTitleStyle.copyWith(
+                    //       //
+                    //       //     ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // Text("CrickLand",
+                    //     style: TextStyle(
+                    //      // color: PublicController.pc.toggleTextColor(),
+                    //       fontSize: dSize(.05),
+                    //
+                    //     )
+                    //     // AppTextStyle().largeTitleStyle.copyWith(
+                    //     //   fontSize: dSize(.02),
+                    //     //   fontWeight: FontWeight.w500,
+                    //     //   color: Colors.white,
+                    //     // )
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       horizontal: 10.0, vertical: 2),
+                    //   child: Text("CrickLand",
+                    //       style:
+                    //       AppTextStyle().largeTitleStyle.copyWith(
+                    //         fontSize: dSize(.05),
+                    //         fontWeight: FontWeight.w500,
+                    //         color: Colors.white,
+                    //       )),
+                    // ),
+                   // Row(
+                   //          children: [
+                   //            Image.asset(
+                   //              'assets/main_logo.png',
+                   //              width: 30,
+                   //              height: 20,
+                   //            ),
+                   //
+                   //            Padding(
+                   //              padding: const EdgeInsets.symmetric(
+                   //                  horizontal: 10.0, vertical: 2),
+                   //              child: Text("CrickLand",
+                   //                  style: TextStyle(fontSize: dSize(.03),
+                   //                    fontWeight: FontWeight.w500,
+                   //                    color: Colors.white,)
+                   //                      // AppTextStyle().largeTitleStyle.copyWith(
+                   //                      //
+                   //                      //     ),
+                   //            ),
+                   //            ),
+                   //
+                   //          ],
+                   //        ),
                     pinned: true,
                     floating: true,
-                    actions: const [
-                      Icon(
+                    actions:  [
+                      innerBoxIsScrolled?SizedBox(): Icon(
                         Icons.search_outlined,
                       ),
-                      SizedBox(
+                      innerBoxIsScrolled?SizedBox():    SizedBox(
                         width: 15,
                       ),
                     ],
                     forceElevated: innerBoxIsScrolled,
-                    bottom: _tabBar(homeController),
+                    bottom:
+                    _tabBar(homeController),
                   ),
                 ];
               },

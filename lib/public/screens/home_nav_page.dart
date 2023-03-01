@@ -57,7 +57,7 @@ class _HomeNavPageState extends State<HomeNavPage> {
                             height: 30,
                             width: 30,
                             color: pc.selectedIndex.value == 2
-                                ? AllColor.blueColor
+                                ? Colors.black
                                 : Colors.grey,
                           ),
                           label: lc.languageModel.value.match,
