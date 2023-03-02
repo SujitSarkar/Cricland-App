@@ -61,9 +61,10 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                       snap: false,
                       forceElevated: innerBoxIsScrolled,
                       expandedHeight: dSize(.52),
+
                       flexibleSpace: Container(
                         decoration: StDecoration().sliverAppbarGradient,
-                        child: Stack(
+                        child: innerBoxIsScrolled?SizedBox(): Stack(
                           children: [
                             Positioned.fill(
                                 child: rankingController

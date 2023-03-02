@@ -157,7 +157,7 @@ class _IPLPageState extends State<IPLPage>
                               forceElevated: innerBoxIsScrolled,
                               bottom: PreferredSize(
                                   preferredSize: Size.fromHeight(
-                                      innerBoxIsScrolled ? dSize(.1) : dSize(.31)),
+                                      innerBoxIsScrolled ? dSize(.1) : dSize(.34)),
                                   child: Container(
                                       decoration:
                                           StDecoration().sliverAppbarGradient,
