@@ -49,7 +49,7 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
               body: NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
+                  return [
                     SliverOverlapAbsorber(
                       handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                           context),
@@ -58,7 +58,7 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                         pinned: true,
                         snap: false,
                         forceElevated: innerBoxIsScrolled,
-                        expandedHeight: dSize(.52),
+                        expandedHeight: 190,
                         flexibleSpace: Container(
                           decoration:StDecoration().sliverAppbarGradient,
                           child: Stack(
@@ -109,7 +109,7 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                                                           '',
                                                       p: 'de'),
                                                   httpHeaders: ApiEndpoint.header,
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                   height: 130,
                                                   width: 130,
                                                   errorWidget:

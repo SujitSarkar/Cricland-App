@@ -8,7 +8,6 @@ import 'package:cricland/more/view/icc_man_ranking/player_details/player_overvie
 import 'package:cricland/public/controller/language_controller.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/api_endpoint.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
@@ -60,11 +59,10 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                       pinned: true,
                       snap: false,
                       forceElevated: innerBoxIsScrolled,
-                      expandedHeight: dSize(.52),
-
+                      expandedHeight: 190,
                       flexibleSpace: Container(
                         decoration: StDecoration().sliverAppbarGradient,
-                        child: innerBoxIsScrolled?SizedBox(): Stack(
+                        child: innerBoxIsScrolled?const SizedBox(): Stack(
                           children: [
                             Positioned.fill(
                                 child: rankingController

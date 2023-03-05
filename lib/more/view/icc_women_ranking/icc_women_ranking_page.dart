@@ -277,7 +277,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
   PreferredSize _tabBar(
           RankingController rankingController, LanguageController lc) =>
       PreferredSize(
-        preferredSize: Size.fromHeight(dSize(.1)),
+        preferredSize: const Size.fromHeight(30.2),
         child: TabBar(
           onTap: (covariant) async {
             rankingController.womenPlayerTypeTabController.index = covariant;
