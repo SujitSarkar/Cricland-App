@@ -60,7 +60,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                       pinned: true,
                       snap: false,
                       forceElevated: innerBoxIsScrolled,
-                      expandedHeight: dSize(.52),
+                      expandedHeight: dSize(.05),
 
                       flexibleSpace: Container(
                         decoration: StDecoration().sliverAppbarGradient,
