@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../variables/colors.dart';
+import '../widgets/decoration.dart';
 
 class HomeNavPage extends StatefulWidget {
   const HomeNavPage({Key? key}) : super(key: key);
@@ -52,13 +53,22 @@ class _HomeNavPageState extends State<HomeNavPage> {
                           label: lc.languageModel.value.ipl,
                         ),
                         BottomNavigationBarItem(
-                          icon: Image.asset(
-                            'assets/match_logo.png',
-                            height: 30,
-                            width: 30,
-                            color: pc.selectedIndex.value == 2
-                                ? Colors.black
-                                : Colors.grey,
+                          icon: Container(
+                            decoration: BoxDecoration(
+                               gradient:  StDecoration().tabBarGradient,
+                              borderRadius: BorderRadius.all(Radius.circular(5))
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/match_logo.png',
+                                height: 30,
+                                width: 30,
+                                // color: pc.selectedIndex.value == 2
+                                //     ? Colors.orange
+                                //     : Colors.grey,
+                              ),
+                            ),
                           ),
                           label: lc.languageModel.value.match,
                         ),
