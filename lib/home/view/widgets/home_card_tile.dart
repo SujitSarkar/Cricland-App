@@ -20,7 +20,7 @@ class HomeCardTile extends StatefulWidget {
 }
 
 class _HomeCardTileState extends State<HomeCardTile> {
-  bool isExpanded = false;
+  bool isExpanded = true;
 
   @override
   Widget build(BuildContext context) {

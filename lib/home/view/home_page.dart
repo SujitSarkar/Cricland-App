@@ -53,7 +53,7 @@ class _MatchPageState extends State<MatchPage>
 
                 ),
               ),
-              title:  Text("CrickLand",
+              title:  Text("Cricland",
                 style: TextStyle(
                   fontSize:dSize(.05),
                   fontWeight: FontWeight.w500,
@@ -70,77 +70,7 @@ class _MatchPageState extends State<MatchPage>
               // bottom:
               // _tabBar(homeController),
             ),
-            // appBar: ScrollAppBar(
-            //   flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-            //   controller: controller, // Note the controller here
-            //   title:  Row(
-            //     children: [
-            //       Image.asset(
-            //         'assets/main_logo.png',
-            //
-            //         width: 40,
-            //         height: 40,
-            //       ),
-            //       const SizedBox(
-            //         width: 10,
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.symmetric(
-            //             horizontal: 8.0, vertical: 2),
-            //         child: Text("CrickLand",
-            //             style: AppTextStyle().largeTitleStyle.copyWith(
-            //               fontSize: dSize(.05),
-            //               fontWeight: FontWeight.w500,
-            //               color: Colors.white,
-            //             )),
-            //       ),
-            //       const SizedBox(
-            //         width: 10,
-            //       ),
-            //
-            //     ],
-            //   ),
-            //          actions: const [
-            //        Icon(
-            //             Icons.search_outlined,
-            //           ), SizedBox(
-            //             width: 15,
-            //           ),
-            //         ],
-            //   bottom: _tabBar(homeController),
-            //   // backgroundGradient: const LinearGradient(
-            //   //   begin: Alignment.centerLeft,
-            //   //   end: Alignment.centerRight,
-            //   //   colors: [
-            //   //     Colors.red,
-            //   //     Colors.green,
-            //   //     Colors.blue,
-            //   //   ],
-            //   // ),
-            // ),
-            //  body:
-            //
-            //
-            //
-            //  ListView(
-            //    controller: controller,
-            //   children: [
-            //
-            //     SizedBox(
-            //       height: MediaQuery.of(context).size.height*2,
-            //       child: TabBarView(
-            //         controller: _tabController,
-            //         children: const [
-            //           LiveTabScreen(),
-            //           HomeTabScreen(),
-            //           UpComingTabScreen(),
-            //           FinishedTabScreen(),
-            //           FixturesTabScreen(),
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // ),
+
             body:
 
 
