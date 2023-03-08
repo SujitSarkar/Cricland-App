@@ -12,7 +12,8 @@ import '../../../../public/variables/colors.dart';
 import '../../widgets/home_card_tile.dart';
 
 class HomeTabScreen extends StatefulWidget {
-  const HomeTabScreen({Key? key}) : super(key: key);
+  final  ScrollController scrollController;
+  const HomeTabScreen({Key? key,required this.scrollController}) : super(key: key);
 
   @override
   _HomeTabScreenState createState() => _HomeTabScreenState();
@@ -45,6 +46,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
       return  SingleChildScrollView(
+        controller: widget.scrollController,
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

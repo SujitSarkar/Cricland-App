@@ -11,7 +11,7 @@ import 'package:cricland/public/variables/variable.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:scroll_app_bar/scroll_app_bar.dart';
 class MatchPage extends StatefulWidget {
   const MatchPage({Key? key}) : super(key: key);
 
@@ -42,6 +42,34 @@ class _MatchPageState extends State<MatchPage>
         autoRemove: true,
         builder: (homeController) {
           return Scaffold(
+            appBar: ScrollAppBar(
+              flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
+              excludeHeaderSemantics: true,
+              controller: controller,
+              leading: Padding(
+                padding:  EdgeInsets.only(left: dSize(.03),top: dSize(.03),bottom: dSize(.03)),
+                child: Image.asset(
+                  'assets/main_logo.png',
+
+                ),
+              ),
+              title:  Text("CrickLand",
+                style: TextStyle(
+                  fontSize:dSize(.05),
+                  fontWeight: FontWeight.w500,
+                  // color: Colors.white,
+                ),),
+              actions:  [
+                Icon(
+                  Icons.search_outlined,
+                ),
+             SizedBox(
+                  width: dSize(.05),
+                ),
+              ],
+              // bottom:
+              // _tabBar(homeController),
+            ),
             // appBar: ScrollAppBar(
             //   flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
             //   controller: controller, // Note the controller here
@@ -113,119 +141,31 @@ class _MatchPageState extends State<MatchPage>
             //     ),
             //   ],
             // ),
-            body: NestedScrollView(
-              floatHeaderSlivers: true,
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                print(innerBoxIsScrolled);
-                return <Widget>[
-                  SliverAppBar(
-                   // collapsedHeight: 60,
-                    toolbarHeight: 50,
-                    flexibleSpace: Container(
-                        decoration: StDecoration().sliverAppbarGradient),
+            body:
 
-                    elevation: 0,
-                    leading: innerBoxIsScrolled?SizedBox(): Padding(
-                      padding: const EdgeInsets.only(left: 5.0),
-                      child: Image.asset(
-                        'assets/main_logo.png',
-                      ),
-                    ),
-                    leadingWidth: 35,
-                    title:innerBoxIsScrolled?const SizedBox(): const Text("CrickLand",
-                            style: TextStyle(
-                              fontSize:20,
-                               fontWeight: FontWeight.w500,
-                             // color: Colors.white,
-                            ),),
-                    // Row(
-                    //   children: [
-                    //
-                    //     Text("CrickLand",
-                    //         style: TextStyle(
-                    //           fontSize:20,
-                    //            fontWeight: FontWeight.w500,
-                    //          // color: Colors.white,
-                    //         )
-                    //       // AppTextStyle().largeTitleStyle.copyWith(
-                    //       //
-                    //       //     ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // Text("CrickLand",
-                    //     style: TextStyle(
-                    //      // color: PublicController.pc.toggleTextColor(),
-                    //       fontSize: dSize(.05),
-                    //
-                    //     )
-                    //     // AppTextStyle().largeTitleStyle.copyWith(
-                    //     //   fontSize: dSize(.02),
-                    //     //   fontWeight: FontWeight.w500,
-                    //     //   color: Colors.white,
-                    //     // )
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(
-                    //       horizontal: 10.0, vertical: 2),
-                    //   child: Text("CrickLand",
-                    //       style:
-                    //       AppTextStyle().largeTitleStyle.copyWith(
-                    //         fontSize: dSize(.05),
-                    //         fontWeight: FontWeight.w500,
-                    //         color: Colors.white,
-                    //       )),
-                    // ),
-                   // Row(
-                   //          children: [
-                   //            Image.asset(
-                   //              'assets/main_logo.png',
-                   //              width: 30,
-                   //              height: 20,
-                   //            ),
-                   //
-                   //            Padding(
-                   //              padding: const EdgeInsets.symmetric(
-                   //                  horizontal: 10.0, vertical: 2),
-                   //              child: Text("CrickLand",
-                   //                  style: TextStyle(fontSize: dSize(.03),
-                   //                    fontWeight: FontWeight.w500,
-                   //                    color: Colors.white,)
-                   //                      // AppTextStyle().largeTitleStyle.copyWith(
-                   //                      //
-                   //                      //     ),
-                   //            ),
-                   //            ),
-                   //
-                   //          ],
-                   //        ),
-                    pinned: true,
-                    floating: true,
-                    actions:  [
-                      innerBoxIsScrolled?SizedBox(): Icon(
-                        Icons.search_outlined,
-                      ),
-                      innerBoxIsScrolled?SizedBox():    SizedBox(
-                        width: 15,
-                      ),
-                    ],
-                    forceElevated: innerBoxIsScrolled,
-                    bottom:
-                    _tabBar(homeController),
-                  ),
-                ];
-              },
-              body: TabBarView(
-                controller: _tabController,
-                children: const [
-                  LiveTabScreen(),
-                  HomeTabScreen(),
-                  UpComingTabScreen(),
-                  FinishedTabScreen(),
-                  FixturesTabScreen(),
-                ],
-              ),
+
+            Column(
+              children: [
+                Container(
+                    decoration: StDecoration().sliverAppbarGradient,
+
+                    child: Padding(
+                      padding:  EdgeInsets.only(top: dSize(.06)),
+                      child: _tabBar(homeController),
+                    )),
+                Expanded(
+                  child: TabBarView(
+                  controller: _tabController,
+                  children:  [
+                    LiveTabScreen(),
+                    HomeTabScreen(scrollController: controller,),
+                    UpComingTabScreen(),
+                    FinishedTabScreen(),
+                    FixturesTabScreen(),
+                  ],
+          ),
+                ),
+              ],
             ),
           );
         });
