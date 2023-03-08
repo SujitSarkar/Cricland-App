@@ -57,72 +57,74 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                     sliver: SliverAppBar(
                       floating: true,
                       pinned: true,
-                      snap: false,
+                      snap: true,
                       forceElevated: innerBoxIsScrolled,
                       expandedHeight: 190,
                       flexibleSpace: Container(
-                        decoration: StDecoration().sliverAppbarGradient,
-                        child: innerBoxIsScrolled?const SizedBox(): Stack(
+                        decoration:StDecoration().sliverAppbarGradient,
+                        child: Stack(
                           children: [
                             Positioned.fill(
                                 child: rankingController
-                                            .playerInfoModel.value.name !=
-                                        null
+                                    .playerInfoModel.value.name !=
+                                    null
                                     ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: dSize(.055)),
-                                                child: RichText(
-                                                  text: TextSpan(
-                                                    style: AppTextStyle()
-                                                        .largeTitleStyle
-                                                        .copyWith(
-                                                            color: Colors.white,
-                                                            fontSize:
-                                                                dSize(.055)),
-                                                    children: [
-                                                      TextSpan(
-                                                          text:
-                                                              '${rankingController.playerInfoModel.value.name} \n'),
-                                                      TextSpan(
-                                                          text:
-                                                              '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
-                                                          style: AppTextStyle().bodyTextStyle.copyWith(color: Colors.white)),
-                                                    ],
-                                                  ),
-                                                )),
-                                          ),
-                                          ClipRRect(
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(80)),
-                                            child: CachedNetworkImage(
-                                                imageUrl: ApiEndpoint.imageUrl(
-                                                    rankingController
-                                                            .playerInfoModel
-                                                            .value
-                                                            .faceImageId ??
-                                                        '',
-                                                    p: 'de'),
-                                                httpHeaders: ApiEndpoint.header,
-                                                fit: BoxFit.fill,
-                                                height: 130,
-                                                width: 130,
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error,
-                                                            size: 120,
-                                                            color: Colors.grey),
-                                                placeholder: (context, url) =>
-                                                    const Icon(Icons.image,
-                                                        size: 120,
-                                                        color: Colors.grey)),
-                                          )
-                                        ],
-                                      )
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: dSize(.055)),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              style: AppTextStyle()
+                                                  .largeTitleStyle
+                                                  .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                  dSize(.055)),
+                                              children: [
+                                                TextSpan(
+                                                    text:
+                                                    '${rankingController.playerInfoModel.value.name} \n\n'),
+                                                TextSpan(
+                                                    text:
+                                                    '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
+                                                    style: AppTextStyle().bodyTextStyle.copyWith(
+                                                        color: Colors.white)),
+                                              ],
+                                            ),
+                                          )),
+                                    ),
+                                    ClipRRect(
+                                      borderRadius:
+                                      const BorderRadius.all(
+                                          Radius.circular(80)),
+                                      child: CachedNetworkImage(
+                                          imageUrl: ApiEndpoint.imageUrl(
+                                              rankingController
+                                                  .playerInfoModel
+                                                  .value
+                                                  .faceImageId ??
+                                                  '',
+                                              p: 'de'),
+                                          httpHeaders: ApiEndpoint.header,
+                                          fit: BoxFit.cover,
+                                          height: 130,
+                                          width: 130,
+                                          errorWidget:
+                                              (context, url, error) =>
+                                          const Icon(Icons.error,
+                                              size: 120,
+                                              color: Colors.grey),
+                                          placeholder: (context, url) =>
+                                          const Icon(Icons.image,
+                                              size: 120,
+                                              color: Colors.grey)),
+                                    ),
+                                  ],
+                                )
                                     : const SizedBox.shrink())
                           ],
                         ),
