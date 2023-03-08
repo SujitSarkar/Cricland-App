@@ -88,6 +88,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
               );
             },
             child: Card(
+              color: PublicController.pc.toggleCardBg(),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
