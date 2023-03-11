@@ -73,4 +73,8 @@ class StDecoration {
             Colors.grey.shade600,
           ],
         );
+
+  List<Color> navBarUnselectedIconColor = PublicController.pc.isLight.value
+      ? [Colors.grey, Colors.grey]
+      : [Colors.white, Colors.white];
 }

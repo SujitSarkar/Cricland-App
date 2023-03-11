@@ -23,8 +23,6 @@ class _HomeNavPageState extends State<HomeNavPage> {
     AuthScreen(),
     IPLPage(),
     MatchPage(),
-    // Container(),
-    // Container(),
     TrendingPage(),
     MorePage()
   ];
@@ -42,42 +40,91 @@ class _HomeNavPageState extends State<HomeNavPage> {
                       unselectedLabelStyle: AppTextStyle().paragraphTextStyle,
                       items: [
                         BottomNavigationBarItem(
-                          icon: const Icon(
-                            Icons.person,
-                            size: 30,
+                          icon: ShaderMask(
+                            blendMode: BlendMode.srcIn,
+                            shaderCallback: (Rect bounds) => pc.tabIconList
+                                        .elementAt(pc.selectedIndex.value) ==
+                                    Icons.person
+                                ? StDecoration()
+                                    .tabBarGradient
+                                    .createShader(bounds)
+                                : LinearGradient(
+                                        colors: StDecoration()
+                                            .navBarUnselectedIconColor)
+                                    .createShader(bounds),
+                            child: const Icon(Icons.person, size: 30),
                           ),
                           label: lc.languageModel.value.profile,
                         ),
                         BottomNavigationBarItem(
-                          icon: const Icon(FontAwesomeIcons.trophy),
+                          icon: ShaderMask(
+                            blendMode: BlendMode.srcIn,
+                            shaderCallback: (Rect bounds) => pc.tabIconList
+                                        .elementAt(pc.selectedIndex.value) ==
+                                    FontAwesomeIcons.trophy
+                                ? StDecoration()
+                                    .tabBarGradient
+                                    .createShader(bounds)
+                                : LinearGradient(
+                                        colors: StDecoration()
+                                            .navBarUnselectedIconColor)
+                                    .createShader(bounds),
+                            child:
+                                const Icon(FontAwesomeIcons.trophy, size: 24),
+                          ),
                           label: lc.languageModel.value.ipl,
                         ),
                         BottomNavigationBarItem(
-                          icon: Container(
-                            decoration: BoxDecoration(
-                               gradient:  StDecoration().tabBarGradient,
-                              borderRadius: BorderRadius.all(Radius.circular(5))
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/match_logo.png',
-                                height: 30,
-                                width: 30,
-                                // color: pc.selectedIndex.value == 2
-                                //     ? Colors.orange
-                                //     : Colors.grey,
-                              ),
-                            ),
+                          icon: ShaderMask(
+                            blendMode: BlendMode.srcIn,
+                            shaderCallback: (Rect bounds) => pc.tabIconList
+                                        .elementAt(pc.selectedIndex.value) ==
+                                    Icons.sports_cricket
+                                ? StDecoration()
+                                    .tabBarGradient
+                                    .createShader(bounds)
+                                : LinearGradient(
+                                        colors: StDecoration()
+                                            .navBarUnselectedIconColor)
+                                    .createShader(bounds),
+                            child: const Icon(Icons.sports_cricket, size: 30),
                           ),
                           label: lc.languageModel.value.match,
                         ),
                         BottomNavigationBarItem(
-                          icon: const Icon(FontAwesomeIcons.newspaper),
+                          icon: ShaderMask(
+                            blendMode: BlendMode.srcIn,
+                            shaderCallback: (Rect bounds) => pc.tabIconList
+                                        .elementAt(pc.selectedIndex.value) ==
+                                    FontAwesomeIcons.newspaper
+                                ? StDecoration()
+                                    .tabBarGradient
+                                    .createShader(bounds)
+                                : LinearGradient(
+                                        colors: StDecoration()
+                                            .navBarUnselectedIconColor)
+                                    .createShader(bounds),
+                            child: const Icon(FontAwesomeIcons.newspaper,
+                                size: 24),
+                          ),
                           label: lc.languageModel.value.trending,
                         ),
                         BottomNavigationBarItem(
-                          icon: const Icon(FontAwesomeIcons.ellipsisVertical),
+                          icon: ShaderMask(
+                            blendMode: BlendMode.srcIn,
+                            shaderCallback: (Rect bounds) => pc.tabIconList
+                                        .elementAt(pc.selectedIndex.value) ==
+                                    FontAwesomeIcons.ellipsisVertical
+                                ? StDecoration()
+                                    .tabBarGradient
+                                    .createShader(bounds)
+                                : LinearGradient(
+                                        colors: StDecoration()
+                                            .navBarUnselectedIconColor)
+                                    .createShader(bounds),
+                            child: const Icon(FontAwesomeIcons.ellipsisVertical,
+                                size: 24),
+                          ),
                           label: lc.languageModel.value.more,
                         ),
                       ],

@@ -30,8 +30,9 @@ class _HomeCardTileState extends State<HomeCardTile> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>const IPLPage()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const IPLPage()));
               },
               child: Row(
                 children: [
@@ -52,7 +53,7 @@ class _HomeCardTileState extends State<HomeCardTile> {
                           filterQuality: FilterQuality.low),
                     ),
                   ),
-                  SizedBox(width: 10,),
+                  const SizedBox(width: 10),
                   FittedBox(
                       child: Text("${widget.rapidMatch.matchInfo!.seriesName}",
                           style: AppTextStyle().boldBodyTextStyle)),
@@ -66,9 +67,11 @@ class _HomeCardTileState extends State<HomeCardTile> {
                     isExpanded = !isExpanded;
                   });
                 },
-                icon: Icon(isExpanded
-                    ? Icons.keyboard_arrow_up_outlined
-                    : Icons.keyboard_arrow_down_outlined,color: PublicController.pc.toggleLoadingColor()),
+                icon: Icon(
+                    isExpanded
+                        ? Icons.keyboard_arrow_up_outlined
+                        : Icons.keyboard_arrow_down_outlined,
+                    color: PublicController.pc.toggleLoadingColor()),
               ),
             )
           ],
@@ -94,19 +97,22 @@ class _HomeCardTileState extends State<HomeCardTile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        FittedBox(
-                          child: Text("${widget.rapidMatch.matchInfo!.matchDesc} ${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city} ",
+                        Expanded(
+                          child: Text(
+                              "${widget.rapidMatch.matchInfo!.matchDesc} ${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city} ",
                               style: AppTextStyle().paragraphTextStyle.copyWith(
-                                  color:
-                                  PublicController.pc.toggleLoadingColor())),
-                        ),const RotationTransition(
-                            turns: AlwaysStoppedAnimation(45/360),
-                            child: Icon(Icons.push_pin,color: Colors.grey,))
-
+                                  color: PublicController.pc
+                                      .toggleLoadingColor())),
+                        ),
+                        const RotationTransition(
+                            turns: AlwaysStoppedAnimation(45 / 360),
+                            child: Icon(
+                              Icons.push_pin,
+                              color: Colors.grey,
+                            ))
                       ],
                     ),
                     SizedBox(
@@ -245,58 +251,58 @@ class _HomeCardTileState extends State<HomeCardTile> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 14.0),
-                                    child: Column(
-                                      children: [
-                                        widget.rapidMatch.matchInfo!.state == "Live"
-                                            ? const Icon(
-                                                Icons
-                                                    .do_not_disturb_on_total_silence,
-                                                color: Colors.red,
-                                              )
-                                            :
-
-                                        widget.rapidMatch.matchInfo!.state == "Upcoming"
-                                            ?   Column(
-                                          children: [
-                                            Text("Starting at:",
-                                                style: AppTextStyle()
-                                                    .paragraphTextStyle
-                                                    .copyWith(
-                                                        color: PublicController.pc
-                                                            .toggleLoadingColor())),
-                                            Text(
-                                                DateFormat('hh:mm a')
-                                                    .format(DateTime
-                                                    .fromMillisecondsSinceEpoch(
-                                                    int.parse(widget
-                                                        .rapidMatch
-                                                        .matchInfo!
-                                                        .startDate!) *
-                                                        1000))
-                                                    .toString(),
-                                                style: AppTextStyle()
-                                                    .bodyTextStyle
-                                                    .copyWith(
-                                                    color: PublicController.pc
-                                                        .toggleLoadingColor())),
-                                          ],
-                                        ):Container(
-                                          width:dSize(.4),
-                                          child: Text(
-                                              "${widget.rapidMatch.matchInfo!.status}",
-                                              style: AppTextStyle()
-                                                  .bodyTextStyle
-                                                  .copyWith(
-                                                  color: PublicController.pc
-                                                      .toggleLoadingColor())),
-                                        ),
-
-                                      ]
-                                    ),
+                                    child: Column(children: [
+                                      widget.rapidMatch.matchInfo!.state ==
+                                              "Live"
+                                          ? const Icon(
+                                              Icons
+                                                  .do_not_disturb_on_total_silence,
+                                              color: Colors.red,
+                                            )
+                                          : widget.rapidMatch.matchInfo!
+                                                      .state ==
+                                                  "Upcoming"
+                                              ? Column(
+                                                  children: [
+                                                    Text("Starting at:",
+                                                        style: AppTextStyle()
+                                                            .paragraphTextStyle
+                                                            .copyWith(
+                                                                color: PublicController
+                                                                    .pc
+                                                                    .toggleLoadingColor())),
+                                                    Text(
+                                                        DateFormat('hh:mm a')
+                                                            .format(DateTime.fromMillisecondsSinceEpoch(
+                                                                int.parse(widget
+                                                                        .rapidMatch
+                                                                        .matchInfo!
+                                                                        .startDate!) *
+                                                                    1000))
+                                                            .toString(),
+                                                        style: AppTextStyle()
+                                                            .bodyTextStyle
+                                                            .copyWith(
+                                                                color: PublicController
+                                                                    .pc
+                                                                    .toggleLoadingColor())),
+                                                  ],
+                                                )
+                                              : Container(
+                                                  width: dSize(.4),
+                                                  child: Text(
+                                                      "${widget.rapidMatch.matchInfo!.status}",
+                                                      style: AppTextStyle()
+                                                          .bodyTextStyle
+                                                          .copyWith(
+                                                              color: PublicController
+                                                                  .pc
+                                                                  .toggleLoadingColor())),
+                                                ),
+                                    ]),
                                   ),
                                 ],
                               ),

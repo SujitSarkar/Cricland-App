@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,13 @@ class PublicController extends GetxController {
   RxBool isLight = true.obs;
   RxInt selectedIndex = 2.obs;
   RxInt themeRadioValue = 0.obs;
+  List<IconData> tabIconList = [
+    Icons.person,
+    FontAwesomeIcons.trophy,
+    Icons.sports_cricket,
+    FontAwesomeIcons.newspaper,
+    FontAwesomeIcons.ellipsisVertical
+  ];
 
   void onItemTapped(int index) {
     selectedIndex(index);
@@ -60,7 +68,7 @@ class PublicController extends GetxController {
   Color togglePagedBg() =>
       isLight.value ? AllColor.appLightBg : AllColor.appDarkBg;
   Color toggleTabColor() =>
-      isLight.value ? AllColor.appLightBg : AllColor.primaryColor;
+      isLight.value ? AllColor.appLightBg : Colors.grey.shade600;
   Color toggleCardHeader() =>
       isLight.value ? AllColor.lightCardHeader : AllColor.darkCardHeader;
   dynamic toggleStatusBar() => isLight.value
