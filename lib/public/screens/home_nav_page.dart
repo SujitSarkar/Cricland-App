@@ -74,6 +74,19 @@ class _HomeNavPageState extends State<HomeNavPage> {
                           ),
                           label: lc.languageModel.value.ipl,
                         ),
+                        // ShaderMask(
+                        //   shaderCallback: (bounds) {
+                        //     return LinearGradient(
+                        //       colors: node.badge!.colorsArray,
+                        //     ).createShader(bounds);
+                        //   },
+                        //   child: Image.asset(
+                        //     Assets.main_logo,
+                        //     height: 27.0,
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        //   blendMode: BlendMode.srcATop,
+                        // ),
                         BottomNavigationBarItem(
                           icon: ShaderMask(
                             blendMode: BlendMode.srcIn,
@@ -87,7 +100,9 @@ class _HomeNavPageState extends State<HomeNavPage> {
                                         colors: StDecoration()
                                             .navBarUnselectedIconColor)
                                     .createShader(bounds),
-                            child: const Icon(Icons.sports_cricket, size: 30),
+                            child: Image.asset("assets/dark_logo.png",height: 30,width: 30,)
+
+                            //Icon(Icons.sports_cricket, size: 30),
                           ),
                           label: lc.languageModel.value.match,
                         ),

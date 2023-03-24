@@ -1,47 +1,32 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/home/model/commentaries_model.dart';
-import 'package:cricland/home/model/feature_series_model.dart';
-import 'package:cricland/home/model/fixtures_match_model.dart';
 import 'package:cricland/home/model/match_info_model.dart';
 import 'package:cricland/home/model/monk/monk_live_model.dart';
 import 'package:cricland/home/model/over_summery_model.dart';
-import 'package:cricland/home/model/point_table_model.dart';
-import 'package:cricland/home/model/recent_match_model.dart';
-
 import 'package:cricland/home/model/series_match_list_model.dart';
 import 'package:cricland/home/model/squads_model.dart';
 import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../public/model/usermodel.dart';
 import '../../public/variables/variable.dart';
-
 import '../model/monk/monk_league_model.dart';
 import '../model/monk/monk_team_model.dart';
-
 import '../model/monk/monk_vanue_model.dart';
 import '../model/player_info_model.dart';
 import '../model/player_squad_model.dart';
-
 import '../model/rapid_model/point_table_model.dart';
 import '../model/rapid_model/recent_match_model.dart';
 import '../model/rapid_model/series_model.dart';
 import '../model/score_card_model.dart';
 
 class HomeController extends GetxController {
-  // late MatchesModel matchesModel;
-//  late LiveMatchesModel liveMatchesModel;
 
- // late RecentMatchModel recentMatchModel;
- // late RapidRecentMatchModel rapidRecentMatchModel;
   late UpcomingMatchModel upcomingMatchModel;
-  // late FixturesMatchModel fixturesMatchModel;
-  //late FeatureSeriesModel featureSeriesModel;
+
   late ScoreCardModel scoreCardModel;
 
   late CommentariesModel commentariesModel;
@@ -56,19 +41,21 @@ class HomeController extends GetxController {
   RxList fixtureMatchList = [].obs;
   RxList playerSquadModelList = [].obs;
   RxBool loading = false.obs;
+  RxBool isScroll = false.obs;
+
+  setScroll(RxBool bool){
+
+    isScroll = bool;
+    update();
+  }
   @override
   void onInit() async {
-    //Home Data Model
-    // liveMatchesModel = LiveMatchesModel();
 
-   // recentMatchModel = RecentMatchModel(typeMatches: []);
-   // rapidRecentMatchModel = RapidRecentMatchModel();
     matcheInfoModel = RecentMatchInfoModel(); //Todo Data Fetching Problem
     commentariesModel =
         CommentariesModel(); //Todo Some Match Comment are Fetch problem
     upcomingMatchModel = UpcomingMatchModel();
-    //fixturesMatchModel = FixturesMatchModel();
-   // featureSeriesModel = FeatureSeriesModel();
+
     scoreCardModel = ScoreCardModel();
 
     seriesMatchListModel = SeriesMatchListModel();
@@ -132,6 +119,7 @@ class HomeController extends GetxController {
   List<RapidMatch> rapidRecentList = [];
   Future<void> getRecentMatches() async {
     loading(true);
+    rapidRecentList =[];
 
     await ApiService.instance.apiCall(
         execute: () async =>

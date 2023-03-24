@@ -42,56 +42,81 @@ class _MatchPageState extends State<MatchPage>
         autoRemove: true,
         builder: (homeController) {
           return Scaffold(
-            appBar: ScrollAppBar(
-              flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-              excludeHeaderSemantics: true,
-              controller: controller,
-              leading: Padding(
-                padding:  EdgeInsets.only(left: dSize(.03),top: dSize(.03),bottom: dSize(.03)),
-                child: Image.asset(
-                  'assets/main_logo.png',
+            // appBar: ScrollAppBar(
+            //   flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
+            //   excludeHeaderSemantics: true,
+            //   controller: controller,
+            //
+            //   actions:  [
+            //
+            //  SizedBox(
+            //       width: dSize(.05),
+            //     ),
+            //   ],
+            //    bottom:
+            //    _tabBar(homeController),
+            // ),
 
-                ),
-              ),
-              title:  Text("Cricland",
-                style: TextStyle(
-                  fontSize:dSize(.05),
-                  fontWeight: FontWeight.w500,
-                  // color: Colors.white,
-                ),),
-              actions:  [
-                Icon(
-                  Icons.search_outlined,
-                ),
-             SizedBox(
-                  width: dSize(.05),
-                ),
-              ],
-              // bottom:
-              // _tabBar(homeController),
-            ),
-
-            body:
-
-
-            Column(
+            body: Column(
               children: [
+
                 Container(
                     decoration: StDecoration().sliverAppbarGradient,
 
                     child: Padding(
                       padding:  EdgeInsets.only(top: dSize(.06)),
-                      child: _tabBar(homeController),
+                      child: SingleChildScrollView(
+                        controller: controller,
+                        child: Column(
+
+                          children: [
+
+                            homeController.isScroll ==true.obs?const SizedBox():    Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: dSize(.03),vertical: dSize(.03),),
+                                      child: Image.asset(
+                                        'assets/main_logo.png',
+                                        height: 30,
+                                        width: 30,
+
+                                      ),
+                                    ),
+                                    Text("Cricland",
+                                      style: TextStyle(
+                                          fontSize:dSize(.05),
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white
+                                      ),),
+                                  ],
+                                ),
+
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.search_outlined,
+                                      color: Colors.white
+                                  ),
+                                ),
+                              ],
+                            ),
+                            _tabBar(homeController),
+                          ],
+                        ),
+                      ),
                     )),
                 Expanded(
                   child: TabBarView(
                   controller: _tabController,
                   children:  [
-                    LiveTabScreen(),
+                    LiveTabScreen(scrollController: controller,),
                     HomeTabScreen(scrollController: controller,),
-                    UpComingTabScreen(),
-                    FinishedTabScreen(),
-                    FixturesTabScreen(),
+                    UpComingTabScreen(scrollController: controller,),
+                    FinishedTabScreen(scrollController: controller,),
+                    FixturesTabScreen(scrollController: controller,),
                   ],
           ),
                 ),
