@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:cricland/public/screens/profile_update_screen.dart';
 import 'package:cricland/public/screens/sell_points_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
@@ -5,6 +8,8 @@ import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';
@@ -20,6 +25,29 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  File? galleryImage;
+  CameraController? controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    initCamera();
+
+    super.initState();
+  }
+
+  Future<void> initCamera() async {
+    List<CameraDescription> cameras = await availableCameras();
+    controller = CameraController(cameras[0], ResolutionPreset.medium);
+    await controller!.initialize();
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
@@ -51,15 +79,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 child: Column(
                   children: [
-                    homeController.userModel.firstName == null
-                        ? const CircleAvatar(
-                            radius: 70,
-                            backgroundImage: AssetImage('assets/player.png'))
-                        : CircleAvatar(
-                            radius: 70,
-                            backgroundImage: NetworkImage(
-                                homeController.userModel.profileImage!),
+                    Stack(
+                      children: [
+                        galleryImage != null
+                            ? CircleAvatar(
+                                radius: 70,
+                                child: Image.file(File(galleryImage!.path)))
+                            : homeController.userModel.profileImage!.isEmpty
+                                ? const CircleAvatar(
+                                    radius: 70,
+                                    backgroundImage:
+                                        AssetImage('assets/player.png'))
+                                : CircleAvatar(
+                                    radius: 70,
+                                    backgroundImage: NetworkImage(
+                                        homeController.userModel.profileImage!),
+                                  ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              _modalBottomSheetMenu();
+                            },
+                            child: const CircleAvatar(
+                                child: Padding(
+                              padding: EdgeInsets.all(2.0),
+                              child: Icon(Icons.camera_alt_outlined),
+                            )),
                           ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: dSize(.05)),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -151,4 +202,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ],
           ));
+
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: 100.0,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    XFile? pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+
+                    if (pickedFile != null) {
+                      setState(() {
+                        galleryImage = File(pickedFile.path);
+                      });
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.camera,
+                    size: 40,
+                  ),
+                ),
+                SizedBox(
+                  width: dSize(0.1),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    XFile? pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+
+                    if (pickedFile != null) {
+                      setState(() {
+                        galleryImage = File(pickedFile.path);
+                      });
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.photo,
+                    size: 40,
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+  }
 }

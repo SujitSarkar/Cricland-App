@@ -44,6 +44,8 @@ dependencies:
   flutter_login_facebook: ^1.7.0 
   firebase_auth:
   google_sign_in: ^5.4.3
+  camera: 0.10.3+2
+  image_picker: ^0.8.7
 
 
 
