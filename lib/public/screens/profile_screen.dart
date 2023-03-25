@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/public/screens/profile_update_screen.dart';
 import 'package:cricland/public/screens/sell_points_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/gradiend_button.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,6 +16,7 @@ import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';
 import '../variables/config.dart';
+import '../variables/variable.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -27,19 +30,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController passwordController = TextEditingController();
   File? galleryImage;
   CameraController? controller;
+
   @override
   void initState() {
     // TODO: implement initState
-    initCamera();
 
     super.initState();
-  }
-
-  Future<void> initCamera() async {
-    List<CameraDescription> cameras = await availableCameras();
-    controller = CameraController(cameras[0], ResolutionPreset.medium);
-    await controller!.initialize();
-    setState(() {});
   }
 
   @override
@@ -84,7 +80,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         galleryImage != null
                             ? CircleAvatar(
                                 radius: 70,
-                                child: Image.file(File(galleryImage!.path)))
+                                backgroundImage: FileImage(
+                                  File(galleryImage!.path),
+                                ),
+                              )
                             : homeController.userModel.profileImage!.isEmpty
                                 ? const CircleAvatar(
                                     radius: 70,
@@ -100,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           bottom: 0,
                           child: GestureDetector(
                             onTap: () {
-                              _modalBottomSheetMenu();
+                              _modalBottomSheetMenu(homeController);
                             },
                             child: const CircleAvatar(
                                 child: Padding(
@@ -203,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ));
 
-  void _modalBottomSheetMenu() {
+  void _modalBottomSheetMenu(HomeController homeController) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -226,11 +225,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       setState(() {
                         galleryImage = File(pickedFile.path);
                       });
+                      uploadProfileImageUpdate(pickedFile,
+                          "${homeController.userModel.id}", homeController);
                     }
                   },
-                  icon: const Icon(
-                    Icons.camera,
-                    size: 40,
+                  icon: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (Rect bounds) =>
+                        StDecoration().tabBarGradient.createShader(bounds),
+                    child: const Icon(
+                      Icons.camera,
+                      size: 40,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -240,21 +246,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   onPressed: () async {
                     XFile? pickedFile = await ImagePicker()
                         .pickImage(source: ImageSource.gallery);
-
+                    final FirebaseStorage _storage = FirebaseStorage.instance;
+                    Reference ref = _storage
+                        .ref()
+                        .child("images/${DateTime.now().toString()}");
                     if (pickedFile != null) {
                       setState(() {
                         galleryImage = File(pickedFile.path);
                       });
+                      uploadProfileImageUpdate(pickedFile,
+                          "${homeController.userModel.id}", homeController);
                     }
                   },
-                  icon: const Icon(
-                    Icons.photo,
-                    size: 40,
+                  icon: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (Rect bounds) =>
+                        StDecoration().tabBarGradient.createShader(bounds),
+                    child: const Icon(
+                      Icons.photo,
+                      size: 40,
+                    ),
                   ),
                 )
               ],
             ),
           );
         });
+  }
+
+  uploadProfileImageUpdate(
+      XFile pickedFile, String profileId, HomeController homeController) async {
+    final FirebaseStorage _storage = FirebaseStorage.instance;
+    Reference ref = _storage.ref().child("images/${DateTime.now().toString()}");
+
+    UploadTask uploadTask = ref.putFile(File(pickedFile.path));
+    String downloadURL = await (await uploadTask).ref.getDownloadURL();
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(profileId)
+          .update({
+        'profileImage': downloadURL,
+      });
+      await homeController.getUser(profileId);
+
+      showToast('Success');
+    } catch (e) {
+      showToast(e.toString());
+      print(e.toString());
+    }
   }
 }
