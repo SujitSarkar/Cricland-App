@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/public/screens/profile_update_screen.dart';
 import 'package:cricland/public/screens/sell_points_screen.dart';
@@ -29,20 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   File? galleryImage;
-  CameraController? controller;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller!.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: dSize(.5)),
+                        SizedBox(height: dSize(.3)),
                         GradientButton(
                           onTap: () {
                             Navigator.push(
