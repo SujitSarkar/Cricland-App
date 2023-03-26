@@ -1,5 +1,4 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/details_view/finished_details/finished_tab_page.dart';
 import 'package:cricland/home/view/details_view/fixture_details/fixtures_tab_page.dart';
 import 'package:cricland/home/view/details_view/home_details/home_tab_page.dart';
@@ -8,10 +7,11 @@ import 'package:cricland/home/view/details_view/upcoming_details/upcomming_tab_p
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:scroll_app_bar/scroll_app_bar.dart';
+
 class MatchPage extends StatefulWidget {
   const MatchPage({Key? key}) : super(key: key);
 
@@ -59,49 +59,51 @@ class _MatchPageState extends State<MatchPage>
 
             body: Column(
               children: [
-
                 Container(
                     decoration: StDecoration().sliverAppbarGradient,
-
                     child: Padding(
-                      padding:  EdgeInsets.only(top: dSize(.06)),
+                      padding: EdgeInsets.only(top: dSize(.06)),
                       child: SingleChildScrollView(
                         controller: controller,
                         child: Column(
-
                           children: [
-
-                            homeController.isScroll ==true.obs?const SizedBox():    Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: dSize(.03),vertical: dSize(.03),),
-                                      child: Image.asset(
-                                        'assets/main_logo.png',
-                                        height: 30,
-                                        width: 30,
-
+                            homeController.isScroll == true.obs
+                                ? const SizedBox()
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: dSize(.03),
+                                              vertical: dSize(.03),
+                                            ),
+                                            child: Image.asset(
+                                              'assets/main_logo.png',
+                                              height: 30,
+                                              width: 30,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Cricland",
+                                            style: TextStyle(
+                                                fontSize: dSize(.05),
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    Text("Cricland",
-                                      style: TextStyle(
-                                          fontSize:dSize(.05),
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white
-                                      ),),
-                                  ],
-                                ),
-
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.search_outlined,
-                                      color: Colors.white
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Icon(Icons.search_outlined,
+                                            color: Colors.white),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: dSize(.03),
                             ),
                             _tabBar(homeController),
                           ],
@@ -110,15 +112,25 @@ class _MatchPageState extends State<MatchPage>
                     )),
                 Expanded(
                   child: TabBarView(
-                  controller: _tabController,
-                  children:  [
-                    LiveTabScreen(scrollController: controller,),
-                    HomeTabScreen(scrollController: controller,),
-                    UpComingTabScreen(scrollController: controller,),
-                    FinishedTabScreen(scrollController: controller,),
-                    FixturesTabScreen(scrollController: controller,),
-                  ],
-          ),
+                    controller: _tabController,
+                    children: [
+                      LiveTabScreen(
+                        scrollController: controller,
+                      ),
+                      HomeTabScreen(
+                        scrollController: controller,
+                      ),
+                      UpComingTabScreen(
+                        scrollController: controller,
+                      ),
+                      FinishedTabScreen(
+                        scrollController: controller,
+                      ),
+                      FixturesTabScreen(
+                        scrollController: controller,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -127,14 +139,12 @@ class _MatchPageState extends State<MatchPage>
   }
 
   PreferredSize _tabBar(HomeController homeController) => PreferredSize(
-        preferredSize: Size.fromHeight(dSize(.09)),
+        preferredSize: Size.fromHeight(dSize(2)),
         child: Column(
           children: [
             TabBar(
                 onTap: (covariant) async {
                   setState(() => _tabController.index = covariant);
-
-
                 },
                 isScrollable: true,
                 controller: _tabController,

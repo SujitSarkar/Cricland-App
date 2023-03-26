@@ -3,10 +3,13 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../home/controller/home_controller.dart';
 
 class SeriesPointsTableTab extends StatefulWidget {
-  const SeriesPointsTableTab({Key? key}) : super(key: key);
+  final ScrollController scrollController;
+  const SeriesPointsTableTab({Key? key, required this.scrollController})
+      : super(key: key);
 
   @override
   _PointsTableTabState createState() => _PointsTableTabState();
@@ -27,6 +30,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
       setState(() {});
     }
   }
+
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
   @override
@@ -41,11 +45,11 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
               children: [
                 Text(
                   "Points Table",
-                    style:_textStyle.copyWith(
-                      fontSize: dSize(.035),
-                      fontWeight: FontWeight.bold,
-                      color: PublicController.pc
-                          .toggleLoadingColor(),),
+                  style: _textStyle.copyWith(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.bold,
+                    color: PublicController.pc.toggleLoadingColor(),
+                  ),
                 ),
                 // Row(
                 //   children: [

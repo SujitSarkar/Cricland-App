@@ -5,7 +5,9 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../home/view/widgets/match_card_tile.dart';
 
 class MatchesTab extends StatefulWidget {
-  const MatchesTab({Key? key}) : super(key: key);
+  final ScrollController scrollController;
+  const MatchesTab({Key? key, required this.scrollController})
+      : super(key: key);
 
   @override
   _MatchesTabState createState() => _MatchesTabState();
@@ -20,22 +22,19 @@ class _MatchesTabState extends State<MatchesTab> {
           const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
-                itemCount: homeController
-                    .rapidSeriesMatchList.length,
+                itemCount: homeController.rapidSeriesMatchList.length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return  GestureDetector(
-                    onTap: (){
-                      print(homeController
-                          .rapidSeriesMatchList[index].matchInfo!.team1!.imageId!);
+                  return GestureDetector(
+                    onTap: () {
+                      print(homeController.rapidSeriesMatchList[index]
+                          .matchInfo!.team1!.imageId!);
                     },
                     child: MatchCardTile(
-                        rapidMatch: homeController
-                            .rapidSeriesMatchList[index],
+                      rapidMatch: homeController.rapidSeriesMatchList[index],
                     ),
                   );
-
                 }),
           ),
           // Expanded(
