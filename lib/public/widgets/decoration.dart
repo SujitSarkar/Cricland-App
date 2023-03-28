@@ -1,6 +1,7 @@
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:flutter/material.dart';
+
 import '../variables/config.dart';
 
 class StDecoration {
@@ -56,23 +57,14 @@ class StDecoration {
           ],
         ));
 
-  LinearGradient tabBarGradient = PublicController.pc.isLight.value
-      ? LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Colors.green.shade900,
-            const Color(0xffFA9C2D),
-          ],
-        )
-      : LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Colors.grey.shade600,
-            Colors.grey.shade600,
-          ],
-        );
+  LinearGradient tabBarGradient = LinearGradient(
+    begin: Alignment.bottomLeft,
+    end: Alignment.topRight,
+    colors: [
+      Colors.green.shade900,
+      const Color(0xffFA9C2D),
+    ],
+  );
 
   List<Color> navBarUnselectedIconColor = PublicController.pc.isLight.value
       ? [Colors.grey, Colors.grey]

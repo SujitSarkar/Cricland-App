@@ -43,21 +43,24 @@ class _OverViewTabState extends State<OverViewTab> {
               controller: widget.scrollController,
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Featured Matches",
-                          style: AppTextStyle().titleTextStyle),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "All Matches",
-                          style: AppTextStyle().titleTextStyle.copyWith(
-                              color: PublicController.pc.togglePrimaryGrey()),
+                  homeController.rapidSeriesMatchList.isEmpty
+                      ? SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Featured Matches",
+                                style: AppTextStyle().titleTextStyle),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "All Matches",
+                                style: AppTextStyle().titleTextStyle.copyWith(
+                                    color: PublicController.pc
+                                        .togglePrimaryGrey()),
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  ),
 
                   ListView.separated(
                       itemCount: homeController.rapidSeriesMatchList.length,
@@ -216,13 +219,16 @@ class _OverViewTabState extends State<OverViewTab> {
                   // SizedBox(
                   //   height: 10,
                   // ),
-                  ListTile(
-                    leading: Text("Team Squads",
-                        style: AppTextStyle().largeTitleStyle.copyWith(
-                              fontSize: dSize(.035),
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                  ),
+                  homeController.matchSquadModel.squads == null
+                      ? SizedBox()
+                      : ListTile(
+                          leading: Text("Team Squads",
+                              style: AppTextStyle().largeTitleStyle.copyWith(
+                                    fontSize: dSize(.035),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  )),
+                        ),
                   homeController.matchSquadModel.squads != null
                       ? SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -297,13 +303,16 @@ class _OverViewTabState extends State<OverViewTab> {
                           ),
                         )
                       : const SizedBox(),
-                  ListTile(
-                    leading: Text("Series Info",
-                        style: AppTextStyle().largeTitleStyle.copyWith(
-                              fontSize: dSize(.04),
-                              color: PublicController.pc.toggleTextColor(),
-                            )),
-                  ),
+                  homeController.rapidSeriesMatchList.isEmpty
+                      ? const SizedBox()
+                      : ListTile(
+                          leading: Text("Series Info",
+                              style: AppTextStyle().largeTitleStyle.copyWith(
+                                    fontSize: dSize(.04),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  )),
+                        ),
                   homeController.rapidSeriesMatchList.isEmpty
                       ? const SizedBox()
                       : InfoCardTile(

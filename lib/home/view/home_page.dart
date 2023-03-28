@@ -42,21 +42,6 @@ class _MatchPageState extends State<MatchPage>
         autoRemove: true,
         builder: (homeController) {
           return Scaffold(
-            // appBar: ScrollAppBar(
-            //   flexibleSpace: Container(decoration: StDecoration().sliverAppbarGradient),
-            //   excludeHeaderSemantics: true,
-            //   controller: controller,
-            //
-            //   actions:  [
-            //
-            //  SizedBox(
-            //       width: dSize(.05),
-            //     ),
-            //   ],
-            //    bottom:
-            //    _tabBar(homeController),
-            // ),
-
             body: Column(
               children: [
                 Container(
@@ -74,11 +59,15 @@ class _MatchPageState extends State<MatchPage>
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: dSize(.03),
-                                              vertical: dSize(.03),
+                                            padding: EdgeInsets.only(
+                                              left: dSize(.03),
+                                              top: dSize(.05),
                                             ),
                                             child: Image.asset(
                                               'assets/main_logo.png',
@@ -86,12 +75,18 @@ class _MatchPageState extends State<MatchPage>
                                               width: 30,
                                             ),
                                           ),
-                                          Text(
-                                            "Cricland",
-                                            style: TextStyle(
-                                                fontSize: dSize(.05),
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: dSize(.04),
+                                              left: dSize(.03),
+                                            ),
+                                            child: Text(
+                                              "Cricland",
+                                              style: TextStyle(
+                                                  fontSize: dSize(.05),
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                         ],
                                       ),

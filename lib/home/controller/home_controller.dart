@@ -1145,11 +1145,20 @@ class HomeController extends GetxController {
     };
 
     try {
-      await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(map['id'])
-          .set(map);
-      await getUser(phone);
+      final docRef =
+          FirebaseFirestore.instance.collection("Users").doc(map['id']).get();
+      docRef.then((doc) async {
+        if (doc.exists) {
+          return true;
+        } else {
+          await FirebaseFirestore.instance
+              .collection("Users")
+              .doc(map['id'])
+              .set(map);
+          await getUser(phone);
+          return true;
+        }
+      });
       return true;
     } catch (err) {
       showToast('$err');
