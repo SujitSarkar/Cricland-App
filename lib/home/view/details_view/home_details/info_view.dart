@@ -11,6 +11,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 import '../../../model/match_info_model.dart';
 import '../../../model/rapid_model/recent_match_model.dart';
 import '../../widgets/head_to_head_tile.dart';
@@ -52,6 +53,7 @@ class _InfoViewState extends State<InfoView> {
       setState(() {});
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
@@ -65,7 +67,6 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(
                 height: 10,
               ),
-
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 leading: Container(
@@ -83,7 +84,14 @@ class _InfoViewState extends State<InfoView> {
                         fit: BoxFit.fill),
                   ),
                 ),
-                title: Text("${widget.rapidMatch.matchInfo!.status}",  style: AppTextStyle().titleTextBoldStyle.copyWith(color: Colors.orange,),),
+                title: Text(
+                  widget.rapidMatch.matchInfo!.status != null
+                      ? "${widget.rapidMatch.matchInfo!.status}"
+                      : "${widget.rapidMatch.matchInfo!.seriesName}",
+                  style: AppTextStyle().titleTextBoldStyle.copyWith(
+                        color: Colors.orange,
+                      ),
+                ),
                 // RichText(
                 //   text: TextSpan(
                 //     text: widget.rapidMatch.matchInfo!.status,
@@ -162,13 +170,12 @@ class _InfoViewState extends State<InfoView> {
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  DateFormat('MMM d,' 'hh:mm a')
-                      .format(DateTime.fromMillisecondsSinceEpoch(
-                          int.parse(widget.rapidMatch.matchInfo!.startDate!) *
-                              1000))
-                      .toString(),
-                  style: AppTextStyle().titleTextBoldStyle
-                ),
+                    DateFormat('MMM d,' 'hh:mm a')
+                        .format(DateTime.fromMillisecondsSinceEpoch(
+                            int.parse(widget.rapidMatch.matchInfo!.startDate!) *
+                                1000))
+                        .toString(),
+                    style: AppTextStyle().titleTextBoldStyle),
                 leading: Icon(
                   Icons.calendar_today_outlined,
                   color: PublicController.pc.toggleTextColor(),
@@ -178,9 +185,8 @@ class _InfoViewState extends State<InfoView> {
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
-                  style: AppTextStyle().titleTextBoldStyle
-                ),
+                    "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
+                    style: AppTextStyle().titleTextBoldStyle),
                 leading: Icon(
                   Icons.location_on,
                   color: PublicController.pc.toggleTextColor(),
@@ -189,10 +195,8 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'Playing XI',
-                  style: AppTextStyle().titleTextBoldStyle
-                ),
+                child: Text('Playing XI',
+                    style: AppTextStyle().titleTextBoldStyle),
               ),
               const SizedBox(height: 10),
               ListTile(
@@ -205,9 +209,8 @@ class _InfoViewState extends State<InfoView> {
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  widget.rapidMatch.matchInfo!.team1!.teamName.toString(),
-                  style: AppTextStyle().paragraphTextStyle
-                ),
+                    widget.rapidMatch.matchInfo!.team1!.teamName.toString(),
+                    style: AppTextStyle().paragraphTextStyle),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
                   color: PublicController.pc.toggleTextColor(),
@@ -238,9 +241,8 @@ class _InfoViewState extends State<InfoView> {
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  widget.rapidMatch.matchInfo!.team2!.teamName.toString(),
-                  style: AppTextStyle().bodyTextStyle
-                ),
+                    widget.rapidMatch.matchInfo!.team2!.teamName.toString(),
+                    style: AppTextStyle().bodyTextStyle),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
                   color: PublicController.pc.toggleTextColor(),
@@ -288,9 +290,7 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(
                 height: 10,
               ),
-
               ExpandableNotifier(
-
                 child: Column(
                   children: [
                     Expandable(
@@ -315,44 +315,47 @@ class _InfoViewState extends State<InfoView> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: dSize(.04),
-                                      color: PublicController.pc.toggleTextColor(),
+                                      color:
+                                          PublicController.pc.toggleTextColor(),
                                     ),
                                   ),
                                 ],
                               ),
-
-
-                              Row(children: [
-                                for (var i = 0; i < teamSymbol.length; i++)
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(5),
+                              Row(
+                                children: [
+                                  for (var i = 0; i < teamSymbol.length; i++)
+                                    Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                          color: teamColors[i],
                                         ),
-                                        color: teamColors[i],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          teamSymbol[i],
-                                          style: TextStyle(color: Colors.white),
+                                        child: Center(
+                                          child: Text(
+                                            teamSymbol[i],
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
                                   ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_outlined,
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
-                              ],)
+                                ],
+                              )
                             ],
                           ),
                         ),
                       ),
-                      expanded:  Column(
+                      expanded: Column(
                         children: [
                           for (var i = 0; i < teamSymbol.length; i++)
                             GestureDetector(
@@ -373,7 +376,7 @@ class _InfoViewState extends State<InfoView> {
                                     child: IntrinsicHeight(
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
                                             children: [
@@ -388,9 +391,11 @@ class _InfoViewState extends State<InfoView> {
                                                     text: TextSpan(
                                                       text: 'RR',
                                                       style: TextStyle(
-                                                        fontWeight: FontWeight.normal,
+                                                        fontWeight:
+                                                            FontWeight.normal,
                                                         fontSize: dSize(.04),
-                                                        color: PublicController.pc
+                                                        color: PublicController
+                                                            .pc
                                                             .toggleTextColor(),
                                                       ),
                                                       children: <TextSpan>[
@@ -398,9 +403,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 188-6',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.04),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.04),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -408,9 +416,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 20.0',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.03),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.03),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -433,9 +444,11 @@ class _InfoViewState extends State<InfoView> {
                                                     text: TextSpan(
                                                       text: 'RR',
                                                       style: TextStyle(
-                                                        fontWeight: FontWeight.normal,
+                                                        fontWeight:
+                                                            FontWeight.normal,
                                                         fontSize: dSize(.04),
-                                                        color: PublicController.pc
+                                                        color: PublicController
+                                                            .pc
                                                             .toggleTextColor(),
                                                       ),
                                                       children: <TextSpan>[
@@ -443,9 +456,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 188-6',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.04),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.04),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -453,9 +469,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 20.0',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.03),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.03),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -476,18 +495,21 @@ class _InfoViewState extends State<InfoView> {
                                                 width: 20,
                                               ),
                                               Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 3.0, horizontal: 7),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 3.0,
+                                                        horizontal: 7),
                                                 decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
                                                     Radius.circular(5),
                                                   ),
                                                   color: teamColors[i],
                                                 ),
                                                 child: Text(
                                                   teamSymbol[i],
-                                                  style:
-                                                  const TextStyle(color: Colors.white),
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ),
                                               const SizedBox(
@@ -495,7 +517,7 @@ class _InfoViewState extends State<InfoView> {
                                               ),
                                               Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   const Text("Qualifire 1 "),
                                                   const Text("IPL 2022"),
@@ -526,7 +548,6 @@ class _InfoViewState extends State<InfoView> {
                           // ),
                         ],
                       ),
-
                     ),
                     Expandable(
                       collapsed: ExpandableButton(
@@ -550,44 +571,47 @@ class _InfoViewState extends State<InfoView> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: dSize(.04),
-                                      color: PublicController.pc.toggleTextColor(),
+                                      color:
+                                          PublicController.pc.toggleTextColor(),
                                     ),
                                   ),
                                 ],
                               ),
-
-
-                              Row(children: [
-                                for (var i = 0; i < teamSymbol.length; i++)
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5),
+                              Row(
+                                children: [
+                                  for (var i = 0; i < teamSymbol.length; i++)
+                                    Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                          color: teamColors[i],
                                         ),
-                                        color: teamColors[i],
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          teamSymbol[i],
-                                          style: TextStyle(color: Colors.white),
+                                        child: Center(
+                                          child: Text(
+                                            teamSymbol[i],
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
                                   ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_outlined,
-                                  color: PublicController.pc.toggleTextColor(),
-                                ),
-                              ],)
+                                ],
+                              )
                             ],
                           ),
                         ),
                       ),
-                      expanded:  Column(
+                      expanded: Column(
                         children: [
                           for (var i = 0; i < teamSymbol.length; i++)
                             GestureDetector(
@@ -608,7 +632,7 @@ class _InfoViewState extends State<InfoView> {
                                     child: IntrinsicHeight(
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
                                             children: [
@@ -623,9 +647,11 @@ class _InfoViewState extends State<InfoView> {
                                                     text: TextSpan(
                                                       text: 'RR',
                                                       style: TextStyle(
-                                                        fontWeight: FontWeight.normal,
+                                                        fontWeight:
+                                                            FontWeight.normal,
                                                         fontSize: dSize(.04),
-                                                        color: PublicController.pc
+                                                        color: PublicController
+                                                            .pc
                                                             .toggleTextColor(),
                                                       ),
                                                       children: <TextSpan>[
@@ -633,9 +659,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 188-6',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.04),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.04),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -643,9 +672,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 20.0',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.03),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.03),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -668,9 +700,11 @@ class _InfoViewState extends State<InfoView> {
                                                     text: TextSpan(
                                                       text: 'RR',
                                                       style: TextStyle(
-                                                        fontWeight: FontWeight.normal,
+                                                        fontWeight:
+                                                            FontWeight.normal,
                                                         fontSize: dSize(.04),
-                                                        color: PublicController.pc
+                                                        color: PublicController
+                                                            .pc
                                                             .toggleTextColor(),
                                                       ),
                                                       children: <TextSpan>[
@@ -678,9 +712,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 188-6',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.04),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.04),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -688,9 +725,12 @@ class _InfoViewState extends State<InfoView> {
                                                           text: ' 20.0',
                                                           style: TextStyle(
                                                             fontWeight:
-                                                            FontWeight.normal,
-                                                            fontSize: dSize(.03),
-                                                            color: PublicController.pc
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize:
+                                                                dSize(.03),
+                                                            color: PublicController
+                                                                .pc
                                                                 .toggleTextColor(),
                                                           ),
                                                         ),
@@ -711,18 +751,21 @@ class _InfoViewState extends State<InfoView> {
                                                 width: 20,
                                               ),
                                               Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 3.0, horizontal: 7),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 3.0,
+                                                        horizontal: 7),
                                                 decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
                                                     Radius.circular(5),
                                                   ),
                                                   color: teamColors[i],
                                                 ),
                                                 child: Text(
                                                   teamSymbol[i],
-                                                  style:
-                                                  const TextStyle(color: Colors.white),
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
                                                 ),
                                               ),
                                               const SizedBox(
@@ -730,7 +773,7 @@ class _InfoViewState extends State<InfoView> {
                                               ),
                                               Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   const Text("Qualifire 1 "),
                                                   const Text("IPL 2022"),
@@ -761,7 +804,6 @@ class _InfoViewState extends State<InfoView> {
                           // ),
                         ],
                       ),
-
                     ),
                   ],
                 ),
@@ -769,25 +811,29 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(
                 height: 10,
               ),
-
-              Row(children: [
-                Icon(
-                  Icons.star_border,
-                  size: 10,
-                  color: PublicController.pc.toggleTextColor(),
-                ),
-                SizedBox(width: 10,),
-                Text(
-                  "Upcoming Matches",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: dSize(.025),
+              Row(
+                children: [
+                  Icon(
+                    Icons.star_border,
+                    size: 10,
                     color: PublicController.pc.toggleTextColor(),
                   ),
-                ),
-              ],),
-              SizedBox(height: 10,),
-
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Upcoming Matches",
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: dSize(.025),
+                      color: PublicController.pc.toggleTextColor(),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
               RichText(
                 text: TextSpan(
                   text: 'Head to Head',
@@ -898,7 +944,6 @@ class _InfoViewState extends State<InfoView> {
                               homeController.rapidSeriesMatchList[index]),
                     );
                   }),
-
               const SizedBox(height: 10),
               MoreCard(
                 child: ListTile(
@@ -1306,7 +1351,6 @@ class _InfoViewState extends State<InfoView> {
                       ],
                     )
                   : const SizedBox(),
-
               const SizedBox(height: 10)
             ],
           ),

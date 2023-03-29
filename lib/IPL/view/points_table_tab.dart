@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../home/controller/home_controller.dart';
+import '../../public/controller/language_controller.dart';
 
 class SeriesPointsTableTab extends StatefulWidget {
   final ScrollController scrollController;
@@ -35,6 +36,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
       fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
   @override
   Widget build(BuildContext context) {
+    final LanguageController lc = Get.find();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -44,7 +46,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Points Table",
+                  lc.languageModel.value.pointsTable!,
                   style: _textStyle.copyWith(
                     fontSize: dSize(.035),
                     fontWeight: FontWeight.bold,

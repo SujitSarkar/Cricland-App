@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../home/model/rapid_model/series_model.dart';
+import '../../public/controller/language_controller.dart';
 
 class IPLPage extends StatefulWidget {
   const IPLPage({
@@ -56,6 +57,7 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final LanguageController lc = Get.find();
     return GetBuilder<HomeController>(builder: (homeController) {
       return Scaffold(
         body: SafeArea(
@@ -65,6 +67,9 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                 decoration: StDecoration().sliverAppbarGradient,
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
                     homeController.isScroll == true.obs
                         ? const SizedBox()
                         : Column(
@@ -157,46 +162,99 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                             ],
                           ),
                     SizedBox(
-                      height: dSize(.03),
+                      height: dSize(.01),
                     ),
                     TabBar(
-                      onTap: (covariant) async {
-                        setState(() => _tabController.index = covariant);
-                      },
-                      isScrollable: true,
-                      controller: _tabController,
-                      labelColor: PublicController.pc.toggleLoadingColor(),
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(
-                            dSize(.02),
+                        onTap: (covariant) async {
+                          setState(() => _tabController.index = covariant);
+                        },
+                        isScrollable: true,
+                        controller: _tabController,
+                        labelColor: PublicController.pc.toggleLoadingColor(),
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(
+                              dSize(.02),
+                            ),
+                            topRight: Radius.circular(
+                              dSize(.02),
+                            ),
                           ),
-                          topRight: Radius.circular(
-                            dSize(.02),
-                          ),
+                          color: PublicController.pc.toggleTabColor(),
                         ),
-                        color: PublicController.pc.toggleTabColor(),
-                      ),
-                      unselectedLabelColor: Colors.white,
-                      unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
-                      labelStyle: AppTextStyle().largeTitleBoldStyle,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      physics: const BouncingScrollPhysics(),
-                      tabs: Variables.iplTabsCategory
-                          .map<Widget>(
-                            (String item) => Padding(
+                        unselectedLabelColor: Colors.white,
+                        unselectedLabelStyle:
+                            AppTextStyle().largeTitleBoldStyle,
+                        labelStyle: AppTextStyle().largeTitleBoldStyle,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        physics: const BouncingScrollPhysics(),
+                        tabs: [
+                          Padding(
                               padding: EdgeInsets.symmetric(
                                 vertical: dSize(.01),
                                 horizontal: dSize(.02),
                               ),
                               child: Text(
-                                item,
+                                lc.languageModel.value.overview!,
                                 style: AppTextStyle().largeTitleStyle,
-                              ),
+                                // 'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
+                              )),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
                             ),
-                          )
-                          .toList(),
-                    ),
+                            child: Text(
+                              lc.languageModel.value.matches!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.squad!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.pointsTable!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.info!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                        ]
+                        // Variables.iplTabsCategory
+                        //   .map<Widget>(
+                        //     (String item) => Padding(
+                        //       padding: EdgeInsets.symmetric(
+                        //         vertical: dSize(.01),
+                        //         horizontal: dSize(.02),
+                        //       ),
+                        //       child: Text(
+                        //         item,
+                        //         style: AppTextStyle().largeTitleStyle,
+                        //       ),
+                        //     ),
+                        //   )
+                        //   .toList(),
+                        ),
                   ],
                 ),
               ),

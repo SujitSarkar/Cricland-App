@@ -51,5 +51,35 @@
   "failed":"Faild",
   "email_or_phone": "Email or Phone",
   "email":"Email Address",
-  "name":"Full Name"
+  "name":"Full Name",
+
+  "overview":"Overview",
+  "matches":"Matches",
+  "squad":"Squad",
+  "pointsTable":"Points Table",
+  "info":"Info",
+  "seriesInfo":"Series Info",
+  "series":"Series",
+  "duration":"Duration",
+  "format":"Format",
+  "teamSquads":"Team Squads",
+  "pointTable":"Point Table",
+  "featuredMatches": "Featured Matches",
+  "allMatches": "All Matches",
+
+
+
+  "live": "Live",
+  "home": "Home",
+  "upcoming": "Upcoming",
+  "finished": "Finished",
+  "fixtures": "Fixtures",
+  "featuredSeries": "Featured Series",
+  "commentary": "Commentary",
+  "scoreCard": "Scorecard",
+  "matchSettings": "Match Settings",
+  "shareScore": "Share Score"
+
+
+
 }

@@ -12,6 +12,8 @@ import 'package:cricland/public/widgets/decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../public/controller/language_controller.dart';
+
 class MatchPage extends StatefulWidget {
   const MatchPage({Key? key}) : super(key: key);
 
@@ -37,6 +39,7 @@ class _MatchPageState extends State<MatchPage>
   final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
+    final LanguageController lc = Get.find();
     return GetBuilder<HomeController>(
         init: HomeController(),
         autoRemove: true,
@@ -100,7 +103,7 @@ class _MatchPageState extends State<MatchPage>
                             SizedBox(
                               height: dSize(.03),
                             ),
-                            _tabBar(homeController),
+                            _tabBar(homeController, lc),
                           ],
                         ),
                       ),
@@ -133,7 +136,8 @@ class _MatchPageState extends State<MatchPage>
         });
   }
 
-  PreferredSize _tabBar(HomeController homeController) => PreferredSize(
+  PreferredSize _tabBar(HomeController homeController, LanguageController lc) =>
+      PreferredSize(
         preferredSize: Size.fromHeight(dSize(2)),
         child: Column(
           children: [
@@ -162,8 +166,8 @@ class _MatchPageState extends State<MatchPage>
                         vertical: dSize(.01),
                         horizontal: dSize(.02),
                       ),
-                      child: const Text(
-                        'Live ( 0 )',
+                      child: Text(
+                        lc.languageModel.value.live!,
                         // 'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
                       )),
                   Padding(
@@ -171,28 +175,36 @@ class _MatchPageState extends State<MatchPage>
                       vertical: dSize(.01),
                       horizontal: dSize(.02),
                     ),
-                    child: const Text('Home'),
+                    child: Text(
+                      lc.languageModel.value.home!,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: dSize(.01),
                       horizontal: dSize(.02),
                     ),
-                    child: const Text('Upcoming'),
+                    child: Text(
+                      lc.languageModel.value.upcoming!,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: dSize(.01),
                       horizontal: dSize(.02),
                     ),
-                    child: const Text('Finished'),
+                    child: Text(
+                      lc.languageModel.value.finished!,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: dSize(.01),
                       horizontal: dSize(.02),
                     ),
-                    child: const Text('Fixtures'),
+                    child: Text(
+                      lc.languageModel.value.fixtures!,
+                    ),
                   ),
                 ]),
           ],

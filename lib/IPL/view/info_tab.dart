@@ -25,15 +25,17 @@ class _InfoTabState extends State<SeriesInfoTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InfoCardTile(
-                  series: homeController
-                      .rapidSeriesMatchList.first.matchInfo!.seriesName,
-                  duration: homeController
-                      .rapidSeriesMatchList.first.matchInfo!.status,
-                  format: homeController
-                      .rapidSeriesMatchList.first.matchInfo!.matchDesc,
-                  onTap: () {},
-                ),
+                homeController.rapidSeriesMatchList.isEmpty
+                    ? SizedBox()
+                    : InfoCardTile(
+                        series: homeController
+                            .rapidSeriesMatchList.first.matchInfo!.seriesName,
+                        duration: homeController
+                            .rapidSeriesMatchList.first.matchInfo!.status,
+                        format: homeController
+                            .rapidSeriesMatchList.first.matchInfo!.matchDesc,
+                        onTap: () {},
+                      ),
               ],
             ),
           ),

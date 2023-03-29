@@ -59,6 +59,29 @@ class LanguageModel {
     this.emailOrPhone,
     this.email,
     this.name,
+    this.overview,
+    this.matches,
+    this.squad,
+    this.pointsTable,
+    this.info,
+    this.seriesInfo,
+    this.series,
+    this.duration,
+    this.format,
+    this.teamSquads,
+    this.pointTable,
+    this.featuredMatches,
+    this.allMatches,
+    this.live,
+    this.home,
+    this.upcoming,
+    this.finished,
+    this.fixtures,
+    this.featuredSeries,
+    this.commentary,
+    this.scoreCard,
+    this.matchSettings,
+    this.shareScore,
   });
 
   final String? profile;
@@ -109,6 +132,30 @@ class LanguageModel {
   final String? emailOrPhone;
   final String? email;
   final String? name;
+
+  final String? overview;
+  final String? matches;
+  final String? squad;
+  final String? pointsTable;
+  final String? info;
+  final String? seriesInfo;
+  final String? series;
+  final String? duration;
+  final String? format;
+  final String? teamSquads;
+  final String? pointTable;
+  final String? featuredMatches;
+  final String? allMatches;
+  final String? live;
+  final String? home;
+  final String? upcoming;
+  final String? finished;
+  final String? fixtures;
+  final String? featuredSeries;
+  final String? commentary;
+  final String? scoreCard;
+  final String? matchSettings;
+  final String? shareScore;
 
   factory LanguageModel.fromJson(Map<String, dynamic> json) => LanguageModel(
         profile: json["profile"],
@@ -171,6 +218,29 @@ class LanguageModel {
         emailOrPhone: json["email_or_phone"],
         email: json["email"],
         name: json["name"],
+        overview: json["overview"],
+        matches: json["matches"],
+        squad: json["squad"],
+        pointsTable: json["pointsTable"],
+        info: json["info"],
+        seriesInfo: json["seriesInfo"],
+        series: json["series"],
+        duration: json["duration"],
+        format: json["format"],
+        teamSquads: json["teamSquads"],
+        pointTable: json["pointTable"],
+        featuredMatches: json["featuredMatches"],
+        allMatches: json["allMatches"],
+        live: json["live"],
+        home: json["home"],
+        upcoming: json["upcoming"],
+        finished: json["finished"],
+        fixtures: json["fixtures"],
+        featuredSeries: json["featuredSeries"],
+        commentary: json["commentary"],
+        scoreCard: json["scoreCard"],
+        matchSettings: json["matchSettings"],
+        shareScore: json["shareScore"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -232,5 +302,28 @@ class LanguageModel {
         "email_or_phone": emailOrPhone,
         "email": email,
         "name": name,
+        "overview": overview,
+        "matches": matches,
+        "squad": squad,
+        "pointsTable": pointsTable,
+        "info": info,
+        "seriesInfo": seriesInfo,
+        "series": series,
+        "duration": duration,
+        "format": format,
+        "teamSquads": teamSquads,
+        "pointTable": pointTable,
+        "featuredMatches": featuredMatches,
+        "allMatches": allMatches,
+        "live": live,
+        "home": home,
+        "upcoming": upcoming,
+        "finished": finished,
+        "fixtures": fixtures,
+        "featuredSeries": featuredSeries,
+        "commentary": commentary,
+        "scoreCard": scoreCard,
+        "matchSettings": matchSettings,
+        "shareScore": shareScore,
       };
 }
