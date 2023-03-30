@@ -23,7 +23,7 @@ class PlayerDetailsPageMan extends StatefulWidget {
 }
 
 class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -48,8 +48,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
         children: [
           Scaffold(
             body: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverOverlapAbsorber(
                     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
@@ -61,70 +60,75 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
                       forceElevated: innerBoxIsScrolled,
                       expandedHeight: 190,
                       flexibleSpace: Container(
-                        decoration:StDecoration().sliverAppbarGradient,
+                        decoration: StDecoration().sliverAppbarGradient,
                         child: Stack(
                           children: [
                             Positioned.fill(
-                                child: rankingController
-                                    .playerInfoModel.value.name !=
-                                    null
+                                child: rankingController.playerInfoModel.value.name != null
                                     ? Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-                                              left: dSize(.055)),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              style: AppTextStyle()
-                                                  .largeTitleStyle
-                                                  .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize:
-                                                  dSize(.055)),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                    '${rankingController.playerInfoModel.value.name} \n\n'),
-                                                TextSpan(
-                                                    text:
-                                                    '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
-                                                    style: AppTextStyle().bodyTextStyle.copyWith(
-                                                        color: Colors.white)),
-                                              ],
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: dSize(.055)),
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    style: AppTextStyle()
+                                                        .largeTitleStyle
+                                                        .copyWith(
+                                                            color: Colors.white,
+                                                            fontSize:
+                                                                dSize(.055)),
+                                                    children: [
+                                                      TextSpan(
+                                                          text:
+                                                              '${rankingController.playerInfoModel.value.name} \n\n'),
+                                                      TextSpan(
+                                                          text:
+                                                              '${rankingController.playerInfoModel.value.intlTeam} \n${rankingController.playerInfoModel.value.doB}',
+                                                          style: AppTextStyle()
+                                                              .bodyTextStyle
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                      .white)),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ),
+
+                                          Transform.scale(
+                                            scale: innerBoxIsScrolled ? 0.6 :1.0,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                              const BorderRadius.all(
+                                                  Radius.circular(80)),
+                                              child: CachedNetworkImage(
+                                                  imageUrl: ApiEndpoint.imageUrl(
+                                                      rankingController
+                                                          .playerInfoModel
+                                                          .value
+                                                          .faceImageId ??
+                                                          '',
+                                                      p: 'de'),
+                                                  httpHeaders: ApiEndpoint.header,
+                                                  fit: BoxFit.cover,
+                                                  height: 130,
+                                                  width: 130,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                  const Icon(Icons.error,
+                                                      size: 120,
+                                                      color: Colors.grey),
+                                                  placeholder: (context, url) =>
+                                                  const Icon(Icons.image,
+                                                      size: 120,
+                                                      color: Colors.grey)),
                                             ),
-                                          )),
-                                    ),
-                                    ClipRRect(
-                                      borderRadius:
-                                      const BorderRadius.all(
-                                          Radius.circular(80)),
-                                      child: CachedNetworkImage(
-                                          imageUrl: ApiEndpoint.imageUrl(
-                                              rankingController
-                                                  .playerInfoModel
-                                                  .value
-                                                  .faceImageId ??
-                                                  '',
-                                              p: 'de'),
-                                          httpHeaders: ApiEndpoint.header,
-                                          fit: BoxFit.cover,
-                                          height: 130,
-                                          width: 130,
-                                          errorWidget:
-                                              (context, url, error) =>
-                                          const Icon(Icons.error,
-                                              size: 120,
-                                              color: Colors.grey),
-                                          placeholder: (context, url) =>
-                                          const Icon(Icons.image,
-                                              size: 120,
-                                              color: Colors.grey)),
-                                    ),
-                                  ],
-                                )
+                                          )
+                                        ],
+                                      )
                                     : const SizedBox.shrink())
                           ],
                         ),
@@ -169,7 +173,7 @@ class _PlayerDetailsPageManState extends State<PlayerDetailsPageMan>
               color: PublicController.pc.toggleTabColor()),
           unselectedLabelColor: Colors.grey.shade400,
           unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
-          labelStyle:AppTextStyle().largeTitleBoldStyle,
+          labelStyle: AppTextStyle().largeTitleBoldStyle,
           indicatorSize: TabBarIndicatorSize.label,
           physics: const BouncingScrollPhysics(),
           tabs: lc.languageModel.value.playerDetails!

@@ -96,31 +96,34 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
                                                     ),
                                                   )),
                                             ),
-                                            ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(80)),
-                                              child: CachedNetworkImage(
-                                                  imageUrl: ApiEndpoint.imageUrl(
-                                                      rankingController
-                                                              .playerInfoModel
-                                                              .value
-                                                              .faceImageId ??
-                                                          '',
-                                                      p: 'de'),
-                                                  httpHeaders: ApiEndpoint.header,
-                                                  fit: BoxFit.cover,
-                                                  height: 130,
-                                                  width: 130,
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          const Icon(Icons.error,
-                                                              size: 120,
-                                                              color: Colors.grey),
-                                                  placeholder: (context, url) =>
-                                                      const Icon(Icons.image,
-                                                          size: 120,
-                                                          color: Colors.grey)),
+                                            Transform.scale(
+                                              scale: innerBoxIsScrolled ? 0.6 :1.0,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(80)),
+                                                child: CachedNetworkImage(
+                                                    imageUrl: ApiEndpoint.imageUrl(
+                                                        rankingController
+                                                                .playerInfoModel
+                                                                .value
+                                                                .faceImageId ??
+                                                            '',
+                                                        p: 'de'),
+                                                    httpHeaders: ApiEndpoint.header,
+                                                    fit: BoxFit.cover,
+                                                    height: 130,
+                                                    width: 130,
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            const Icon(Icons.error,
+                                                                size: 120,
+                                                                color: Colors.grey),
+                                                    placeholder: (context, url) =>
+                                                        const Icon(Icons.image,
+                                                            size: 120,
+                                                            color: Colors.grey)),
+                                              ),
                                             ),
                                           ],
                                         )
