@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/series_match_list_model.dart';
 import 'package:cricland/home/view/details_view/home_details/team_info/team_info_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
@@ -10,12 +9,10 @@ import 'package:cricland/home/view/details_view/home_details/live_view.dart';
 import 'package:cricland/home/view/details_view/home_details/points_table.dart';
 import 'package:cricland/home/view/details_view/home_details/score_card_view.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -5,6 +5,7 @@ import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';
 import '../variables/config.dart';
@@ -206,8 +207,8 @@ class _SellPointScreenState extends State<SellPointScreen> {
                     SizedBox(height: dSize(.06)),
                     TextFieldTile(
                       controller: transectionMediaController,
-                      hintText: "Bkash / Nogot No",
-                      labelText: "Bkash / Nogot No",
+                      hintText: "Address",
+                      labelText: "Address",
                     ),
                     SizedBox(height: dSize(.06)),
                     TextFieldTile(

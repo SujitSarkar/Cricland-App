@@ -1,14 +1,21 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cricland/public/screens/profile_update_screen.dart';
 import 'package:cricland/public/screens/sell_points_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/decoration.dart';
 import 'package:cricland/public/widgets/gradiend_button.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';
 import '../variables/config.dart';
+import '../variables/variable.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,6 +27,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  File? galleryImage;
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (homeController) {
@@ -51,15 +60,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 child: Column(
                   children: [
-                    homeController.userModel.firstName == null
-                        ? const CircleAvatar(
-                            radius: 70,
-                            backgroundImage: AssetImage('assets/player.png'))
-                        : CircleAvatar(
-                            radius: 70,
-                            backgroundImage: NetworkImage(
-                                homeController.userModel.profileImage!),
+                    Stack(
+                      children: [
+                        galleryImage != null
+                            ? CircleAvatar(
+                                radius: 70,
+                                backgroundImage: FileImage(
+                                  File(galleryImage!.path),
+                                ),
+                              )
+                            : homeController.userModel.profileImage!.isEmpty
+                                ? const CircleAvatar(
+                                    radius: 70,
+                                    backgroundImage:
+                                        AssetImage('assets/player.png'))
+                                : CircleAvatar(
+                                    radius: 70,
+                                    backgroundImage: NetworkImage(
+                                        homeController.userModel.profileImage!),
+                                  ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              _modalBottomSheetMenu(homeController);
+                            },
+                            child: const CircleAvatar(
+                                child: Padding(
+                              padding: EdgeInsets.all(2.0),
+                              child: Icon(Icons.camera_alt_outlined),
+                            )),
                           ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: dSize(.05)),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -116,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: dSize(.5)),
+                        SizedBox(height: dSize(.3)),
                         GradientButton(
                           onTap: () {
                             Navigator.push(
@@ -151,4 +186,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ],
           ));
+
+  void _modalBottomSheetMenu(HomeController homeController) {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: 100.0,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    XFile? pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+
+                    if (pickedFile != null) {
+                      setState(() {
+                        galleryImage = File(pickedFile.path);
+                      });
+                      uploadProfileImageUpdate(pickedFile,
+                          "${homeController.userModel.id}", homeController);
+                    }
+                  },
+                  icon: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (Rect bounds) =>
+                        StDecoration().tabBarGradient.createShader(bounds),
+                    child: const Icon(
+                      Icons.camera,
+                      size: 40,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: dSize(0.1),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    XFile? pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    final FirebaseStorage _storage = FirebaseStorage.instance;
+                    Reference ref = _storage
+                        .ref()
+                        .child("images/${DateTime.now().toString()}");
+                    if (pickedFile != null) {
+                      setState(() {
+                        galleryImage = File(pickedFile.path);
+                      });
+                      uploadProfileImageUpdate(pickedFile,
+                          "${homeController.userModel.id}", homeController);
+                    }
+                  },
+                  icon: ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (Rect bounds) =>
+                        StDecoration().tabBarGradient.createShader(bounds),
+                    child: const Icon(
+                      Icons.photo,
+                      size: 40,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  uploadProfileImageUpdate(
+      XFile pickedFile, String profileId, HomeController homeController) async {
+    final FirebaseStorage _storage = FirebaseStorage.instance;
+    Reference ref = _storage.ref().child("images/${DateTime.now().toString()}");
+
+    UploadTask uploadTask = ref.putFile(File(pickedFile.path));
+    String downloadURL = await (await uploadTask).ref.getDownloadURL();
+
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(profileId)
+          .update({
+        'profileImage': downloadURL,
+      });
+      await homeController.getUser(profileId);
+
+      showToast('Success');
+    } catch (e) {
+      showToast(e.toString());
+      print(e.toString());
+    }
+  }
 }

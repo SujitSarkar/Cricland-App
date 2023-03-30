@@ -51,5 +51,32 @@
   "failed":"অসাফল্য",
   "email_or_phone": "ইমেইল অথবা ফোন",
   "email":"ইমেইল ঠিকানা",
-  "name":"পুরো নাম"
+  "name":"পুরো নাম",
+
+
+  "overview":"ওভারভিউ",
+  "matches":"সব ম্যাচ",
+  "squad":"স্কোয়াড",
+  "pointsTable":"পয়েন্ট টেবিল",
+  "info":"তথ্য",
+  "seriesInfo":"সিরিজ তথ্য",
+  "series":"সিরিজ",
+  "duration":"সময়কাল",
+  "format":"বিন্যাস",
+  "teamSquads":"টিম স্কোয়াডস",
+  "featuredMatches": "বৈশিষ্ট্যযুক্ত ম্যাচ",
+  "allMatches": "সব ম্যাচ",
+
+
+
+  "live": "লাইভ",
+  "home": "Home",
+  "upcoming": "আসন্ন",
+  "finished": "সমাপ্ত",
+  "fixtures": "ফিক্সচার",
+  "featuredSeries": "বৈশিষ্ট্যযুক্ত সিরিজ",
+  "commentary": "ভাষ্য",
+  "scoreCard": "স্কোরকার্ড",
+  "matchSettings": "ম্যাচ সেটিংস",
+  "shareScore": "শেয়ার স্কোর"
 }

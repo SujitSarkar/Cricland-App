@@ -3,10 +3,14 @@ import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../home/controller/home_controller.dart';
+import '../../public/controller/language_controller.dart';
 
 class SeriesPointsTableTab extends StatefulWidget {
-  const SeriesPointsTableTab({Key? key}) : super(key: key);
+  final ScrollController scrollController;
+  const SeriesPointsTableTab({Key? key, required this.scrollController})
+      : super(key: key);
 
   @override
   _PointsTableTabState createState() => _PointsTableTabState();
@@ -27,10 +31,12 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
       setState(() {});
     }
   }
+
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
   @override
   Widget build(BuildContext context) {
+    final LanguageController lc = Get.find();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -40,12 +46,12 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Points Table",
-                    style:_textStyle.copyWith(
-                      fontSize: dSize(.035),
-                      fontWeight: FontWeight.bold,
-                      color: PublicController.pc
-                          .toggleLoadingColor(),),
+                  lc.languageModel.value.pointsTable!,
+                  style: _textStyle.copyWith(
+                    fontSize: dSize(.035),
+                    fontWeight: FontWeight.bold,
+                    color: PublicController.pc.toggleLoadingColor(),
+                  ),
                 ),
                 // Row(
                 //   children: [
