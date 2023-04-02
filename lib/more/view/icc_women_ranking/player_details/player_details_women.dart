@@ -167,7 +167,9 @@ class _PlayerDetailsPageWomenState extends State<PlayerDetailsPageWomen>
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(dSize(.02)),
                   topRight: Radius.circular(dSize(.02))),
-              color: PublicController.pc.toggleTabColor()),
+              color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
+              gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
+          ),
           unselectedLabelColor: Colors.grey.shade400,
           unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
           labelStyle:AppTextStyle().largeTitleBoldStyle,

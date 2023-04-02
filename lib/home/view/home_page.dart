@@ -153,7 +153,8 @@ class _MatchPageState extends State<MatchPage>
                     topLeft: Radius.circular(dSize(.02)),
                     topRight: Radius.circular(dSize(.02)),
                   ),
-                  color: PublicController.pc.toggleTabColor(),
+                    color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
+                    gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
                 ),
                 unselectedLabelColor: Colors.white,
                 unselectedLabelStyle: AppTextStyle().largeTitleStyle,
