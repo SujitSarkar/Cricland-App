@@ -1,20 +1,17 @@
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/public/widgets/loading_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
-import 'package:cricland/public/controller/api_service.dart';
-import '../../../model/monk/monk_league_model.dart';
+
 import '../../../model/monk/monk_live_model.dart';
 import '../../../model/monk/monk_team_model.dart';
 import '../../../model/monk/monk_vanue_model.dart';
 
 class LiveTabScreen extends StatefulWidget {
-  final  ScrollController scrollController;
-  const LiveTabScreen({Key? key,required this.scrollController}) : super(key: key);
+  final ScrollController scrollController;
+  const LiveTabScreen({Key? key, required this.scrollController})
+      : super(key: key);
 
   @override
   _LiveTabScreenState createState() => _LiveTabScreenState();
@@ -32,9 +29,9 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
           onNotification: (notification) {
             print(notification.metrics.pixels);
 
-            if(notification.metrics.pixels>50){
+            if (notification.metrics.pixels > 50) {
               homeController.setScroll(true.obs);
-            }else{
+            } else {
               homeController.setScroll(false.obs);
             }
             return true;
@@ -45,7 +42,6 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 FutureBuilder(
                     future: homeController.getLive(),
                     builder:
@@ -53,17 +49,19 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                       if (liveSnapshot.hasData) {
                         return liveSnapshot.data!.isEmpty
                             ? Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Center(
-                                  child:
-                                      Text("There are currently no live matches",style: AppTextStyle().bodyTextStyle,)),
-                            )
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Center(
+                                    child: Text(
+                                  "There are currently no live matches",
+                                  style: AppTextStyle().bodyTextStyle,
+                                )),
+                              )
                             : ListView.builder(
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: liveSnapshot.data!.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  print( "ID : ${liveSnapshot.data![index].id}");
+                                  print("ID : ${liveSnapshot.data![index].id}");
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -85,8 +83,8 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                     Row(
                                                       children: [
                                                         Image.network(
-                                                          venueSnapshot
-                                                              .data!.image_path!,
+                                                          venueSnapshot.data!
+                                                              .image_path!,
                                                           height: 20,
                                                           width: 20,
                                                         ),
@@ -123,7 +121,8 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                               : 0,
                                           child: Card(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -173,8 +172,8 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                             //       }
                                                             //     }),
                                                             FutureBuilder(
-                                                                future: homeController
-                                                                    .getTeam(liveSnapshot
+                                                                future: homeController.getTeam(
+                                                                    liveSnapshot
                                                                         .data![
                                                                             index]
                                                                         .visitorteam_id
@@ -198,10 +197,13 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                                               30,
                                                                         ),
                                                                         Text(
-                                                                            "${VTsnapshot.data!.code} 102-6 15.1",style: AppTextStyle().bodyTextStyle),
+                                                                            "${VTsnapshot.data!.code} 102-6 15.1",
+                                                                            style:
+                                                                                AppTextStyle().bodyTextStyle),
                                                                         Text(
                                                                             "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
-                                                                        style: AppTextStyle().bodyTextStyle)
+                                                                            style:
+                                                                                AppTextStyle().bodyTextStyle)
                                                                       ],
                                                                     );
                                                                   } else {
@@ -223,9 +225,12 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                               const Icon(
                                                                 Icons
                                                                     .do_not_disturb_on_total_silence,
-                                                                color: Colors.red,
+                                                                color:
+                                                                    Colors.red,
                                                               ),
-                                                              Text("Live",style: AppTextStyle().bodyTextStyle),
+                                                              Text("Live",
+                                                                  style: AppTextStyle()
+                                                                      .bodyTextStyle),
                                                             ],
                                                           ),
                                                         )
