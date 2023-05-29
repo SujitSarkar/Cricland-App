@@ -8,11 +8,11 @@ import 'package:cricland/public/screens/splash_screen.dart';
 import 'package:cricland/public/service/local_notification_service.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -35,6 +35,14 @@ void main() async {
           )
         : null,
   );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // if (Platform.isIOS) {
+  //   await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions.currentPlatform,
+  //   );
+  // } else {
+  //   await Firebase.initializeApp();
+  // }
   Variables.portraitMood;
   Variables.darkStatusBarTheme;
   Get.put(PublicController());
@@ -59,7 +67,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -93,9 +100,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<PublicController>(builder: (pc) {
-
       return GetMaterialApp(
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
@@ -103,7 +108,6 @@ class _MyAppState extends State<MyApp> {
           title: 'Cricland',
           debugShowCheckedModeBanner: false,
           theme: pc.toggleTheme(),
-
           home: const SplashScreen());
     });
   }

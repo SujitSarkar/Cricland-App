@@ -5,11 +5,11 @@ import 'package:cricland/public/widgets/gradiend_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../home/controller/home_controller.dart';
 import '../controller/public_controller.dart';
 import '../variables/colors.dart';
@@ -457,42 +457,42 @@ class _LoginScreenState extends State<LoginScreen> {
   //         )),
   //       ));
   // }
-  _facebookLogin() async {
-    final fb = FacebookLogin();
-
-    final res = await fb.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email,
-    ]);
-
-    switch (res.status) {
-      case FacebookLoginStatus.success:
-        final FacebookAccessToken? accessToken = res.accessToken;
-        print('Access token: ${accessToken!.token}');
-
-        // Get profile data
-        final profile = await fb.getUserProfile();
-        print('Hello, ${profile!.name}! You ID: ${profile.userId}');
-
-        // Get user profile image url
-        final imageUrl = await fb.getProfileImageUrl(width: 100);
-        print('Your profile image: $imageUrl');
-
-        // Get email (since we request email permission)
-        final email = await fb.getUserEmail();
-        // But user can decline permission
-        if (email != null) print('And your email is $email');
-
-        break;
-      case FacebookLoginStatus.cancel:
-        // User cancel log in
-        break;
-      case FacebookLoginStatus.error:
-        // Log in failed
-        print('Error while log in: ${res.error}');
-        break;
-    }
-  }
+  // _facebookLogin() async {
+  //   final fb = FacebookLogin();
+  //
+  //   final res = await fb.logIn(permissions: [
+  //     FacebookPermission.publicProfile,
+  //     FacebookPermission.email,
+  //   ]);
+  //
+  //   switch (res.status) {
+  //     case FacebookLoginStatus.success:
+  //       final FacebookAccessToken? accessToken = res.accessToken;
+  //       print('Access token: ${accessToken!.token}');
+  //
+  //       // Get profile data
+  //       final profile = await fb.getUserProfile();
+  //       print('Hello, ${profile!.name}! You ID: ${profile.userId}');
+  //
+  //       // Get user profile image url
+  //       final imageUrl = await fb.getProfileImageUrl(width: 100);
+  //       print('Your profile image: $imageUrl');
+  //
+  //       // Get email (since we request email permission)
+  //       final email = await fb.getUserEmail();
+  //       // But user can decline permission
+  //       if (email != null) print('And your email is $email');
+  //
+  //       break;
+  //     case FacebookLoginStatus.cancel:
+  //       // User cancel log in
+  //       break;
+  //     case FacebookLoginStatus.error:
+  //       // Log in failed
+  //       print('Error while log in: ${res.error}');
+  //       break;
+  //   }
+  // }
 
   _googleLogin(HomeController homeController) async {
     final googleSignIn = GoogleSignIn();

@@ -4,6 +4,8 @@ import 'package:cricland/public/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../public/controller/api_endpoints.dart';
+import '../../../../public/controller/api_service.dart';
 import '../../../model/monk/monk_live_model.dart';
 import '../../../model/monk/monk_team_model.dart';
 import '../../../model/monk/monk_vanue_model.dart';
@@ -20,6 +22,50 @@ class LiveTabScreen extends StatefulWidget {
 class _LiveTabScreenState extends State<LiveTabScreen> {
   int? selectedIndex;
   double containerHeight = 150;
+
+  static Stream<List<MonkLive>>? getAllMessages() {
+    List<MonkLive> monk_live = [];
+
+    ApiService.instance.apiCall(
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.monkLiveMatches),
+        onSuccess: (response) {
+          // print("Live Response: $response");
+          // var lives = response["data"];
+          // for (var live in lives) {
+          //   monk_live.add(MonkLive(
+          //     id: live["id"],
+          //     league_id: live["league_id"],
+          //     round: live["round"],
+          //     localteam_id: live["localteam_id"],
+          //     visitorteam_id: live["visitorteam_id"],
+          //     starting_at: live["starting_at"],
+          //     type: live["type"],
+          //     live: live["live"],
+          //     status: live["status"],
+          //     note: live["note"],
+          //     venue_id: live["venue_id"],
+          //     toss_won_team_id: live["toss_won_team_id"],
+          //     winner_team_id: live["winner_team_id"],
+          //     draw_noresult: live["draw_noresult"],
+          //     total_overs_played: live["total_overs_played"],
+          //     localteam_dl_data: Score(
+          //         score: live["localteam_dl_data"]["score"],
+          //         overs: live["localteam_dl_data"]["overs"],
+          //         wickets_out: live["localteam_dl_data"]["wickets_out"]),
+          //     visitorteam_dl_data: Score(
+          //         score: live["visitorteam_dl_data"]["score"],
+          //         overs: live["visitorteam_dl_data"]["overs"],
+          //         wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
+          //   ));
+          // }
+          return response!;
+        },
+        onError: (error) {
+          print(error.toString());
+        });
+    // print(monk_live[0].round)
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +88,41 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                StreamBuilder(
+                  stream: getAllMessages(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container();
+                    } else {
+                      return LoadingPage();
+                    }
+                    // switch (snapshot.connectionState) {
+                    //   case ConnectionState.waiting:
+                    //   case ConnectionState.none:
+                    //     return const Center(
+                    //       child: SizedBox(),
+                    //     );
+                    //
+                    //   case ConnectionState.active:
+                    //   case ConnectionState.done:
+                    //     if (_list.isNotEmpty) {
+                    //       return ListView.builder(
+                    //         reverse: true,
+                    //         itemCount: _list.length,
+                    //         physics: BouncingScrollPhysics(),
+                    //         itemBuilder: (context, index) {
+                    //           return MessageCard(
+                    //             message: _list[index],
+                    //           );
+                    //           //ChatUserCard();
+                    //         },
+                    //       );
+                    //     } else {
+                    //       return const Center(child: Text("Say Hii"));
+                    //     }
+                    // }
+                  },
+                ),
                 FutureBuilder(
                     future: homeController.getLive(),
                     builder:
