@@ -24,7 +24,6 @@
   "login":"Login",
   "english":"English",
   "bangla":"Bangla",
-  "hindi":"Hindi",
   "close": "Close",
   "settings":"Settings",
   "setting_appearence":"Setting & Appearence",
@@ -39,7 +38,7 @@
 
   "change_theme_title":"Change the app theme by your own choice",  
 
-  "manCategoryList": ["Batsmen","Bowlers","Allrounders","Teams"],
+  "manCategoryList": ["Teams","Batsmen","Bowlers","Allrounders"],
   "manGameType": ["ODI","T20"],
   "player_ranking_table_header": ["Rank","Player","Ratings"],
   "team_ranking_table_header": ["Rank","Team","Matches","Points","Ratings"],
