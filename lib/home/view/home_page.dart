@@ -55,51 +55,55 @@ class _MatchPageState extends State<MatchPage>
                         controller: controller,
                         child: Column(
                           children: [
-                            homeController.isScroll == true.obs
-                                ? const SizedBox()
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              height: homeController.isScroll == true.obs
+                                  ? 0.0
+                                  : 50.0,
+                              curve: Curves.fastOutSlowIn,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              left: dSize(.03),
-                                              top: dSize(.05),
-                                            ),
-                                            child: Image.asset(
-                                              'assets/main_logo.png',
-                                              height: 30,
-                                              width: 30,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: dSize(.04),
-                                              left: dSize(.03),
-                                            ),
-                                            child: Text(
-                                              "Cricland",
-                                              style: TextStyle(
-                                                  fontSize: dSize(.05),
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ],
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: dSize(.03),
+                                          top: dSize(.05),
+                                        ),
+                                        child: Image.asset(
+                                          'assets/main_logo.png',
+                                          height: 30,
+                                          width: 30,
+                                        ),
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Icon(Icons.search_outlined,
-                                            color: Colors.white),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          top: dSize(.04),
+                                          left: dSize(.03),
+                                        ),
+                                        child: Text(
+                                          "Cricland",
+                                          style: TextStyle(
+                                              fontSize: dSize(.05),
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ],
                                   ),
+                                  // const Padding(
+                                  //   padding: EdgeInsets.all(8.0),
+                                  //   child: Icon(Icons.search_outlined,
+                                  //       color: Colors.white),
+                                  // ),
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               height: dSize(.03),
                             ),
@@ -144,6 +148,8 @@ class _MatchPageState extends State<MatchPage>
             TabBar(
                 onTap: (covariant) async {
                   setState(() => _tabController.index = covariant);
+
+                  print(PublicController.pc.isLight);
                 },
                 isScrollable: true,
                 controller: _tabController,
@@ -153,8 +159,13 @@ class _MatchPageState extends State<MatchPage>
                     topLeft: Radius.circular(dSize(.02)),
                     topRight: Radius.circular(dSize(.02)),
                   ),
-                    color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
-                    gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
+                  gradient: !PublicController.pc.isLight.value
+                      ? StDecoration().tabBarGradient
+                      : null,
+                  color: PublicController.pc.toggleTabColor(),
+                  // color: PublicController.pc.isLight.value
+                  //     ? PublicController.pc.toggleTabColor()
+                  //     : Colors.white,
                 ),
                 unselectedLabelColor: Colors.white,
                 unselectedLabelStyle: AppTextStyle().largeTitleStyle,

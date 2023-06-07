@@ -79,37 +79,30 @@ class RankingController extends GetxController {
     }
   }
 
-  Future<void> getManRankingList() async {
+  Future<void> getManTeamRankingList() async {
     if (!bodyLoading.value) {
       bodyLoading(true);
       try {
         final url =
-            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}${Variables.manCategoryList[manPlayerTypeTabController.index].toLowerCase()}?formatType=${selectedManGameType.value.toLowerCase()}';
-        http.Response response =
-            await http.get(Uri.parse(url), headers: ApiEndpoint.header);
-        print(url);
-        print(response.statusCode);
-        // print(response.body);
+            '${ApiEndpoint.finalBaseUrl}/${ApiEndpoint.teamRanking}?filter[type]=${selectedManGameType.value}&filter[gender]=men&api_token=${ApiEndpoint.apiToken}';
+        final http.Response response =
+            await http.get(Uri.parse(url));
+        debugPrint(url);
+        debugPrint(response.statusCode.toString());
+        debugPrint(response.body);
         if (response.statusCode == 200) {
           var jsonData = jsonDecode(response.body);
-          if (manPlayerTypeTabController.index == 3) {
-            manTeamRankingList.value =
-                teamRankingModelFromJson(jsonEncode(jsonData['rank']));
-          } else {
-            manRankingList.value =
-                rankingModelFromJson(jsonEncode(jsonData['rank']));
+          for(var element in jsonData['data']){
+            if(element['gender']=='men'){
+              manTeamRankingList.value = teamRankingModelFromJson(jsonEncode(element['team']));
+            }
           }
-        } else if (response.statusCode == 204) {
-          manTeamRankingList.clear();
-          manRankingList.clear();
-          showToast('No data found');
         } else {
           showToast('Man\'s ranking data fetching error');
         }
         bodyLoading(false);
       } catch (error) {
         bodyLoading(false);
-        print(error.toString());
         showToast(error.toString());
       }
     } else {
@@ -117,37 +110,30 @@ class RankingController extends GetxController {
     }
   }
 
-  Future<void> getWomenRankingList() async {
+  Future<void> getWomenTeamRankingList() async {
     if (!bodyLoading.value) {
       bodyLoading(true);
       try {
         final url =
-            '${ApiEndpoint.baseUrl}${ApiEndpoint.rankings}${Variables.manCategoryList[womenPlayerTypeTabController.index].toLowerCase()}?isWomen=1&formatType=${selectedWomenGameType.value.toLowerCase()}';
-        http.Response response =
-            await http.get(Uri.parse(url), headers: ApiEndpoint.header);
-        print(url);
-        print(response.statusCode);
-        // print(response.body);
+            '${ApiEndpoint.finalBaseUrl}/${ApiEndpoint.teamRanking}?filter[type]=${selectedWomenGameType.value}&filter[gender]=women&api_token=${ApiEndpoint.apiToken}';
+        final http.Response response =
+        await http.get(Uri.parse(url));
+        debugPrint(url);
+        debugPrint(response.statusCode.toString());
+        debugPrint(response.body);
         if (response.statusCode == 200) {
           var jsonData = jsonDecode(response.body);
-          if (womenPlayerTypeTabController.index == 3) {
-            womenTeamRankingList.value =
-                teamRankingModelFromJson(jsonEncode(jsonData['rank']));
-          } else {
-            womenRankingList.value =
-                rankingModelFromJson(jsonEncode(jsonData['rank']));
+          for(var element in jsonData['data']){
+            if(element['gender']=='women'){
+              womenTeamRankingList.value = teamRankingModelFromJson(jsonEncode(element['team']));
+            }
           }
-        } else if (response.statusCode == 204) {
-          womenTeamRankingList.clear();
-          womenRankingList.clear();
-          showToast('No data found');
         } else {
           showToast('Women\'s ranking data fetching error');
         }
         bodyLoading(false);
       } catch (error) {
         bodyLoading(false);
-        print(error.toString());
         showToast(error.toString());
       }
     } else {

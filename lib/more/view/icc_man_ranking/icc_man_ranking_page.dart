@@ -31,14 +31,15 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
     rankingController.manPlayerTypeTabController =
         TabController(length: 4, vsync: this);
 
-    ///Add listener to tabcontroller
+    ///Add listener to tabController
     rankingController.manPlayerTypeTabController.addListener(() async {
       if (rankingController.manPlayerTypeTabController.index !=
-          rankingController.manPlayerTypeTabController.previousIndex) {
-        await rankingController.getManRankingList();
+              rankingController.manPlayerTypeTabController.previousIndex &&
+          rankingController.manPlayerTypeTabController.index == 0) {
+        await rankingController.getManTeamRankingList();
       }
     });
-    await rankingController.getManRankingList();
+    await rankingController.getManTeamRankingList();
   }
 
   @override
@@ -97,7 +98,7 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                           child: InkWell(
                         onTap: () async {
                           rankingController.selectedManGameType.value = item;
-                          await rankingController.getManRankingList();
+                          await rankingController.getManTeamRankingList();
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -153,10 +154,10 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
                   child: TabBarView(
                       controller: rankingController.manPlayerTypeTabController,
                       children: [
-                        _individualData(rankingController, lc),
-                        _individualData(rankingController, lc),
-                        _individualData(rankingController, lc),
                         _teamData(rankingController, lc),
+                        _individualData(rankingController, lc),
+                        _individualData(rankingController, lc),
+                        _individualData(rankingController, lc),
                       ])))
         ],
       );
@@ -292,9 +293,12 @@ class _ICCManRankingPageState extends State<ICCManRankingPage>
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(dSize(.02)),
                   topRight: Radius.circular(dSize(.02))),
-              color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
-              gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
-          ),
+              color: PublicController.pc.isLight.value
+                  ? PublicController.pc.toggleTabColor()
+                  : null,
+              gradient: !PublicController.pc.isLight.value
+                  ? StDecoration().tabBarGradient
+                  : null),
           unselectedLabelColor: Colors.grey.shade400,
           unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
           labelStyle: AppTextStyle().largeTitleBoldStyle,
