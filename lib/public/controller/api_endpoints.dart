@@ -32,11 +32,12 @@ class ApiEndpoints {
 
   //MonkAPI
   static const String monkAPIToken =
-      '?api_token=1io0abIjdpjZw9qyojgXAQMloJQDtqWoCmO6J9584A9TgEooptxkOkuiulK';
+      'Uke9vY0bkSA6AWlIf6CZhyLoNggatkpe2ws0hBsbd6uUfJHlMlhT8QtOAixC';
+
   static const String monkApiVersion = "api/v2.0/";
   static const String monkBaseURL =
       'https://cricket.sportmonks.com/' + monkApiVersion;
-  static String monkLiveMatches = monkBaseURL + 'livescores' + monkAPIToken;
+  static String monkLiveMatches = "${monkBaseURL}livescores";
   static String monkLeague = monkBaseURL + 'leagues/';
   static String monkVanue = 'venues/';
   static String monkTeams = 'teams/';

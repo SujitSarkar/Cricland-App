@@ -908,11 +908,11 @@ class HomeController extends GetxController {
   //Monk API Service
   Future<List<MonkLive>> getLive() async {
     List<MonkLive> monk_live = [];
+    await Future.delayed(const Duration(milliseconds: 1000000));
     await ApiService.instance.apiCall(
         execute: () async =>
             await ApiService.instance.get(ApiEndpoints.monkLiveMatches),
         onSuccess: (response) {
-          print("Live Response: $response");
           var lives = response["data"];
           for (var live in lives) {
             monk_live.add(MonkLive(
@@ -946,15 +946,15 @@ class HomeController extends GetxController {
           print(error.toString());
         });
 
-    // print(monk_live[0].round);
     return monk_live;
   }
 
   Future<MonkLeague> getLeague(String leagueId) async {
     MonkLeague monk_league = MonkLeague();
+    await Future.delayed(const Duration(milliseconds: 1000000000));
     await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance.get(
-            ApiEndpoints.monkLeague + leagueId + ApiEndpoints.monkAPIToken),
+        execute: () async =>
+            await ApiService.instance.get(ApiEndpoints.monkLeague + leagueId),
         onSuccess: (response) {
           print("Leauge Response: ${response}");
           var data = response["data"];
@@ -962,7 +962,7 @@ class HomeController extends GetxController {
               id: data["id"],
               name: data["name"],
               code: data["code"],
-              image_path: data["image_path"]);
+              image_path: data["image_path"] ?? "");
         },
         onError: (error) {
           print(error.toString());
@@ -975,6 +975,7 @@ class HomeController extends GetxController {
 
   Future<MonkVanue> getVenue(String venueId) async {
     MonkVanue monk_venue = MonkVanue();
+    await Future.delayed(const Duration(minutes: 10));
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance
             .get(ApiEndpoints.monkVanue + venueId + ApiEndpoints.monkAPIToken),
@@ -998,6 +999,7 @@ class HomeController extends GetxController {
 
   Future<MonkTeam> getTeam(String teamId) async {
     MonkTeam monkTeam = MonkTeam();
+    await Future.delayed(const Duration(minutes: 10));
     await ApiService.instance.apiCall(
         execute: () async => await ApiService.instance
             .get(ApiEndpoints.monkTeams + teamId + ApiEndpoints.monkAPIToken),
