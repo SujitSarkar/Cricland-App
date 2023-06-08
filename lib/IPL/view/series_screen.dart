@@ -180,7 +180,8 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                               dSize(.02),
                             ),
                           ),
-                          color: PublicController.pc.toggleTabColor(),
+                            color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
+                            gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
                         ),
                         unselectedLabelColor: Colors.white,
                         unselectedLabelStyle:

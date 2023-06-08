@@ -2,48 +2,62 @@ import 'dart:convert';
 
 List<TeamRankingModel> teamRankingModelFromJson(String str) => List<TeamRankingModel>.from(json.decode(str).map((x) => TeamRankingModel.fromJson(x)));
 
-String teamRankingModelToJson(List<TeamRankingModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class TeamRankingModel {
+    final String? resource;
+    final int? id;
+    final String? name;
+    final String? code;
+    final String? imagePath;
+    final int? countryId;
+    final bool? nationalTeam;
+    final int? position;
+    final DateTime? updatedAt;
+    final Ranking? ranking;
+
     TeamRankingModel({
+        this.resource,
         this.id,
-        this.rank,
         this.name,
-        this.rating,
-        this.matches,
-        this.points,
-        this.lastUpdatedOn,
-        this.imageId,
+        this.code,
+        this.imagePath,
+        this.countryId,
+        this.nationalTeam,
+        this.position,
+        this.updatedAt,
+        this.ranking,
     });
 
-    final String? id;
-    final String? rank;
-    final String? name;
-    final String? rating;
-    final String? matches;
-    final String? points;
-    final DateTime? lastUpdatedOn;
-    final String? imageId;
-
     factory TeamRankingModel.fromJson(Map<String, dynamic> json) => TeamRankingModel(
+        resource: json["resource"],
         id: json["id"],
-        rank: json["rank"],
         name: json["name"],
-        rating: json["rating"],
+        code: json["code"],
+        imagePath: json["image_path"],
+        countryId: json["country_id"],
+        nationalTeam: json["national_team"],
+        position: json["position"],
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        ranking: json["ranking"] == null ? null : Ranking.fromJson(json["ranking"]),
+    );
+}
+
+class Ranking {
+    final int? position;
+    final int? matches;
+    final int? points;
+    final int? rating;
+
+    Ranking({
+        this.position,
+        this.matches,
+        this.points,
+        this.rating,
+    });
+
+    factory Ranking.fromJson(Map<String, dynamic> json) => Ranking(
+        position: json["position"],
         matches: json["matches"],
         points: json["points"],
-        lastUpdatedOn: DateTime.parse(json["lastUpdatedOn"]),
-        imageId: json["imageId"],
+        rating: json["rating"],
     );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "rank": rank,
-        "name": name,
-        "rating": rating,
-        "matches": matches,
-        "points": points,
-        "lastUpdatedOn": "${lastUpdatedOn!.year.toString().padLeft(4, '0')}-${lastUpdatedOn!.month.toString().padLeft(2, '0')}-${lastUpdatedOn!.day.toString().padLeft(2, '0')}",
-        "imageId": imageId,
-    };
 }

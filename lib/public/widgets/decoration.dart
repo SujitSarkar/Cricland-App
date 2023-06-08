@@ -37,8 +37,10 @@ class StDecoration {
           ],
         ));
 
-  BoxDecoration buttonDecoration = PublicController.pc.isLight.value
-      ? BoxDecoration(
+  BoxDecoration buttonDecoration =
+  // PublicController.pc.isLight.value
+  //     ?
+  BoxDecoration(
           gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
@@ -46,16 +48,17 @@ class StDecoration {
             Colors.green.shade900,
             const Color(0xffFA9C2D),
           ],
-        ))
-      : BoxDecoration(
-          gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Colors.grey.shade600,
-            Colors.grey.shade600,
-          ],
         ));
+      // : BoxDecoration(
+      //     gradient: LinearGradient(
+      //     begin: Alignment.bottomLeft,
+      //     end: Alignment.topRight,
+      //     colors: [
+      //       Colors.grey.shade600,
+      //       Colors.grey.shade600,
+      //     ],
+      //   )
+      // );
 
   LinearGradient tabBarGradient = LinearGradient(
     begin: Alignment.bottomLeft,

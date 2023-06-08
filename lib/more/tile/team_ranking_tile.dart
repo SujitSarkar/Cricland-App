@@ -19,7 +19,7 @@ class TeamRankingTile extends StatelessWidget {
             children: [
               Expanded(
                   flex: 1,
-                  child: Text('${model.rank}',
+                  child: Text('${model.position}',
                       style: AppTextStyle().titleTextStyle, textAlign: TextAlign.start)),
               Expanded(
                   flex: 3,
@@ -27,10 +27,9 @@ class TeamRankingTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      if(model.imageId!=null)
                       CachedNetworkImage(
-                          imageUrl: ApiEndpoint.imageUrl(model.imageId!),
-                          httpHeaders: ApiEndpoint.header,
+                          imageUrl: model.imagePath!,
+                          // httpHeaders: ApiEndpoint.header,
                           fit: BoxFit.fill,
                           height: dSize(.05),
                           width: dSize(.07),
@@ -55,13 +54,13 @@ class TeamRankingTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Expanded(
-                  child: Text('${model.matches}',
+                  child: Text('${model.ranking!.matches}',
                       style: AppTextStyle().titleTextStyle, textAlign: TextAlign.center)),
               Expanded(
-                  child: Text('${model.points}',
+                  child: Text('${model.ranking!.points}',
                       style: AppTextStyle().titleTextStyle, textAlign: TextAlign.center)),
               Expanded(
-                child: Text('${model.rating}',
+                child: Text('${model.ranking!.rating}',
                     style: AppTextStyle().titleTextStyle, textAlign: TextAlign.center),
               ),
             ],

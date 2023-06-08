@@ -31,14 +31,14 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
     rankingController.womenPlayerTypeTabController =
         TabController(length: 4, vsync: this);
 
-    ///Add listener to tabcontroller
+    ///Add listener to tabController
     rankingController.womenPlayerTypeTabController.addListener(() async {
       if (rankingController.womenPlayerTypeTabController.index !=
-          rankingController.womenPlayerTypeTabController.previousIndex) {
-        await rankingController.getWomenRankingList();
+          rankingController.womenPlayerTypeTabController.previousIndex && rankingController.womenPlayerTypeTabController.index == 0) {
+        await rankingController.getWomenTeamRankingList();
       }
     });
-    await rankingController.getWomenRankingList();
+    await rankingController.getWomenTeamRankingList();
   }
 
   @override
@@ -94,7 +94,7 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                           child: InkWell(
                         onTap: () async {
                           rankingController.selectedWomenGameType.value = item;
-                          await rankingController.getWomenRankingList();
+                          await rankingController.getWomenTeamRankingList();
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -149,10 +149,10 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
                   child: TabBarView(
                     controller: rankingController.womenPlayerTypeTabController,
                     children: [
+                      _teamData(rankingController, lc),
                       _individualData(rankingController, lc),
                       _individualData(rankingController, lc),
                       _individualData(rankingController, lc),
-                      _teamData(rankingController, lc)
                     ],
                   )))
         ],
@@ -289,7 +289,9 @@ class _ICCWomenRankingPageState extends State<ICCWomenRankingPage>
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(dSize(.02)),
                   topRight: Radius.circular(dSize(.02))),
-              color: PublicController.pc.toggleTabColor()),
+              color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
+              gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
+          ),
           unselectedLabelColor: Colors.grey.shade400,
           unselectedLabelStyle: AppTextStyle().largeTitleBoldStyle,
           labelStyle:AppTextStyle().largeTitleBoldStyle,

@@ -5,12 +5,12 @@ import 'colors.dart';
 
 class Variables {
   static const List<String> manCategoryList = [
+    'Teams',
     'Batsmen',
     'Bowlers',
-    'Allrounders',
-    'Teams'
+    'Allrounders'
   ];
-  static const List<String> manGameType = ['ODI', 'T20'];
+  static const List<String> manGameType = ['ODI', 'T20', 'TEST'];
   static const List<String> manGameType2 = ['All', 'ODI', 'T20'];
   static const List<String> playerDetails = [
     'Overview',
