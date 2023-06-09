@@ -8,10 +8,14 @@ import '../details_view/League_details_screen.dart';
 import '../details_view/live_details/live_details_screen.dart';
 
 class MonkLiveTile extends StatefulWidget {
+  final ScrollController scrollController;
   final LiveResponseData liveObjectData;
   final int liveIndex;
   const MonkLiveTile(
-      {Key? key, required this.liveObjectData, required this.liveIndex})
+      {Key? key,
+      required this.liveObjectData,
+      required this.liveIndex,
+      required this.scrollController})
       : super(key: key);
 
   @override
@@ -37,6 +41,7 @@ class _MonkLiveTileState extends State<MonkLiveTile> {
                     MaterialPageRoute(
                       builder: (_) => LeagueDetailsScreen(
                         liveObjectData: widget.liveObjectData,
+                        scrollController: widget.scrollController,
                       ),
                     ),
                   );

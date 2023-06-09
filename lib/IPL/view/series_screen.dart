@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/info_tab.dart';
 import 'package:cricland/IPL/view/matches_tab.dart';
-import 'package:cricland/IPL/view/over_view_tab.dart';
 import 'package:cricland/IPL/view/points_table_tab.dart';
 import 'package:cricland/IPL/view/squads_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
@@ -172,17 +171,20 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                         controller: _tabController,
                         labelColor: PublicController.pc.toggleLoadingColor(),
                         indicator: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(
-                              dSize(.02),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(
+                                dSize(.02),
+                              ),
+                              topRight: Radius.circular(
+                                dSize(.02),
+                              ),
                             ),
-                            topRight: Radius.circular(
-                              dSize(.02),
-                            ),
-                          ),
-                            color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
-                            gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
-                        ),
+                            color: PublicController.pc.isLight.value
+                                ? PublicController.pc.toggleTabColor()
+                                : null,
+                            gradient: !PublicController.pc.isLight.value
+                                ? StDecoration().tabBarGradient
+                                : null),
                         unselectedLabelColor: Colors.white,
                         unselectedLabelStyle:
                             AppTextStyle().largeTitleBoldStyle,
@@ -263,9 +265,10 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                 child: TabBarView(
                   controller: _tabController,
                   children: <Widget>[
-                    OverViewTab(
-                      scrollController: controller,
-                    ),
+                    // OverViewTab(
+                    //   scrollController: controller, liveObjectData: null,
+                    // ),
+                    Container(),
                     MatchesTab(
                       scrollController: controller,
                     ),

@@ -67,6 +67,8 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             leagueImage: monkLeague.image_path!,
             venueName:
                 "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
             venueImage: monkVenue.image_path!,
             localTeamName: monkLocalTeam.name!,
             localTeamImage: monkLocalTeam.image_path!,
@@ -144,6 +146,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                               return MonkLiveTile(
                                 liveObjectData: liveListWithData[liveIndex],
                                 liveIndex: liveIndex,
+                                scrollController: widget.scrollController,
                               );
                             }),
               ],

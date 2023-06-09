@@ -3,6 +3,9 @@ class LiveResponseData {
   String leagueImage;
   String venueName;
   String venueImage;
+  String round;
+  String city;
+
   String localTeamName;
   String localTeamImage;
   int localTeamRun;
@@ -21,6 +24,8 @@ class LiveResponseData {
     required this.leagueImage,
     required this.venueName,
     required this.venueImage,
+    required this.round,
+    required this.city,
     required this.localTeamName,
     required this.localTeamImage,
     required this.localTeamRun,

@@ -1,19 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cricland/IPL/view/over_view_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../public/controller/language_controller.dart';
+import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/colors.dart';
 import '../../../public/variables/config.dart';
+import '../../../public/variables/variable.dart';
 import '../../../public/widgets/app_text_style.dart';
 import '../../../public/widgets/decoration.dart';
 import '../../controller/home_controller.dart';
 import '../../model/monk/live_response_data.dart';
 
 class LeagueDetailsScreen extends StatefulWidget {
+  final ScrollController scrollController;
   final LiveResponseData liveObjectData;
 
-  const LeagueDetailsScreen({Key? key, required this.liveObjectData})
+  const LeagueDetailsScreen(
+      {Key? key, required this.liveObjectData, required this.scrollController})
       : super(
           key: key,
         );
@@ -22,7 +27,16 @@ class LeagueDetailsScreen extends StatefulWidget {
   State<LeagueDetailsScreen> createState() => _LeagueDetailsScreenState();
 }
 
-class _LeagueDetailsScreenState extends State<LeagueDetailsScreen> {
+class _LeagueDetailsScreenState extends State<LeagueDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController =
+        TabController(length: Variables.iplTabsCategory.length, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     final LanguageController lc = Get.find();
@@ -133,126 +147,134 @@ class _LeagueDetailsScreenState extends State<LeagueDetailsScreen> {
                                   ]),
                             ],
                           ),
-                    // SizedBox(
-                    //   height: dSize(.01),
-                    // ),
-                    // TabBar(
-                    //     onTap: (covariant) async {
-                    //       setState(() => _tabController.index = covariant);
-                    //     },
-                    //     isScrollable: true,
-                    //     controller: _tabController,
-                    //     labelColor: PublicController.pc.toggleLoadingColor(),
-                    //     indicator: BoxDecoration(
-                    //         borderRadius: BorderRadius.only(
-                    //           topLeft: Radius.circular(
-                    //             dSize(.02),
-                    //           ),
-                    //           topRight: Radius.circular(
-                    //             dSize(.02),
-                    //           ),
-                    //         ),
-                    //         color: PublicController.pc.isLight.value? PublicController.pc.toggleTabColor():null,
-                    //         gradient: !PublicController.pc.isLight.value? StDecoration().tabBarGradient:null
-                    //     ),
-                    //     unselectedLabelColor: Colors.white,
-                    //     unselectedLabelStyle:
-                    //     AppTextStyle().largeTitleBoldStyle,
-                    //     labelStyle: AppTextStyle().largeTitleBoldStyle,
-                    //     indicatorSize: TabBarIndicatorSize.label,
-                    //     physics: const BouncingScrollPhysics(),
-                    //     tabs: [
-                    //       Padding(
-                    //           padding: EdgeInsets.symmetric(
-                    //             vertical: dSize(.01),
-                    //             horizontal: dSize(.02),
-                    //           ),
-                    //           child: Text(
-                    //             lc.languageModel.value.overview!,
-                    //             style: AppTextStyle().largeTitleStyle,
-                    //             // 'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
-                    //           )),
-                    //       Padding(
-                    //         padding: EdgeInsets.symmetric(
-                    //           vertical: dSize(.01),
-                    //           horizontal: dSize(.02),
-                    //         ),
-                    //         child: Text(
-                    //           lc.languageModel.value.matches!,
-                    //           style: AppTextStyle().largeTitleStyle,
-                    //         ),
-                    //       ),
-                    //       Padding(
-                    //         padding: EdgeInsets.symmetric(
-                    //           vertical: dSize(.01),
-                    //           horizontal: dSize(.02),
-                    //         ),
-                    //         child: Text(
-                    //           lc.languageModel.value.squad!,
-                    //           style: AppTextStyle().largeTitleStyle,
-                    //         ),
-                    //       ),
-                    //       Padding(
-                    //         padding: EdgeInsets.symmetric(
-                    //           vertical: dSize(.01),
-                    //           horizontal: dSize(.02),
-                    //         ),
-                    //         child: Text(
-                    //           lc.languageModel.value.pointsTable!,
-                    //           style: AppTextStyle().largeTitleStyle,
-                    //         ),
-                    //       ),
-                    //       Padding(
-                    //         padding: EdgeInsets.symmetric(
-                    //           vertical: dSize(.01),
-                    //           horizontal: dSize(.02),
-                    //         ),
-                    //         child: Text(
-                    //           lc.languageModel.value.info!,
-                    //           style: AppTextStyle().largeTitleStyle,
-                    //         ),
-                    //       ),
-                    //     ]
-                    //   // Variables.iplTabsCategory
-                    //   //   .map<Widget>(
-                    //   //     (String item) => Padding(
-                    //   //       padding: EdgeInsets.symmetric(
-                    //   //         vertical: dSize(.01),
-                    //   //         horizontal: dSize(.02),
-                    //   //       ),
-                    //   //       child: Text(
-                    //   //         item,
-                    //   //         style: AppTextStyle().largeTitleStyle,
-                    //   //       ),
-                    //   //     ),
-                    //   //   )
-                    //   //   .toList(),
-                    // ),
+                    SizedBox(
+                      height: dSize(.01),
+                    ),
+                    TabBar(
+                        onTap: (covariant) async {
+                          setState(() => _tabController.index = covariant);
+                        },
+                        isScrollable: true,
+                        controller: _tabController,
+                        labelColor: PublicController.pc.toggleLoadingColor(),
+                        indicator: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(
+                                dSize(.02),
+                              ),
+                              topRight: Radius.circular(
+                                dSize(.02),
+                              ),
+                            ),
+                            color: PublicController.pc.isLight.value
+                                ? PublicController.pc.toggleTabColor()
+                                : null,
+                            gradient: !PublicController.pc.isLight.value
+                                ? StDecoration().tabBarGradient
+                                : null),
+                        unselectedLabelColor: Colors.white,
+                        unselectedLabelStyle:
+                            AppTextStyle().largeTitleBoldStyle,
+                        labelStyle: AppTextStyle().largeTitleBoldStyle,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        physics: const BouncingScrollPhysics(),
+                        tabs: [
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: dSize(.01),
+                                horizontal: dSize(.02),
+                              ),
+                              child: Text(
+                                lc.languageModel.value.overview!,
+                                style: AppTextStyle().largeTitleStyle,
+                                // 'Live (${homeController.liveMatchesModel.typeMatches != null ? homeController.liveMatchesModel.typeMatches!.length : "0"})',
+                              )),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.matches!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.squad!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.pointsTable!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dSize(.01),
+                              horizontal: dSize(.02),
+                            ),
+                            child: Text(
+                              lc.languageModel.value.info!,
+                              style: AppTextStyle().largeTitleStyle,
+                            ),
+                          ),
+                        ]
+                        // Variables.iplTabsCategory
+                        //   .map<Widget>(
+                        //     (String item) => Padding(
+                        //       padding: EdgeInsets.symmetric(
+                        //         vertical: dSize(.01),
+                        //         horizontal: dSize(.02),
+                        //       ),
+                        //       child: Text(
+                        //         item,
+                        //         style: AppTextStyle().largeTitleStyle,
+                        //       ),
+                        //     ),
+                        //   )
+                        //   .toList(),
+                        ),
                   ],
                 ),
               ),
-              // Expanded(
-              //   child: TabBarView(
-              //     controller: _tabController,
-              //     children: <Widget>[
-              //       OverViewTab(
-              //         scrollController: controller,
-              //       ),
-              //       MatchesTab(
-              //         scrollController: controller,
-              //       ),
-              //       SquadsTab(
-              //         scrollController: controller,
-              //       ),
-              //       SeriesPointsTableTab(
-              //         scrollController: controller,
-              //       ),
-              //       SeriesInfoTab(
-              //         scrollController: controller,
-              //       )
-              //     ],
-              //   ),
-              // ),
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    OverViewTab(
+                      scrollController: widget.scrollController,
+                      liveObjectData: widget.liveObjectData,
+                    ),
+                    Container(),
+                    Container(),
+                    Container(),
+                    Container(),
+                    // MatchesTab(
+                    //   scrollController: controller,
+                    // ),
+                    // SquadsTab(
+                    //   scrollController: controller,
+                    // ),
+                    // SeriesPointsTableTab(
+                    //   scrollController: controller,
+                    // ),
+                    // SeriesInfoTab(
+                    //   scrollController: controller,
+                    // )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
