@@ -989,7 +989,7 @@ class HomeController extends GetxController {
           monk_venue = MonkVanue(
               id: data["id"],
               name: data["name"],
-              city: data["code"],
+              city: data["city"],
               image_path: data["image_path"]);
         },
         onError: (error) {

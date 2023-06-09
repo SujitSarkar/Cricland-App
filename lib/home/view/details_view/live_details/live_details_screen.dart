@@ -1,55 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/widgets/app_text_style.dart';
-import 'package:cricland/home/view/details_view/home_details/commentary_view.dart';
-import 'package:cricland/home/view/details_view/home_details/info_view.dart';
-import 'package:cricland/home/view/details_view/home_details/live_view.dart';
-import 'package:cricland/home/view/details_view/home_details/points_table.dart';
-import 'package:cricland/home/view/details_view/home_details/score_card_view.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../public/controller/api_endpoints.dart';
+import '../../../model/monk/live_response_data.dart';
 
 class LiveDetailsScreen extends StatefulWidget {
-  final String teamS1Name;
-  final String teamS2Name;
-  final String matchDesc;
-  final String team1RunWicket;
-  final String team1Over;
-  final String team2RunWicket;
-  final String team2Over;
-  final String winningStatus;
-  final String matchID;
-  final String seriesID;
-  final String team1ImageID;
-  final String team2ImageID;
-  final String state;
-
-  const LiveDetailsScreen({
-    Key? key,
-    required this.teamS1Name,
-    required this.teamS2Name,
-    required this.matchDesc,
-    required this.matchID,
-    required this.seriesID,
-    required this.team1RunWicket,
-    required this.team2RunWicket,
-    required this.team1Over,
-    required this.team2Over,
-    required this.winningStatus,
-    required this.team1ImageID,
-    required this.team2ImageID,
-    required this.state,
-  }) : super(key: key);
+  final LiveResponseData liveObjectData;
+  const LiveDetailsScreen({Key? key, required this.liveObjectData})
+      : super(key: key);
 
   @override
   _LiveDetailsScreenState createState() => _LiveDetailsScreenState();
@@ -97,18 +63,20 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
             elevation: 0,
             title: RichText(
               text: TextSpan(
-                text: widget.teamS1Name,
-                style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.white),
+                text: widget.liveObjectData.localTeamName,
+                style: AppTextStyle()
+                    .largeTitleStyle
+                    .copyWith(color: Colors.white),
                 children: <TextSpan>[
                   const TextSpan(
                       text: '  VS  ',
                       style: TextStyle(fontWeight: FontWeight.normal)),
                   TextSpan(
-                    text: widget.teamS2Name,
+                    text: widget.liveObjectData.visitorTeamName,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
-                    text: ", ${widget.matchDesc}",
+                    text: ", ${widget.liveObjectData.note}",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -191,10 +159,8 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                           shape: BoxShape.circle,
                                           image: DecorationImage(
                                               image: CachedNetworkImageProvider(
-                                                ApiEndpoints.imageMidPoint +
-                                                    widget.team1ImageID +
-                                                    ApiEndpoints.imageLastPoint,
-                                                headers: ApiEndpoints.headers,
+                                                widget.liveObjectData
+                                                    .localTeamImage,
                                               ),
                                               fit: BoxFit.fill),
                                         ),
@@ -208,20 +174,25 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(widget.teamS1Name,
-                                              style: AppTextStyle().largeTitleStyle
+                                          Text(
+                                              widget
+                                                  .liveObjectData.localTeamName,
+                                              style: AppTextStyle()
+                                                  .largeTitleStyle
                                                   .copyWith(
                                                       color: Colors.white)),
                                           RichText(
                                             text: TextSpan(
-                                              text: widget.team1RunWicket,
+                                              text:
+                                                  "${widget.liveObjectData.localTeamRun} ${widget.liveObjectData.localTeamWicket}",
                                               style: AppTextStyle()
                                                   .largeTitleStyle
                                                   .copyWith(
                                                       color: Colors.white),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: "  ${widget.team1Over}",
+                                                  text:
+                                                      "  ${widget.liveObjectData.localTeamOver}",
                                                   style: AppTextStyle()
                                                       .paragraphTextStyle
                                                       .copyWith(
@@ -258,7 +229,8 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                               right: 18.0),
                                           child: Text(
                                             "Caught Out",
-                                            style: AppTextStyle().largeTitleStyle
+                                            style: AppTextStyle()
+                                                .largeTitleStyle
                                                 .copyWith(color: Colors.white),
                                           ),
                                         ),
@@ -308,9 +280,9 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                             Text(
                               "CRR: ${homeController.overSummeryModel.currentRunRate}",
                               style: AppTextStyle().paragraphTextStyle.copyWith(
-                                color: Colors.white,
-                                fontSize: 10,
-                              ),
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * .4,
@@ -318,18 +290,18 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                             Text(
                               "RRR: ${homeController.overSummeryModel.requiredRunRate}",
                               style: AppTextStyle().paragraphTextStyle.copyWith(
-                                color: Colors.white,
-                                fontSize: 10,
-                              ),
+                                    color: Colors.white,
+                                    fontSize: 10,
+                                  ),
                             ),
                           ],
                         ),
                         Text(
                           "RRW: ${homeController.overSummeryModel.remRunsToWin}",
                           style: AppTextStyle().paragraphTextStyle.copyWith(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
                         ),
                       ],
                     ),
@@ -344,22 +316,26 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                     //   matchId: widget.matchID,
                     //   rapidMatch: widget.ra,
                     // ),
-                    CommentaryView(
-                      matchId: widget.matchID,
-                    ),
-                    LiveView(
-                      team1ImageID: widget.team1ImageID,
-                      team2ImageID: widget.team2ImageID,
-                      matchId: widget.matchID,
-                      state: widget.state,
-                    ),
-                    ScoreCardView(
-                      matchId: widget.matchID,
-                    ),
-                    PointTableView(
-                      matchId: widget.matchID,
-                      seriesId: widget.seriesID,
-                    ),
+                    Container(),
+                    Container(),
+                    Container(),
+                    Container(),
+                    // CommentaryView(
+                    //   matchId: widget.liveObjectData.,
+                    // ),
+                    // LiveView(
+                    //   team1ImageID: widget.team1ImageID,
+                    //   team2ImageID: widget.team2ImageID,
+                    //   matchId: widget.matchID,
+                    //   state: widget.state,
+                    // ),
+                    // ScoreCardView(
+                    //   matchId: widget.matchID,
+                    // ),
+                    // PointTableView(
+                    //   matchId: widget.matchID,
+                    //   seriesId: widget.seriesID,
+                    // ),
                   ],
                 ),
               )

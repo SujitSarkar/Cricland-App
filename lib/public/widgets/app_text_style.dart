@@ -3,13 +3,11 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
-  TextStyle buttonTextStyle = TextStyle(
-      fontSize: dSize(.042),
-      color: Colors.white);
+  TextStyle buttonTextStyle =
+      TextStyle(fontSize: dSize(.042), color: Colors.white);
 
   TextStyle largeTitleStyle = TextStyle(
-      fontSize: dSize(.04),
-      color: PublicController.pc.toggleTextColor());
+      fontSize: dSize(.04), color: PublicController.pc.toggleTextColor());
 
   TextStyle largeTitleBoldStyle = TextStyle(
     fontSize: dSize(.042),
@@ -30,7 +28,7 @@ class AppTextStyle {
       color: PublicController.pc.toggleTextColor());
 
   TextStyle bodyTextStyle = TextStyle(
-    fontSize: dSize(.032),
+    fontSize: dSize(.026),
     fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );
@@ -47,7 +45,6 @@ class AppTextStyle {
     fontFamily: "openSans",
     color: PublicController.pc.toggleTextColor(),
   );
-
 }
 
 Icon backButton = Icon(

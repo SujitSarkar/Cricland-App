@@ -1,13 +1,16 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../public/widgets/app_text_style.dart';
+import '../../../model/monk/live_response_data.dart';
 import '../../../model/monk/monk_league_model.dart';
 import '../../../model/monk/monk_live_model.dart';
 import '../../../model/monk/monk_score_model.dart';
 import '../../../model/monk/monk_team_model.dart';
 import '../../../model/monk/monk_vanue_model.dart';
+import '../../monk_view/monk_live_tile.dart';
 
 class LiveTabScreen extends StatefulWidget {
   final ScrollController scrollController;
@@ -18,49 +21,9 @@ class LiveTabScreen extends StatefulWidget {
   _LiveTabScreenState createState() => _LiveTabScreenState();
 }
 
-class LiveResponseData {
-  String leagueName;
-  String leagueImage;
-  String venueName;
-  String venueImage;
-  String localTeamName;
-  String localTeamImage;
-  int localTeamRun;
-  dynamic localTeamOver;
-  int localTeamWicket;
-  String visitorTeamName;
-  String visitorTeamImage;
-  int visitorTeamRun;
-  dynamic visitorTeamOver;
-  int visitorTeamWicket;
-  String status;
-  String live;
-  String note;
-  LiveResponseData({
-    required this.leagueName,
-    required this.leagueImage,
-    required this.venueName,
-    required this.venueImage,
-    required this.localTeamName,
-    required this.localTeamImage,
-    required this.localTeamRun,
-    required this.localTeamOver,
-    required this.localTeamWicket,
-    required this.visitorTeamName,
-    required this.visitorTeamImage,
-    required this.visitorTeamOver,
-    required this.visitorTeamRun,
-    required this.visitorTeamWicket,
-    required this.status,
-    required this.live,
-    required this.note,
-  });
-}
-
 class _LiveTabScreenState extends State<LiveTabScreen> {
-  int? selectedIndex;
-  double containerHeight = 150;
-
+  List<LiveResponseData> liveListWithData = [];
+  List<MonkLive> monkLiveList = [];
   bool _isLoading = false;
 
   @override
@@ -70,8 +33,6 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
     super.initState();
   }
 
-  List<LiveResponseData> liveListWithData = [];
-  List<MonkLive> monkLiveList = [];
   fetchData() async {
     setState(() {
       _isLoading = true;
@@ -104,13 +65,15 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
         LiveResponseData(
             leagueName: monkLeague.name!,
             leagueImage: monkLeague.image_path!,
-            venueName: monkVenue.name!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
             venueImage: monkVenue.image_path!,
             localTeamName: monkLocalTeam.name!,
             localTeamImage: monkLocalTeam.image_path!,
-            localTeamRun: teamLiveScores[0].score,
-            localTeamOver: teamLiveScores[0].overs,
-            localTeamWicket: teamLiveScores[0].wickets,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
             visitorTeamName: monkVisitorTeam.name!,
             visitorTeamImage: monkVisitorTeam.image_path!,
             visitorTeamOver:
@@ -131,8 +94,6 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
 
     setState(() {});
   }
-
-  bool? isExpand = false;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +122,11 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                 //   child: const Text("Live Data"),
                 // ),
                 _isLoading
-                    ? const Center(child: CircularProgressIndicator())
+                    ? Center(
+                        child: Padding(
+                        padding: EdgeInsets.only(top: dSize(.7)),
+                        child: const CircularProgressIndicator(),
+                      ))
                     : liveListWithData.isEmpty
                         ? Padding(
                             padding: const EdgeInsets.only(top: 20),
@@ -176,223 +141,9 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                             itemCount: liveListWithData.length,
                             shrinkWrap: true,
                             itemBuilder: (context, liveIndex) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Image.network(
-                                              liveListWithData[liveIndex]
-                                                  .leagueImage,
-                                              height: 40,
-                                              width: 40,
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                                "${liveListWithData[liveIndex].leagueName}"),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Row(
-                                              children: const [
-                                                Icon(
-                                                  Icons
-                                                      .do_not_disturb_on_total_silence_outlined,
-                                                  size: 15,
-                                                  color: Colors.redAccent,
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  "Live",
-                                                  style: TextStyle(
-                                                      color: Colors.redAccent),
-                                                ),
-                                              ],
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  selectedIndex = liveIndex;
-
-                                                  if (containerHeight == 150) {
-                                                    containerHeight = 0;
-                                                  } else {
-                                                    containerHeight = 150;
-                                                  }
-                                                });
-
-                                                print(selectedIndex);
-                                              },
-                                              icon: Icon(selectedIndex == liveIndex
-                                                  ? Icons
-                                                      .keyboard_arrow_up_outlined
-                                                  : Icons
-                                                      .keyboard_arrow_down_outlined),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    AnimatedContainer(
-                                      duration:
-                                          const Duration(microseconds: 1000),
-                                      height: selectedIndex == liveIndex
-                                          ? containerHeight
-                                          : 150,
-                                      child: Card(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(liveListWithData[liveIndex]
-                                                  .venueName),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Image.network(
-                                                            liveListWithData[
-                                                                    liveIndex]
-                                                                .localTeamImage,
-                                                            height: 30,
-                                                            width: 30,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        8.0),
-                                                            child: Text(
-                                                              liveListWithData[
-                                                                      liveIndex]
-                                                                  .localTeamName,
-                                                              style: AppTextStyle()
-                                                                  .bodyTextStyle
-                                                                  .copyWith(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          15),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                              "${liveListWithData[liveIndex].localTeamRun}-${liveListWithData[liveIndex].localTeamWicket} ",
-                                                              style: AppTextStyle()
-                                                                  .bodyTextStyle),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Text(
-                                                              "${liveListWithData[liveIndex].localTeamOver}",
-                                                              style: AppTextStyle()
-                                                                  .bodyTextStyle
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          12))
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Image.network(
-                                                            liveListWithData[
-                                                                    liveIndex]
-                                                                .visitorTeamImage,
-                                                            height: 30,
-                                                            width: 30,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        8.0),
-                                                            child: Text(
-                                                              liveListWithData[
-                                                                      liveIndex]
-                                                                  .visitorTeamName,
-                                                              style: AppTextStyle()
-                                                                  .bodyTextStyle
-                                                                  .copyWith(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          15),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                              "${liveListWithData[liveIndex].visitorTeamRun}-${liveListWithData[liveIndex].visitorTeamWicket}",
-                                                              style: AppTextStyle()
-                                                                  .bodyTextStyle),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Text(
-                                                              "${liveListWithData[liveIndex].visitorTeamOver}",
-                                                              style: AppTextStyle()
-                                                                  .bodyTextStyle
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          12))
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            18.0),
-                                                    child: Text(
-                                                        liveListWithData[
-                                                                liveIndex]
-                                                            .status),
-                                                  )
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 8.0),
-                                                child: Text(
-                                                    liveListWithData[liveIndex]
-                                                        .note),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              return MonkLiveTile(
+                                liveObjectData: liveListWithData[liveIndex],
+                                liveIndex: liveIndex,
                               );
                             }),
               ],

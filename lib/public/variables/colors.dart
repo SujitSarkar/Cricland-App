@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AllColor {
-static const Color primaryColor = Color(0xff153145);
+  static const Color primaryColor = Color(0xff153145);
   static final Color hintColor = Colors.grey.shade400;
   static final Color lightTextColor = Colors.grey.shade800;
   static final Color darkTextColor = Colors.grey.shade200;
