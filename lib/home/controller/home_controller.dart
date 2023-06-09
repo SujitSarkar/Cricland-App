@@ -1014,7 +1014,9 @@ class HomeController extends GetxController {
           print("Score Response: ${response}");
           var data = response["data"]["runs"];
 
+          print("Score From Controller: ${data.length}");
           for (var run in data) {
+            print(run);
             try {
               teamLiveScores.add(MonkLiveScore(
                   team_id: run["team_id"],

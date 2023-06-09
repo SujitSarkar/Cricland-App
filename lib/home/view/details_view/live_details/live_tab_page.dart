@@ -35,6 +35,7 @@ class LiveResponseData {
   int visitorTeamWicket;
   String status;
   String live;
+  String note;
   LiveResponseData({
     required this.leagueName,
     required this.leagueImage,
@@ -52,6 +53,7 @@ class LiveResponseData {
     required this.visitorTeamWicket,
     required this.status,
     required this.live,
+    required this.note,
   });
 }
 
@@ -74,6 +76,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
     setState(() {
       _isLoading = true;
     });
+    liveListWithData = [];
     final HomeController _homeController = HomeController();
     monkLiveList = await _homeController.getLive();
 
@@ -99,23 +102,26 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
 
       liveListWithData.add(
         LiveResponseData(
-          leagueName: monkLeague.name!,
-          leagueImage: monkLeague.image_path!,
-          venueName: monkVenue.name!,
-          venueImage: monkVenue.image_path!,
-          localTeamName: monkLocalTeam.name!,
-          localTeamImage: monkLocalTeam.image_path!,
-          localTeamRun: teamLiveScores[0].score,
-          localTeamOver: teamLiveScores[0].overs,
-          localTeamWicket: teamLiveScores[0].wickets,
-          visitorTeamName: monkVisitorTeam.name!,
-          visitorTeamImage: monkVisitorTeam.image_path!,
-          visitorTeamOver: teamLiveScores[1].overs,
-          visitorTeamRun: teamLiveScores[1].score,
-          visitorTeamWicket: teamLiveScores[1].wickets,
-          status: monkLive.live! ? "Live" : "",
-          live: monkLive.status!,
-        ),
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName: monkVenue.name!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores[0].score,
+            localTeamOver: teamLiveScores[0].overs,
+            localTeamWicket: teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
       );
     }
     setState(() {
@@ -143,19 +149,20 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             }
             return true;
           },
-          child: _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        fetchData();
-                      },
-                      child: const Text("Live Data"),
-                    ),
-                    liveListWithData.isEmpty
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // TextButton(
+                //   onPressed: () {
+                //     fetchData();
+                //   },
+                //   child: const Text("Live Data"),
+                // ),
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : liveListWithData.isEmpty
                         ? Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Center(
@@ -184,6 +191,9 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                   .leagueImage,
                                               height: 40,
                                               width: 40,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
                                             ),
                                             Text(
                                                 "${liveListWithData[liveIndex].leagueName}"),
@@ -214,16 +224,13 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                 setState(() {
                                                   selectedIndex = liveIndex;
 
-                                                  // if (containerHeight == 150) {
-                                                  //   containerHeight = 0;
-                                                  // } else {
-                                                  //   containerHeight = 0;
-                                                  // }
-                                                  // containerHeight == 150
-                                                  //     ? containerHeight = 0
-                                                  //     : containerHeight == 150;
+                                                  if (containerHeight == 150) {
+                                                    containerHeight = 0;
+                                                  } else {
+                                                    containerHeight = 150;
+                                                  }
                                                 });
-                                                isExpand != isExpand;
+
                                                 print(selectedIndex);
                                               },
                                               icon: Icon(selectedIndex == liveIndex
@@ -238,8 +245,10 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                     ),
                                     AnimatedContainer(
                                       duration:
-                                          const Duration(microseconds: 100),
-                                      height: 150,
+                                          const Duration(microseconds: 1000),
+                                      height: selectedIndex == liveIndex
+                                          ? containerHeight
+                                          : 150,
                                       child: Card(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -362,23 +371,21 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                                     padding:
                                                         const EdgeInsets.all(
                                                             18.0),
-                                                    child: Column(
-                                                      children: [
-                                                        const Icon(
-                                                          Icons
-                                                              .do_not_disturb_on_total_silence,
-                                                          color: Colors.red,
-                                                        ),
-                                                        Text("Live",
-                                                            style: AppTextStyle()
-                                                                .bodyTextStyle),
-                                                      ],
-                                                    ),
+                                                    child: Text(
+                                                        liveListWithData[
+                                                                liveIndex]
+                                                            .status),
                                                   )
                                                 ],
                                               ),
-                                              Text(liveListWithData[liveIndex]
-                                                  .status),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 8.0),
+                                                child: Text(
+                                                    liveListWithData[liveIndex]
+                                                        .note),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -388,8 +395,9 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                                 ),
                               );
                             }),
-                  ],
-                ),
+              ],
+            ),
+          ),
         );
       },
     );
