@@ -1,12 +1,13 @@
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/home/model/monk/monk_vanue_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../public/widgets/app_text_style.dart';
-import '../../../../public/widgets/loading_widget.dart';
 import '../../../model/monk/monk_league_model.dart';
 import '../../../model/monk/monk_live_model.dart';
+import '../../../model/monk/monk_score_model.dart';
+import '../../../model/monk/monk_team_model.dart';
+import '../../../model/monk/monk_vanue_model.dart';
 
 class LiveTabScreen extends StatefulWidget {
   final ScrollController scrollController;
@@ -17,9 +18,115 @@ class LiveTabScreen extends StatefulWidget {
   _LiveTabScreenState createState() => _LiveTabScreenState();
 }
 
+class LiveResponseData {
+  String leagueName;
+  String leagueImage;
+  String venueName;
+  String venueImage;
+  String localTeamName;
+  String localTeamImage;
+  int localTeamRun;
+  dynamic localTeamOver;
+  int localTeamWicket;
+  String visitorTeamName;
+  String visitorTeamImage;
+  int visitorTeamRun;
+  dynamic visitorTeamOver;
+  int visitorTeamWicket;
+  String status;
+  String live;
+  LiveResponseData({
+    required this.leagueName,
+    required this.leagueImage,
+    required this.venueName,
+    required this.venueImage,
+    required this.localTeamName,
+    required this.localTeamImage,
+    required this.localTeamRun,
+    required this.localTeamOver,
+    required this.localTeamWicket,
+    required this.visitorTeamName,
+    required this.visitorTeamImage,
+    required this.visitorTeamOver,
+    required this.visitorTeamRun,
+    required this.visitorTeamWicket,
+    required this.status,
+    required this.live,
+  });
+}
+
 class _LiveTabScreenState extends State<LiveTabScreen> {
   int? selectedIndex;
   double containerHeight = 150;
+
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchData();
+    super.initState();
+  }
+
+  List<LiveResponseData> liveListWithData = [];
+  List<MonkLive> monkLiveList = [];
+  fetchData() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final HomeController _homeController = HomeController();
+    monkLiveList = await _homeController.getLive();
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague =
+          await _homeController.getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue =
+          await _homeController.getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam =
+          await _homeController.getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await _homeController.getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await _homeController.getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      liveListWithData.add(
+        LiveResponseData(
+          leagueName: monkLeague.name!,
+          leagueImage: monkLeague.image_path!,
+          venueName: monkVenue.name!,
+          venueImage: monkVenue.image_path!,
+          localTeamName: monkLocalTeam.name!,
+          localTeamImage: monkLocalTeam.image_path!,
+          localTeamRun: teamLiveScores[0].score,
+          localTeamOver: teamLiveScores[0].overs,
+          localTeamWicket: teamLiveScores[0].wickets,
+          visitorTeamName: monkVisitorTeam.name!,
+          visitorTeamImage: monkVisitorTeam.image_path!,
+          visitorTeamOver: teamLiveScores[1].overs,
+          visitorTeamRun: teamLiveScores[1].score,
+          visitorTeamWicket: teamLiveScores[1].wickets,
+          status: monkLive.live! ? "Live" : "",
+          live: monkLive.status!,
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    print("Tile Data: ${liveListWithData.length}");
+
+    setState(() {});
+  }
+
+  bool? isExpand = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,274 +143,253 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
             }
             return true;
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  homeController.getLive();
-                },
-                child: Text("Live Data"),
-              ),
-              Expanded(
-                child: FutureBuilder(
-                    future: homeController.getLive(),
-                    builder:
-                        (context, AsyncSnapshot<List<MonkLive>> liveSnapshot) {
-                      if (liveSnapshot.hasData) {
-                        return liveSnapshot.data!.isEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Center(
-                                    child: Text(
-                                  "There are currently no live matches",
-                                  style: AppTextStyle().bodyTextStyle,
-                                )),
-                              )
-                            : ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: liveSnapshot.data!.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, liveIndex) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
+          child: _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        fetchData();
+                      },
+                      child: const Text("Live Data"),
+                    ),
+                    liveListWithData.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Center(
+                                child: Text(
+                              "There are currently no live matches",
+                              style: AppTextStyle().bodyTextStyle,
+                            )),
+                          )
+                        : ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: liveListWithData.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, liveIndex) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        FutureBuilder(
-                                            future: homeController.getLeague(
-                                                liveSnapshot
-                                                    .data![liveIndex].league_id
-                                                    .toString()),
-                                            builder: (context,
-                                                AsyncSnapshot<MonkLeague>
-                                                    leagueSnapshot) {
-                                              if (leagueSnapshot.hasData) {
-                                                return Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Image.network(
-                                                          leagueSnapshot.data!
-                                                              .image_path!,
-                                                          height: 40,
-                                                          width: 40,
-                                                        ),
-                                                        Text(
-                                                            "${leagueSnapshot.data!.name}"),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Row(
-                                                          children: const [
-                                                            Icon(
-                                                              Icons
-                                                                  .do_not_disturb_on_total_silence_outlined,
-                                                              size: 15,
-                                                              color: Colors
-                                                                  .redAccent,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text(
-                                                              "Live",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .redAccent),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              selectedIndex =
-                                                                  liveIndex;
-
-                                                              // containerHeight ==
-                                                              //         150
-                                                              //     ? containerHeight =
-                                                              //         0
-                                                              //     : containerHeight ==
-                                                              //         150;
-                                                            });
-                                                          },
-                                                          icon: Icon(selectedIndex ==
-                                                                  liveIndex
-                                                              ? Icons
-                                                                  .keyboard_arrow_up_outlined
-                                                              : Icons
-                                                                  .keyboard_arrow_down_outlined),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                );
-                                              } else {
-                                                return const LoadingWidget();
-                                              }
-                                            }),
-                                        AnimatedContainer(
-                                          duration:
-                                              const Duration(microseconds: 100),
-                                          height: 150,
-                                          child: FutureBuilder(
-                                              future: homeController.getVenue(
-                                                  liveSnapshot
-                                                      .data![liveIndex].venue_id
-                                                      .toString()),
-                                              builder: (context,
-                                                  AsyncSnapshot<MonkVanue>
-                                                      VTsnapshot) {
-                                                if (VTsnapshot.hasData) {
-                                                  return Card(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                  "${liveSnapshot.data![liveIndex].type!} ${liveSnapshot.data![liveIndex].status!}"),
-                                                              // Text(
-                                                              // "${VTsnapshot.data!.name}"),
-                                                              // Column(
-                                                              //   children: [
-                                                              //     FutureBuilder(
-                                                              //         future: homeController
-                                                              //             .getTeam(liveSnapshot
-                                                              //                 .data![
-                                                              //                     index]
-                                                              //                 .localteam_id
-                                                              //                 .toString()),
-                                                              //         builder: (context,
-                                                              //             AsyncSnapshot<
-                                                              //                     MonkTeam>
-                                                              //                 LTsnapshot) {
-                                                              //           if (LTsnapshot
-                                                              //               .hasData) {
-                                                              //             return Row(
-                                                              //               children: [
-                                                              //                 // Image
-                                                              //                 //     .network(
-                                                              //                 //   LTsnapshot
-                                                              //                 //       .data!
-                                                              //                 //       .name!,
-                                                              //                 //   height:
-                                                              //                 //       30,
-                                                              //                 //   width:
-                                                              //                 //       30,
-                                                              //                 // ),
-                                                              //                 // Text(
-                                                              //                 //     "${LTsnapshot.data!.code} 102-6 15.1",style: AppTextStyle().bodyTextStyle),
-                                                              //                 // Text(
-                                                              //                 //     "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
-                                                              //                 // style: AppTextStyle().bodyTextStyle)
-                                                              //               ],
-                                                              //             );
-                                                              //           } else {
-                                                              //             return const LoadingWidget();
-                                                              //           }
-                                                              //         }),
-                                                              //     FutureBuilder(
-                                                              //         future: homeController
-                                                              //             .getTeam(liveSnapshot
-                                                              //                 .data![
-                                                              //                     index]
-                                                              //                 .visitorteam_id
-                                                              //                 .toString()),
-                                                              //         builder: (context,
-                                                              //             AsyncSnapshot<
-                                                              //                     MonkTeam>
-                                                              //                 VTsnapshot) {
-                                                              //           if (VTsnapshot
-                                                              //               .hasData) {
-                                                              //             return Row(
-                                                              //               children: [
-                                                              //                 Image
-                                                              //                     .network(
-                                                              //                   VTsnapshot
-                                                              //                       .data!
-                                                              //                       .name!,
-                                                              //                   height:
-                                                              //                       30,
-                                                              //                   width:
-                                                              //                       30,
-                                                              //                 ),
-                                                              //                 Text(
-                                                              //                     "${VTsnapshot.data!.code} 102-6 15.1",
-                                                              //                     style:
-                                                              //                         AppTextStyle().bodyTextStyle),
-                                                              //                 Text(
-                                                              //                     "${liveSnapshot.data![index].localteam_dl_data!.score}-${liveSnapshot.data![index].localteam_dl_data!.wickets_out} ${liveSnapshot.data![index].localteam_dl_data!.overs}",
-                                                              //                     style:
-                                                              //                         AppTextStyle().bodyTextStyle)
-                                                              //               ],
-                                                              //             );
-                                                              //           } else {
-                                                              //             return const LoadingWidget();
-                                                              //           }
-                                                              //         }),
-                                                              //   ],
-                                                              // ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        18.0),
-                                                                child: Column(
-                                                                  children: [
-                                                                    const Icon(
-                                                                      Icons
-                                                                          .do_not_disturb_on_total_silence,
-                                                                      color: Colors
-                                                                          .red,
-                                                                    ),
-                                                                    Text("Live",
-                                                                        style: AppTextStyle()
-                                                                            .bodyTextStyle),
-                                                                  ],
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Text(
-                                                              "${liveSnapshot.data![liveIndex].note}"),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return const LoadingWidget();
-                                                }
-                                              }),
+                                        Row(
+                                          children: [
+                                            Image.network(
+                                              liveListWithData[liveIndex]
+                                                  .leagueImage,
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                            Text(
+                                                "${liveListWithData[liveIndex].leagueName}"),
+                                          ],
                                         ),
+                                        Row(
+                                          children: [
+                                            Row(
+                                              children: const [
+                                                Icon(
+                                                  Icons
+                                                      .do_not_disturb_on_total_silence_outlined,
+                                                  size: 15,
+                                                  color: Colors.redAccent,
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  "Live",
+                                                  style: TextStyle(
+                                                      color: Colors.redAccent),
+                                                ),
+                                              ],
+                                            ),
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  selectedIndex = liveIndex;
+
+                                                  // if (containerHeight == 150) {
+                                                  //   containerHeight = 0;
+                                                  // } else {
+                                                  //   containerHeight = 0;
+                                                  // }
+                                                  // containerHeight == 150
+                                                  //     ? containerHeight = 0
+                                                  //     : containerHeight == 150;
+                                                });
+                                                isExpand != isExpand;
+                                                print(selectedIndex);
+                                              },
+                                              icon: Icon(selectedIndex == liveIndex
+                                                  ? Icons
+                                                      .keyboard_arrow_up_outlined
+                                                  : Icons
+                                                      .keyboard_arrow_down_outlined),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
-                                  );
-                                });
-                      } else {
-                        return const LoadingWidget();
-                      }
-                    }),
-              ),
-            ],
-          ),
+                                    AnimatedContainer(
+                                      duration:
+                                          const Duration(microseconds: 100),
+                                      height: 150,
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(liveListWithData[liveIndex]
+                                                  .venueName),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Image.network(
+                                                            liveListWithData[
+                                                                    liveIndex]
+                                                                .localTeamImage,
+                                                            height: 30,
+                                                            width: 30,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        8.0),
+                                                            child: Text(
+                                                              liveListWithData[
+                                                                      liveIndex]
+                                                                  .localTeamName,
+                                                              style: AppTextStyle()
+                                                                  .bodyTextStyle
+                                                                  .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          15),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                              "${liveListWithData[liveIndex].localTeamRun}-${liveListWithData[liveIndex].localTeamWicket} ",
+                                                              style: AppTextStyle()
+                                                                  .bodyTextStyle),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                              "${liveListWithData[liveIndex].localTeamOver}",
+                                                              style: AppTextStyle()
+                                                                  .bodyTextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          12))
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Image.network(
+                                                            liveListWithData[
+                                                                    liveIndex]
+                                                                .visitorTeamImage,
+                                                            height: 30,
+                                                            width: 30,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        8.0),
+                                                            child: Text(
+                                                              liveListWithData[
+                                                                      liveIndex]
+                                                                  .visitorTeamName,
+                                                              style: AppTextStyle()
+                                                                  .bodyTextStyle
+                                                                  .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          15),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                              "${liveListWithData[liveIndex].visitorTeamRun}-${liveListWithData[liveIndex].visitorTeamWicket}",
+                                                              style: AppTextStyle()
+                                                                  .bodyTextStyle),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                              "${liveListWithData[liveIndex].visitorTeamOver}",
+                                                              style: AppTextStyle()
+                                                                  .bodyTextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          12))
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            18.0),
+                                                    child: Column(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons
+                                                              .do_not_disturb_on_total_silence,
+                                                          color: Colors.red,
+                                                        ),
+                                                        Text("Live",
+                                                            style: AppTextStyle()
+                                                                .bodyTextStyle),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              Text(liveListWithData[liveIndex]
+                                                  .status),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                  ],
+                ),
         );
       },
     );

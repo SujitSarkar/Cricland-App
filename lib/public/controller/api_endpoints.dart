@@ -32,13 +32,15 @@ class ApiEndpoints {
 
   //MonkAPI
   static const String monkAPIToken =
-      'Uke9vY0bkSA6AWlIf6CZhyLoNggatkpe2ws0hBsbd6uUfJHlMlhT8QtOAixC';
+      'api_token=whV5CAja8D4mnJSmuXSb9QU0rfqTuDEQtopV1VXUNp58VQqGlxTNoaKyaLmI';
 
   static const String monkApiVersion = "api/v2.0/";
   static const String monkBaseURL =
       'https://cricket.sportmonks.com/' + monkApiVersion;
   static String monkLiveMatches = "${monkBaseURL}livescores";
   static String monkLeague = monkBaseURL + 'leagues/';
-  static String monkVanue = 'venues/';
-  static String monkTeams = 'teams/';
+  static String monkVanue = monkBaseURL + 'venues/';
+  static String monkTeams = '${monkBaseURL}teams/';
+  static String monkScore = '${monkBaseURL}fixtures/';
 }
+// https://cricket.sportmonks.com/api/v2.0/fixtures/47507?include=runs

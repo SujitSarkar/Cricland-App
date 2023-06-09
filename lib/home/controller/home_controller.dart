@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../public/model/usermodel.dart';
 import '../../public/variables/variable.dart';
 import '../model/monk/monk_league_model.dart';
+import '../model/monk/monk_score_model.dart';
 import '../model/monk/monk_team_model.dart';
 import '../model/monk/monk_vanue_model.dart';
 import '../model/player_info_model.dart';
@@ -908,10 +909,11 @@ class HomeController extends GetxController {
   //Monk API Service
   Future<List<MonkLive>> getLive() async {
     List<MonkLive> monk_live = [];
-    await Future.delayed(const Duration(milliseconds: 1000000));
+    await Future.delayed(const Duration(milliseconds: 10));
     await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.monkLiveMatches),
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkLiveMatches + "?${ApiEndpoints.monkAPIToken}"),
+        // "https://cricket.sportmonks.com/api/v2.0/livescores?api_token=Uke9vY0bkSA6AWlIf6CZhyLoNggatkpe2ws0hBsbd6uUfJHlMlhT8QtOAixC"
         onSuccess: (response) {
           var lives = response["data"];
           for (var live in lives) {
@@ -951,10 +953,12 @@ class HomeController extends GetxController {
 
   Future<MonkLeague> getLeague(String leagueId) async {
     MonkLeague monk_league = MonkLeague();
-    await Future.delayed(const Duration(milliseconds: 1000000000));
+    await Future.delayed(const Duration(milliseconds: 10));
     await ApiService.instance.apiCall(
-        execute: () async =>
-            await ApiService.instance.get(ApiEndpoints.monkLeague + leagueId),
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkLeague +
+                leagueId +
+                "?${ApiEndpoints.monkAPIToken}"),
         onSuccess: (response) {
           print("Leauge Response: ${response}");
           var data = response["data"];
@@ -975,10 +979,10 @@ class HomeController extends GetxController {
 
   Future<MonkVanue> getVenue(String venueId) async {
     MonkVanue monk_venue = MonkVanue();
-    await Future.delayed(const Duration(minutes: 10));
+    await Future.delayed(const Duration(milliseconds: 10));
     await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance
-            .get(ApiEndpoints.monkVanue + venueId + ApiEndpoints.monkAPIToken),
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkVanue + venueId + "?${ApiEndpoints.monkAPIToken}"),
         onSuccess: (response) {
           print("venue Response: ${response}");
           var data = response["data"];
@@ -997,12 +1001,48 @@ class HomeController extends GetxController {
     return monk_venue;
   }
 
+  Future<List<MonkLiveScore>> getMonkScore(String fixturesId) async {
+    List<MonkLiveScore> teamLiveScores = [];
+    await Future.delayed(const Duration(milliseconds: 10));
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkScore +
+                "$fixturesId/" +
+                "?include=runs" +
+                "&${ApiEndpoints.monkAPIToken}"),
+        onSuccess: (response) {
+          print("Score Response: ${response}");
+          var data = response["data"]["runs"];
+
+          for (var run in data) {
+            try {
+              teamLiveScores.add(MonkLiveScore(
+                  team_id: run["team_id"],
+                  score: run["score"],
+                  wickets: run["wickets"],
+                  overs: run["overs"]));
+            } catch (e) {
+              print("Error: ${e.toString()}");
+            }
+          }
+        },
+        onError: (error) {
+          print(error.toString());
+        });
+
+    print(teamLiveScores.length);
+    update();
+    return teamLiveScores;
+  }
+
   Future<MonkTeam> getTeam(String teamId) async {
     MonkTeam monkTeam = MonkTeam();
-    await Future.delayed(const Duration(minutes: 10));
+    await Future.delayed(const Duration(milliseconds: 10));
     await ApiService.instance.apiCall(
-        execute: () async => await ApiService.instance
-            .get(ApiEndpoints.monkTeams + teamId + ApiEndpoints.monkAPIToken),
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkTeams +
+                "$teamId/" +
+                "?${ApiEndpoints.monkAPIToken}"),
         onSuccess: (response) {
           print("Team Response: ${response}");
           var data = response["data"];

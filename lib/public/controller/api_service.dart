@@ -46,10 +46,12 @@ class ApiService {
   ///get api request
   Future<dynamic> get(String url) async {
     print("URL: ${url}");
+
     var response = await getConnect.httpClient.get(
       url,
-      query: {"api_token": ApiEndpoints.monkAPIToken},
+      //query: {"api_token": ApiEndpoints.monkAPIToken},
     );
+    print("API Service: ${response.statusCode}");
     return _processResponse(response);
   }
 
