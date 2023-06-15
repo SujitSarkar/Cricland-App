@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
@@ -50,18 +48,14 @@ class FixturesCardTile extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: title != null
-                          ? Text(
-                              title!,
-                              style: AppTextStyle().largeTitleStyle.copyWith(
-                                    fontSize: dSize(.04),
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                            )
-                          : null,
-                    ),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          title!,
+                          style: AppTextStyle().largeTitleStyle.copyWith(
+                                fontSize: dSize(.04),
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                        )),
                   ),
                   const Icon(
                     Icons.notifications,
@@ -88,12 +82,7 @@ class FixturesCardTile extends StatelessWidget {
                                   shape: BoxShape.rectangle,
                                   color: Colors.white,
                                   image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                        ApiEndpoints.imageMidPoint +
-                                            leadingUrlOne! +
-                                            ApiEndpoints.imageLastPoint,
-                                        headers: ApiEndpoints.headers,
-                                      ),
+                                      image: AssetImage(leadingUrlOne!),
                                       fit: BoxFit.fill,
                                       filterQuality: FilterQuality.low),
                                 ),
@@ -153,12 +142,7 @@ class FixturesCardTile extends StatelessWidget {
                                   shape: BoxShape.rectangle,
                                   color: Colors.white,
                                   image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                        ApiEndpoints.imageMidPoint +
-                                            leadingUrlTwo! +
-                                            ApiEndpoints.imageLastPoint,
-                                        headers: ApiEndpoints.headers,
-                                      ),
+                                      image: AssetImage(leadingUrlTwo!),
                                       fit: BoxFit.fill,
                                       filterQuality: FilterQuality.low),
                                 ),

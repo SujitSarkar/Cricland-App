@@ -21,7 +21,7 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
   void initState() {
     super.initState();
 
-    fetchData();
+    // fetchData();
   }
 
   fetchData() async {
@@ -46,36 +46,36 @@ class _PointsTableTabState extends State<SeriesPointsTableTab> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  lc.languageModel.value.pointsTable!,
+                  "pointsTable",
                   style: _textStyle.copyWith(
                     fontSize: dSize(.035),
                     fontWeight: FontWeight.bold,
                     color: PublicController.pc.toggleLoadingColor(),
                   ),
                 ),
-                // Row(
-                //   children: [
-                //     Text(
-                //       'Team Form',
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.normal,
-                //         fontSize: dSize(.04),
-                //         color: PublicController.pc.toggleTextColor(),
-                //       ),
-                //     ),
-                //     Transform.scale(
-                //       scale: 1,
-                //       child: Switch(
-                //         onChanged: toggleSwitch,
-                //         value: isSwitched,
-                //         activeColor: Colors.blue,
-                //         activeTrackColor: Colors.yellow,
-                //         inactiveThumbColor: Colors.white70,
-                //         inactiveTrackColor: Colors.grey,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    Text(
+                      'Team Form',
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
+                    ),
+                    // Transform.scale(
+                    //   scale: 1,
+                    //   child: Switch(
+                    //     onChanged: toggleSwitch,
+                    //     value: isSwitched,
+                    //     activeColor: Colors.blue,
+                    //     activeTrackColor: Colors.yellow,
+                    //     inactiveThumbColor: Colors.white70,
+                    //     inactiveTrackColor: Colors.grey,
+                    //   ),
+                    // ),
+                  ],
+                ),
               ],
             ),
             PointTableTile(),

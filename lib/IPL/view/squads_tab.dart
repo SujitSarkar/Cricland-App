@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
@@ -48,61 +46,47 @@ class _SquadsTabState extends State<SquadsTab> {
                 ),
               ),
             ),
-            homeController.matchSquadModel.squads == null
-                ? SizedBox()
-                : ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: homeController.matchSquadModel.squads!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return homeController
-                                  .matchSquadModel.squads![index].squadId !=
-                              null
-                          ? Column(
-                              children: [
-                                ListTile(
-                                    onTap: () {
-                                      //  _showModalBottomSheet("3718", "15826");
-                                    },
-                                    horizontalTitleGap: 2.0,
-                                    leading: Container(
-                                      height: 30,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        color: Colors.white,
-                                        image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                              ApiEndpoints.imageMidPoint +
-                                                  "${homeController.matchSquadModel.squads![index].imageId}" +
-                                                  ApiEndpoints.imageLastPoint,
-                                              headers: ApiEndpoints.headers,
-                                            ),
-                                            fit: BoxFit.fill,
-                                            filterQuality: FilterQuality.low),
-                                      ),
-                                    ),
-                                    trailing: Icon(
-                                      Icons.arrow_forward_ios_sharp,
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                      size: 20,
-                                    ),
-                                    title: Text(
-                                      homeController.matchSquadModel
-                                          .squads![index].squadType!,
-                                      style: _textStyle.copyWith(
-                                        fontSize: dSize(.035),
-                                        fontWeight: FontWeight.bold,
-                                        color: PublicController.pc
-                                            .toggleLoadingColor(),
-                                      ),
-                                    )),
-                                Divider(),
-                              ],
-                            )
-                          : SizedBox();
-                    }),
+            ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      ListTile(
+                          onTap: () {
+                            //  _showModalBottomSheet("3718", "15826");
+                          },
+                          horizontalTitleGap: 2.0,
+                          leading: Container(
+                            height: 30,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: Colors.white,
+                              image: DecorationImage(
+                                  image: AssetImage("assets/match_logo.png"),
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.low),
+                            ),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            color: PublicController.pc.toggleTextColor(),
+                            size: 20,
+                          ),
+                          title: Text(
+                            "squadType",
+                            style: _textStyle.copyWith(
+                              fontSize: dSize(.035),
+                              fontWeight: FontWeight.bold,
+                              color: PublicController.pc.toggleLoadingColor(),
+                            ),
+                          )),
+                      Divider(),
+                    ],
+                  );
+                }),
           ],
         ),
       );

@@ -33,24 +33,23 @@ class _MatchesTabState extends State<MatchesTab> {
                   );
                 }),
           ),
-          Text("data"),
           Expanded(
             child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  FixturesCardTile(
-                    title: "seriesName",
-                    leadingUrlOne: "imageId",
-                    leadingUrlTwo: "imageId",
-                    teamOne: "teamSName",
-                    teamTwo: "teamSName",
-                    reachTitleOne: "runs-wickets",
-                    reachTitleTwo: "runs-wickets",
-                    reachSubTitleOne: "overs",
-                    reachSubTitleTwo: "overs",
-                    desc: "status",
+                  return FixturesCardTile(
+                    title: "Name",
+                    leadingUrlOne: "assets/t20.png",
+                    leadingUrlTwo: "assets/t20.png",
+                    teamOne: "SName",
+                    teamTwo: "SName",
+                    reachTitleOne: "52-5",
+                    reachTitleTwo: "100-10",
+                    reachSubTitleOne: "50",
+                    reachSubTitleTwo: "30",
+                    desc: "FINISHED",
                     date: "",
                     onTap: () {
                       // Navigator.push(
