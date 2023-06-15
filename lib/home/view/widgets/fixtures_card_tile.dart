@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/public/widgets/app_text_style.dart';
-
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FixturesCardTile extends StatelessWidget {
   const FixturesCardTile({
@@ -58,9 +55,10 @@ class FixturesCardTile extends StatelessWidget {
                           ? Text(
                               title!,
                               style: AppTextStyle().largeTitleStyle.copyWith(
-                                fontSize: dSize(.04),
-                                color: PublicController.pc.toggleTextColor(),
-                              ),
+                                    fontSize: dSize(.04),
+                                    color:
+                                        PublicController.pc.toggleTextColor(),
+                                  ),
                             )
                           : null,
                     ),
@@ -100,7 +98,7 @@ class FixturesCardTile extends StatelessWidget {
                                       filterQuality: FilterQuality.low),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Row(
@@ -108,12 +106,14 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamOne!,
-                                    style: AppTextStyle().largeTitleStyle.copyWith(
-                                        fontSize: dSize(.045),
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
+                                    style: AppTextStyle()
+                                        .largeTitleStyle
+                                        .copyWith(
+                                            fontSize: dSize(.045),
+                                            color: PublicController.pc
+                                                .toggleTextColor()),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   RichText(
@@ -171,10 +171,12 @@ class FixturesCardTile extends StatelessWidget {
                                 children: [
                                   Text(
                                     teamTwo!,
-                                    style: AppTextStyle().largeTitleStyle.copyWith(
-                                        fontSize: dSize(.045),
-                                        color: PublicController.pc
-                                            .toggleTextColor()),
+                                    style: AppTextStyle()
+                                        .largeTitleStyle
+                                        .copyWith(
+                                            fontSize: dSize(.045),
+                                            color: PublicController.pc
+                                                .toggleTextColor()),
                                   ),
                                   SizedBox(
                                     width: 5,

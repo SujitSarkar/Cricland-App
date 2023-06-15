@@ -1,16 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
-import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/home/model/monk/monk_score_model.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-import '../../../../IPL/view/series_screen.dart';
 import '../../../../public/controller/language_controller.dart';
-import '../../../../public/variables/colors.dart';
-import '../../widgets/home_card_tile.dart';
+import '../../../model/monk/live_response_data.dart';
+import '../../../model/monk/monk_league_model.dart';
+import '../../../model/monk/monk_live_model.dart';
+import '../../../model/monk/monk_team_model.dart';
+import '../../../model/monk/monk_vanue_model.dart';
+import '../../monk_view/monk_live_tile.dart';
 
 class HomeTabScreen extends StatefulWidget {
   final ScrollController scrollController;
@@ -24,6 +26,9 @@ class HomeTabScreen extends StatefulWidget {
 final themeMode = ValueNotifier(2);
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
+  List<LiveResponseData> liveListWithData = [];
+  List<MonkLive> monkLiveList = [];
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -31,14 +36,72 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   }
 
   fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    await homeController.getRecentMatches();
-    await homeController.getUpcomingMatches();
-    await homeController.getFeatureSeries();
-    await homeController.getRecentMatches();
-    if (mounted) {
-      setState(() {});
+    String formattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().subtract(const Duration(days: 30)));
+    String fastFormattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 30)));
+    setState(() {
+      _isLoading = true;
+    });
+    liveListWithData = [];
+    final HomeController _homeController = HomeController();
+    monkLiveList =
+        await _homeController.getFixtures("$formattedDate,$fastFormattedDate");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague =
+          await _homeController.getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue =
+          await _homeController.getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam =
+          await _homeController.getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await _homeController.getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await _homeController.getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      liveListWithData.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
     }
+    setState(() {
+      _isLoading = false;
+    });
+    print("Tile Data: ${liveListWithData.length}");
+
+    setState(() {});
   }
 
   @override
@@ -65,121 +128,37 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                homeController.rapidRecentList.isEmpty
-                    ? SizedBox()
-                    : ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: homeController.rapidRecentList.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return HomeCardTile(
-                            rapidMatch: homeController.rapidRecentList[index],
-                          );
-                        },
-                      ),
-                homeController.rapidUpcomingList.isEmpty
-                    ? SizedBox()
-                    : ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: homeController.rapidUpcomingList.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return HomeCardTile(
-                            rapidMatch: homeController.rapidUpcomingList[index],
-                          );
-                          //LiveCart(context);
-                        },
-                      ),
-                homeController.rapidFixturesList.isEmpty
-                    ? SizedBox()
-                    : ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: homeController.rapidFixturesList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return HomeCardTile(
-                            rapidMatch: homeController.rapidFixturesList[index],
-                          );
-                        }),
-                const SizedBox(height: 20),
-                Text(lc.languageModel.value.featuredSeries!,
-                    style: AppTextStyle().largeTitleStyle),
-                GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 1.3,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20),
-                    itemCount: homeController.rapidFeatureSeriesList.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.to(const IPLPage());
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: PublicController.pc.toggleCardBg(),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Column(children: [
-                            Stack(alignment: Alignment.center, children: [
-                              //image
-                              Container(
-                                width: double.infinity,
-                                height: dSize(.2),
-                                decoration: BoxDecoration(
-                                  color: PublicController.pc.toggleCardBg(),
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10)),
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                        ApiEndpoints.imageMidPoint +
-                                            "${homeController.rapidFeatureSeriesList[index].seriesModel!.id}" +
-                                            ApiEndpoints.imageLastPoint,
-                                        headers: ApiEndpoints.headers,
-                                      ),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-
-                              Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  decoration: const BoxDecoration(
-                                      color: AllColor.lightCardColor,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      )),
-                                  child: Text(
-                                      "${homeController.rapidFeatureSeriesList[index].date}",
-                                      style: AppTextStyle()
-                                          .bodyTextStyle
-                                          .copyWith(
-                                              color: AllColor.lightTextColor)))
-                            ]),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 10),
-                              child: Text(
-                                "${homeController.rapidFeatureSeriesList[index].seriesModel!.name}",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTextStyle().bodyTextStyle.copyWith(
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
-                              ),
-                            ),
-                          ]),
-                        ),
-                      );
-                    }),
+                GestureDetector(
+                    onTap: () {
+                      fetchData();
+                    },
+                    child: Text("data")),
+                _isLoading
+                    ? Center(
+                        child: Padding(
+                        padding: EdgeInsets.only(top: dSize(.7)),
+                        child: const CircularProgressIndicator(),
+                      ))
+                    : liveListWithData.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Center(
+                                child: Text(
+                              "There are currently no live matches",
+                              style: AppTextStyle().bodyTextStyle,
+                            )),
+                          )
+                        : ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: liveListWithData.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, liveIndex) {
+                              return MonkLiveTile(
+                                liveObjectData: liveListWithData[liveIndex],
+                                liveIndex: liveIndex,
+                                scrollController: widget.scrollController,
+                              );
+                            }),
               ],
             ),
           ),

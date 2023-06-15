@@ -951,6 +951,52 @@ class HomeController extends GetxController {
     return monk_live;
   }
 
+  //Monk API Service
+  Future<List<MonkLive>> getFixtures(String dateRange) async {
+    List<MonkLive> monk_live = [];
+    await Future.delayed(const Duration(milliseconds: 10));
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkFixtures +
+                "?filter[starts_between]=$dateRange" +
+                "&${ApiEndpoints.monkAPIToken}"),
+        onSuccess: (response) {
+          var lives = response["data"];
+          for (var live in lives) {
+            monk_live.add(MonkLive(
+              id: live["id"],
+              league_id: live["league_id"],
+              round: live["round"],
+              localteam_id: live["localteam_id"],
+              visitorteam_id: live["visitorteam_id"],
+              starting_at: live["starting_at"],
+              type: live["type"],
+              live: live["live"],
+              status: live["status"],
+              note: live["note"],
+              venue_id: live["venue_id"],
+              toss_won_team_id: live["toss_won_team_id"],
+              winner_team_id: live["winner_team_id"],
+              draw_noresult: live["draw_noresult"],
+              total_overs_played: live["total_overs_played"],
+              localteam_dl_data: Score(
+                  score: live["localteam_dl_data"]["score"],
+                  overs: live["localteam_dl_data"]["overs"],
+                  wickets_out: live["localteam_dl_data"]["wickets_out"]),
+              visitorteam_dl_data: Score(
+                  score: live["visitorteam_dl_data"]["score"],
+                  overs: live["visitorteam_dl_data"]["overs"],
+                  wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
+            ));
+          }
+        },
+        onError: (error) {
+          print(error.toString());
+        });
+
+    return monk_live;
+  }
+
   Future<MonkLeague> getLeague(String leagueId) async {
     MonkLeague monk_league = MonkLeague();
     await Future.delayed(const Duration(milliseconds: 10));

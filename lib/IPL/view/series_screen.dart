@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/info_tab.dart';
 import 'package:cricland/IPL/view/matches_tab.dart';
 import 'package:cricland/IPL/view/points_table_tab.dart';
+import 'package:cricland/IPL/view/series_overview_tap.dart';
 import 'package:cricland/IPL/view/squads_tab.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
@@ -35,7 +34,7 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
     super.initState();
     _tabController =
         TabController(length: Variables.iplTabsCategory.length, vsync: this);
-    fetchData("");
+    //   fetchData("");
   }
 
   fetchData(String seriesId) async {
@@ -78,16 +77,9 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                               SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(children: [
-                                    for (var series in homeController
-                                        .rapidFeatureSeriesList)
+                                    for (var i = 0; i < 5; i++)
                                       GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            seriesListModel = series;
-                                          });
-                                          fetchData(
-                                              "${seriesListModel.seriesModel!.id}");
-                                        },
+                                        onTap: () {},
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(
@@ -95,11 +87,8 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                                                 borderRadius:
                                                     const BorderRadius.all(
                                                         Radius.circular(10)),
-                                                border:
-                                                    seriesListModel == series
-                                                        ? Border.all(
-                                                            color: Colors.green)
-                                                        : null),
+                                                border: Border.all(
+                                                    color: Colors.green)),
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(3.0),
@@ -109,20 +98,13 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                                                 child: Container(
                                                   height: 100,
                                                   width: 100,
-                                                  decoration: BoxDecoration(
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     shape: BoxShape.rectangle,
                                                     color: Colors.white,
                                                     image: DecorationImage(
-                                                        image:
-                                                            CachedNetworkImageProvider(
-                                                          ApiEndpoints
-                                                                  .imageMidPoint +
-                                                              "${series.seriesModel!.id}" +
-                                                              ApiEndpoints
-                                                                  .imageLastPoint,
-                                                          headers: ApiEndpoints
-                                                              .headers,
-                                                        ),
+                                                        image: AssetImage(
+                                                            "assets/t20.png"),
                                                         fit: BoxFit.fill,
                                                         filterQuality:
                                                             FilterQuality.low),
@@ -135,29 +117,31 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                                       )
                                   ])),
                               Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
-                                child: RichText(
-                                  text: TextSpan(
-                                    text: homeController
-                                            .rapidSeriesMatchList.isEmpty
-                                        ? ""
-                                        : "${homeController.rapidSeriesMatchList.first.matchInfo!.seriesName}",
-                                    //seriesListModel.seriesModel != null?'${seriesListModel.seriesModel!.name}':"",
-                                    style:
-                                        AppTextStyle().largeTitleStyle.copyWith(
-                                              color: Colors.white70,
-                                              fontSize: dSize(.035),
-                                            ),
-
-                                    // children: <TextSpan>[
-                                    //   TextSpan(
-                                    //       text:
-                                    //           '${seriesListModel.date}',
-
-                                    //  ],
-                                  ),
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "WTC Final 2023",
+                                      style: AppTextStyle()
+                                          .largeTitleStyle
+                                          .copyWith(
+                                            color: Colors.white70,
+                                            fontSize: dSize(.035),
+                                          ),
+                                    ),
+                                    Text(
+                                      '07 Jun to 11 Jun',
+                                      style: AppTextStyle()
+                                          .largeTitleStyle
+                                          .copyWith(
+                                            color: Colors.white70,
+                                            fontSize: dSize(.025),
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                     SizedBox(
@@ -265,10 +249,9 @@ class _IPLPageState extends State<IPLPage> with SingleTickerProviderStateMixin {
                 child: TabBarView(
                   controller: _tabController,
                   children: <Widget>[
-                    // OverViewTab(
-                    //   scrollController: controller, liveObjectData: null,
-                    // ),
-                    Container(),
+                    SeriesOverViewTab(
+                      scrollController: controller,
+                    ),
                     MatchesTab(
                       scrollController: controller,
                     ),

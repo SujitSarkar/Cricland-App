@@ -2,6 +2,7 @@ import 'package:cricland/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
+import '../../home/view/widgets/fixtures_card_tile.dart';
 import '../../home/view/widgets/match_card_tile.dart';
 
 class MatchesTab extends StatefulWidget {
@@ -22,68 +23,49 @@ class _MatchesTabState extends State<MatchesTab> {
           const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
-                itemCount: homeController.rapidSeriesMatchList.length,
+                itemCount: 10,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () {
-                      print(homeController.rapidSeriesMatchList[index]
-                          .matchInfo!.team1!.imageId!);
-                    },
-                    child: MatchCardTile(
-                      rapidMatch: homeController.rapidSeriesMatchList[index],
-                    ),
+                    onTap: () {},
+                    child: MatchCardTile(),
                   );
                 }),
           ),
-          // Expanded(
-          //   child: ListView.builder(
-          //       physics: BouncingScrollPhysics(),
-          //       shrinkWrap: true,
-          //       itemCount:
-          //           homeController.seriesMatchListModel.matchDetails!.length,
-          //       itemBuilder: (BuildContext context, int index) {
-          //         var path = homeController.seriesMatchListModel
-          //             .matchDetails![index].matchDetailsMap;
-          //         return homeController.seriesMatchListModel
-          //                     .matchDetails![index].matchDetailsMap ==
-          //                 null
-          //             ? SizedBox()
-          //             : FixturesCardTile(
-          //                 title: path!.match!.first.matchInfo!.seriesName,
-          //                 leadingUrlOne:
-          //                     "${path.match!.first.matchInfo!.team1!.imageId}",
-          //                 leadingUrlTwo:
-          //                     "${path.match!.first.matchInfo!.team2!.imageId}",
-          //                 teamOne:
-          //                     "${path.match!.first.matchInfo!.team1!.teamSName}",
-          //                 teamTwo:
-          //                     "${path.match!.first.matchInfo!.team2!.teamSName}",
-          //                 reachTitleOne:
-          //                     "${path.match!.first.matchScore!.team1Score!.inngs1!.runs}-${path.match!.first.matchScore!.team1Score!.inngs1!.wickets}",
-          //                 reachTitleTwo:
-          //                     "${path.match!.first.matchScore!.team2Score!.inngs1!.runs}-${path.match!.first.matchScore!.team2Score!.inngs1!.wickets}",
-          //                 reachSubTitleOne:
-          //                     "${path.match!.first.matchScore!.team1Score!.inngs1!.overs}",
-          //                 reachSubTitleTwo:
-          //                     "${path.match!.first.matchScore!.team2Score!.inngs1!.overs}",
-          //                 desc: "${path.match!.first.matchInfo!.status}",
-          //                 date: "",
-          //                 onTap: () {
-          //                   // Navigator.push(
-          //                   //     context,
-          //                   //     MaterialPageRoute(
-          //                   //         builder: (_) => HomeDetailsScreen(
-          //                   //               matchIndex: index,
-          //                   //               teamS1Name: '',
-          //                   //               teamS2Name: '',
-          //                   //               matchDesc: '',
-          //                   //             )));
-          //                 },
-          //               );
-          //       }),
-          // ),
+          Text("data"),
+          Expanded(
+            child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  FixturesCardTile(
+                    title: "seriesName",
+                    leadingUrlOne: "imageId",
+                    leadingUrlTwo: "imageId",
+                    teamOne: "teamSName",
+                    teamTwo: "teamSName",
+                    reachTitleOne: "runs-wickets",
+                    reachTitleTwo: "runs-wickets",
+                    reachSubTitleOne: "overs",
+                    reachSubTitleTwo: "overs",
+                    desc: "status",
+                    date: "",
+                    onTap: () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (_) => HomeDetailsScreen(
+                      //               matchIndex: index,
+                      //               teamS1Name: '',
+                      //               teamS2Name: '',
+                      //               matchDesc: '',
+                      //             )));
+                    },
+                  );
+                }),
+          ),
         ],
       );
     });

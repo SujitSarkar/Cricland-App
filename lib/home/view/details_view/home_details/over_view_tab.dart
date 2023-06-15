@@ -1,11 +1,13 @@
-import 'package:cricland/IPL/view/widgets/featured_match_tile.dart';
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/view/widgets/featured_match_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
+import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../home/model/monk/live_response_data.dart';
+import '../../../model/monk/live_response_data.dart';
+import '../../monk_view/series_state_tile.dart';
 
 class OverViewTab extends StatefulWidget {
   final ScrollController scrollController;
@@ -49,14 +51,33 @@ class _OverViewTabState extends State<OverViewTab> {
                         onPressed: () {},
                         child: Text(
                           "All Matches >",
-                          style: AppTextStyle().titleTextStyle.copyWith(
-                              color: PublicController.pc.togglePrimaryGrey()),
+                          style: AppTextStyle()
+                              .titleTextStyle
+                              .copyWith(color: AllColor.fbColor),
                         ),
                       )
                     ],
                   ),
 
                   FeaturedMatchTile(liveObjectData: widget.liveObjectData),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Series Stats",
+                          style: AppTextStyle().titleTextStyle),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "See All >",
+                          style: AppTextStyle()
+                              .titleTextStyle
+                              .copyWith(color: AllColor.fbColor),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SeriesStateTile(),
 
                   // ListView.separated(
                   //     itemCount: homeController.rapidSeriesMatchList.length,

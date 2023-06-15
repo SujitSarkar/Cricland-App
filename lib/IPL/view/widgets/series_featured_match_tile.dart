@@ -1,18 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-import '../../../home/model/monk/live_response_data.dart';
 import '../../../public/widgets/decoration.dart';
 
-class FeaturedMatchTile extends StatelessWidget {
-  final LiveResponseData liveObjectData;
-  const FeaturedMatchTile({
+class SeriesFeaturedMatchTile extends StatelessWidget {
+  const SeriesFeaturedMatchTile({
     Key? key,
-    required this.liveObjectData,
   }) : super(key: key);
 
   @override
@@ -43,14 +39,12 @@ class FeaturedMatchTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                liveObjectData.localTeamImage),
+                            image: AssetImage("assets/t20.png"),
                             fit: BoxFit.cover),
                       ),
                     ),
                   ),
-                  Text(liveObjectData.localTeamName,
-                      style: AppTextStyle().bodyTextStyle)
+                  Text("BD", style: AppTextStyle().boldBodyTextStyle)
                 ],
               ),
               Expanded(
@@ -58,24 +52,23 @@ class FeaturedMatchTile extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
                     children: [
-                      Text(liveObjectData.status,
+                      Text("BD Won",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: AppTextStyle().boldBodyTextStyle.copyWith(
+                          style: AppTextStyle().bodyTextStyle.copyWith(
                               color: PublicController.pc
                                   .togglePrimaryTextColor())),
-                      Text(liveObjectData.note,
+                      Text("final Test by 209 run",
                           textAlign: TextAlign.center,
-                          style: AppTextStyle().paragraphTextStyle),
+                          style: AppTextStyle().bodyTextStyle),
                     ],
                   ),
                 ),
               ),
               Row(
                 children: [
-                  Text(liveObjectData.visitorTeamName,
-                      style: AppTextStyle().bodyTextStyle),
+                  Text("IND", style: AppTextStyle().boldBodyTextStyle),
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
@@ -84,9 +77,7 @@ class FeaturedMatchTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                              liveObjectData.visitorTeamImage,
-                            ),
+                            image: AssetImage("assets/indian_flag.png"),
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -114,7 +105,7 @@ class FeaturedMatchTile extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(10))),
                           child: Center(
                             child: Text(
-                              liveObjectData.round,
+                              "test,Final",
                               style: AppTextStyle()
                                   .bodyTextStyle
                                   .copyWith(color: Colors.white),

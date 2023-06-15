@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/IPL/view/over_view_tab.dart';
+import 'package:cricland/home/view/details_view/home_details/over_view_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

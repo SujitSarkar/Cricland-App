@@ -24,7 +24,7 @@ class MonkLiveTile extends StatefulWidget {
 
 class _MonkLiveTileState extends State<MonkLiveTile> {
   int? selectedIndex;
-  double containerHeight = 150;
+  double containerHeight = 160;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,7 +101,7 @@ class _MonkLiveTileState extends State<MonkLiveTile> {
             },
             child: AnimatedContainer(
               duration: const Duration(microseconds: 1000),
-              height: selectedIndex == widget.liveIndex ? containerHeight : 150,
+              height: selectedIndex == widget.liveIndex ? containerHeight : 160,
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

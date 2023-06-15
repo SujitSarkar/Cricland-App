@@ -939,9 +939,7 @@ class _InfoViewState extends State<InfoView> {
                         print(homeController.rapidSeriesMatchList[index]
                             .matchInfo!.team1!.imageId!);
                       },
-                      child: MatchCardTile(
-                          rapidMatch:
-                              homeController.rapidSeriesMatchList[index]),
+                      child: MatchCardTile(),
                     );
                   }),
               const SizedBox(height: 10),
