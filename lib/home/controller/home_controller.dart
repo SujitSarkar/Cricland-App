@@ -11,10 +11,12 @@ import 'package:cricland/home/model/upcoming_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/api_service.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../public/model/usermodel.dart';
 import '../../public/variables/variable.dart';
+import '../model/monk/live_response_data.dart';
 import '../model/monk/monk_league_model.dart';
 import '../model/monk/monk_score_model.dart';
 import '../model/monk/monk_team_model.dart';
@@ -28,9 +30,7 @@ import '../model/score_card_model.dart';
 
 class HomeController extends GetxController {
   late UpcomingMatchModel upcomingMatchModel;
-
   late ScoreCardModel scoreCardModel;
-
   late CommentariesModel commentariesModel;
   late SeriesMatchListModel seriesMatchListModel;
   late RecentMatchInfoModel matcheInfoModel;
@@ -69,10 +69,7 @@ class HomeController extends GetxController {
     //get Matches
 
     getSetUser();
-    await getRecentMatches();
-    await getUpcomingMatches();
-    await getFixturesMatches();
-    await getFeatureSeries();
+
     super.onInit();
   }
 
@@ -86,18 +83,6 @@ class HomeController extends GetxController {
   }
 
   fetchInitData() async {
-    //get Fixture
-
-    //  //get Series
-
-    // await getCommentaries("38356");
-    // await getMatchSquad("3718");
-    // await getPlayerSquad("3718", "15826");
-    // await getPlayerInfo("6635");
-    // await getMatchInfo("38356");
-    //
-    //
-
     //Get User
     final prefs = await SharedPreferences.getInstance();
     String? uId = prefs.getString('userId');
@@ -105,7 +90,455 @@ class HomeController extends GetxController {
       getUser(uId);
     }
 
-    getLive();
+    fetchLiveData();
+    fetchHomeData();
+    fetchUpcomingData();
+    fetchFinishedData();
+    fetchFixtureTest();
+    fetchFixtureODI();
+    fetchFixtureT20();
+
+    //  getLive();
+  }
+
+  RxList matchListForFixtureInternational = [].obs;
+
+  RxList matchListForFixtureLeague = [].obs;
+  RxList matchListForFixtureWomen = [].obs;
+
+  RxList matchListForFixtureT20 = [].obs;
+  Future<void> fetchFixtureT20() async {
+    String formattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().subtract(const Duration(days: 10)));
+    String fastFormattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 10)));
+    loading(true);
+    matchListForFixtureT20 = [].obs;
+    List<MonkLive> monkLiveList =
+        await getFixturesWithType("$formattedDate,$fastFormattedDate", "T20");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue = await getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForFixtureT20.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    loading(false);
+    print("matchListForFixtureT20: ${matchListForFixtureT20.length}");
+  }
+
+  RxList matchListForFixtureODI = [].obs;
+  Future<void> fetchFixtureODI() async {
+    String formattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().subtract(const Duration(days: 10)));
+    String fastFormattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 10)));
+    loading(true);
+    matchListForFixtureODI = [].obs;
+    List<MonkLive> monkLiveList =
+        await getFixturesWithType("$formattedDate,$fastFormattedDate", "ODI");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue = await getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForFixtureODI.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    loading(false);
+    print("matchListForFixtureODI: ${matchListForFixtureODI.length}");
+  }
+
+  RxList matchListForFixtureTest = [].obs;
+  Future<void> fetchFixtureTest() async {
+    String formattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().subtract(const Duration(days: 10)));
+    String fastFormattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 10)));
+    loading(true);
+    matchListForFixtureTest = [].obs;
+    List<MonkLive> monkLiveList =
+        await getFixturesWithType("$formattedDate,$fastFormattedDate", "Test");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue = await getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForFixtureTest.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    loading(false);
+    print("Match List For Home: ${matchListForFixtureTest.length}");
+  }
+
+  RxList matchListForHome = [].obs;
+  RxList matchListForFixtureAll = [].obs;
+
+  // RxList playerSquadModelList = [].obs;
+  Future<void> fetchHomeData() async {
+    String formattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().subtract(const Duration(days: 10)));
+    String fastFormattedDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 10)));
+    loading(true);
+    matchListForHome = [].obs;
+    final HomeController _homeController = HomeController();
+    List<MonkLive> monkLiveList =
+        await _homeController.getFixtures("$formattedDate,$fastFormattedDate");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague =
+          await _homeController.getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue =
+          await _homeController.getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam =
+          await _homeController.getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await _homeController.getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await _homeController.getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForHome.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    matchListForFixtureAll = matchListForHome;
+    loading(false);
+    print("Match List For Home: ${matchListForHome.length}");
+  }
+
+  RxList matchListForFinished = [].obs;
+  fetchFinishedData() async {
+    String startDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().subtract(const Duration(days: 30)));
+    String endDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    loading(true);
+    matchListForFinished = [].obs;
+    final HomeController _homeController = HomeController();
+    List<MonkLive> monkLiveList =
+        await _homeController.getFixtures("$startDate,$endDate");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague =
+          await _homeController.getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue =
+          await _homeController.getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam =
+          await _homeController.getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await _homeController.getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await _homeController.getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForFinished.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    loading(false);
+    print("Tile Data: ${matchListForFinished.length}");
+  }
+
+  RxList matchListForUpcoming = [].obs;
+  fetchUpcomingData() async {
+    String startDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    String endDateDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 30)));
+    loading(true);
+    matchListForUpcoming = [].obs;
+    final HomeController _homeController = HomeController();
+    List<MonkLive> monkLiveList =
+        await _homeController.getFixtures("$startDate,$endDateDate");
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague =
+          await _homeController.getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue =
+          await _homeController.getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam =
+          await _homeController.getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await _homeController.getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await _homeController.getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForUpcoming.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    loading(false);
+    print("match List For Upcoming: ${matchListForUpcoming.length}");
+  }
+
+  RxList matchListForLive = [].obs;
+  fetchLiveData() async {
+    matchListForLive = [].obs;
+
+    loading(true);
+
+    final HomeController _homeController = HomeController();
+    List<MonkLive> monkLiveList = await _homeController.getLive();
+
+    print("Live Match Count: ${monkLiveList.length}");
+    for (MonkLive monkLive in monkLiveList) {
+      MonkLeague monkLeague =
+          await _homeController.getLeague(monkLive.league_id.toString());
+      print("League Name: ${monkLeague.name}");
+      MonkVanue monkVenue =
+          await _homeController.getVenue(monkLive.venue_id.toString());
+      print("Venue Name: ${monkVenue.name}");
+
+      MonkTeam monkLocalTeam =
+          await _homeController.getTeam(monkLive.localteam_id.toString());
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await _homeController.getTeam(monkLive.visitorteam_id.toString());
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+
+      List<MonkLiveScore> teamLiveScores =
+          await _homeController.getMonkScore(monkLive.id.toString());
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForLive.add(
+        LiveResponseData(
+            leagueName: monkLeague.name!,
+            leagueImage: monkLeague.image_path!,
+            venueName:
+                "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
+            round: monkLive.round!,
+            city: monkVenue.city!,
+            venueImage: monkVenue.image_path!,
+            localTeamName: monkLocalTeam.name!,
+            localTeamImage: monkLocalTeam.image_path!,
+            localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+            localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+            localTeamWicket:
+                teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+            visitorTeamName: monkVisitorTeam.name!,
+            visitorTeamImage: monkVisitorTeam.image_path!,
+            visitorTeamOver:
+                teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+            visitorTeamRun:
+                teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+            visitorTeamWicket:
+                teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+            status: monkLive.status!,
+            live: monkLive.live! ? "Live" : "",
+            note: monkLive.note!),
+      );
+    }
+    loading(false);
+    print("Tile Data: ${matchListForLive.length}");
   }
 
   void printWrapped(String text) {
@@ -959,6 +1392,53 @@ class HomeController extends GetxController {
         execute: () async => await ApiService.instance.get(
             ApiEndpoints.monkFixtures +
                 "?filter[starts_between]=$dateRange" +
+                "&${ApiEndpoints.monkAPIToken}"),
+        onSuccess: (response) {
+          var lives = response["data"];
+          for (var live in lives) {
+            monk_live.add(MonkLive(
+              id: live["id"],
+              league_id: live["league_id"],
+              round: live["round"],
+              localteam_id: live["localteam_id"],
+              visitorteam_id: live["visitorteam_id"],
+              starting_at: live["starting_at"],
+              type: live["type"],
+              live: live["live"],
+              status: live["status"],
+              note: live["note"],
+              venue_id: live["venue_id"],
+              toss_won_team_id: live["toss_won_team_id"],
+              winner_team_id: live["winner_team_id"],
+              draw_noresult: live["draw_noresult"],
+              total_overs_played: live["total_overs_played"],
+              localteam_dl_data: Score(
+                  score: live["localteam_dl_data"]["score"],
+                  overs: live["localteam_dl_data"]["overs"],
+                  wickets_out: live["localteam_dl_data"]["wickets_out"]),
+              visitorteam_dl_data: Score(
+                  score: live["visitorteam_dl_data"]["score"],
+                  overs: live["visitorteam_dl_data"]["overs"],
+                  wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
+            ));
+          }
+        },
+        onError: (error) {
+          print(error.toString());
+        });
+
+    return monk_live;
+  }
+
+  Future<List<MonkLive>> getFixturesWithType(
+      String dateRange, String filter) async {
+    List<MonkLive> monk_live = [];
+    await Future.delayed(const Duration(milliseconds: 10));
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkFixtures +
+                "?filter[starts_between]=$dateRange" +
+                "&filter[type]=$filter" +
                 "&${ApiEndpoints.monkAPIToken}"),
         onSuccess: (response) {
           var lives = response["data"];
