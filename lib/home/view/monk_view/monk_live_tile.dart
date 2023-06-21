@@ -179,7 +179,8 @@ class _MonkLiveTileState extends State<MonkLiveTile> {
                               )
                             ],
                           ),
-                          widget.liveObjectData.live == "Live"
+                          widget.liveObjectData.status != "NS" &&
+                                  widget.liveObjectData.status != "Finished"
                               ? Row(
                                   children: [
                                     Icon(
