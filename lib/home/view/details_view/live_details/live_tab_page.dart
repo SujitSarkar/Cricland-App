@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/view/details_view/live_details/live_details_screen.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,6 +70,17 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                             shrinkWrap: true,
                             itemBuilder: (context, liveIndex) {
                               return MonkLiveTile(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => LiveDetailsScreen(
+                                        liveObjectData: homeController
+                                            .matchListForLive[liveIndex],
+                                      ),
+                                    ),
+                                  );
+                                },
                                 liveObjectData:
                                     homeController.matchListForLive[liveIndex],
                                 liveIndex: liveIndex,

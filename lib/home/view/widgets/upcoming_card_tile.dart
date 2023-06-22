@@ -5,8 +5,8 @@ import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import '../../model/rapid_model/recent_match_model.dart';
-import '../details_view/home_details/home_details_screen.dart';
 
 class UpcomingCardTile extends StatelessWidget {
   final RapidMatch rapidMatch;
@@ -20,15 +20,15 @@ class UpcomingCardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => HomeDetailsScreen(
-                // selectedIndex: 2,
-                rapidMatch: rapidMatch,
-              ),
-            ),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (_) => HomeDetailsScreen(
+          //       // selectedIndex: 2,
+          //       rapidMatch: rapidMatch,
+          //     ),
+          //   ),
+          // );
         },
         child: Card(
           elevation: 0.0,
@@ -42,10 +42,14 @@ class UpcomingCardTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text("${rapidMatch.matchInfo!.matchDesc} ${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city} ",
+                      child: Text(
+                          "${rapidMatch.matchInfo!.matchDesc} ${rapidMatch.matchInfo!.venueInfo!.ground}, ${rapidMatch.matchInfo!.venueInfo!.city} ",
                           style: AppTextStyle().bodyTextStyle),
                     ),
-                    Icon(Icons.notifications,color: Colors.grey,)
+                    Icon(
+                      Icons.notifications,
+                      color: Colors.grey,
+                    )
                   ],
                 ),
                 SizedBox(height: dSize(.03)),
@@ -89,8 +93,8 @@ class UpcomingCardTile extends StatelessWidget {
                                         children: [
                                           Text(
                                               "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
-                                              style: AppTextStyle()
-                                                  .bodyTextStyle),
+                                              style:
+                                                  AppTextStyle().bodyTextStyle),
                                           Text(
                                               " ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
                                               style: AppTextStyle()
@@ -123,7 +127,8 @@ class UpcomingCardTile extends StatelessWidget {
                               SizedBox(
                                 width: dSize(.02),
                               ),
-                              Text("${rapidMatch.matchInfo!.team2!.teamSName}",style: AppTextStyle().bodyTextStyle),
+                              Text("${rapidMatch.matchInfo!.team2!.teamSName}",
+                                  style: AppTextStyle().bodyTextStyle),
                               rapidMatch.matchScore != null
                                   ? Row(
                                       crossAxisAlignment:
@@ -131,8 +136,8 @@ class UpcomingCardTile extends StatelessWidget {
                                       children: [
                                         Text(
                                             " ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
-                                            style: AppTextStyle()
-                                                .bodyTextStyle),
+                                            style:
+                                                AppTextStyle().bodyTextStyle),
                                         Text(
                                             " ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
                                             style: AppTextStyle()
@@ -153,7 +158,6 @@ class UpcomingCardTile extends StatelessWidget {
                                     Icons.do_not_disturb_on_total_silence,
                                     color: Colors.red)
                                 : const SizedBox(),
-
                             Text("Starting in:",
                                 style: AppTextStyle().bodyTextStyle),
                             Text(
@@ -163,7 +167,9 @@ class UpcomingCardTile extends StatelessWidget {
                                                 .matchInfo!.startDate!) *
                                             1000))
                                     .toString(),
-                                style: AppTextStyle().largeTitleStyle.copyWith(color: Colors.orange)),
+                                style: AppTextStyle()
+                                    .largeTitleStyle
+                                    .copyWith(color: Colors.orange)),
                           ],
                         ),
                       )

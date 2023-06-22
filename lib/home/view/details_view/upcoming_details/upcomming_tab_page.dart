@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,6 +67,18 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                           shrinkWrap: true,
                           itemBuilder: (context, liveIndex) {
                             return MonkLiveTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => HomeDetailsScreen(
+                                      liveObjectData: homeController
+                                          .matchListForUpcoming[liveIndex],
+                                      scrollController: widget.scrollController,
+                                    ),
+                                  ),
+                                );
+                              },
                               liveObjectData: homeController
                                   .matchListForUpcoming[liveIndex],
                               liveIndex: liveIndex,

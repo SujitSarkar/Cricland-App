@@ -1,22 +1,23 @@
+import 'package:cricland/home/view/details_view/League_details_screen.dart';
 import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:flutter/material.dart';
 
 import '../../../public/widgets/app_text_style.dart';
 import '../../model/monk/live_response_data.dart';
-import '../details_view/League_details_screen.dart';
-import '../details_view/live_details/live_details_screen.dart';
 
 class MonkLiveTile extends StatefulWidget {
   final ScrollController scrollController;
   final LiveResponseData liveObjectData;
   final int liveIndex;
-  const MonkLiveTile(
-      {Key? key,
-      required this.liveObjectData,
-      required this.liveIndex,
-      required this.scrollController})
-      : super(key: key);
+  final Function() onTap;
+  const MonkLiveTile({
+    Key? key,
+    required this.liveObjectData,
+    required this.liveIndex,
+    required this.scrollController,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   State<MonkLiveTile> createState() => _MonkLiveTileState();
@@ -89,16 +90,7 @@ class _MonkLiveTileState extends State<MonkLiveTile> {
             ],
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => LiveDetailsScreen(
-                    liveObjectData: widget.liveObjectData,
-                  ),
-                ),
-              );
-            },
+            onTap: widget.onTap,
             child: AnimatedContainer(
               duration: const Duration(microseconds: 1000),
               height: selectedIndex == widget.liveIndex ? containerHeight : 160,

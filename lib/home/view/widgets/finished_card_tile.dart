@@ -1,16 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/model/rapid_model/recent_match_model.dart';
 import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:intl/intl.dart';
-
-import '../details_view/home_details/home_details_screen.dart';
 
 class FinishedCardTile extends StatelessWidget {
   final RapidMatch rapidMatch;
@@ -24,10 +18,10 @@ class FinishedCardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => HomeDetailsScreen(rapidMatch: rapidMatch)));
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (_) => HomeDetailsScreen(rapidMatch: rapidMatch)));
         },
         child: Card(
           color: PublicController.pc.toggleCardBg(),
@@ -58,13 +52,13 @@ class FinishedCardTile extends StatelessWidget {
                     children: [
                       Flexible(
                         flex: 2,
-
-                       child: Column(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
                               child: Row(
                                 children: [
                                   Container(
@@ -96,8 +90,8 @@ class FinishedCardTile extends StatelessWidget {
                                           children: [
                                             Text(
                                               "${rapidMatch.matchScore!.team1Score!.inngs1!.runs}-${rapidMatch.matchScore!.team1Score!.inngs1!.wickets}",
-                                              style: AppTextStyle()
-                                                  .bodyTextStyle,
+                                              style:
+                                                  AppTextStyle().bodyTextStyle,
                                             ),
                                             Text(
                                                 " ${rapidMatch.matchScore!.team1Score!.inngs1!.overs}",
@@ -140,13 +134,11 @@ class FinishedCardTile extends StatelessWidget {
                                         children: [
                                           Text(
                                             " ${rapidMatch.matchScore!.team2Score!.inngs1!.runs}-${rapidMatch.matchScore!.team2Score!.inngs1!.wickets}",
-                                            style:
-                                                AppTextStyle().bodyTextStyle,
+                                            style: AppTextStyle().bodyTextStyle,
                                           ),
                                           Text(
                                             " ${rapidMatch.matchScore!.team2Score!.inngs1!.overs}",
-                                            style:
-                                                AppTextStyle().bodyTextStyle,
+                                            style: AppTextStyle().bodyTextStyle,
                                           ),
                                         ],
                                       )
@@ -158,10 +150,9 @@ class FinishedCardTile extends StatelessWidget {
                       ),
                       const VerticalDivider(
                         width: 2,
-                          color: Colors.grey,
+                        color: Colors.grey,
                       ),
                       Flexible(
-
                         flex: 1,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 14.0),

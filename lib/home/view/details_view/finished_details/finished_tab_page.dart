@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../public/variables/config.dart';
 import '../../monk_view/monk_live_tile.dart';
+import '../League_details_screen.dart';
 
 class FinishedTabScreen extends StatefulWidget {
   final ScrollController scrollController;
@@ -65,6 +66,19 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                             shrinkWrap: true,
                             itemBuilder: (context, liveIndex) {
                               return MonkLiveTile(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => LeagueDetailsScreen(
+                                        liveObjectData: homeController
+                                            .matchListForFinished[liveIndex],
+                                        scrollController:
+                                            widget.scrollController,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 liveObjectData: homeController
                                     .matchListForFinished[liveIndex],
                                 liveIndex: liveIndex,

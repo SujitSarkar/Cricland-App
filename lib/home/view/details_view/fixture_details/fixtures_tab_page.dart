@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../monk_view/monk_live_tile.dart';
+import '../League_details_screen.dart';
 
 class FixturesTabScreen extends StatefulWidget {
   final ScrollController scrollController;
@@ -182,28 +183,28 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Today,24 February",
-                      style: AppTextStyle().titleTextStyle),
-                  TextButton.icon(
-                    // <-- TextButton
-                    onPressed: () {
-                      homeController.fetchFixtureTest();
-                    },
-                    icon: Icon(
-                      Icons.calendar_month,
-                      color: Colors.orange,
-                      size: 24.0,
-                    ),
-                    label: Text(
-                      'Calendar',
-                      style: TextStyle(color: Colors.orange),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text("Today,24 February",
+              //         style: AppTextStyle().titleTextStyle),
+              //     TextButton.icon(
+              //       // <-- TextButton
+              //       onPressed: () {
+              //         homeController.fetchFixtureTest();
+              //       },
+              //       icon: Icon(
+              //         Icons.calendar_month,
+              //         color: Colors.orange,
+              //         size: 24.0,
+              //       ),
+              //       label: Text(
+              //         'Calendar',
+              //         style: TextStyle(color: Colors.orange),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
@@ -212,6 +213,18 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                       const SizedBox(height: 8),
                   itemBuilder: (BuildContext context, int index) {
                     return MonkLiveTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => LeagueDetailsScreen(
+                              liveObjectData:
+                                  filteredMatchListForFixture[index],
+                              scrollController: widget.scrollController,
+                            ),
+                          ),
+                        );
+                      },
                       liveObjectData: filteredMatchListForFixture[index],
                       liveIndex: index,
                       scrollController: widget.scrollController,

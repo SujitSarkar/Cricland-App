@@ -1,4 +1,5 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,20 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                             shrinkWrap: true,
                             itemBuilder: (context, liveIndex) {
                               return MonkLiveTile(
+                                onTap: () {
+                                  //print("object");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => HomeDetailsScreen(
+                                        liveObjectData: homeController
+                                            .matchListForHome[liveIndex],
+                                        scrollController:
+                                            widget.scrollController,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 liveObjectData:
                                     homeController.matchListForHome[liveIndex],
                                 liveIndex: liveIndex,

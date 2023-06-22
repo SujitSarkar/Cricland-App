@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cricland/home/view/details_view/home_details/home_details_screen.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,7 +8,6 @@ import '../../../public/controller/api_endpoints.dart';
 import '../../../public/controller/public_controller.dart';
 import '../../../public/variables/config.dart';
 import '../../model/rapid_model/recent_match_model.dart';
-import 'package:cricland/public/widgets/app_text_style.dart';
 
 class HomeCardTile extends StatefulWidget {
   final RapidMatch rapidMatch;
@@ -81,14 +80,14 @@ class _HomeCardTileState extends State<HomeCardTile> {
           height: isExpanded ? 150 : 0,
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => HomeDetailsScreen(
-                    rapidMatch: widget.rapidMatch,
-                  ),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (_) => HomeDetailsScreen(
+              //       rapidMatch: widget.rapidMatch,
+              //     ),
+              //   ),
+              // );
             },
             child: Card(
               color: PublicController.pc.toggleCardBg(),
