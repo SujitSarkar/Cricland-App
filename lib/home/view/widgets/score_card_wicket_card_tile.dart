@@ -1,7 +1,7 @@
 import 'package:cricland/home/controller/home_controller.dart';
+import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:cricland/public/controller/public_controller.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ScorecardWicketCardTile extends StatelessWidget {
@@ -43,11 +43,7 @@ class ScorecardWicketCardTile extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               ListView.builder(
-                  itemCount: isLeft
-                      ? homeController
-                          .scoreCardModel.scoreCard!.first.wicketsData!.length
-                      : homeController
-                          .scoreCardModel.scoreCard!.first.wicketsData!.length,
+                  itemCount: isLeft ? 5 : 6,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -63,24 +59,7 @@ class ScorecardWicketCardTile extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                      isLeft
-                                          ? homeController
-                                              .scoreCardModel
-                                              .scoreCard!
-                                              .first
-                                              .wicketsData!
-                                              .values
-                                              .toList()[index]
-                                              .batName!
-                                          : homeController
-                                              .scoreCardModel
-                                              .scoreCard!
-                                              .first
-                                              .wicketsData!
-                                              .values
-                                              .toList()[index]
-                                              .batName!,
+                                  Text("batName",
                                       style: AppTextStyle().paragraphTextStyle),
                                 ],
                               ),
@@ -92,16 +71,11 @@ class ScorecardWicketCardTile extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: Text(
-                                    isLeft
-                                        ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktRuns!}"
-                                        : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktRuns!}",
+                                    "wktRuns",
                                     style: AppTextStyle().paragraphTextStyle,
                                   )),
                                   Expanded(
-                                    child: Text(
-                                        isLeft
-                                            ? "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}"
-                                            : "${homeController.scoreCardModel.scoreCard!.first.wicketsData!.values.toList()[index].wktOver!}",
+                                    child: Text("wktOver",
 
                                         // "10",
                                         style:

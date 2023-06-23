@@ -11,6 +11,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../public/widgets/decoration.dart';
 import '../../../model/monk/live_response_data.dart';
+import '../home_details/commentary_view.dart';
+import '../home_details/info_view.dart';
+import '../home_details/live_view.dart';
+import '../home_details/points_table.dart';
+import '../home_details/score_card_view.dart';
 
 class LiveDetailsScreen extends StatefulWidget {
   final LiveResponseData liveObjectData;
@@ -401,30 +406,19 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: <Widget>[
-                      // InfoView(
-                      //   matchId: widget.matchID,
-                      //   rapidMatch: widget.ra,
-                      // ),
-                      Container(),
-                      Container(),
-                      Container(),
-                      Container(),
-                      // CommentaryView(
-                      //   matchId: widget.liveObjectData.,
-                      // ),
-                      // LiveView(
-                      //   team1ImageID: widget.team1ImageID,
-                      //   team2ImageID: widget.team2ImageID,
-                      //   matchId: widget.matchID,
-                      //   state: widget.state,
-                      // ),
-                      // ScoreCardView(
-                      //   matchId: widget.matchID,
-                      // ),
-                      // PointTableView(
-                      //   matchId: widget.matchID,
-                      //   seriesId: widget.seriesID,
-                      // ),
+                      InfoView(
+                        liveObjectData: widget.liveObjectData,
+                      ),
+                      CommentaryView(liveObjectData: widget.liveObjectData),
+                      LiveView(
+                        liveObjectData: widget.liveObjectData,
+                      ),
+                      ScoreCardView(
+                        liveObjectData: widget.liveObjectData,
+                      ),
+                      PointTableView(
+                        liveObjectData: widget.liveObjectData,
+                      ),
                     ],
                   ),
                 )

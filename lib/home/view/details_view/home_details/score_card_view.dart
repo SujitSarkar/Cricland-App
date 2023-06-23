@@ -8,10 +8,12 @@ import 'package:get/get.dart';
 
 import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/config.dart';
+import '../../../model/monk/live_response_data.dart';
 
 class ScoreCardView extends StatefulWidget {
-  final String matchId;
-  const ScoreCardView({Key? key, required this.matchId}) : super(key: key);
+  final LiveResponseData liveObjectData;
+  const ScoreCardView({Key? key, required this.liveObjectData})
+      : super(key: key);
 
   @override
   _ScoreCardViewState createState() => _ScoreCardViewState();
@@ -23,17 +25,6 @@ class _ScoreCardViewState extends State<ScoreCardView> {
   @override
   void initState() {
     super.initState();
-
-    fetchData();
-  }
-
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    await homeController.getScoreCard("${widget.matchId}/scard");
-
-    if (mounted) {
-      setState(() {});
-    }
   }
 
   @override
@@ -42,95 +33,77 @@ class _ScoreCardViewState extends State<ScoreCardView> {
       return Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
-              child: homeController.scoreCardModel.scoreCard != null &&
-                      homeController.scoreCardModel.scoreCard!.isNotEmpty
-                  ? Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextButton(
-                                style: ButtonStyle(
-                                  backgroundColor: isLeft
-                                      ? MaterialStateProperty.all(Colors.indigo)
-                                      : MaterialStateProperty.all(Colors.grey),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isLeft = true;
-                                  });
-                                },
-                                child: Text(
-                                  "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                                  style: AppTextStyle()
-                                      .largeTitleStyle
-                                      .copyWith(
-                                        fontSize: dSize(.03),
-                                        color:
-                                            PublicController.pc.toggleCardBg(),
-                                      ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                                child: TextButton(
-                                    style: ButtonStyle(
-                                      backgroundColor: !isLeft
-                                          ? MaterialStateProperty.all(
-                                              Colors.indigo)
-                                          : MaterialStateProperty.all(
-                                              Colors.grey),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        isLeft = false;
-                                      });
-                                    },
-                                    child: Text(
-                                      "${homeController.scoreCardModel.scoreCard!.first.batTeamDetails!.batTeamShortName!} ${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.runs!}-${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.wickets!} (${homeController.scoreCardModel.scoreCard!.first.scoreDetails!.overs!})    ",
-                                      style: AppTextStyle()
-                                          .largeTitleStyle
-                                          .copyWith(
-                                            fontSize: dSize(.03),
-                                            color: PublicController.pc
-                                                .toggleCardBg(),
-                                          ),
-                                    ))),
-                          ],
-                        ),
-                        ScorecardBatterTile(
-                          isLeft: isLeft,
-                        ),
-                        ScorecardBowlerTile(isLeft: isLeft),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              "Fall Of Wicket",
-                              style: AppTextStyle().largeTitleStyle.copyWith(
-                                    fontSize: dSize(.03),
-                                    color: PublicController.pc.toggleCardBg(),
-                                  ),
-                            ),
-                          ),
-                        ),
-                        ScorecardWicketCardTile(
-                          isLeft: isLeft,
-                        ),
-                      ],
-                    )
-                  : const SizedBox(
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 200.0),
-                          child: Text("Score Card is not Updated"),
-                        ),
+              child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: isLeft
+                            ? MaterialStateProperty.all(Colors.indigo)
+                            : MaterialStateProperty.all(Colors.grey),
                       ),
-                    )));
+                      onPressed: () {
+                        setState(() {
+                          isLeft = true;
+                        });
+                      },
+                      child: Text(
+                        "batTeamShortName runs-wickets (overs)  ",
+                        style: AppTextStyle().largeTitleStyle.copyWith(
+                              fontSize: dSize(.03),
+                              color: PublicController.pc.toggleCardBg(),
+                            ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                      child: TextButton(
+                          style: ButtonStyle(
+                            backgroundColor: !isLeft
+                                ? MaterialStateProperty.all(Colors.indigo)
+                                : MaterialStateProperty.all(Colors.grey),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isLeft = false;
+                            });
+                          },
+                          child: Text(
+                            "batTeamShortName runs-wickets (overs)    ",
+                            style: AppTextStyle().largeTitleStyle.copyWith(
+                                  fontSize: dSize(.03),
+                                  color: PublicController.pc.toggleCardBg(),
+                                ),
+                          ))),
+                ],
+              ),
+              ScorecardBatterTile(
+                isLeft: isLeft,
+              ),
+              ScorecardBowlerTile(isLeft: isLeft),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "Fall Of Wicket",
+                    style: AppTextStyle().largeTitleStyle.copyWith(
+                          fontSize: dSize(.03),
+                          color: PublicController.pc.toggleCardBg(),
+                        ),
+                  ),
+                ),
+              ),
+              ScorecardWicketCardTile(
+                isLeft: isLeft,
+              ),
+            ],
+          )));
     });
   }
 }

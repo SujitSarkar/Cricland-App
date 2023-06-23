@@ -1,31 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/details_view/live_progeress_bottom_sheet.dart';
 import 'package:cricland/home/controller/home_controller.dart';
-import 'package:cricland/public/widgets/app_text_style.dart';
-import 'package:cricland/home/view/widgets/batter_card.dart';
-import 'package:cricland/home/view/widgets/bowler_card_tile.dart';
-import 'package:cricland/home/view/widgets/real_time_win_card.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-import '../../../../public/controller/api_endpoints.dart';
+import '../../../model/monk/live_response_data.dart';
 
 class LiveView extends StatefulWidget {
-  final String team1ImageID;
-  final String team2ImageID;
-  final String matchId;
-  final String state;
+  final LiveResponseData liveObjectData;
 
   const LiveView({
     Key? key,
-    required this.team1ImageID,
-    required this.team2ImageID,
-    required this.matchId,
-    required this.state,
+    required this.liveObjectData,
   }) : super(key: key);
 
   @override
@@ -38,14 +29,8 @@ class _LiveViewState extends State<LiveView> {
     // TODO: implement initState
 
     super.initState();
-    fetchData();
   }
 
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    await homeController.getOverSummery("52400");
-    setState(() {});
-  }
   final TextStyle _textStyle = TextStyle(
       fontSize: dSize(.032), color: PublicController.pc.toggleTextColor());
   @override
@@ -55,12 +40,12 @@ class _LiveViewState extends State<LiveView> {
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
-                widget.state,
+                widget.liveObjectData.status,
                 style: AppTextStyle().largeTitleStyle,
               ),
             ),
@@ -88,11 +73,11 @@ class _LiveViewState extends State<LiveView> {
                         children: [
                           Text(
                             "Over : ",
-                style:_textStyle.copyWith(
-                fontSize: dSize(.03),
-        fontWeight: FontWeight.bold,
-        color: PublicController.pc
-            .toggleLoadingColor(),),
+                            style: _textStyle.copyWith(
+                              fontSize: dSize(.03),
+                              fontWeight: FontWeight.bold,
+                              color: PublicController.pc.toggleLoadingColor(),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(2.0),
@@ -106,11 +91,12 @@ class _LiveViewState extends State<LiveView> {
                                         null
                                     ? '${homeController.overSummeryModel.overSummaryList![i].overNum!.toInt()}'
                                     : "",
-                                style:_textStyle.copyWith(
+                                style: _textStyle.copyWith(
                                   fontSize: dSize(.03),
                                   fontWeight: FontWeight.bold,
-                                  color: PublicController.pc
-                                      .toggleLoadingColor(),),
+                                  color:
+                                      PublicController.pc.toggleLoadingColor(),
+                                ),
                               ),
                             ),
                           ),
@@ -126,11 +112,12 @@ class _LiveViewState extends State<LiveView> {
                                         null
                                     ? '${homeController.overSummeryModel.overSummaryList![i].oSummary}'
                                     : "",
-                                style:_textStyle.copyWith(
+                                style: _textStyle.copyWith(
                                   fontSize: dSize(.03),
                                   fontWeight: FontWeight.bold,
-                                  color: PublicController.pc
-                                      .toggleLoadingColor(),),
+                                  color:
+                                      PublicController.pc.toggleLoadingColor(),
+                                ),
                               ),
                             ),
                           ),
@@ -150,11 +137,12 @@ class _LiveViewState extends State<LiveView> {
                                         null
                                     ? '${homeController.overSummeryModel.overSummaryList![i].runs}'
                                     : "",
-                                style:_textStyle.copyWith(
+                                style: _textStyle.copyWith(
                                   fontSize: dSize(.03),
                                   fontWeight: FontWeight.bold,
-                                  color: PublicController.pc
-                                      .toggleLoadingColor(),),
+                                  color:
+                                      PublicController.pc.toggleLoadingColor(),
+                                ),
                               ),
                             ),
                           ),
@@ -172,29 +160,36 @@ class _LiveViewState extends State<LiveView> {
                 ],
               ),
             ),
-            Text("Player of the Match",
-              style:_textStyle.copyWith(
+            Text(
+              "Player of the Match",
+              style: _textStyle.copyWith(
                 fontSize: dSize(.03),
                 fontWeight: FontWeight.bold,
-                color: PublicController.pc
-                    .toggleLoadingColor(),),),
-            MoreCard(child: Row(
+                color: PublicController.pc.toggleLoadingColor(),
+              ),
+            ),
+            MoreCard(
+                child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: [
-                    Text("${homeController.recentMatchInfoModel.matchInfo!.playersOfTheMatch!.name}",
-                      style:_textStyle.copyWith(
+                    Text(
+                      "playersOfTheMatch!.name",
+                      style: _textStyle.copyWith(
                         fontSize: dSize(.035),
                         fontWeight: FontWeight.bold,
-                        color: PublicController.pc
-                            .toggleLoadingColor(),),),
-                    Text("${homeController.recentMatchInfoModel.matchInfo!.playersOfTheMatch!.role}",
-                      style:_textStyle.copyWith(
+                        color: PublicController.pc.toggleLoadingColor(),
+                      ),
+                    ),
+                    Text(
+                      "playersOfTheMatch!.role",
+                      style: _textStyle.copyWith(
                         fontSize: dSize(.03),
                         fontWeight: FontWeight.bold,
-                        color: PublicController.pc
-                            .toggleLoadingColor(),),),
+                        color: PublicController.pc.toggleLoadingColor(),
+                      ),
+                    ),
                   ],
                 ),
                 Container(
@@ -204,11 +199,7 @@ class _LiveViewState extends State<LiveView> {
                     shape: BoxShape.rectangle,
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                          ApiEndpoints.imageMidPoint +
-                              "${homeController.recentMatchInfoModel.matchInfo!.playersOfTheMatch!.faceImageId}" +
-                              ApiEndpoints.imageLastPoint,
-                          headers: ApiEndpoints.headers,
-                        ),
+                            widget.liveObjectData.localTeamImage),
                         fit: BoxFit.fill),
                   ),
                 ),
@@ -240,19 +231,19 @@ class _LiveViewState extends State<LiveView> {
                     children: [
                       Text(
                         "SA",
-                        style:_textStyle.copyWith(
+                        style: _textStyle.copyWith(
                           fontSize: dSize(.035),
                           fontWeight: FontWeight.bold,
-                          color: PublicController.pc
-                              .toggleLoadingColor(),),
+                          color: PublicController.pc.toggleLoadingColor(),
+                        ),
                       ),
                       Text(
                         "36-1",
-                        style:_textStyle.copyWith(
+                        style: _textStyle.copyWith(
                           fontSize: dSize(.03),
                           fontWeight: FontWeight.bold,
-                          color: PublicController.pc
-                              .toggleLoadingColor(),),
+                          color: PublicController.pc.toggleLoadingColor(),
+                        ),
                       ),
                     ],
                   ),
@@ -260,19 +251,19 @@ class _LiveViewState extends State<LiveView> {
                     children: [
                       Text(
                         "z",
-                      style:_textStyle.copyWith(
-                      fontSize: dSize(.03),
-        fontWeight: FontWeight.bold,
-        color: PublicController.pc
-            .toggleLoadingColor(),),
+                        style: _textStyle.copyWith(
+                          fontSize: dSize(.03),
+                          fontWeight: FontWeight.bold,
+                          color: PublicController.pc.toggleLoadingColor(),
+                        ),
                       ),
                       Text(
                         "After 5.5 overs",
-                        style:_textStyle.copyWith(
+                        style: _textStyle.copyWith(
                           fontSize: dSize(.03),
                           fontWeight: FontWeight.bold,
-                          color: PublicController.pc
-                              .toggleLoadingColor(),),
+                          color: PublicController.pc.toggleLoadingColor(),
+                        ),
                       ),
                     ],
                   ),
@@ -280,19 +271,19 @@ class _LiveViewState extends State<LiveView> {
                     children: [
                       Text(
                         "IND",
-                        style:_textStyle.copyWith(
+                        style: _textStyle.copyWith(
                           fontSize: dSize(.03),
                           fontWeight: FontWeight.bold,
-                          color: PublicController.pc
-                              .toggleLoadingColor(),),
+                          color: PublicController.pc.toggleLoadingColor(),
+                        ),
                       ),
                       Text(
                         "37-0",
-                        style:_textStyle.copyWith(
+                        style: _textStyle.copyWith(
                           fontSize: dSize(.03),
                           fontWeight: FontWeight.bold,
-                          color: PublicController.pc
-                              .toggleLoadingColor(),),
+                          color: PublicController.pc.toggleLoadingColor(),
+                        ),
                       ),
                     ],
                   ),
@@ -316,11 +307,11 @@ class _LiveViewState extends State<LiveView> {
                   ),
                   Text(
                     "Share Score",
-                    style:_textStyle.copyWith(
+                    style: _textStyle.copyWith(
                       fontSize: dSize(.03),
                       fontWeight: FontWeight.bold,
-                      color: PublicController.pc
-                          .toggleLoadingColor(),),
+                      color: PublicController.pc.toggleLoadingColor(),
+                    ),
                   ),
                 ],
               ),
@@ -330,7 +321,6 @@ class _LiveViewState extends State<LiveView> {
             ),
             ListTile(
               onTap: () {
-
                 //TODO Settings Dialog
               },
               tileColor: PublicController.pc.toggleCardBg(),
@@ -340,11 +330,10 @@ class _LiveViewState extends State<LiveView> {
               ),
               title: Text(
                 "Match Settings",
-                style:_textStyle.copyWith(
+                style: _textStyle.copyWith(
                   fontSize: dSize(.035),
                   fontWeight: FontWeight.bold,
-                  color: PublicController.pc
-                      .toggleLoadingColor(),
+                  color: PublicController.pc.toggleLoadingColor(),
                 ),
               ),
             )

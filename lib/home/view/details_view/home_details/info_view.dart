@@ -3,7 +3,6 @@ import 'package:cricland/IPL/view/series_screen.dart';
 import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/widgets/app_text_style.dart';
@@ -13,14 +12,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../model/match_info_model.dart';
-import '../../../model/rapid_model/recent_match_model.dart';
+import '../../../model/monk/live_response_data.dart';
 import '../../widgets/head_to_head_tile.dart';
 import '../../widgets/match_card_tile.dart';
 
 class InfoView extends StatefulWidget {
-  final RapidMatch rapidMatch;
+  final LiveResponseData liveObjectData;
 
-  const InfoView({Key? key, required this.rapidMatch}) : super(key: key);
+  const InfoView({Key? key, required this.liveObjectData}) : super(key: key);
 
   @override
   _InfoViewState createState() => _InfoViewState();
@@ -41,18 +40,18 @@ class _InfoViewState extends State<InfoView> {
   void initState() {
     super.initState();
 
-    fetchData();
+    // fetchData();
   }
 
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
-    await homeController
-        .getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
-    if (mounted) {
-      setState(() {});
-    }
-  }
+  // fetchData() async {
+  //   HomeController homeController = Get.put(HomeController());
+  //   // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
+  //   await homeController
+  //       .getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
+  //   if (mounted) {
+  //     setState(() {});
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,18 +75,12 @@ class _InfoViewState extends State<InfoView> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                          ApiEndpoints.imageMidPoint +
-                              "${widget.rapidMatch.matchInfo!.seriesId}" +
-                              ApiEndpoints.imageLastPoint,
-                          headers: ApiEndpoints.headers,
-                        ),
+                            widget.liveObjectData.leagueImage),
                         fit: BoxFit.fill),
                   ),
                 ),
                 title: Text(
-                  widget.rapidMatch.matchInfo!.status != null
-                      ? "${widget.rapidMatch.matchInfo!.status}"
-                      : "${widget.rapidMatch.matchInfo!.seriesName}",
+                  widget.liveObjectData.status,
                   style: AppTextStyle().titleTextBoldStyle.copyWith(
                         color: Colors.orange,
                       ),
@@ -131,14 +124,14 @@ class _InfoViewState extends State<InfoView> {
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                  widget.rapidMatch.matchInfo!.matchDesc.toString(),
+                  widget.liveObjectData.note,
                   style: AppTextStyle().paragraphTextStyle,
                 ),
                 subtitle: Row(
                   children: [
                     FittedBox(
                       child: Text(
-                        widget.rapidMatch.matchInfo!.seriesName.toString(),
+                        widget.liveObjectData.leagueName,
                         style: AppTextStyle().titleTextBoldStyle,
                       ),
                     ),
@@ -157,11 +150,7 @@ class _InfoViewState extends State<InfoView> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                          ApiEndpoints.imageMidPoint +
-                              "${widget.rapidMatch.matchInfo!.seriesId}" +
-                              ApiEndpoints.imageLastPoint,
-                          headers: ApiEndpoints.headers,
-                        ),
+                            widget.liveObjectData.leagueImage),
                         fit: BoxFit.fill),
                   ),
                 ),
@@ -169,13 +158,9 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 10),
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
-                title: Text(
-                    DateFormat('MMM d,' 'hh:mm a')
-                        .format(DateTime.fromMillisecondsSinceEpoch(
-                            int.parse(widget.rapidMatch.matchInfo!.startDate!) *
-                                1000))
-                        .toString(),
-                    style: AppTextStyle().titleTextBoldStyle),
+                title: Text(DateFormat('MMM d,' 'hh:mm a').format(
+                    // DateTime.parse(widget.liveObjectData.startingAt)),
+                    DateTime.now()), style: AppTextStyle().titleTextBoldStyle),
                 leading: Icon(
                   Icons.calendar_today_outlined,
                   color: PublicController.pc.toggleTextColor(),
@@ -185,7 +170,7 @@ class _InfoViewState extends State<InfoView> {
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(
-                    "${widget.rapidMatch.matchInfo!.venueInfo!.ground}, ${widget.rapidMatch.matchInfo!.venueInfo!.city}",
+                    "${widget.liveObjectData.venueName}, ${widget.liveObjectData.city}",
                     style: AppTextStyle().titleTextBoldStyle),
                 leading: Icon(
                   Icons.location_on,
@@ -201,15 +186,13 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 10),
               ListTile(
                 onTap: () {
-                  fetchData();
                   _showSquadsSheet(
                       context,
                       homeController.recentMatchInfoModel.matchInfo!.team2!
                           .playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
-                title: Text(
-                    widget.rapidMatch.matchInfo!.team1!.teamName.toString(),
+                title: Text(widget.liveObjectData.localTeamName,
                     style: AppTextStyle().paragraphTextStyle),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
@@ -222,11 +205,7 @@ class _InfoViewState extends State<InfoView> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                          ApiEndpoints.imageMidPoint +
-                              "${widget.rapidMatch.matchInfo!.team1!.imageId}" +
-                              ApiEndpoints.imageLastPoint,
-                          headers: ApiEndpoints.headers,
-                        ),
+                            widget.liveObjectData.localTeamImage),
                         fit: BoxFit.fill),
                   ),
                 ),
@@ -240,8 +219,7 @@ class _InfoViewState extends State<InfoView> {
                           .playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
-                title: Text(
-                    widget.rapidMatch.matchInfo!.team2!.teamName.toString(),
+                title: Text(widget.liveObjectData.visitorTeamName,
                     style: AppTextStyle().bodyTextStyle),
                 trailing: Icon(
                   Icons.arrow_forward_ios_sharp,
@@ -254,11 +232,7 @@ class _InfoViewState extends State<InfoView> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                          ApiEndpoints.imageMidPoint +
-                              "${widget.rapidMatch.matchInfo!.team2!.imageId}" +
-                              ApiEndpoints.imageLastPoint,
-                          headers: ApiEndpoints.headers,
-                        ),
+                            widget.liveObjectData.visitorTeamImage),
                         fit: BoxFit.fill),
                   ),
                 ),
@@ -1228,7 +1202,7 @@ class _InfoViewState extends State<InfoView> {
                   color: PublicController.pc.toggleTextColor(),
                 ),
                 title: Text(
-                  "${widget.rapidMatch.matchInfo!.venueInfo!.ground.toString()}, ${widget.rapidMatch.matchInfo!.venueInfo!.city.toString()}",
+                  "${widget.liveObjectData.venueName}, ${widget.liveObjectData.city}",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: dSize(.04),

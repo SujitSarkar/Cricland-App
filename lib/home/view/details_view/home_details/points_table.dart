@@ -1,17 +1,14 @@
-import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:cricland/home/view/widgets/point_table_tile.dart';
+import 'package:cricland/public/widgets/app_text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import '../../../../public/controller/public_controller.dart';
 import '../../../../public/variables/config.dart';
-import '../../../controller/home_controller.dart';
+import '../../../model/monk/live_response_data.dart';
 
 class PointTableView extends StatefulWidget {
-  final String seriesId;
-  final String matchId;
-  const PointTableView(
-      {Key? key, required this.seriesId, required this.matchId})
+  final LiveResponseData liveObjectData;
+  const PointTableView({Key? key, required this.liveObjectData})
       : super(key: key);
 
   @override
@@ -41,15 +38,6 @@ class _PointTableViewState extends State<PointTableView> {
   @override
   void initState() {
     super.initState();
-    fetchData();
-  }
-
-  fetchData() async {
-    HomeController homeController = Get.put(HomeController());
-    await homeController.getPointTable('3718');
-    if (mounted) {
-      setState(() {});
-    }
   }
 
   @override
@@ -65,9 +53,9 @@ class _PointTableViewState extends State<PointTableView> {
                 Text(
                   "Points Table",
                   style: AppTextStyle().largeTitleStyle.copyWith(
-                    fontSize: dSize(.04),
-                    color: PublicController.pc.toggleTextColor(),
-                  ),
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
+                      ),
                 ),
                 // Row(
                 //   children: [
@@ -94,7 +82,7 @@ class _PointTableViewState extends State<PointTableView> {
                 // ),
               ],
             ),
-            PointTableTile(),
+            const PointTableTile(),
           ],
         ),
       ),
