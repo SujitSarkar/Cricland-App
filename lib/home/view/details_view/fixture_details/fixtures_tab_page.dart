@@ -36,6 +36,13 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
     'League',
     'Women',
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   RxList filteredMatchListForFixture = [].obs;
   int selectedIndex = 0;
 
@@ -63,6 +70,9 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
         print(filteredMatchListForFixture.length.obs);
       }
 
+      if (selectedIndex == 0) {
+        filteredMatch("All");
+      }
       return NotificationListener<ScrollUpdateNotification>(
         onNotification: (notification) {
           print(notification.metrics.pixels);
@@ -144,10 +154,10 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  filteredMatch(typeList[index]);
                                   setState(() {
                                     selectedIndex = index;
                                   });
+                                  filteredMatch(typeList[index]);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

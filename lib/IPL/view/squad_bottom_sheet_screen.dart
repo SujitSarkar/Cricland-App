@@ -1,26 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/view/icc_man_ranking/player_details/player_details_man.dart';
-import 'package:cricland/public/controller/api_endpoints.dart';
 import 'package:cricland/public/controller/public_controller.dart';
-import 'package:cricland/public/variables/colors.dart';
 import 'package:cricland/public/variables/config.dart';
 import 'package:cricland/public/variables/variable.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
-import '../../home/model/match_info_model.dart';
+import '../../home/model/monk/playing_model_xi.dart';
+import '../../public/variables/colors.dart';
 
 class BottomSheetScreen extends StatefulWidget {
-  final String? seriesId;
-  final String? squadId;
+  final String fixturesId;
 
-  final List<PlayerRapid>  playerRapidTeam;
-
-
-  const BottomSheetScreen({Key? key, this.seriesId, this.squadId,required this.playerRapidTeam})
+  const BottomSheetScreen({Key? key, required this.fixturesId})
       : super(key: key);
 
   @override
@@ -31,12 +24,8 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   String _iplTabType = Variables.teamSquadsTabsCategory.first;
-  List<PlayerRapid> allPlayerList = [];
-  List<PlayerRapid> batPlayerList = [];
-  List<PlayerRapid> bowlPlayerList = [];
-  List<PlayerRapid> arPlayerList = [];
-  List<PlayerRapid> tempPlayerList = [];
-  List<String> tabData = [];
+
+  List<String> tabData = ["LTN", "VTN"];
 
   @override
   void initState() {
@@ -44,33 +33,24 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
     _tabController = TabController(
         length: Variables.teamSquadsTabsCategory.length, vsync: this);
     getAllPlayerList();
-
-    tempPlayerList = allPlayerList;
   }
 
+  List<PlayerPlayingXI2> bowlingPlayerList = [];
+  List<PlayerPlayingXI2> battingPlayerList = [];
+  List<PlayerPlayingXI2> filteredPlayerList = [];
   getAllPlayerList() async {
+    HomeController homeController = HomeController();
+    battingPlayerList = await homeController
+        .getBattingPlayerWithDetailsData(widget.fixturesId.toString());
 
-    for (PlayerRapid player in widget.playerRapidTeam) {
-      if (player.id != null) {
+    bowlingPlayerList = await homeController
+        .getBowlingPlayerWithDetailsData(widget.fixturesId.toString());
 
-        allPlayerList.add(player);
-      }
-      if (player.role == "Batsman") {
-        batPlayerList.add(player);
-      }
-      if (player.role == "Bowler") {
-        bowlPlayerList.add(player);
-      }
-      if (player.role == "WK-Batsman") {
-        arPlayerList.add(player);
-      }
-    }
-    tabData = [
-      "All(${allPlayerList.length})",
-      "Bat(${batPlayerList.length})",
-      "bowl(${bowlPlayerList.length})",
-      "AR(${arPlayerList.length})"
-    ];
+    filteredPlayerList = battingPlayerList;
+    setState(() {});
+    print(battingPlayerList.length);
+    print(bowlingPlayerList.length);
+    print("objdfdect");
   }
 
   int _selectedtab = 0;
@@ -113,20 +93,13 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                             onTap: () {
                               setState(() {
                                 _selectedtab = i;
-
-                                if (_selectedtab == 0) {
-                                  tempPlayerList = allPlayerList;
-                                }
-                                if (_selectedtab == 1) {
-                                  tempPlayerList = batPlayerList;
-                                }
-                                if (_selectedtab == 2) {
-                                  tempPlayerList = bowlPlayerList;
-                                }
-                                if (_selectedtab == 3) {
-                                  tempPlayerList = arPlayerList;
-                                }
                               });
+                              if (i == 0) {
+                                filteredPlayerList = battingPlayerList;
+                              } else {
+                                filteredPlayerList = bowlingPlayerList;
+                              }
+                              setState(() {});
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
@@ -164,96 +137,112 @@ class _BottomSheetScreenState extends State<BottomSheetScreen>
                   ],
                 ),
                 Expanded(
-                  child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: tempPlayerList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return tempPlayerList[index].id != null
-                            ? Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            const PlayerDetailsPageMan(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                            color: PublicController.pc
-                                                .toggleTextColor())),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5.0, vertical: 3),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 50,
-                                            width: 70,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.rectangle,
-                                              image: DecorationImage(
-                                                  image:
-                                                      CachedNetworkImageProvider(
-                                                    ApiEndpoints.imageMidPoint +
-                                                        "${tempPlayerList[index].faceImageId!}" +
-                                                        ApiEndpoints
-                                                            .imageLastPoint,
-                                                    headers:
-                                                        ApiEndpoints.headers,
-                                                  ),
-                                                  fit: BoxFit.fill),
+                  child: filteredPlayerList.isEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: filteredPlayerList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const PlayerDetailsPageMan(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: PublicController.pc
+                                              .toggleTextColor())),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0, vertical: 3),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                          width: 70,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                        filteredPlayerList[
+                                                                index]
+                                                            .imagePath!),
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              filteredPlayerList[index]
+                                                  .fullName!,
+                                              style: TextStyle(
+                                                fontSize: dSize(.04),
+                                                fontWeight: FontWeight.w500,
+                                                color: PublicController.pc
+                                                    .toggleTextColor(),
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "${tempPlayerList[index].name!}",
-                                                style: TextStyle(
-                                                  fontSize: dSize(.04),
-                                                  fontWeight: FontWeight.w500,
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                              Text(
-                                                tempPlayerList[index].role !=
-                                                        null
-                                                    ? "${tempPlayerList[index].role!}"
-                                                    : "",
-                                                style: TextStyle(
-                                                  fontSize: dSize(.035),
-                                                  fontWeight: FontWeight.w500,
-                                                  color: PublicController.pc
-                                                      .toggleTextColor(),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            _selectedtab == 0
+                                                ? Text(
+                                                    filteredPlayerList[index]
+                                                                .battingStyle !=
+                                                            null
+                                                        ? battingPlayerList[
+                                                                index]
+                                                            .battingStyle!
+                                                        : "",
+                                                    style: TextStyle(
+                                                      fontSize: dSize(.035),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: PublicController.pc
+                                                          .toggleTextColor(),
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    filteredPlayerList[index]
+                                                                .bowlingStyle !=
+                                                            null
+                                                        ? filteredPlayerList[
+                                                                index]
+                                                            .bowlingStyle!
+                                                        : "",
+                                                    style: TextStyle(
+                                                      fontSize: dSize(.035),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: PublicController.pc
+                                                          .toggleTextColor(),
+                                                    ),
+                                                  ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              )
-                            : Container(
-                                color: Colors.grey,
-                              );
-                      }),
+                              ),
+                            );
+                          }),
                 ),
               ],
             ),

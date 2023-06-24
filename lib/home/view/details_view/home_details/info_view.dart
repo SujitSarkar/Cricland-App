@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cricland/IPL/view/series_screen.dart';
-import 'package:cricland/IPL/view/squad_bottom_sheet_screen.dart';
 import 'package:cricland/home/controller/home_controller.dart';
 import 'package:cricland/more/view/widgets/card_tile.dart';
 import 'package:cricland/public/controller/public_controller.dart';
@@ -11,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../model/match_info_model.dart';
+import '../../../../IPL/view/squad_bottom_sheet_screen.dart';
 import '../../../model/monk/live_response_data.dart';
+import '../../widgets/bounching_dialog.dart';
 import '../../widgets/head_to_head_tile.dart';
 import '../../widgets/match_card_tile.dart';
 
@@ -39,19 +39,7 @@ class _InfoViewState extends State<InfoView> {
   @override
   void initState() {
     super.initState();
-
-    // fetchData();
   }
-
-  // fetchData() async {
-  //   HomeController homeController = Get.put(HomeController());
-  //   // await homeController.getSeriesMatches(widget.rapidMatch.matchInfo!.seriesId.toString());
-  //   await homeController
-  //       .getMatchInfo(widget.rapidMatch.matchInfo!.matchId.toString());
-  //   if (mounted) {
-  //     setState(() {});
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,10 +111,8 @@ class _InfoViewState extends State<InfoView> {
                   Get.to(const IPLPage());
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
-                title: Text(
-                  widget.liveObjectData.note,
-                  style: AppTextStyle().paragraphTextStyle,
-                ),
+                title: Text(widget.liveObjectData.note,
+                    style: AppTextStyle().paragraphTextStyle),
                 subtitle: Row(
                   children: [
                     FittedBox(
@@ -158,9 +144,9 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 10),
               ListTile(
                 tileColor: PublicController.pc.toggleCardBg(),
-                title: Text(DateFormat('MMM d,' 'hh:mm a').format(
-                    // DateTime.parse(widget.liveObjectData.startingAt)),
-                    DateTime.now()), style: AppTextStyle().titleTextBoldStyle),
+                title: Text(DateFormat('MMM d, ' 'hh:mm a')
+                    .format(DateTime.parse(widget.liveObjectData.startingAt))),
+                //DateTime.now()), style: AppTextStyle().titleTextBoldStyle),
                 leading: Icon(
                   Icons.calendar_today_outlined,
                   color: PublicController.pc.toggleTextColor(),
@@ -185,11 +171,15 @@ class _InfoViewState extends State<InfoView> {
               ),
               const SizedBox(height: 10),
               ListTile(
-                onTap: () {
-                  _showSquadsSheet(
-                      context,
-                      homeController.recentMatchInfoModel.matchInfo!.team2!
-                          .playerDetails!);
+                onTap: () async {
+                  showDialog(
+                    context: context,
+                    builder: (_) => BounchingDialog(
+                      child: BottomSheetScreen(
+                        fixturesId: widget.liveObjectData.fixturesId.toString(),
+                      ),
+                    ),
+                  );
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(widget.liveObjectData.localTeamName,
@@ -213,10 +203,10 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 2),
               ListTile(
                 onTap: () {
-                  _showSquadsSheet(
-                      context,
-                      homeController.recentMatchInfoModel.matchInfo!.team2!
-                          .playerDetails!);
+                  // _showSquadsSheet(
+                  //     context,
+                  //     homeController.recentMatchInfoModel.matchInfo!.team2!
+                  //         .playerDetails!);
                 },
                 tileColor: PublicController.pc.toggleCardBg(),
                 title: Text(widget.liveObjectData.visitorTeamName,
@@ -1329,21 +1319,5 @@ class _InfoViewState extends State<InfoView> {
         ),
       );
     });
-  }
-
-  void _showSquadsSheet(BuildContext context, List<PlayerRapid> players) {
-    showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return FractionallySizedBox(
-              heightFactor: 2.3,
-              child: BottomSheetScreen(
-                playerRapidTeam: players,
-              ),
-            );
-          });
-        });
   }
 }

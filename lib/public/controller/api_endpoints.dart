@@ -43,5 +43,7 @@ class ApiEndpoints {
   static String monkTeams = '${monkBaseURL}teams/';
   static String monkScore = '${monkBaseURL}fixtures/';
   static String monkFixtures = '${monkBaseURL}fixtures';
+  static String monkPlayer = '${monkBaseURL}players/';
 }
+
 // https://cricket.sportmonks.com/api/v2.0/fixtures/47507?include=runs

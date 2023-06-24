@@ -137,7 +137,11 @@ class _MonkLiveTileState extends State<MonkLiveTile> {
                                     width: 5,
                                   ),
                                   Text("${widget.liveObjectData.localTeamOver}",
-                                      style: AppTextStyle().bodyTextStyle)
+                                      style: AppTextStyle().bodyTextStyle),
+                                  widget.liveObjectData.localTeamId ==
+                                          widget.liveObjectData.battingTeamId
+                                      ? Icon(Icons.sports_cricket)
+                                      : SizedBox()
                                 ],
                               ),
                               const SizedBox(
@@ -166,7 +170,11 @@ class _MonkLiveTileState extends State<MonkLiveTile> {
                                   ),
                                   Text(
                                       "${widget.liveObjectData.visitorTeamOver}",
-                                      style: AppTextStyle().bodyTextStyle)
+                                      style: AppTextStyle().bodyTextStyle),
+                                  widget.liveObjectData.visitorTeamId ==
+                                          widget.liveObjectData.battingTeamId
+                                      ? const Icon(Icons.sports_cricket)
+                                      : SizedBox()
                                 ],
                               )
                             ],

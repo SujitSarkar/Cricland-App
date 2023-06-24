@@ -64,73 +64,6 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
     return GetBuilder<HomeController>(
       builder: (homeController) {
         return Scaffold(
-          // appBar: AppBar(
-          //   elevation: 0,
-          //   title: RichText(
-          //     text: TextSpan(
-          //       text: widget.liveObjectData.localTeamName,
-          //       style: AppTextStyle()
-          //           .largeTitleStyle
-          //           .copyWith(color: Colors.white),
-          //       children: <TextSpan>[
-          //         const TextSpan(
-          //             text: '  VS  ',
-          //             style: TextStyle(fontWeight: FontWeight.normal)),
-          //         TextSpan(
-          //           text: widget.liveObjectData.visitorTeamName,
-          //           style: const TextStyle(fontWeight: FontWeight.bold),
-          //         ),
-          //         // TextSpan(
-          //         //   text: ", ${widget.liveObjectData.note}",
-          //         //   style: const TextStyle(fontWeight: FontWeight.bold),
-          //         // ),
-          //       ],
-          //     ),
-          //   ),
-          //   actions: const [
-          //     Icon(
-          //       Icons.push_pin_outlined,
-          //       color: Colors.white,
-          //     ),
-          //     Icon(
-          //       Icons.settings,
-          //       color: Colors.white,
-          //     ),
-          //   ],
-          //   bottom: PreferredSize(
-          //     preferredSize: Size.fromHeight(dSize(.04)),
-          //     child: TabBar(
-          //       onTap: (covariant) async {
-          //         final prefs = await SharedPreferences.getInstance();
-          //         setState(() => _tabController.index = covariant);
-          //         await prefs.setInt("tabIndex", _tabController.index);
-          //       },
-          //       isScrollable: true,
-          //       controller: _tabController,
-          //       labelColor: Colors.black,
-          //       indicator: BoxDecoration(
-          //           borderRadius: BorderRadius.only(
-          //               topLeft: Radius.circular(dSize(.02)),
-          //               topRight: Radius.circular(dSize(.02))),
-          //           color: PublicController.pc.toggleTabColor()),
-          //       unselectedLabelColor: Colors.white70,
-          //       indicatorSize: TabBarIndicatorSize.label,
-          //       physics: const BouncingScrollPhysics(),
-          //       tabs:
-          //           Variables.iplDetailsTabsCategory.map<Widget>((String item) {
-          //         print(item);
-          //
-          //         return Padding(
-          //           padding: EdgeInsets.symmetric(
-          //               vertical: dSize(.01), horizontal: dSize(.02)),
-          //           child: Text(
-          //             item,
-          //           ),
-          //         );
-          //       }).toList(),
-          //     ),
-          //   ),
-          // ),
           body: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
@@ -230,7 +163,16 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                                         image:
                                                             CachedNetworkImageProvider(
                                                           widget.liveObjectData
-                                                              .localTeamImage,
+                                                                      .localTeamId ==
+                                                                  widget
+                                                                      .liveObjectData
+                                                                      .battingTeamId
+                                                              ? widget
+                                                                  .liveObjectData
+                                                                  .localTeamImage
+                                                              : widget
+                                                                  .liveObjectData
+                                                                  .visitorTeamImage,
                                                         ),
                                                         fit: BoxFit.fill),
                                                   ),
@@ -246,7 +188,16 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                                   children: [
                                                     Text(
                                                         widget.liveObjectData
-                                                            .localTeamName,
+                                                                    .localTeamId ==
+                                                                widget
+                                                                    .liveObjectData
+                                                                    .battingTeamId
+                                                            ? widget
+                                                                .liveObjectData
+                                                                .localTeamName
+                                                            : widget
+                                                                .liveObjectData
+                                                                .visitorTeamName,
                                                         style: AppTextStyle()
                                                             .largeTitleStyle
                                                             .copyWith(
@@ -255,7 +206,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen>
                                                     RichText(
                                                       text: TextSpan(
                                                         text:
-                                                            "${widget.liveObjectData.localTeamRun} ${widget.liveObjectData.localTeamWicket}",
+                                                            "${widget.liveObjectData.localTeamId == widget.liveObjectData.battingTeamId ? widget.liveObjectData.localTeamRun : widget.liveObjectData.visitorTeamRun}-${widget.liveObjectData.localTeamId == widget.liveObjectData.battingTeamId ? widget.liveObjectData.localTeamWicket : widget.liveObjectData.visitorTeamWicket}",
                                                         style: AppTextStyle()
                                                             .largeTitleStyle
                                                             .copyWith(

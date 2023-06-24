@@ -55,7 +55,7 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                             padding: const EdgeInsets.only(top: 20),
                             child: Center(
                                 child: Text(
-                              "There are currently no live matches",
+                              "There are currently no Finished matches",
                               style: AppTextStyle().bodyTextStyle,
                             )),
                           )
