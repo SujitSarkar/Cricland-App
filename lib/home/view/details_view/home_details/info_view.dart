@@ -230,24 +230,30 @@ class _InfoViewState extends State<InfoView> {
               const SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerLeft,
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Team Form',
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: dSize(.04),
-                      color: PublicController.pc.toggleTextColor(),
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' (Last 5 matches)',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: dSize(.03),
-                          color: PublicController.pc.toggleTextColor(),
-                        ),
+                child: GestureDetector(
+                  onTap: () {
+                    homeController.fetchTeamFormData(
+                        widget.liveObjectData.localTeamId.toString());
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Team Form',
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: dSize(.04),
+                        color: PublicController.pc.toggleTextColor(),
                       ),
-                    ],
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ' (Last 5 matches)',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: dSize(.03),
+                            color: PublicController.pc.toggleTextColor(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -255,361 +261,129 @@ class _InfoViewState extends State<InfoView> {
                 height: 10,
               ),
               ExpandableNotifier(
-                child: Column(
-                  children: [
-                    Expandable(
-                      collapsed: ExpandableButton(
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Expandable(
+                  collapsed: ExpandableButton(
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/bd_flag.png',
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Bangladesh',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: dSize(.04),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
-                                  ),
-                                ],
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          widget.liveObjectData.localTeamImage),
+                                      fit: BoxFit.fill),
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  for (var i = 0; i < teamSymbol.length; i++)
-                                    Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(5),
-                                          ),
-                                          color: teamColors[i],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            teamSymbol[i],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  Icon(
-                                    Icons.keyboard_arrow_down_outlined,
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ],
-                              )
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                widget.liveObjectData.localTeamName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: dSize(.04),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ),
-                      expanded: Column(
-                        children: [
-                          for (var i = 0; i < teamSymbol.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                // Get.to(HomeDetailsScreen(
-                                //   teamS2Name: '',
-                                //   teamS1Name: '',
-                                //   matchIndex: i,
-                                //   matchDesc: '',
-                                // ));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                  color: PublicController.pc.toggleCardBg(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: IntrinsicHeight(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/t20.png',
-                                                    height: 20,
-                                                    width: 20,
-                                                  ),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: 'RR',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontSize: dSize(.04),
-                                                        color: PublicController
-                                                            .pc
-                                                            .toggleTextColor(),
-                                                      ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                          text: ' 188-6',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.04),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: ' 20.0',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.03),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/t20.png',
-                                                    height: 20,
-                                                    width: 20,
-                                                  ),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: 'RR',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontSize: dSize(.04),
-                                                        color: PublicController
-                                                            .pc
-                                                            .toggleTextColor(),
-                                                      ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                          text: ' 188-6',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.04),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: ' 20.0',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.03),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const VerticalDivider(
-                                                width: 1,
-                                                thickness: 2,
-                                              ),
-                                              const SizedBox(
-                                                width: 20,
-                                              ),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3.0,
-                                                        horizontal: 7),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(5),
-                                                  ),
-                                                  color: teamColors[i],
-                                                ),
-                                                child: Text(
-                                                  teamSymbol[i],
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  const Text("Qualifire 1 "),
-                                                  const Text("IPL 2022"),
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ],
+                          Row(
+                            children: [
+                              for (var i = 0; i < teamSymbol.length; i++)
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                      color: teamColors[i],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        teamSymbol[i],
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),
                                 ),
+                              Icon(
+                                Icons.keyboard_arrow_down_outlined,
+                                color: PublicController.pc.toggleTextColor(),
                               ),
-                            ),
-                          // ListTile(
-                          //   leading: Image.asset(
-                          //     'assets/t20.png',
-                          //     height: 20,
-                          //     width: 20,
-                          //   ),
-                          //   trailing: Row(
-                          //     children: const [
-                          //       Text("Fixtures"),
-                          //       Icon(Icons.arrow_forward_ios_sharp)
-                          //     ],
-                          //   ),
-                          //   title: Text("See more matches"),
-                          // ),
+                            ],
+                          )
                         ],
                       ),
                     ),
-                    Expandable(
-                      collapsed: ExpandableButton(
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/indian_flag.png',
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'India',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: dSize(.04),
-                                      color:
-                                          PublicController.pc.toggleTextColor(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  for (var i = 0; i < teamSymbol.length; i++)
-                                    Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(5),
-                                          ),
-                                          color: teamColors[i],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            teamSymbol[i],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  Icon(
-                                    Icons.keyboard_arrow_down_outlined,
-                                    color:
-                                        PublicController.pc.toggleTextColor(),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      expanded: Column(
-                        children: [
-                          for (var i = 0; i < teamSymbol.length; i++)
-                            GestureDetector(
-                              onTap: () {
-                                // Get.to(HomeDetailsScreen(
-                                //   teamS2Name: '',
-                                //   teamS1Name: '',
-                                //   matchIndex: i,
-                                //   matchDesc: '',
-                                // ));
-                              },
+                  ),
+                  expanded: Column(
+                    children: [
+                      for (var i = 0; i < 5; i++)
+                        GestureDetector(
+                          onTap: () {
+                            // Get.to(HomeDetailsScreen(
+                            //   teamS2Name: '',
+                            //   teamS1Name: '',
+                            //   matchIndex: i,
+                            //   matchDesc: '',
+                            // ));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              color: PublicController.pc.toggleCardBg(),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                  color: PublicController.pc.toggleCardBg(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: IntrinsicHeight(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Column(
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/t20.png',
-                                                    height: 20,
-                                                    width: 20,
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: CachedNetworkImageProvider(
+                                                          widget.liveObjectData
+                                                              .localTeamImage),
+                                                      fit: BoxFit.fill),
+                                                ),
+                                              ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: widget.liveObjectData
+                                                      .localTeamName,
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
                                                   ),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: 'RR',
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.localTeamRun}-${widget.liveObjectData.localTeamWicket}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -618,158 +392,420 @@ class _InfoViewState extends State<InfoView> {
                                                             .pc
                                                             .toggleTextColor(),
                                                       ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                          text: ' 188-6',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.04),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: ' 20.0',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.03),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                      ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/t20.png',
-                                                    height: 20,
-                                                    width: 20,
-                                                  ),
-                                                  RichText(
-                                                    text: TextSpan(
-                                                      text: 'RR',
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.localTeamOver}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
-                                                        fontSize: dSize(.04),
+                                                        fontSize: dSize(.03),
                                                         color: PublicController
                                                             .pc
                                                             .toggleTextColor(),
                                                       ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                          text: ' 188-6',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.04),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                        TextSpan(
-                                                          text: ' 20.0',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontSize:
-                                                                dSize(.03),
-                                                            color: PublicController
-                                                                .pc
-                                                                .toggleTextColor(),
-                                                          ),
-                                                        ),
-                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              const VerticalDivider(
-                                                width: 1,
-                                                thickness: 2,
-                                              ),
-                                              const SizedBox(
-                                                width: 20,
-                                              ),
                                               Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 3.0,
-                                                        horizontal: 7),
+                                                height: 20,
+                                                width: 20,
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(5),
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: CachedNetworkImageProvider(
+                                                          widget.liveObjectData
+                                                              .visitorTeamImage),
+                                                      fit: BoxFit.fill),
+                                                ),
+                                              ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: widget.liveObjectData
+                                                      .visitorTeamName,
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
                                                   ),
-                                                  color: teamColors[i],
-                                                ),
-                                                child: Text(
-                                                  teamSymbol[i],
-                                                  style: const TextStyle(
-                                                      color: Colors.white),
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.visitorTeamRun}-${widget.liveObjectData.visitorTeamWicket}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: dSize(.04),
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleTextColor(),
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.visitorTeamOver}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: dSize(.03),
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleTextColor(),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  const Text("Qualifire 1 "),
-                                                  const Text("IPL 2022"),
-                                                ],
-                                              )
                                             ],
-                                          )
+                                          ),
                                         ],
                                       ),
-                                    ),
+                                      Row(
+                                        children: [
+                                          const VerticalDivider(
+                                            width: 1,
+                                            thickness: 2,
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 3.0, horizontal: 7),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(5),
+                                              ),
+                                              color: teamColors[i],
+                                            ),
+                                            child: Text(
+                                              teamSymbol[i],
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          // Column(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.center,
+                                          //   children: [
+                                          //     Text(
+                                          //         "${widget.liveObjectData.note}"),
+                                          //     Text(
+                                          //         "${widget.liveObjectData.status}"),
+                                          //   ],
+                                          // )
+                                        ],
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          // ListTile(
-                          //   leading: Image.asset(
-                          //     'assets/t20.png',
-                          //     height: 20,
-                          //     width: 20,
-                          //   ),
-                          //   trailing: Row(
-                          //     children: const [
-                          //       Text("Fixtures"),
-                          //       Icon(Icons.arrow_forward_ios_sharp)
-                          //     ],
-                          //   ),
-                          //   title: Text("See more matches"),
-                          // ),
+                          ),
+                        ),
+                      // ListTile(
+                      //   leading: Image.asset(
+                      //     'assets/t20.png',
+                      //     height: 20,
+                      //     width: 20,
+                      //   ),
+                      //   trailing: Row(
+                      //     children: const [
+                      //       Text("Fixtures"),
+                      //       Icon(Icons.arrow_forward_ios_sharp)
+                      //     ],
+                      //   ),
+                      //   title: Text("See more matches"),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+              ExpandableNotifier(
+                child: Expandable(
+                  collapsed: ExpandableButton(
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(widget
+                                          .liveObjectData.visitorTeamImage),
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                widget.liveObjectData.visitorTeamName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: dSize(.04),
+                                  color: PublicController.pc.toggleTextColor(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              for (var i = 0; i < teamSymbol.length; i++)
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                      color: teamColors[i],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        teamSymbol[i],
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              Icon(
+                                Icons.keyboard_arrow_down_outlined,
+                                color: PublicController.pc.toggleTextColor(),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),
-                  ],
+                  ),
+                  expanded: Column(
+                    children: [
+                      for (var i = 0; i < 5; i++)
+                        GestureDetector(
+                          onTap: () {
+                            // Get.to(HomeDetailsScreen(
+                            //   teamS2Name: '',
+                            //   teamS1Name: '',
+                            //   matchIndex: i,
+                            //   matchDesc: '',
+                            // ));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              color: PublicController.pc.toggleCardBg(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: CachedNetworkImageProvider(
+                                                          widget.liveObjectData
+                                                              .localTeamImage),
+                                                      fit: BoxFit.fill),
+                                                ),
+                                              ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: widget.liveObjectData
+                                                      .localTeamName,
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.localTeamRun}-${widget.liveObjectData.localTeamWicket}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: dSize(.04),
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleTextColor(),
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.localTeamOver}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: dSize(.03),
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleTextColor(),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: CachedNetworkImageProvider(
+                                                          widget.liveObjectData
+                                                              .visitorTeamImage),
+                                                      fit: BoxFit.fill),
+                                                ),
+                                              ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: widget.liveObjectData
+                                                      .visitorTeamName,
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: dSize(.04),
+                                                    color: PublicController.pc
+                                                        .toggleTextColor(),
+                                                  ),
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.visitorTeamRun}-${widget.liveObjectData.visitorTeamWicket}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: dSize(.04),
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleTextColor(),
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          ' ${widget.liveObjectData.visitorTeamOver}',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: dSize(.03),
+                                                        color: PublicController
+                                                            .pc
+                                                            .toggleTextColor(),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const VerticalDivider(
+                                            width: 1,
+                                            thickness: 2,
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 3.0, horizontal: 7),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(5),
+                                              ),
+                                              color: teamColors[i],
+                                            ),
+                                            child: Text(
+                                              teamSymbol[i],
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          // Column(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.center,
+                                          //   children: [
+                                          //     const Text("Qualifire 1 "),
+                                          //     const Text("IPL 2022"),
+                                          //   ],
+                                          // )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      // ListTile(
+                      //   leading: Image.asset(
+                      //     'assets/t20.png',
+                      //     height: 20,
+                      //     width: 20,
+                      //   ),
+                      //   trailing: Row(
+                      //     children: const [
+                      //       Text("Fixtures"),
+                      //       Icon(Icons.arrow_forward_ios_sharp)
+                      //     ],
+                      //   ),
+                      //   title: Text("See more matches"),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -828,16 +864,22 @@ class _InfoViewState extends State<InfoView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/bd_flag.png',
+                        Container(
                           height: 50,
                           width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                    widget.liveObjectData.localTeamImage),
+                                fit: BoxFit.fill),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         Text(
-                          "BD",
+                          widget.liveObjectData.localTeamName,
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: dSize(.04),
@@ -871,16 +913,22 @@ class _InfoViewState extends State<InfoView> {
                   trailingWidget: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/indian_flag.png',
+                      Container(
                         height: 50,
                         width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                  widget.liveObjectData.visitorTeamImage),
+                              fit: BoxFit.fill),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        "India",
+                        widget.liveObjectData.visitorTeamName,
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: dSize(.04),
@@ -962,10 +1010,16 @@ class _InfoViewState extends State<InfoView> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              'assets/bd_flag.png',
+                            Container(
                               height: 50,
                               width: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: CachedNetworkImageProvider(
+                                        widget.liveObjectData.localTeamImage),
+                                    fit: BoxFit.fill),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
@@ -973,7 +1027,7 @@ class _InfoViewState extends State<InfoView> {
                             Column(
                               children: [
                                 Text(
-                                  'BD',
+                                  widget.liveObjectData.localTeamName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: dSize(.04),
@@ -996,10 +1050,16 @@ class _InfoViewState extends State<InfoView> {
                         ),
                         Row(
                           children: [
-                            Image.asset(
-                              'assets/indian_flag.png',
+                            Container(
                               height: 50,
                               width: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: CachedNetworkImageProvider(
+                                        widget.liveObjectData.visitorTeamImage),
+                                    fit: BoxFit.fill),
+                              ),
                             ),
                             SizedBox(
                               width: 10,
@@ -1007,7 +1067,7 @@ class _InfoViewState extends State<InfoView> {
                             Column(
                               children: [
                                 Text(
-                                  'India',
+                                  widget.liveObjectData.visitorTeamName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: dSize(.04),

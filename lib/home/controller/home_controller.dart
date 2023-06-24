@@ -107,6 +107,125 @@ class HomeController extends GetxController {
   RxList matchListForFixtureLeague = [].obs;
   RxList matchListForFixtureWomen = [].obs;
 
+  RxList matchListForTeamForm = [].obs;
+  fetchTeamFormData(String teamId) async {
+    matchListForTeamForm = [].obs;
+    loading(true);
+
+    List<MonkLive> monkLiveList = await getTeamForm(teamId);
+    print("Live Match Count: ${monkLiveList.length}");
+    // for (MonkLive monkLive in monkLiveList) {
+    for (var monkLive = 0; monkLive < 1; monkLive++) {
+      // MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
+      MonkLeague monkLeague = await getLeague("5");
+      print("League Name: ${monkLeague.name}");
+      //  MonkVanue monkVenue = await getVenue(monkLive.venue_id.toString());
+      MonkVanue monkVenue = await getVenue("9");
+      print("Venue Name: ${monkVenue.name}");
+      // MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
+      MonkTeam monkLocalTeam = await getTeam("52");
+      print("Local Team Name: ${monkLocalTeam.name}");
+      // MonkTeam monkVisitorTeam =await getTeam(monkLive.visitorteam_id.toString());
+      MonkTeam monkVisitorTeam = await getTeam("53");
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+      //List<MonkLiveScore> teamLiveScores =await getMonkScore(monkLive.id.toString());
+      List<MonkLiveScore> teamLiveScores = await getMonkScore("21891");
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForTeamForm.add(
+        LiveResponseData(
+          leagueName: monkLeague.name!,
+          leagueImage: monkLeague.image_path!,
+          venueName: "${monkLive.round},${monkVenue.name!},${monkVenue.city!}",
+          // round: monkLive.round!,
+          round: "30th Match",
+          city: monkVenue.city!,
+          //  startingAt: monkLive.starting_at!,
+          startingAt: "2021-01-06T08:15:00.000000Z",
+          // fixturesId: monkLive.id!,
+          fixturesId: 21891,
+
+          venueImage: monkVenue.image_path!,
+          // localTeamId: monkLive.localteam_id!,
+          localTeamId: 52,
+          localTeamName: monkLocalTeam.name!,
+          localTeamImage: monkLocalTeam.image_path!,
+          localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+          localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+          localTeamWicket:
+              teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+          battingTeamId: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].teamId,
+          // visitorTeamId: monkLive.visitorteam_id!,
+          visitorTeamId: 53,
+          visitorTeamName: monkVisitorTeam.name!,
+          visitorTeamImage: monkVisitorTeam.image_path!,
+          visitorTeamOver:
+              teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+          visitorTeamRun:
+              teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+          visitorTeamWicket:
+              teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+          // status: monkLive.status!,
+          status: "2nd Innings",
+          // live: monkLive.live! ? "Live" : "",
+          live: true ? "Live" : "",
+          // note: monkLive.note!,
+          note: "Target 184 runs",
+        ),
+      );
+    }
+    loading(false);
+    print("Team Form Data Data: ${matchListForTeamForm.length}");
+  }
+
+  //Monk API Service
+  Future<List<MonkLive>> getTeamForm(String teamId) async {
+    List<MonkLive> monk_live = [];
+    await Future.delayed(const Duration(milliseconds: 10));
+    await ApiService.instance.apiCall(
+        execute: () async => await ApiService.instance.get(
+            ApiEndpoints.monkFixtures +
+                "?filter[localteam_id]=$teamId&${ApiEndpoints.monkAPIToken}"),
+        onSuccess: (response) {
+          var lives = response["data"];
+          try {
+            for (var live in lives) {
+              monk_live.add(MonkLive(
+                id: live["id"],
+                league_id: live["league_id"],
+                round: live["round"],
+                localteam_id: live["localteam_id"],
+                visitorteam_id: live["visitorteam_id"],
+                starting_at: live["starting_at"],
+                type: live["type"],
+                live: live["live"],
+                status: live["status"],
+                note: live["note"],
+                venue_id: live["venue_id"],
+                toss_won_team_id: live["toss_won_team_id"],
+                winner_team_id: live["winner_team_id"],
+                total_overs_played: live["total_overs_played"],
+                localteam_dl_data: Score(
+                    score: live["localteam_dl_data"]["score"],
+                    overs: live["localteam_dl_data"]["overs"],
+                    wickets_out: live["localteam_dl_data"]["wickets_out"]),
+                visitorteam_dl_data: Score(
+                    score: live["visitorteam_dl_data"]["score"],
+                    overs: live["visitorteam_dl_data"]["overs"],
+                    wickets_out: live["visitorteam_dl_data"]["wickets_out"]),
+              ));
+            }
+          } catch (e) {
+            print(e);
+          }
+        },
+        onError: (error) {
+          print(error.toString());
+        });
+
+    return monk_live;
+  }
+
   //Monk API Service
   Future<List<PlayerPlayingXI>> getBattingXI(String fixturesId) async {
     List<PlayerPlayingXI> playerList = [];
@@ -663,21 +782,21 @@ class HomeController extends GetxController {
     for (MonkLive monkLive in monkLiveList) {
       //for (var monkLive = 0; monkLive < 1; monkLive++) {
       MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
-      // MonkLeague monkLeague = await _homeController.getLeague("5");
+      //  MonkLeague monkLeague = await getLeague("5");
       print("League Name: ${monkLeague.name}");
       MonkVanue monkVenue = await getVenue(monkLive.venue_id.toString());
-      // MonkVanue monkVenue = await _homeController.getVenue("9");
+      // MonkVanue monkVenue = await getVenue("9");
       print("Venue Name: ${monkVenue.name}");
       MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
-      // MonkTeam monkLocalTeam = await _homeController.getTeam("52");
+      // MonkTeam monkLocalTeam = await getTeam("52");
       print("Local Team Name: ${monkLocalTeam.name}");
       MonkTeam monkVisitorTeam =
           await getTeam(monkLive.visitorteam_id.toString());
-      // MonkTeam monkVisitorTeam = await _homeController.getTeam("53");
+      // MonkTeam monkVisitorTeam = await getTeam("53");
       print("Visitor Team Name: ${monkVisitorTeam.name}");
       List<MonkLiveScore> teamLiveScores =
           await getMonkScore(monkLive.id.toString());
-      // List<MonkLiveScore> teamLiveScores =await _homeController.getMonkScore("21891");
+      //List<MonkLiveScore> teamLiveScores = await getMonkScore("21891");
       print(" Score Length: ${teamLiveScores.length}");
 
       matchListForLive.add(
@@ -686,13 +805,16 @@ class HomeController extends GetxController {
           leagueImage: monkLeague.image_path!,
           venueName: "${monkLive.round!},${monkVenue.name!},${monkVenue.city!}",
           round: monkLive.round!,
-          // round: "30th Match",
+          //round: "30th Match",
           city: monkVenue.city!,
           startingAt: monkLive.starting_at!,
+          // startingAt: "2021-01-06T08:15:00.000000Z",
           fixturesId: monkLive.id!,
-          // startingAt: "10 July 2023",
+          //fixturesId: 21891,
+
           venueImage: monkVenue.image_path!,
           localTeamId: monkLive.localteam_id!,
+          // localTeamId: 52,
           localTeamName: monkLocalTeam.name!,
           localTeamImage: monkLocalTeam.image_path!,
           localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
@@ -701,6 +823,7 @@ class HomeController extends GetxController {
               teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
           battingTeamId: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].teamId,
           visitorTeamId: monkLive.visitorteam_id!,
+          //visitorTeamId: 53,
           visitorTeamName: monkVisitorTeam.name!,
           visitorTeamImage: monkVisitorTeam.image_path!,
           visitorTeamOver:
@@ -714,7 +837,7 @@ class HomeController extends GetxController {
           live: monkLive.live! ? "Live" : "",
           //live: true ? "Live" : "",
           note: monkLive.note!,
-          // note: "Target 184 runs",
+          //note: "Target 184 runs",
         ),
       );
     }
