@@ -52,7 +52,7 @@ class _FinishedTabScreenState extends State<FinishedTabScreen> {
                       ))
                     : homeController.matchListForFinished.isEmpty
                         ? Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: EdgeInsets.only(top: dSize(.7)),
                             child: Center(
                                 child: Text(
                               "There are currently no Finished matches",

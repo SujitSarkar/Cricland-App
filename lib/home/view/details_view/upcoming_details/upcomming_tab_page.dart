@@ -44,8 +44,10 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
             padding: const EdgeInsets.all(10.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(DateFormat('dd MMM yyyy').format(DateTime.now()),
-                  style: AppTextStyle().titleTextStyle),
+              homeController.matchListForUpcoming.isEmpty
+                  ? SizedBox()
+                  : Text(DateFormat('dd MMM yyyy').format(DateTime.now()),
+                      style: AppTextStyle().titleTextStyle),
               homeController.loading()
                   ? Center(
                       child: Padding(
@@ -54,7 +56,7 @@ class _UpComingTabScreenState extends State<UpComingTabScreen> {
                     ))
                   : homeController.matchListForUpcoming.isEmpty
                       ? Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                          padding: EdgeInsets.only(top: dSize(.7)),
                           child: Center(
                               child: Text(
                             "There are currently no live matches",

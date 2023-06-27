@@ -231,9 +231,16 @@ class _InfoViewState extends State<InfoView> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
-                  onTap: () {
-                    homeController.fetchTeamFormData(
+                  onTap: () async {
+                    await homeController.fetchLocalTeamFormData(
                         widget.liveObjectData.localTeamId.toString());
+                    await homeController.fetchVisitorTeamFormData(
+                        widget.liveObjectData.visitorTeamId.toString());
+
+                    print(
+                        "Fixtures Local: ${homeController.matchListForLocalTeamForm.length}");
+                    print(
+                        "Fixtures Visitor: ${homeController.matchListForVisitorTeamForm.length}");
                   },
                   child: RichText(
                     text: TextSpan(
@@ -328,7 +335,8 @@ class _InfoViewState extends State<InfoView> {
                   ),
                   expanded: Column(
                     children: [
-                      for (var i = 0; i < 5; i++)
+                      for (FixturesResponseData fixturesResponseData
+                          in homeController.matchListForLocalTeamForm)
                         GestureDetector(
                           onTap: () {
                             // Get.to(HomeDetailsScreen(
@@ -363,15 +371,19 @@ class _InfoViewState extends State<InfoView> {
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   image: DecorationImage(
-                                                      image: CachedNetworkImageProvider(
-                                                          widget.liveObjectData
-                                                              .localTeamImage),
+                                                      image:
+                                                          CachedNetworkImageProvider(
+                                                        fixturesResponseData
+                                                            .localTeamImage,
+                                                      ),
+                                                      // widget.liveObjectData
+                                                      //     .localTeamImage),
                                                       fit: BoxFit.fill),
                                                 ),
                                               ),
                                               RichText(
                                                 text: TextSpan(
-                                                  text: widget.liveObjectData
+                                                  text: fixturesResponseData
                                                       .localTeamName,
                                                   style: TextStyle(
                                                     fontWeight:
@@ -383,7 +395,7 @@ class _InfoViewState extends State<InfoView> {
                                                   children: <TextSpan>[
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.localTeamRun}-${widget.liveObjectData.localTeamWicket}',
+                                                          ' ${fixturesResponseData.localTeamRun}-${fixturesResponseData.localTeamWicket}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -395,7 +407,7 @@ class _InfoViewState extends State<InfoView> {
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.localTeamOver}',
+                                                          ' ${fixturesResponseData.localTeamOver}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -424,14 +436,14 @@ class _InfoViewState extends State<InfoView> {
                                                   shape: BoxShape.circle,
                                                   image: DecorationImage(
                                                       image: CachedNetworkImageProvider(
-                                                          widget.liveObjectData
+                                                          fixturesResponseData
                                                               .visitorTeamImage),
                                                       fit: BoxFit.fill),
                                                 ),
                                               ),
                                               RichText(
                                                 text: TextSpan(
-                                                  text: widget.liveObjectData
+                                                  text: fixturesResponseData
                                                       .visitorTeamName,
                                                   style: TextStyle(
                                                     fontWeight:
@@ -443,7 +455,7 @@ class _InfoViewState extends State<InfoView> {
                                                   children: <TextSpan>[
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.visitorTeamRun}-${widget.liveObjectData.visitorTeamWicket}',
+                                                          ' ${fixturesResponseData.visitorTeamRun}-${fixturesResponseData.visitorTeamWicket}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -455,7 +467,7 @@ class _InfoViewState extends State<InfoView> {
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.visitorTeamOver}',
+                                                          ' ${fixturesResponseData.visitorTeamOver}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -489,10 +501,10 @@ class _InfoViewState extends State<InfoView> {
                                                   const BorderRadius.all(
                                                 Radius.circular(5),
                                               ),
-                                              color: teamColors[i],
+                                              color: Colors.red,
                                             ),
                                             child: Text(
-                                              teamSymbol[i],
+                                              fixturesResponseData.status[0],
                                               style: const TextStyle(
                                                   color: Colors.white),
                                             ),
@@ -605,7 +617,8 @@ class _InfoViewState extends State<InfoView> {
                   ),
                   expanded: Column(
                     children: [
-                      for (var i = 0; i < 5; i++)
+                      for (FixturesResponseData fixturesResponseData
+                          in homeController.matchListForVisitorTeamForm)
                         GestureDetector(
                           onTap: () {
                             // Get.to(HomeDetailsScreen(
@@ -631,6 +644,8 @@ class _InfoViewState extends State<InfoView> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Container(
                                                 height: 20,
@@ -638,15 +653,19 @@ class _InfoViewState extends State<InfoView> {
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   image: DecorationImage(
-                                                      image: CachedNetworkImageProvider(
-                                                          widget.liveObjectData
-                                                              .localTeamImage),
+                                                      image:
+                                                          CachedNetworkImageProvider(
+                                                        fixturesResponseData
+                                                            .localTeamImage,
+                                                      ),
+                                                      // widget.liveObjectData
+                                                      //     .localTeamImage),
                                                       fit: BoxFit.fill),
                                                 ),
                                               ),
                                               RichText(
                                                 text: TextSpan(
-                                                  text: widget.liveObjectData
+                                                  text: fixturesResponseData
                                                       .localTeamName,
                                                   style: TextStyle(
                                                     fontWeight:
@@ -658,7 +677,7 @@ class _InfoViewState extends State<InfoView> {
                                                   children: <TextSpan>[
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.localTeamRun}-${widget.liveObjectData.localTeamWicket}',
+                                                          ' ${fixturesResponseData.localTeamRun}-${fixturesResponseData.localTeamWicket}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -670,7 +689,7 @@ class _InfoViewState extends State<InfoView> {
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.localTeamOver}',
+                                                          ' ${fixturesResponseData.localTeamOver}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -689,6 +708,8 @@ class _InfoViewState extends State<InfoView> {
                                             height: 10,
                                           ),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Container(
                                                 height: 20,
@@ -697,14 +718,14 @@ class _InfoViewState extends State<InfoView> {
                                                   shape: BoxShape.circle,
                                                   image: DecorationImage(
                                                       image: CachedNetworkImageProvider(
-                                                          widget.liveObjectData
+                                                          fixturesResponseData
                                                               .visitorTeamImage),
                                                       fit: BoxFit.fill),
                                                 ),
                                               ),
                                               RichText(
                                                 text: TextSpan(
-                                                  text: widget.liveObjectData
+                                                  text: fixturesResponseData
                                                       .visitorTeamName,
                                                   style: TextStyle(
                                                     fontWeight:
@@ -716,7 +737,7 @@ class _InfoViewState extends State<InfoView> {
                                                   children: <TextSpan>[
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.visitorTeamRun}-${widget.liveObjectData.visitorTeamWicket}',
+                                                          ' ${fixturesResponseData.visitorTeamRun}-${fixturesResponseData.visitorTeamWicket}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -728,7 +749,7 @@ class _InfoViewState extends State<InfoView> {
                                                     ),
                                                     TextSpan(
                                                       text:
-                                                          ' ${widget.liveObjectData.visitorTeamOver}',
+                                                          ' ${fixturesResponseData.visitorTeamOver}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -757,15 +778,14 @@ class _InfoViewState extends State<InfoView> {
                                           Container(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 3.0, horizontal: 7),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.all(
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
                                                 Radius.circular(5),
                                               ),
-                                              color: teamColors[i],
+                                              color: Colors.red,
                                             ),
                                             child: Text(
-                                              teamSymbol[i],
+                                              fixturesResponseData.status[0],
                                               style: const TextStyle(
                                                   color: Colors.white),
                                             ),
@@ -777,8 +797,10 @@ class _InfoViewState extends State<InfoView> {
                                           //   mainAxisAlignment:
                                           //       MainAxisAlignment.center,
                                           //   children: [
-                                          //     const Text("Qualifire 1 "),
-                                          //     const Text("IPL 2022"),
+                                          //     Text(
+                                          //         "${widget.liveObjectData.note}"),
+                                          //     Text(
+                                          //         "${widget.liveObjectData.status}"),
                                           //   ],
                                           // )
                                         ],
@@ -892,7 +914,8 @@ class _InfoViewState extends State<InfoView> {
                   title: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: '2',
+                      text:
+                          '${homeController.matchListForLocalTeamForm.length}',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: dSize(.06),
@@ -900,7 +923,8 @@ class _InfoViewState extends State<InfoView> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: ' - 0',
+                          text:
+                              ' - ${homeController.matchListForVisitorTeamForm.length}',
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: dSize(.04),
@@ -1061,7 +1085,7 @@ class _InfoViewState extends State<InfoView> {
                                     fit: BoxFit.fill),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Column(
@@ -1099,7 +1123,7 @@ class _InfoViewState extends State<InfoView> {
                     ),
                     ListTile(
                       leading: Text(
-                        "10",
+                        "${homeController.matchListForLocalTeamForm.length}",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: dSize(.03),
@@ -1115,7 +1139,7 @@ class _InfoViewState extends State<InfoView> {
                         ),
                       ),
                       trailing: Text(
-                        '10',
+                        "${homeController.matchListForVisitorTeamForm.length}",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: dSize(.03),

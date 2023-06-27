@@ -215,31 +215,41 @@ class _FixturesTabScreenState extends State<FixturesTabScreen> {
               //     ),
               //   ],
               // ),
-              ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: filteredMatchListForFixture.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
-                  itemBuilder: (BuildContext context, int index) {
-                    return MonkLiveTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => LeagueDetailsScreen(
-                              liveObjectData:
-                                  filteredMatchListForFixture[index],
-                              scrollController: widget.scrollController,
-                            ),
-                          ),
+
+              filteredMatchListForFixture.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.only(top: dSize(.7)),
+                      child: Center(
+                          child: Text(
+                        "There are currently no Finished matches",
+                        style: AppTextStyle().bodyTextStyle,
+                      )),
+                    )
+                  : ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: filteredMatchListForFixture.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
+                      itemBuilder: (BuildContext context, int index) {
+                        return MonkLiveTile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => LeagueDetailsScreen(
+                                  liveObjectData:
+                                      filteredMatchListForFixture[index],
+                                  scrollController: widget.scrollController,
+                                ),
+                              ),
+                            );
+                          },
+                          liveObjectData: filteredMatchListForFixture[index],
+                          liveIndex: index,
+                          scrollController: widget.scrollController,
                         );
-                      },
-                      liveObjectData: filteredMatchListForFixture[index],
-                      liveIndex: index,
-                      scrollController: widget.scrollController,
-                    );
-                  })
+                      })
             ],
           ),
         ),

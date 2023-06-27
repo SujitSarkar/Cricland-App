@@ -57,7 +57,7 @@ class _LiveTabScreenState extends State<LiveTabScreen> {
                       ))
                     : homeController.matchListForLive.isEmpty
                         ? Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: EdgeInsets.only(top: dSize(.7)),
                             child: Center(
                                 child: Text(
                               "There are currently no live matches",

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -83,6 +84,7 @@ class HomeController extends GetxController {
     }
   }
 
+  StreamSubscription? periodicSubscription;
   fetchInitData() async {
     //Get User
     final prefs = await SharedPreferences.getInstance();
@@ -90,8 +92,8 @@ class HomeController extends GetxController {
     if (uId != null) {
       getUser(uId);
     }
-
     fetchLiveData();
+    startPeriodicFunction();
     fetchHomeData();
     fetchUpcomingData();
     fetchFinishedData();
@@ -102,80 +104,161 @@ class HomeController extends GetxController {
     //  getLive();
   }
 
+  void startPeriodicFunction() {
+    const duration = Duration(minutes: 5); // Set the interval duration
+    periodicSubscription = Stream.periodic(duration, (_) {
+      // Call your function here
+      print("Periodic");
+      fetchLiveData();
+      return null; // Return null as we don't need to emit any value
+    }).listen(null); // Listen to the stream, passing null to onData
+  }
+
   RxList matchListForFixtureInternational = [].obs;
 
   RxList matchListForFixtureLeague = [].obs;
   RxList matchListForFixtureWomen = [].obs;
 
-  RxList matchListForTeamForm = [].obs;
-  fetchTeamFormData(String teamId) async {
-    matchListForTeamForm = [].obs;
+  RxList matchListForLocalTeamForm = [].obs;
+  fetchLocalTeamFormData(String teamId) async {
+    matchListForLocalTeamForm = [].obs;
     loading(true);
 
-    List<MonkLive> monkLiveList = await getTeamForm(teamId);
-    print("Live Match Count: ${monkLiveList.length}");
-    // for (MonkLive monkLive in monkLiveList) {
-    for (var monkLive = 0; monkLive < 1; monkLive++) {
-      // MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
-      MonkLeague monkLeague = await getLeague("5");
+    List<MonkLive> monkFixturesList = await getTeamForm(teamId);
+
+    for (MonkLive monkLive in monkFixturesList) {
+      // for (var monkLive = 0; monkLive < 1; monkLive++) {
+      MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
+      //MonkLeague monkLeague = await getLeague("5");
       print("League Name: ${monkLeague.name}");
-      //  MonkVanue monkVenue = await getVenue(monkLive.venue_id.toString());
-      MonkVanue monkVenue = await getVenue("9");
-      print("Venue Name: ${monkVenue.name}");
-      // MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
-      MonkTeam monkLocalTeam = await getTeam("52");
+      MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
+      // MonkTeam monkLocalTeam = await getTeam("52");
       print("Local Team Name: ${monkLocalTeam.name}");
-      // MonkTeam monkVisitorTeam =await getTeam(monkLive.visitorteam_id.toString());
-      MonkTeam monkVisitorTeam = await getTeam("53");
+      MonkTeam monkVisitorTeam =
+          await getTeam(monkLive.visitorteam_id.toString());
+      //MonkTeam monkVisitorTeam = await getTeam("53");
       print("Visitor Team Name: ${monkVisitorTeam.name}");
-      //List<MonkLiveScore> teamLiveScores =await getMonkScore(monkLive.id.toString());
-      List<MonkLiveScore> teamLiveScores = await getMonkScore("21891");
+      List<MonkLiveScore> teamLiveScores =
+          await getMonkScore(monkLive.id.toString());
+      // List<MonkLiveScore> teamLiveScores = await getMonkScore("21891");
       print(" Score Length: ${teamLiveScores.length}");
 
-      matchListForTeamForm.add(
-        LiveResponseData(
-          leagueName: monkLeague.name!,
-          leagueImage: monkLeague.image_path!,
-          venueName: "${monkLive.round},${monkVenue.name!},${monkVenue.city!}",
-          // round: monkLive.round!,
-          round: "30th Match",
-          city: monkVenue.city!,
-          //  startingAt: monkLive.starting_at!,
-          startingAt: "2021-01-06T08:15:00.000000Z",
-          // fixturesId: monkLive.id!,
-          fixturesId: 21891,
+      matchListForLocalTeamForm.add(
+        FixturesResponseData(
+          leagueName: monkLeague.name! ?? "",
+          leagueImage: monkLeague.image_path! ?? "",
 
-          venueImage: monkVenue.image_path!,
-          // localTeamId: monkLive.localteam_id!,
-          localTeamId: 52,
-          localTeamName: monkLocalTeam.name!,
-          localTeamImage: monkLocalTeam.image_path!,
+          round: monkLive.round! ?? "",
+          // round: "30th Match",
+
+          startingAt: monkLive.starting_at! ?? "",
+          // startingAt: "2021-01-06T08:15:00.000000Z",
+          fixturesId: monkLive.id!,
+          // fixturesId: 21891,
+
+          localTeamId: monkLive.localteam_id!,
+          //localTeamId: 52,
+          localTeamName: monkLocalTeam.name! ?? "",
+          localTeamImage: monkLocalTeam.image_path! ?? "",
           localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
           localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
           localTeamWicket:
               teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
           battingTeamId: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].teamId,
-          // visitorTeamId: monkLive.visitorteam_id!,
-          visitorTeamId: 53,
-          visitorTeamName: monkVisitorTeam.name!,
-          visitorTeamImage: monkVisitorTeam.image_path!,
+          visitorTeamId: monkLive.visitorteam_id!,
+          //visitorTeamId: 53,
+          visitorTeamName: monkVisitorTeam.name! ?? "",
+          visitorTeamImage: monkVisitorTeam.image_path! ?? "",
           visitorTeamOver:
               teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
           visitorTeamRun:
               teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
           visitorTeamWicket:
               teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
-          // status: monkLive.status!,
-          status: "2nd Innings",
-          // live: monkLive.live! ? "Live" : "",
-          live: true ? "Live" : "",
-          // note: monkLive.note!,
-          note: "Target 184 runs",
+          status: monkLive.status! ?? "",
+          //status: "2nd Innings",
+          live: monkLive.live! ? "Live" : "",
+          //live: true ? "Live" : "",
+          note: monkLive.note!,
+          //note: "Target 184 runs",
         ),
       );
+      if (matchListForLocalTeamForm.length == 5) {
+        break;
+      }
     }
     loading(false);
-    print("Team Form Data Data: ${matchListForTeamForm.length}");
+  }
+
+  RxList matchListForVisitorTeamForm = [].obs;
+  fetchVisitorTeamFormData(String teamId) async {
+    matchListForVisitorTeamForm = [].obs;
+    loading(true);
+
+    List<MonkLive> monkFixturesList = await getTeamForm(teamId);
+
+    for (MonkLive monkLive in monkFixturesList) {
+      // for (var monkLive = 0; monkLive < 1; monkLive++) {
+      MonkLeague monkLeague = await getLeague(monkLive.league_id.toString());
+      //MonkLeague monkLeague = await getLeague("5");
+      print("League Name: ${monkLeague.name}");
+      MonkTeam monkLocalTeam = await getTeam(monkLive.localteam_id.toString());
+      // MonkTeam monkLocalTeam = await getTeam("52");
+      print("Local Team Name: ${monkLocalTeam.name}");
+      MonkTeam monkVisitorTeam =
+          await getTeam(monkLive.visitorteam_id.toString());
+      //MonkTeam monkVisitorTeam = await getTeam("53");
+      print("Visitor Team Name: ${monkVisitorTeam.name}");
+      List<MonkLiveScore> teamLiveScores =
+          await getMonkScore(monkLive.id.toString());
+      // List<MonkLiveScore> teamLiveScores = await getMonkScore("21891");
+      print(" Score Length: ${teamLiveScores.length}");
+
+      matchListForVisitorTeamForm.add(
+        FixturesResponseData(
+          leagueName: monkLeague.name! ?? "",
+          leagueImage: monkLeague.image_path! ?? "",
+
+          round: monkLive.round! ?? "",
+          // round: "30th Match",
+
+          startingAt: monkLive.starting_at! ?? "",
+          // startingAt: "2021-01-06T08:15:00.000000Z",
+          fixturesId: monkLive.id!,
+          // fixturesId: 21891,
+
+          localTeamId: monkLive.localteam_id!,
+          //localTeamId: 52,
+          localTeamName: monkLocalTeam.name! ?? "",
+          localTeamImage: monkLocalTeam.image_path! ?? "",
+          localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
+          localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
+          localTeamWicket:
+              teamLiveScores.isEmpty ? 0 : teamLiveScores[0].wickets,
+          battingTeamId: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].teamId,
+          visitorTeamId: monkLive.visitorteam_id!,
+          //visitorTeamId: 53,
+          visitorTeamName: monkVisitorTeam.name! ?? "",
+          visitorTeamImage: monkVisitorTeam.image_path! ?? "",
+          visitorTeamOver:
+              teamLiveScores.length == 2 ? teamLiveScores[1].overs : 0.0,
+          visitorTeamRun:
+              teamLiveScores.length == 2 ? teamLiveScores[1].score : 0,
+          visitorTeamWicket:
+              teamLiveScores.length == 2 ? teamLiveScores[1].wickets : 0,
+          status: monkLive.status! ?? "",
+          //status: "2nd Innings",
+          live: monkLive.live! ? "Live" : "",
+          //live: true ? "Live" : "",
+          note: monkLive.note!,
+          //note: "Target 184 runs",
+        ),
+      );
+      if (matchListForVisitorTeamForm.length == 5) {
+        break;
+      }
+    }
+    loading(false);
   }
 
   //Monk API Service
@@ -607,7 +690,7 @@ class HomeController extends GetxController {
             startingAt: "10 July 2023",
             venueImage: monkVenue.image_path!,
             localTeamId: monkLive.localteam_id!,
-            localTeamName: monkLocalTeam.name!,
+            localTeamName: monkLocalTeam.name ?? "",
             localTeamImage: monkLocalTeam.image_path!,
             localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
             localTeamOver: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].overs,
@@ -745,7 +828,7 @@ class HomeController extends GetxController {
             startingAt: "10 July 2023",
             venueImage: monkVenue.image_path!,
             localTeamId: monkLive.localteam_id!,
-            localTeamName: monkLocalTeam.name!,
+            localTeamName: monkLocalTeam.name! ?? "",
             fixturesId: monkLive.id!,
             localTeamImage: monkLocalTeam.image_path!,
             localTeamRun: teamLiveScores.isEmpty ? 0 : teamLiveScores[0].score,
@@ -775,7 +858,6 @@ class HomeController extends GetxController {
   RxList matchListForLive = [].obs;
   fetchLiveData() async {
     matchListForLive = [].obs;
-    loading(true);
 
     List<MonkLive> monkLiveList = await getLive();
     print("Live Match Count: ${monkLiveList.length}");
@@ -841,7 +923,7 @@ class HomeController extends GetxController {
         ),
       );
     }
-    loading(false);
+
     print("Tile Data: ${matchListForLive.length}");
   }
 
@@ -1817,10 +1899,11 @@ class HomeController extends GetxController {
           print("venue Response: ${response}");
           var data = response["data"];
           monk_venue = MonkVanue(
-              id: data["id"],
-              name: data["name"],
-              city: data["city"],
-              image_path: data["image_path"]);
+            id: data["id"] ?? "",
+            name: data["name"] ?? "",
+            city: data["city"] ?? "",
+            image_path: data["image_path"] ?? "",
+          );
         },
         onError: (error) {
           print(error.toString());
